@@ -13,3 +13,6 @@
 bin
 target
 build
+.gradle
+deploy
+lib

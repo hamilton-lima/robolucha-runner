@@ -1,0 +1,14 @@
+<ivy-module version="2.0">
+    <info organisation="com.robolucha" module="robolucharunner"/>
+    <dependencies>
+        <dependency org="log4j" name="log4j" rev="1.2.12"/>
+        <dependency org="com.google.code.gson" name="gson" rev="2.8.1"/>
+        <dependency org="org.luaj" name="luaj-jse" rev="3.0.1"/>
+        <dependency org="com.github.javafaker" name="javafaker" rev="0.15"/>
+        <dependency org="redis.clients" name="jedis" rev="2.9.0"/>
+        <dependency org="org.apache.commons" name="commons-pool2" rev="2.4.2"/>
+        <dependency org="io.reactivex.rxjava2" name="rxjava" rev="2.1.14-RC1"/>
+        <dependency org="com.google.code.gson" name="gson" rev="2.8.1"/>
+        <dependency org="junit" name="junit" rev="4.12"/>
+    </dependencies>
+</ivy-module>

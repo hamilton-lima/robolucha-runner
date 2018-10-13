@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="robolucha-runner" default="deploy">
+
+    <tstamp>
+		<format property="touch.time" pattern="MM/dd/yyyy hh:mm aa" timezone="America/Toronto" />
+	</tstamp>
+
+    <target name="resolve">
+        <ivy:resolve />
+        <ivy:cachepath pathid="default.classpath" />
+    </target>
+
+    <target name="compile" depends="resolve">
+    	<javac includeantruntime="false" target="1.8" 
+            encoding="utf-8" destdir="target" debug="true" 
+            verbose="true" srcdir="src/main/java">
+			<classpath refid="default.classpath" />
+		</javac>
+    </target>
+
+	<target name="deploy" depends="compile" >
+		<mkdir dir="deploy" />
+
+		<copy verbose="yes" overwrite="yes" todir="deploy/lib">
+			<fileset dir="lib" />
+		</copy>
+
+		<jar compress="true" update="false" destfile="deploy/robolucha-runner.jar">
+			<fileset dir="target/classes" excludes="log4j.properties"/>
+		</jar>
+		
+		<echo append="false" file="deploy/build.txt">robolucha-runner build:${touch.time}</echo>
+	</target>
+    
+</project>
