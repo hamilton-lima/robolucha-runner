@@ -6,7 +6,7 @@
 	</tstamp>
 
     <target name="resolve">
-        <ivy:resolve />
+        <ivy:retrieve />
         <ivy:cachepath pathid="default.classpath" />
     </target>
 
@@ -26,10 +26,13 @@
 		</copy>
 
 		<jar compress="true" update="false" destfile="deploy/robolucha-runner.jar">
-			<fileset dir="target/classes" excludes="log4j.properties"/>
+			<fileset dir="target" excludes="log4j.properties"/>
 		</jar>
 		
-		<echo append="false" file="deploy/build.txt">robolucha-runner build:${touch.time}</echo>
+		<echo append="false" file="deploy/build.txt">
+		robolucha-runner build:${touch.time}
+		${toString:default.classpath}
+		</echo>
 	</target>
     
 </project>

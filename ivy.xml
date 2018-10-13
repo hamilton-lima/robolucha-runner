@@ -10,5 +10,6 @@
         <dependency org="io.reactivex.rxjava2" name="rxjava" rev="2.1.14-RC1"/>
         <dependency org="com.google.code.gson" name="gson" rev="2.8.1"/>
         <dependency org="junit" name="junit" rev="4.12"/>
+        <dependency org="com.github.stefanbirkner" name="system-rules" rev="1.17.0"/>
     </dependencies>
 </ivy-module>
