@@ -121,11 +121,11 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
         LuchadorCodeChangeListener.getInstance().remove(this);
 
         this.active = false;
+        this.state.score = null;
         this.state = null;
 
         this.gameComponent = null;
         this.matchRunner = null;
-        this.state.score = null;
 
         this.commands.clear();
         this.events.clear();

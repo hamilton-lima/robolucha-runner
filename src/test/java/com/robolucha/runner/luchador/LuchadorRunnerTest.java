@@ -97,10 +97,10 @@ public class LuchadorRunnerTest {
         LuchadorRunner one = new LuchadorRunner(l1, runner, null);
         one.run("invalidMethod");
 
-        while (one.getCurrentRunner() != null) {
-            // wait for the runner to complete
-            Thread.sleep(50);
-        }
+//        while (one.getCurrentRunner() != null) {
+//            // wait for the runner to complete
+//            Thread.sleep(50);
+//        }
 
         // TODO: update how to get the message
         // MessageVO message = one.getMessage();
@@ -243,7 +243,8 @@ public class LuchadorRunnerTest {
     public void testStart() throws Exception, ScriptException {
         Luchador l1 = MockLuchador.build(1L,
                 "start",
-                "var counter = 3; function count(a){counter += a; return counter;}");
+                "local counter = 3\n"
+                +"function count(a) return counter = counter + a end");
 
         MatchRunner runner = MockMatchRunner.build();
         LuchadorRunner one = new LuchadorRunner(l1, runner, null);

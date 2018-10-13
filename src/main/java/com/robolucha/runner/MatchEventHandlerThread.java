@@ -86,6 +86,10 @@ public class MatchEventHandlerThread implements Runnable {
 	}
 
 	private void consume(GeneralEvent event) {
+		if( this.matchEventHandler.runner.getMatchEventListeners() == null ) {
+			return;
+		}
+		
 		this.eventListeners = this.matchEventHandler.runner.getMatchEventListeners().toArray();
 		logger.info("START consumindo evento : " + event);
 		logger.info("== listeners : " + eventListeners.length);

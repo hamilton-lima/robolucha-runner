@@ -27,6 +27,7 @@ public class MockMatchRunner {
 
     public static MatchRunner build() {
         GameDefinition gameDefinition = new GameDefinition();
+        gameDefinition.setDuration(1000);
 
         Match match = new Match();
         MatchRunner runner = new MatchRunner(gameDefinition, match);
@@ -38,7 +39,7 @@ public class MockMatchRunner {
     public static void start(MatchRunner runner) {
         Thread t = new Thread(runner);
         t.start();
-        runner.getOnMatchStart().blockingFirst();
+        // runner.getOnMatchStart().blockingFirst();
     }
 
 }
