@@ -1,38 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="robolucha-runner" default="deploy">
 
-    <tstamp>
+	<property name="dist.main.class" value="com.robolucha.runner.Server" />
+	<property name="dist.folder" value="deploy" />
+
+	<tstamp>
 		<format property="touch.time" pattern="MM/dd/yyyy hh:mm aa" timezone="America/Toronto" />
 	</tstamp>
 
-    <target name="resolve">
-        <ivy:retrieve />
-        <ivy:cachepath pathid="default.classpath" />
-    </target>
+	<target name="resolve">
+		<ivy:retrieve pattern="lib/[artifact]-[conf]-[type]-[revision].[ext]"/>
+		<ivy:cachepath pathid="default.classpath" />
+	</target>
 
-    <target name="compile" depends="resolve">
-    	<javac includeantruntime="false" target="1.8" 
-            encoding="utf-8" destdir="target" debug="true" 
-            verbose="true" srcdir="src/main/java">
+	<target name="compile" depends="resolve">
+		<javac includeantruntime="false" target="1.8" encoding="utf-8" destdir="target" debug="true" verbose="true" srcdir="src/main/java">
 			<classpath refid="default.classpath" />
 		</javac>
-    </target>
+	</target>
 
-	<target name="deploy" depends="compile" >
+	<target name="deploy" depends="compile">
+		<delete dir="deploy" failonerror="false"/>
 		<mkdir dir="deploy" />
 
 		<copy verbose="yes" overwrite="yes" todir="deploy/lib">
 			<fileset dir="lib" />
 		</copy>
 
+		<copy verbose="yes" overwrite="yes" todir="deploy">
+			<fileset file="default-gamedefinition.json" />
+		</copy>
+
+		<manifestclasspath property="manifest.classpath" jarfile="${dist.jar}">
+			<classpath>
+				<fileset dir="lib" includes="*.jar"/>
+			</classpath>
+		</manifestclasspath>
+
 		<jar compress="true" update="false" destfile="deploy/robolucha-runner.jar">
 			<fileset dir="target" excludes="log4j.properties"/>
+			<manifest>
+				<attribute name="Main-Class" value="${dist.main.class}"/>
+				<attribute name="Class-Path" value="${manifest.classpath}"/>
+			</manifest>
 		</jar>
-		
-		<echo append="false" file="deploy/build.txt">
-		robolucha-runner build:${touch.time}
-		${toString:default.classpath}
-		</echo>
+
+		<echo append="false" file="deploy/build-info.json">{"app":"robolucha-runner","build":"${touch.time}","classpath":"${manifest.classpath}"}</echo>
+
 	</target>
-    
+
 </project>
