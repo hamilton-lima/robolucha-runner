@@ -19,9 +19,9 @@ RUN ant
 # base image with JRE only
 FROM openjdk:8-jre-alpine
 
-# copy artifact build from the 'build environment'
+# copy artifact build from the 'build environment' at /deploy folder
 RUN mkdir -pv /usr/src/app
-COPY --from=builder /usr/src/app/target /usr/src/app
+COPY --from=builder /usr/src/app/deploy /usr/src/app
 
 CMD ["/usr/bin/java", "-jar", \
     "/usr/src/app/robolucha-runner.jar", \
