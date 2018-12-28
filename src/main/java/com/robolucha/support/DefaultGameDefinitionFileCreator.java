@@ -7,6 +7,7 @@ import java.io.IOException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.robolucha.models.GameDefinition;
+import com.robolucha.runner.luchador.MethodNames;
 
 /**
  * Create a json file with the default Game definition values to be used as
@@ -19,6 +20,8 @@ public class DefaultGameDefinitionFileCreator {
 
 	public static void main(String[] args) throws IOException {
 		GameDefinition gameDefinition = new GameDefinition();
+		addGameComponent(gameDefinition);
+
 		String json = generateJson(gameDefinition);
 
 		if (args.length > 0) {
@@ -45,4 +48,26 @@ public class DefaultGameDefinitionFileCreator {
 		String result = gson.toJson(gameDefinition);
 		return result;
 	}
+
+	public static final String OTTO = "otto";
+	public static final String FAROL = "farol";
+
+	private static void addGameComponent(GameDefinition gameDefinition){
+
+		GameComponent otto = new GameComponent();
+		otto.setId(1L);
+		otto.setName(OTTO);
+		otto.getCodes().add( new Code(MethodNames.START, "turnGun(90)"));
+		otto.getCodes().add( new Code(MethodNames.REPEAT, "move(20) fire(3)"));
+		otto.getCodes().add( new Code( MethodNames.ON_HIT_WALL, "turn(90) turnGun(90)"));
+		
+		GameComponent farol = new GameComponent();
+		farol.setId(2L);
+		farol.setName(FAROL);
+		farol.getCodes().add( new Code(MethodNames.REPEAT, "turn(10) turnGun(-10) fire(1)"));
+
+		gameDefinition.gameComponents.add(otto);
+		gameDefinition.gameComponents.add(farol);
+	}
+
 }

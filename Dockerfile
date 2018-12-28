@@ -22,7 +22,9 @@ FROM openjdk:8-jre-alpine
 # copy artifact build from the 'build environment' at /deploy folder
 RUN mkdir -pv /usr/src/app
 COPY --from=builder /usr/src/app/deploy /usr/src/app
+RUN find /usr/src/app
 
 CMD ["/usr/bin/java", "-jar", \
+    "-Dlog4j.configuration=file:/usr/src/app/log4j.properties", \
     "/usr/src/app/robolucha-runner.jar", \
     "/usr/src/app/default-gamedefinition.json"]

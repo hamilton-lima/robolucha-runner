@@ -42,5 +42,48 @@
 	<classpathentry kind="lib" path="lib/system-rules-default-jar-1.17.0.jar"/>
 	<classpathentry kind="lib" path="lib/system-rules-default-javadoc-1.17.0.jar"/>
 	<classpathentry kind="lib" path="lib/system-rules-default-source-1.17.0.jar"/>
+	<classpathentry kind="lib" path="lib/bundles/guava-24.0-jre.jar"/>
+	<classpathentry kind="lib" path="lib/bundles/javassist-3.21.0-GA.jar"/>
+	<classpathentry kind="lib" path="lib/jars/animal-sniffer-annotations-1.14.jar"/>
+	<classpathentry kind="lib" path="lib/jars/asm-5.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/jars/asm-tree-5.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/jars/asm-util-5.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/jars/automaton-1.11-8.jar"/>
+	<classpathentry kind="lib" path="lib/jars/byte-buddy-1.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/jars/byte-buddy-agent-1.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/jars/cglib-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jars/checker-compat-qual-2.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/jars/commons-beanutils-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jars/commons-collections-3.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/jars/commons-digester-1.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/jars/commons-lang3-3.5.jar"/>
+	<classpathentry kind="lib" path="lib/jars/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/jars/commons-pool2-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/jars/commons-validator-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/jars/error_prone_annotations-2.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/jars/generex-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/jars/gson-2.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/jars/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/jars/hamcrest-library-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/jars/j2objc-annotations-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jars/javafaker-0.15.jar"/>
+	<classpathentry kind="lib" path="lib/jars/jcommander-1.64.jar"/>
+	<classpathentry kind="lib" path="lib/jars/jedis-2.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/jars/jsr305-1.3.9.jar"/>
+	<classpathentry kind="lib" path="lib/jars/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="lib/jars/log4j-1.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/jars/luaj-jse-3.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/jars/mockito-core-2.17.0.jar"/>
+	<classpathentry kind="lib" path="lib/jars/objenesis-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/jars/reactive-streams-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/jars/reactive-streams-examples-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/jars/reactive-streams-tck-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/jars/reflections-0.9.11.jar"/>
+	<classpathentry kind="lib" path="lib/jars/rxjava-2.1.14-RC1.jar"/>
+	<classpathentry kind="lib" path="lib/jars/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="lib/jars/slf4j-simple-1.7.25.jar"/>
+	<classpathentry kind="lib" path="lib/jars/snakeyaml-1.20.jar"/>
+	<classpathentry kind="lib" path="lib/jars/system-rules-1.17.0.jar"/>
+	<classpathentry kind="lib" path="lib/jars/testng-6.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

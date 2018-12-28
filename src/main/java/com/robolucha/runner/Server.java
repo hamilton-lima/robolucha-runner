@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.file.Paths;
 import java.io.File;
-
+import org.apache.log4j.Logger;
 import com.google.gson.Gson;
+
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Match;
@@ -21,11 +22,10 @@ import com.robolucha.score.ScoreUpdater;
  */
 public class Server {
 
+    static Logger logger = Logger.getLogger(MatchEventHandler.class);
     MatchMessagePublisher matchMessagePublisher;
 
     public static void main(String[] args) throws Exception {
-
-        System.out.println(">> path =" + Paths.get(".").toAbsolutePath().normalize().toString());
 
         addRunTimeHook();
 
@@ -58,11 +58,15 @@ public class Server {
     static GameDefinition loadGameDefinition(String filename) throws Exception {
         Gson gson = new Gson();
         String fileContent = readFile(filename);
+        logger.info("configuration file content: " + fileContent);
+        
         GameDefinition definition = gson.fromJson(fileContent, GameDefinition.class);
         return definition;
     }
 
     private static String readFile(String filename) throws Exception {
+        logger.info("reading configuration file: " + filename );
+
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         StringBuffer buffer = new StringBuffer();
 

@@ -29,6 +29,7 @@
 
 		<copy verbose="yes" overwrite="yes" todir="deploy">
 			<fileset file="default-gamedefinition.json" />
+			<fileset file="log4j.properties" />
 		</copy>
 
 		<manifestclasspath property="manifest.classpath" jarfile="${dist.jar}">

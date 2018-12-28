@@ -1,3 +1,2 @@
 #!/bin/bash
-./build-builder.sh
-./build-runner.sh
+docker build . --tag robolucha-runner
