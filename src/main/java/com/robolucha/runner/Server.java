@@ -2,11 +2,10 @@ package com.robolucha.runner;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.nio.file.Paths;
-import java.io.File;
-import org.apache.log4j.Logger;
-import com.google.gson.Gson;
 
+import org.apache.log4j.Logger;
+
+import com.google.gson.Gson;
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Match;

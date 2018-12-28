@@ -38,12 +38,12 @@ public class SetColorTest {
 
         MockMatchRunner.start(match);
 
-        LuchadorRunner runner1 = match.getRunners().get(new Long(1L));
-        LuchadorRunner runner2 = match.getRunners().get(new Long(2L));
-        LuchadorRunner runner3 = match.getRunners().get(new Long(3L));
-        LuchadorRunner runner4 = match.getRunners().get(new Long(4L));
-        LuchadorRunner runner5 = match.getRunners().get(new Long(5L));
-        LuchadorRunner runner6 = match.getRunners().get(new Long(6L));
+        LuchadorRunner runner1 = match.getRunners().get(1L);
+        LuchadorRunner runner2 = match.getRunners().get(2L);
+        LuchadorRunner runner3 = match.getRunners().get(3L);
+        LuchadorRunner runner4 = match.getRunners().get(4L);
+        LuchadorRunner runner5 = match.getRunners().get(5L);
+        LuchadorRunner runner6 = match.getRunners().get(6L);
 
         logger.debug("--- 1 : " + runner1.getState().getPublicState());
         logger.debug("--- 2 : " + runner2.getState().getPublicState());
