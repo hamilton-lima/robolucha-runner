@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.robolucha.models.Code;
+import com.robolucha.models.GameComponent;
 import com.robolucha.models.GameDefinition;
 import com.robolucha.runner.luchador.MethodNames;
 
@@ -66,8 +68,8 @@ public class DefaultGameDefinitionFileCreator {
 		farol.setName(FAROL);
 		farol.getCodes().add( new Code(MethodNames.REPEAT, "turn(10) turnGun(-10) fire(1)"));
 
-		gameDefinition.gameComponents.add(otto);
-		gameDefinition.gameComponents.add(farol);
+		gameDefinition.getGameComponents().add(otto);
+		gameDefinition.getGameComponents().add(farol);
 	}
 
 }
