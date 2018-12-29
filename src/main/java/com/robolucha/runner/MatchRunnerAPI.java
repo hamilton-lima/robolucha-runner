@@ -35,10 +35,16 @@ public class MatchRunnerAPI {
 		return null;
 	}
 
+	// TODO implement API call
 	public Match createMatch(GameDefinition gameDefinition) {
-		// TODO Auto-generated method stub
-		return null;
+		Game game = new Game();
+		game.setGameDefinition(gameDefinition);
+		
+		Match match = new Match();
+		match.setGame(game);
+		return match;
 	}
+	
 	public void updateMatch(Match match) throws Exception{
 		// TODO Auto-generated method stub
 		
