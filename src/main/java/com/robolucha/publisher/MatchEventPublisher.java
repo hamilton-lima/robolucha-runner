@@ -48,12 +48,9 @@ public class MatchEventPublisher implements MatchEventListener {
 
     public void onEnd(MatchRunner runner) {
         logger.debug("match END : " + runner.getThreadName());
-        long timestamp = System.currentTimeMillis();
-        match.setTimeEnd(timestamp);
-        match.setLastTimeAlive(timestamp);
 
         try {
-            MatchRunnerAPI.getInstance().updateMatch(match);
+            MatchRunnerAPI.getInstance().endMatch(match);
         } catch (Exception e) {
             reportErrors(runner, "ERROR, updating END of match:", e);
         }

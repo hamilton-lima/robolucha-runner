@@ -20,7 +20,7 @@ import java.util.Objects;
  * MainUserSetting
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2018-12-29T14:55:22.258634-05:00[America/Toronto]")public class MainUserSetting {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2018-12-29T16:11:01.172798-05:00[America/Toronto]")public class MainUserSetting {
 
   @SerializedName("createdAt")
   private String createdAt = null;

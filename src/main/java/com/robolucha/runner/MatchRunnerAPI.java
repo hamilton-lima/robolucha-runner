@@ -13,6 +13,7 @@ import com.robolucha.models.MaskConfig;
 import com.robolucha.models.Match;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.models.MatchScore;
+import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.DefaultApi;
@@ -68,17 +69,23 @@ public class MatchRunnerAPI {
 	public Match createMatch(GameDefinition gameDefinition) throws Exception {
 		MainMatch match = new MainMatch();
 		match.setDuration(gameDefinition.getDuration());
-		match.setTimeStart((int) System.currentTimeMillis());
+		match.setTimeStart(JSONFormat.now());
 
 		match = apiInstance.internalMatchPost(match);
+		logger.info("createMatch() API response" + match);
+
 		Match result = new Match();
 		BeanUtils.copyProperties(result, match);
+		logger.info("createMatch()" + result);
 		return result;
 	}
 
-	public void updateMatch(Match match) throws Exception {
-		// TODO Auto-generated method stub
-
+	public void endMatch(Match match) throws Exception {
+		MainMatch body = new MainMatch();
+		body.setId(match.getId().intValue());
+		body.setTimeEnd(JSONFormat.now());
+		
+		//TODO: make API call
 	}
 
 	public MatchScore findScore(Match match, GameComponent gameComponent) throws Exception {

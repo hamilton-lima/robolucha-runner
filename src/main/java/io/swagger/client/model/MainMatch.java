@@ -20,7 +20,7 @@ import java.util.Objects;
  * MainMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2018-12-29T14:55:22.258634-05:00[America/Toronto]")public class MainMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2018-12-29T16:11:01.172798-05:00[America/Toronto]")public class MainMatch {
 
   @SerializedName("createdAt")
   private String createdAt = null;
@@ -35,13 +35,13 @@ import java.util.Objects;
   private Integer id = null;
 
   @SerializedName("lastTimeAlive")
-  private Integer lastTimeAlive = null;
+  private String lastTimeAlive = null;
 
   @SerializedName("timeEnd")
-  private Integer timeEnd = null;
+  private String timeEnd = null;
 
   @SerializedName("timeStart")
-  private Integer timeStart = null;
+  private String timeStart = null;
 
   @SerializedName("updatedAt")
   private String updatedAt = null;
@@ -117,7 +117,7 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainMatch lastTimeAlive(Integer lastTimeAlive) {
+  public MainMatch lastTimeAlive(String lastTimeAlive) {
     this.lastTimeAlive = lastTimeAlive;
     return this;
   }
@@ -129,13 +129,13 @@ import java.util.Objects;
   * @return lastTimeAlive
   **/
   @Schema(description = "")
-  public Integer getLastTimeAlive() {
+  public String getLastTimeAlive() {
     return lastTimeAlive;
   }
-  public void setLastTimeAlive(Integer lastTimeAlive) {
+  public void setLastTimeAlive(String lastTimeAlive) {
     this.lastTimeAlive = lastTimeAlive;
   }
-  public MainMatch timeEnd(Integer timeEnd) {
+  public MainMatch timeEnd(String timeEnd) {
     this.timeEnd = timeEnd;
     return this;
   }
@@ -147,13 +147,13 @@ import java.util.Objects;
   * @return timeEnd
   **/
   @Schema(description = "")
-  public Integer getTimeEnd() {
+  public String getTimeEnd() {
     return timeEnd;
   }
-  public void setTimeEnd(Integer timeEnd) {
+  public void setTimeEnd(String timeEnd) {
     this.timeEnd = timeEnd;
   }
-  public MainMatch timeStart(Integer timeStart) {
+  public MainMatch timeStart(String timeStart) {
     this.timeStart = timeStart;
     return this;
   }
@@ -165,10 +165,10 @@ import java.util.Objects;
   * @return timeStart
   **/
   @Schema(description = "")
-  public Integer getTimeStart() {
+  public String getTimeStart() {
     return timeStart;
   }
-  public void setTimeStart(Integer timeStart) {
+  public void setTimeStart(String timeStart) {
     this.timeStart = timeStart;
   }
   public MainMatch updatedAt(String updatedAt) {

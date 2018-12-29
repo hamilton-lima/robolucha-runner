@@ -8,7 +8,7 @@ public class Config {
 
 	public static final String DEFAULT_REDIS_HOST = "localhost";
 	public static final int DEFAULT_REDIS_PORT = 6379;
-	public static final String DEFAULT_API_CLIENT_BASEPATH = "http://api.robolucha.com:8080";
+	public static final String DEFAULT_API_CLIENT_BASEPATH = "http://localhost:8080";
 
 	private String redisHost;
 	private int redisPort;
