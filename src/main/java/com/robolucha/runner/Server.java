@@ -84,18 +84,20 @@ public class Server {
         //add NPC to the match
         runner.addListener(new OnInitAddNPC());
 
+        // TODO: convert to subscription model
         // listener to record match events
         runner.addListener(new MatchEventPublisher(runner.getMatch(), queue, threadMonitor));
 
+        // TODO: convert to subscription model
         // listener to update scores
         runner.addListener(new ScoreUpdater());
 
+        // TODO: convert to subscription model
         // listener to the match state
         runner.setPublisher(publisher);
 
-        // message listener TODO: convert all listeners to this format
+        // message listener 
         runner.addListener(new MatchMessagePublisher(queue));
-
 
         return new Thread(runner);
     }

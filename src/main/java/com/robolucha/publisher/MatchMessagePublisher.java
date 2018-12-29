@@ -12,20 +12,15 @@ public class MatchMessagePublisher implements Consumer<MessageVO>, MatchRunnerLi
     private static Logger logger = Logger.getLogger(MatchMessagePublisher.class);
 
     private RemoteQueue remoteQueue;
-    private MatchRunner matchRunner;
+    
     private Disposable disposable;
 
     public MatchMessagePublisher(RemoteQueue remoteQueue) {
         this.remoteQueue = remoteQueue;
     }
 
-    protected void subscribe(MatchRunner matchRunner, ErrorHandler errorHandler) {
-        this.matchRunner = matchRunner;
-        this.disposable = matchRunner.getOnMessage().subscribe(this, new ErrorHandler());
-    }
-
     public void subscribe(MatchRunner matchRunner) {
-        subscribe(matchRunner, new ErrorHandler());
+        this.disposable = matchRunner.getOnMessage().subscribe(this, new ErrorHandler());
     }
 
     @Override
