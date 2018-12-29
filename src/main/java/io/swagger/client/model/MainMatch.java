@@ -10,18 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
  * MainMatch
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:59:18.387-05:00")
-public class MainMatch {
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2018-12-29T14:55:22.258634-05:00[America/Toronto]")public class MainMatch {
+
   @SerializedName("createdAt")
   private String createdAt = null;
 
@@ -45,152 +45,150 @@ public class MainMatch {
 
   @SerializedName("updatedAt")
   private String updatedAt = null;
-
   public MainMatch createdAt(String createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
-   * Get createdAt
-   * @return createdAt
+  
+
+  /**
+  * Get createdAt
+  * @return createdAt
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getCreatedAt() {
     return createdAt;
   }
-
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
-
   public MainMatch deletedAt(String deletedAt) {
     this.deletedAt = deletedAt;
     return this;
   }
 
-   /**
-   * Get deletedAt
-   * @return deletedAt
+  
+
+  /**
+  * Get deletedAt
+  * @return deletedAt
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getDeletedAt() {
     return deletedAt;
   }
-
   public void setDeletedAt(String deletedAt) {
     this.deletedAt = deletedAt;
   }
-
   public MainMatch duration(Integer duration) {
     this.duration = duration;
     return this;
   }
 
-   /**
-   * Get duration
-   * @return duration
+  
+
+  /**
+  * Get duration
+  * @return duration
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public Integer getDuration() {
     return duration;
   }
-
   public void setDuration(Integer duration) {
     this.duration = duration;
   }
-
   public MainMatch id(Integer id) {
     this.id = id;
     return this;
   }
 
-   /**
-   * Get id
-   * @return id
+  
+
+  /**
+  * Get id
+  * @return id
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public Integer getId() {
     return id;
   }
-
   public void setId(Integer id) {
     this.id = id;
   }
-
   public MainMatch lastTimeAlive(Integer lastTimeAlive) {
     this.lastTimeAlive = lastTimeAlive;
     return this;
   }
 
-   /**
-   * Get lastTimeAlive
-   * @return lastTimeAlive
+  
+
+  /**
+  * Get lastTimeAlive
+  * @return lastTimeAlive
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public Integer getLastTimeAlive() {
     return lastTimeAlive;
   }
-
   public void setLastTimeAlive(Integer lastTimeAlive) {
     this.lastTimeAlive = lastTimeAlive;
   }
-
   public MainMatch timeEnd(Integer timeEnd) {
     this.timeEnd = timeEnd;
     return this;
   }
 
-   /**
-   * Get timeEnd
-   * @return timeEnd
+  
+
+  /**
+  * Get timeEnd
+  * @return timeEnd
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public Integer getTimeEnd() {
     return timeEnd;
   }
-
   public void setTimeEnd(Integer timeEnd) {
     this.timeEnd = timeEnd;
   }
-
   public MainMatch timeStart(Integer timeStart) {
     this.timeStart = timeStart;
     return this;
   }
 
-   /**
-   * Get timeStart
-   * @return timeStart
+  
+
+  /**
+  * Get timeStart
+  * @return timeStart
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public Integer getTimeStart() {
     return timeStart;
   }
-
   public void setTimeStart(Integer timeStart) {
     this.timeStart = timeStart;
   }
-
   public MainMatch updatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
-   * Get updatedAt
-   * @return updatedAt
+  
+
+  /**
+  * Get updatedAt
+  * @return updatedAt
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getUpdatedAt() {
     return updatedAt;
   }
-
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
-
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -212,9 +210,8 @@ public class MainMatch {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, deletedAt, duration, id, lastTimeAlive, timeEnd, timeStart, updatedAt);
+    return java.util.Objects.hash(createdAt, deletedAt, duration, id, lastTimeAlive, timeEnd, timeStart, updatedAt);
   }
-
 
   @Override
   public String toString() {
@@ -245,4 +242,3 @@ public class MainMatch {
   }
 
 }
-

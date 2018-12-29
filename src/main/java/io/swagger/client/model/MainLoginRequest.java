@@ -10,61 +10,59 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
  * MainLoginRequest
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:59:18.387-05:00")
-public class MainLoginRequest {
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2018-12-29T14:55:22.258634-05:00[America/Toronto]")public class MainLoginRequest {
+
   @SerializedName("email")
   private String email = null;
 
   @SerializedName("password")
   private String password = null;
-
   public MainLoginRequest email(String email) {
     this.email = email;
     return this;
   }
 
-   /**
-   * Get email
-   * @return email
+  
+
+  /**
+  * Get email
+  * @return email
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getEmail() {
     return email;
   }
-
   public void setEmail(String email) {
     this.email = email;
   }
-
   public MainLoginRequest password(String password) {
     this.password = password;
     return this;
   }
 
-   /**
-   * Get password
-   * @return password
+  
+
+  /**
+  * Get password
+  * @return password
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getPassword() {
     return password;
   }
-
   public void setPassword(String password) {
     this.password = password;
   }
-
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -80,9 +78,8 @@ public class MainLoginRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(email, password);
+    return java.util.Objects.hash(email, password);
   }
-
 
   @Override
   public String toString() {
@@ -107,4 +104,3 @@ public class MainLoginRequest {
   }
 
 }
-

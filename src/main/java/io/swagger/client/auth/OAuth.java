@@ -10,15 +10,13 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.auth;
 
 import io.swagger.client.Pair;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:59:18.387-05:00")
-public class OAuth implements Authentication {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2018-12-29T14:55:22.258634-05:00[America/Toronto]")public class OAuth implements Authentication {
   private String accessToken;
 
   public String getAccessToken() {

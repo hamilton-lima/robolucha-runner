@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.auth;
 
 import com.squareup.okhttp.Credentials;

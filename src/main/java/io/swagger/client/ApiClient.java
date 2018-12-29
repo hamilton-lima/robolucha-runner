@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client;
 
 import com.squareup.okhttp.*;
@@ -50,7 +49,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 public class ApiClient {
 
-    private String basePath = "https://localhost:8080";
+    private String basePath = "//localhost:8080/";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;
@@ -104,7 +103,7 @@ public class ApiClient {
     /**
      * Set base path
      *
-     * @param basePath Base path of the URL (e.g https://localhost:8080
+     * @param basePath Base path of the URL (e.g //localhost:8080/
      * @return An instance of OkHttpClient
      */
     public ApiClient setBasePath(String basePath) {
@@ -425,7 +424,6 @@ public class ApiClient {
     /**
      * Sets the connect timeout (in milliseconds).
      * A value of 0 means no timeout, otherwise values must be between 1 and
-     * {@link Integer#MAX_VALUE}.
      *
      * @param connectionTimeout connection timeout in milliseconds
      * @return Api client

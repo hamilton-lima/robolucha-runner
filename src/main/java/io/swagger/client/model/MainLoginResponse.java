@@ -10,61 +10,59 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
  * MainLoginResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:59:18.387-05:00")
-public class MainLoginResponse {
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2018-12-29T14:55:22.258634-05:00[America/Toronto]")public class MainLoginResponse {
+
   @SerializedName("error")
   private Boolean error = null;
 
   @SerializedName("uuid")
   private String uuid = null;
-
   public MainLoginResponse error(Boolean error) {
     this.error = error;
     return this;
   }
 
-   /**
-   * Get error
-   * @return error
+  
+
+  /**
+  * Get error
+  * @return error
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public Boolean isError() {
     return error;
   }
-
   public void setError(Boolean error) {
     this.error = error;
   }
-
   public MainLoginResponse uuid(String uuid) {
     this.uuid = uuid;
     return this;
   }
 
-   /**
-   * Get uuid
-   * @return uuid
+  
+
+  /**
+  * Get uuid
+  * @return uuid
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getUuid() {
     return uuid;
   }
-
   public void setUuid(String uuid) {
     this.uuid = uuid;
   }
-
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -80,9 +78,8 @@ public class MainLoginResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(error, uuid);
+    return java.util.Objects.hash(error, uuid);
   }
-
 
   @Override
   public String toString() {
@@ -107,4 +104,3 @@ public class MainLoginResponse {
   }
 
 }
-

@@ -66,7 +66,7 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 
 		match = MockMatchRunner.build();
 		match.getGameDefinition().setMinParticipants(1);
-		match.getGameDefinition().setDuration(500L);
+		match.getGameDefinition().setDuration(500);
 
 		match.add(a);
 

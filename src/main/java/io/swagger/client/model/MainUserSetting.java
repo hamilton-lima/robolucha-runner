@@ -10,18 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
  * MainUserSetting
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:59:18.387-05:00")
-public class MainUserSetting {
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2018-12-29T14:55:22.258634-05:00[America/Toronto]")public class MainUserSetting {
+
   @SerializedName("createdAt")
   private String createdAt = null;
 
@@ -39,116 +39,114 @@ public class MainUserSetting {
 
   @SerializedName("userID")
   private Integer userID = null;
-
   public MainUserSetting createdAt(String createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-   /**
-   * Get createdAt
-   * @return createdAt
+  
+
+  /**
+  * Get createdAt
+  * @return createdAt
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getCreatedAt() {
     return createdAt;
   }
-
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
-
   public MainUserSetting deletedAt(String deletedAt) {
     this.deletedAt = deletedAt;
     return this;
   }
 
-   /**
-   * Get deletedAt
-   * @return deletedAt
+  
+
+  /**
+  * Get deletedAt
+  * @return deletedAt
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getDeletedAt() {
     return deletedAt;
   }
-
   public void setDeletedAt(String deletedAt) {
     this.deletedAt = deletedAt;
   }
-
   public MainUserSetting id(Integer id) {
     this.id = id;
     return this;
   }
 
-   /**
-   * Get id
-   * @return id
+  
+
+  /**
+  * Get id
+  * @return id
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public Integer getId() {
     return id;
   }
-
   public void setId(Integer id) {
     this.id = id;
   }
-
   public MainUserSetting lastOption(String lastOption) {
     this.lastOption = lastOption;
     return this;
   }
 
-   /**
-   * Get lastOption
-   * @return lastOption
+  
+
+  /**
+  * Get lastOption
+  * @return lastOption
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getLastOption() {
     return lastOption;
   }
-
   public void setLastOption(String lastOption) {
     this.lastOption = lastOption;
   }
-
   public MainUserSetting updatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
-   /**
-   * Get updatedAt
-   * @return updatedAt
+  
+
+  /**
+  * Get updatedAt
+  * @return updatedAt
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getUpdatedAt() {
     return updatedAt;
   }
-
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
-
   public MainUserSetting userID(Integer userID) {
     this.userID = userID;
     return this;
   }
 
-   /**
-   * Get userID
-   * @return userID
+  
+
+  /**
+  * Get userID
+  * @return userID
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public Integer getUserID() {
     return userID;
   }
-
   public void setUserID(Integer userID) {
     this.userID = userID;
   }
-
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -168,9 +166,8 @@ public class MainUserSetting {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, deletedAt, id, lastOption, updatedAt, userID);
+    return java.util.Objects.hash(createdAt, deletedAt, id, lastOption, updatedAt, userID);
   }
-
 
   @Override
   public String toString() {
@@ -199,4 +196,3 @@ public class MainUserSetting {
   }
 
 }
-

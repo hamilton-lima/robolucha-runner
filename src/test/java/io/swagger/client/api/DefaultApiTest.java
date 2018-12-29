@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
@@ -29,7 +28,6 @@ public class DefaultApiTest {
 
     private final DefaultApi api = new DefaultApi();
 
-    
     /**
      * create Match
      *
@@ -40,11 +38,11 @@ public class DefaultApiTest {
      */
     @Test
     public void internalMatchPostTest() throws ApiException {
-        MainMatch response = api.internalMatchPost();
+        MainMatch body = null;
+        MainMatch response = api.internalMatchPost(body);
 
         // TODO: test validations
     }
-    
     /**
      * find current user userSetting
      *
@@ -59,7 +57,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Updates user userSetting
      *
@@ -70,12 +67,11 @@ public class DefaultApiTest {
      */
     @Test
     public void privateUserSettingPutTest() throws ApiException {
-        MainUserSetting request = null;
-        MainUserSetting response = api.privateUserSettingPut(request);
+        MainUserSetting body = null;
+        MainUserSetting response = api.privateUserSettingPut(body);
 
         // TODO: test validations
     }
-    
     /**
      * Logs the user
      *
@@ -86,10 +82,9 @@ public class DefaultApiTest {
      */
     @Test
     public void publicLoginPostTest() throws ApiException {
-        MainLoginRequest request = null;
-        MainLoginResponse response = api.publicLoginPost(request);
+        MainLoginRequest body = null;
+        MainLoginResponse response = api.publicLoginPost(body);
 
         // TODO: test validations
     }
-    
 }

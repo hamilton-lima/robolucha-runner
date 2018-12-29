@@ -16,6 +16,9 @@ import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.score.ScoreUpdater;
 
+import io.swagger.client.ApiClient;
+import io.swagger.client.Configuration;
+
 /*
  * Runs a Match based on the input MatchDefinition ID
  */
@@ -26,11 +29,12 @@ public class Server {
 
     public static void main(String[] args) throws Exception {
 
-        addRunTimeHook();
-
         if (args.length < 1) {
             throw new RuntimeException("Invalid use, must provide GameDefinition json file name");
         }
+
+        addRunTimeHook();
+        configAPIClient();
 
         RemoteQueue queue = new RemoteQueue(Config.getInstance());
         MatchStatePublisher publisher = new MatchStatePublisher(queue);
@@ -100,5 +104,11 @@ public class Server {
         runner.addListener(new MatchMessagePublisher(queue));
 
         return new Thread(runner);
+    }
+    
+    public static void configAPIClient() {
+    	ApiClient apiClient = new ApiClient();
+    	apiClient.setBasePath( Config.getInstance().getBasePath());
+    	Configuration.setDefaultApiClient(apiClient);
     }
 }
