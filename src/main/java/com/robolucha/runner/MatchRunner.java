@@ -187,7 +187,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
         CheckRespawnAction respawnAction = new CheckRespawnAction(this);
         RemoveDeadAction removeDeadAction = new RemoveDeadAction(this);
 
-        startTime = new Long(System.currentTimeMillis());
+        startTime = System.currentTimeMillis();
 
         logger.info("waiting for the minimum participants:" + gameDefinition.getMinParticipants());
 
