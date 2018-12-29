@@ -1,6 +1,6 @@
 /*
  * Robolucha API
- * {{.Description}}
+ * Robolucha API
  *
  * OpenAPI spec version: 1.0
  * 

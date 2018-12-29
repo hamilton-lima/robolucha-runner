@@ -1,6 +1,6 @@
 /*
  * Robolucha API
- * {{.Description}}
+ * Robolucha API
  *
  * OpenAPI spec version: 1.0
  * 
@@ -18,13 +18,8 @@ import io.swagger.client.model.MainLoginRequest;
 import io.swagger.client.model.MainLoginResponse;
 import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainUserSetting;
-import org.junit.Test;
 import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.Test;
 
 /**
  * API tests for DefaultApi

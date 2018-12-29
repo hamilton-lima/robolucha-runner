@@ -1,6 +1,6 @@
 /*
  * Robolucha API
- * {{.Description}}
+ * Robolucha API
  *
  * OpenAPI spec version: 1.0
  * 
@@ -13,6 +13,7 @@
 
 package io.swagger.client.api;
 
+import com.google.gson.reflect.TypeToken;
 import io.swagger.client.ApiCallback;
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
@@ -21,17 +22,11 @@ import io.swagger.client.Configuration;
 import io.swagger.client.Pair;
 import io.swagger.client.ProgressRequestBody;
 import io.swagger.client.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
-
 import io.swagger.client.model.MainLoginRequest;
 import io.swagger.client.model.MainLoginResponse;
 import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainUserSetting;
-
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;

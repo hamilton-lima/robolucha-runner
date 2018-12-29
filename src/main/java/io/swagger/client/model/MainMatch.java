@@ -1,6 +1,6 @@
 /*
  * Robolucha API
- * {{.Description}}
+ * Robolucha API
  *
  * OpenAPI spec version: 1.0
  * 
@@ -13,20 +13,14 @@
 
 package io.swagger.client.model;
 
-import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import java.util.Objects;
 
 /**
  * MainMatch
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:02:26.474-05:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:59:18.387-05:00")
 public class MainMatch {
   @SerializedName("createdAt")
   private String createdAt = null;

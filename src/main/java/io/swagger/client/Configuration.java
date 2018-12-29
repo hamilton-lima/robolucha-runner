@@ -1,6 +1,6 @@
 /*
  * Robolucha API
- * {{.Description}}
+ * Robolucha API
  *
  * OpenAPI spec version: 1.0
  * 
@@ -13,7 +13,7 @@
 
 package io.swagger.client;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:02:26.474-05:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:59:18.387-05:00")
 public class Configuration {
     private static ApiClient defaultApiClient = new ApiClient();
 

@@ -1,6 +1,6 @@
 /*
  * Robolucha API
- * {{.Description}}
+ * Robolucha API
  *
  * OpenAPI spec version: 1.0
  * 
@@ -15,9 +15,7 @@ package io.swagger.client;
 
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.ResponseBody;
-
 import java.io.IOException;
-
 import okio.Buffer;
 import okio.BufferedSource;
 import okio.ForwardingSource;

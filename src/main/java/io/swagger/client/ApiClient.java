@@ -1,6 +1,6 @@
 /*
  * Robolucha API
- * {{.Description}}
+ * Robolucha API
  *
  * OpenAPI spec version: 1.0
  * 
@@ -17,13 +17,10 @@ import com.squareup.okhttp.*;
 import com.squareup.okhttp.internal.http.HttpMethod;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor.Level;
-import okio.BufferedSink;
-import okio.Okio;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.format.DateTimeFormatter;
-
-import javax.net.ssl.*;
+import io.swagger.client.auth.ApiKeyAuth;
+import io.swagger.client.auth.Authentication;
+import io.swagger.client.auth.HttpBasicAuth;
+import io.swagger.client.auth.OAuth;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,11 +41,12 @@ import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import io.swagger.client.auth.Authentication;
-import io.swagger.client.auth.HttpBasicAuth;
-import io.swagger.client.auth.ApiKeyAuth;
-import io.swagger.client.auth.OAuth;
+import javax.net.ssl.*;
+import okio.BufferedSink;
+import okio.Okio;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 public class ApiClient {
 

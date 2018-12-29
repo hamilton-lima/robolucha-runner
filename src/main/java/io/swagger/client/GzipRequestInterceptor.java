@@ -1,6 +1,6 @@
 /*
  * Robolucha API
- * {{.Description}}
+ * Robolucha API
  *
  * OpenAPI spec version: 1.0
  * 
@@ -14,12 +14,11 @@
 package io.swagger.client;
 
 import com.squareup.okhttp.*;
+import java.io.IOException;
 import okio.Buffer;
 import okio.BufferedSink;
 import okio.GzipSink;
 import okio.Okio;
-
-import java.io.IOException;
 
 /**
  * Encodes request bodies using gzip.

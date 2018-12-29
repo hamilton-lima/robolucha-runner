@@ -1,6 +1,6 @@
 /*
  * Robolucha API
- * {{.Description}}
+ * Robolucha API
  *
  * OpenAPI spec version: 1.0
  * 
@@ -14,11 +14,10 @@
 package io.swagger.client.auth;
 
 import io.swagger.client.Pair;
-
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:02:26.474-05:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2018-12-29T03:59:18.387-05:00")
 public class ApiKeyAuth implements Authentication {
   private final String location;
   private final String paramName;
