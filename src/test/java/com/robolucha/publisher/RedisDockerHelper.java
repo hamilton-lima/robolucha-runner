@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class RedisDockerHelper {
-    private static final String DOCKER_REDIS_START = "/usr/local/bin/docker run --name test-redis --rm -p 6379:6379 -d redis";
-    private static final String DOCKER_REDIS_STOP = "/usr/local/bin/docker stop test-redis";
+    private static final String DOCKER_REDIS_START = "docker run --name test-redis --rm -p 6379:6379 -d redis";
+    private static final String DOCKER_REDIS_STOP = "docker stop test-redis";
     private Logger logger = Logger.getLogger(RedisDockerHelper.class);
 
     public void start() throws IOException {
