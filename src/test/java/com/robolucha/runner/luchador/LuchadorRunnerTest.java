@@ -244,7 +244,10 @@ public class LuchadorRunnerTest {
         Luchador l1 = MockLuchador.build(1L,
                 "start",
                 "local counter = 3\n"
-                +"function count(a) return counter = counter + a end");
+                +"function count(a)\n"
+                + "  counter = counter + a\n"
+                + "  return counter\n "
+                + "end");
 
         MatchRunner runner = MockMatchRunner.build();
         LuchadorRunner one = new LuchadorRunner(l1, runner, null);
@@ -252,7 +255,7 @@ public class LuchadorRunnerTest {
 
         MockMatchRunner.start(runner);
 
-        Double result = Double.parseDouble(one.getString("counter"));
+        Double result = Double.parseDouble(one.getString("return counter"));
         logger.debug("count call result = " + result);
         Double expected = new Double(45);
         assertTrue(expected.equals(result));
@@ -285,7 +288,7 @@ public class LuchadorRunnerTest {
             LuchadorRunner one = new LuchadorRunner(l1, runner, null);
             one.run(methods[i]);
 
-            String result = one.getString("counter");
+            String result = one.getString("return counter");
             MockMatchRunner.start(runner);
 
             logger.debug("===== method=" + methods[i] + ", count call result = " + result);

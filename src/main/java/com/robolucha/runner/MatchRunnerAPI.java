@@ -36,33 +36,29 @@ public class MatchRunnerAPI {
 	}
 
 	public LuchadorCoach findCoach(String facebookID) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("not implemented");
 	}
 
 	public LuchadorCoach addCoach(String name, String email) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("not implemented");
 	}
 
 	public Luchador addLuchador(Luchador luchador) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("not implemented");
 	}
 
 	public void saveMask(GameComponent gameComponent, MaskConfig mask) {
-		// TODO Auto-generated method stub
-
+//		
+//		throw new RuntimeException("not implemented");
 	}
 
 	public void addMatchParticipant(MatchParticipant matchParticipant) {
-		// TODO Auto-generated method stub
-
+		throw new RuntimeException("not implemented");
 	}
 
 	public MaskConfig findMask(GameComponent gameComponent) {
-		// TODO Auto-generated method stub
 		return null;
+		// throw new RuntimeException("not implemented");
 	}
 
 	// TODO implement API call
@@ -85,27 +81,23 @@ public class MatchRunnerAPI {
 		body.setId(match.getId().intValue());
 		body.setTimeEnd(JSONFormat.now());
 		
-		//TODO: make API call
+		throw new RuntimeException("not implemented");
 	}
 
 	public MatchScore findScore(Match match, GameComponent gameComponent) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("not implemented");
 	}
 
 	public void updateScore(MatchScore score) throws Exception {
-		// TODO Auto-generated method stub
-
+		throw new RuntimeException("not implemented");
 	}
 
 	public void addScore(MatchScore score) throws Exception {
-		// TODO Auto-generated method stub
-
+		throw new RuntimeException("not implemented");
 	}
 
 	public Match findMatchById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("not implemented");
 	}
 
 }

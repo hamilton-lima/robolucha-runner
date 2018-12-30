@@ -11,11 +11,13 @@ public class ScriptRunner implements Runnable {
 	private String name;
 	private String currentName;
 	private LuchadorRunner runner;
+	private boolean finished;
 
 	ScriptRunner(LuchadorRunner runner, String name, Object... parameter) {
 		this.name = name;
 		this.parameter = parameter;
 		this.runner = runner;
+		this.finished = false;
 	}
 
 	//TODO: Add observable to track time and end of the execution
@@ -71,10 +73,15 @@ public class ScriptRunner implements Runnable {
 		this.name = null;
 		this.parameter = null;
 		this.runner = null;
+		finished = true;
 	}
 
 	public String getCurrentName() {
 		return currentName;
+	}
+	
+	public boolean isFinished() {
+		return finished;
 	}
 
 }

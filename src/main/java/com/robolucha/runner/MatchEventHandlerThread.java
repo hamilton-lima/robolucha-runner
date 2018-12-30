@@ -34,12 +34,12 @@ public class MatchEventHandlerThread implements Runnable {
 	}
 
 	public void add(GeneralEvent event) {
-		logger.info("evento adicionado : " + event);
+		logger.info("add event: " + event);
 
 		if (this.alive) {
 			this.events.add(event);
 		} else {
-			throw new RuntimeException("processador de eventos esta encerrado (" + name + ")");
+			throw new RuntimeException("Events processor is dead (" + name + ")");
 		}
 	}
 
@@ -47,7 +47,7 @@ public class MatchEventHandlerThread implements Runnable {
 		MatchEventHandler.logger.info("START MatchEventHandlerThread : " + name);
 		Thread.currentThread().setName(name);
 
-		String message = "== MatchEventHandler ocupado " + name;
+		String message = "MatchEventHandler waiting for new events [" + name + "]";
 
 		long logStart = System.currentTimeMillis();
 		long logThreshold = 10000;
@@ -57,7 +57,7 @@ public class MatchEventHandlerThread implements Runnable {
 			GeneralEvent event = this.events.poll();
 
 			if (event != null) {
-				MatchEventHandler.logger.info("--- novo evento : " + event);
+				MatchEventHandler.logger.info("--- new event : " + event);
 				consume(event);
 			}
 
@@ -69,7 +69,7 @@ public class MatchEventHandlerThread implements Runnable {
 			try {
 				Thread.sleep(SLEEP);
 			} catch (InterruptedException e) {
-				logger.error("interromperam este rapaz ocupado MatchEventHandlerThread");
+				logger.error("Interromperam este rapaz ocupado MatchEventHandlerThread");
 			}
 		}
 		

@@ -2,6 +2,7 @@ package com.robolucha.runner.luchador.lua;
 
 import java.io.FileReader;
 
+import org.apache.log4j.Logger;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LoadState;
 import org.luaj.vm2.LuaFunction;
@@ -21,6 +22,8 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.luaj.vm2.lib.jse.JseBaseLib;
 import org.luaj.vm2.lib.jse.JseMathLib;
 
+import com.robolucha.publisher.MatchEventPublisher;
+
 /**
  * Adapted from LuaJ sandboxed example
  * 
@@ -31,6 +34,7 @@ import org.luaj.vm2.lib.jse.JseMathLib;
 public class LuaVM {
 
 	private static final int DEFAULT_MAX_INSTRUCTIONS = 200;
+	private Logger logger = Logger.getLogger(LuaVM.class);
 
 	private static Globals compiler = setupCompilerGlobal();
 
@@ -80,7 +84,7 @@ public class LuaVM {
 	LuaVM() {
 		this.hookfunc = new ZeroArgFunction() {
 			public LuaValue call() {
-				System.out.println("script overan resource limits");
+				logger.warn("script overan resource limits");
 				// A simple lua error may be caught by the script, but a
 				// Java Error will pass through to top and stop the script.
 				throw new Error("Script overran resource limits.");
@@ -116,11 +120,19 @@ public class LuaVM {
 	}
 
 	public LuaValue compile(String script) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("compile()" + script);
+		}
+		
 		LuaValue chunk = compiler.load(script, "main", localState);
 		return chunk;
 	}
 
 	Varargs run(String script) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("run()" + script);
+		}
+		
 		LuaValue chunk = compiler.load(script, "main", localState);
 		return run(chunk);
 	}

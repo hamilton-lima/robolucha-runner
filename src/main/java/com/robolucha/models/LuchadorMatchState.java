@@ -1,5 +1,8 @@
 package com.robolucha.models;
 
+import org.apache.log4j.Logger;
+
+import com.robolucha.runner.MatchRunner;
 import com.robolucha.shared.Const;
 
 /**

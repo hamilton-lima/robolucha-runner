@@ -169,28 +169,20 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	public void run() {
 		Thread.currentThread().setName("MatchRunner-Thread" + gameDefinition.getName());
 
-		// TODO: add observable to the init procedures
+		startTime = System.currentTimeMillis();
+		this.onInit.onNext(new MatchInitVO(startTime));
+		this.onInit.onComplete();
 
-		/*
-		 *
-		 *
-		 * // event handler para init getEventHandler().init(new RunAfterThisTask(this)
-		 * { // soh executa main loop depois que acabar o init(); public void run() {
-		 * ((MatchRunner) data).readyForMainLoop(); } });
-		 *
-		 * while (!readyForMainLoop) { try { Thread.sleep(SMALL_SLEEP); } catch
-		 * (InterruptedException e) { logger.error("interrompido esperando pelo init()",
-		 * e); } }
-		 */
+		// TODO: add observable to the init procedures
+		// getOnInit()... is it completed?
+
+		 
 		mainLoop();
 	}
 
 	public void mainLoop() {
 		CheckRespawnAction respawnAction = new CheckRespawnAction(this);
 		RemoveDeadAction removeDeadAction = new RemoveDeadAction(this);
-
-		startTime = System.currentTimeMillis();
-		this.onInit.onNext(new MatchInitVO(startTime));
 
 		logger.info("waiting for the minimum participants:" + gameDefinition.getMinParticipants());
 
