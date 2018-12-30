@@ -52,7 +52,7 @@ public class LutchadorRunnerCreator implements Runnable {
 
 	public void run() {
 		Thread.currentThread().setName(name);
-		String message = name + " still alive...";
+		String message = name + " waiting for new luchadores to create.";
 
 		long logStart = System.currentTimeMillis();
 		long logThreshold = 10000;
@@ -62,6 +62,10 @@ public class LutchadorRunnerCreator implements Runnable {
 			GameComponent component = gameComponents.poll();
 			if (component != null) {
 				create(component);
+
+				if (gameComponents.isEmpty()) {
+					logger.info("Nothing else to create, My job here is done.");
+				}
 			}
 
 			if ((System.currentTimeMillis() - logStart) > logThreshold) {
@@ -117,7 +121,7 @@ public class LutchadorRunnerCreator implements Runnable {
 	}
 
 	protected MaskConfigVO getMask(GameComponent gameComponent) {
-		
+
 		MaskConfig mask = MatchRunnerAPI.getInstance().findMask(gameComponent);
 
 		if (mask == null) {
