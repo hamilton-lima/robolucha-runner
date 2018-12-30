@@ -15,8 +15,7 @@ import com.robolucha.runner.luchador.MethodNames;
  * Create a json file with the default Game definition values to be used as
  * template for game definitions
  * 
- * @author hamiltonlima
- * TODO: call this using a parameter in the Server class
+ * @author hamiltonlima TODO: call this using a parameter in the Server class
  */
 public class DefaultGameDefinitionFileCreator {
 
@@ -54,19 +53,19 @@ public class DefaultGameDefinitionFileCreator {
 	public static final String OTTO = "otto";
 	public static final String FAROL = "farol";
 
-	private static void addGameComponent(GameDefinition gameDefinition){
+	private static void addGameComponent(GameDefinition gameDefinition) {
 
 		GameComponent otto = new GameComponent();
 		otto.setId(1L);
 		otto.setName(OTTO);
-		otto.getCodes().add( new Code(MethodNames.START, "turnGun(90)"));
-		otto.getCodes().add( new Code(MethodNames.REPEAT, "move(20) fire(3)"));
-		otto.getCodes().add( new Code( MethodNames.ON_HIT_WALL, "turn(90) turnGun(90)"));
-		
+		otto.getCodes().add(new Code(MethodNames.START, "turnGun(90)"));
+		otto.getCodes().add(new Code(MethodNames.REPEAT, "move(20)\nfire(3)"));
+		otto.getCodes().add(new Code(MethodNames.ON_HIT_WALL, "turn(90)\nturnGun(90)"));
+
 		GameComponent farol = new GameComponent();
 		farol.setId(2L);
 		farol.setName(FAROL);
-		farol.getCodes().add( new Code(MethodNames.REPEAT, "turn(10) turnGun(-10) fire(1)"));
+		farol.getCodes().add(new Code(MethodNames.REPEAT, "turn(10)\nturnGun(-10)\nfire(1)"));
 
 		gameDefinition.getGameComponents().add(otto);
 		gameDefinition.getGameComponents().add(farol);

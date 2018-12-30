@@ -26,13 +26,13 @@
           "id": 0,
           "event": "onRepeat",
           "version": 1,
-          "script": "move(20) fire(3)"
+          "script": "move(20)\nfire(3)"
         },
         {
           "id": 0,
           "event": "onHitWall",
           "version": 1,
-          "script": "turn(90) turnGun(90)"
+          "script": "turn(90)\nturnGun(90)"
         }
       ],
       "radarAngle": 45,
@@ -66,7 +66,7 @@
           "id": 0,
           "event": "onRepeat",
           "version": 1,
-          "script": "turn(10) turnGun(-10) fire(1)"
+          "script": "turn(10)\nturnGun(-10)\nfire(1)"
         }
       ],
       "radarAngle": 45,
