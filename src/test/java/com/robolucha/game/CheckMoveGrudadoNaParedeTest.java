@@ -42,7 +42,7 @@ public class CheckMoveGrudadoNaParedeTest {
 
         MockMatchRunner.start(match);
 
-        LuchadorRunner runnerA = match.getRunners().get(new Long(1L));
+        LuchadorRunner runnerA = match.getRunners().get(1L);
 
         // quase grudado no limite superior do mapa
         runnerA.getState().setX((runnerA.getSize() / 2) + 2);

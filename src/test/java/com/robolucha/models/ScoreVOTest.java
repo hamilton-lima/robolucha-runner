@@ -25,7 +25,7 @@ public class ScoreVOTest {
 
 		ScoreVO vo = new ScoreVO(45L, "foo");
 		assertEquals("foo", vo.getName());
-		assertTrue(new Long(45).equals(vo.getId()));
+		assertTrue(vo.getId().equals(vo.getId()));
 		assertEquals(0, vo.getK());
 		assertEquals(0, vo.getD());
 		assertEquals(0, vo.getScore());
@@ -82,7 +82,7 @@ public class ScoreVOTest {
 
 		Collections.sort(list);
 		ScoreVO first = list.get(0);
-		assertTrue(new Long(1).equals(first.getId()));
+		assertTrue(vo1.getId().equals(first.getId()));
 	}
 
 	@Test
@@ -99,14 +99,14 @@ public class ScoreVOTest {
 
 		ScoreVO first = list.get(0);
 		logger.debug(first);
-		assertTrue(new Long(2).equals(first.getId()));
+		assertTrue(vo2.getId().equals(first.getId()));
 
 		vo1.setScore(300);
 		Collections.sort(list);
 
 		first = list.get(0);
 		logger.debug(first);
-		assertTrue(new Long(1).equals(first.getId()));
+		assertTrue(vo1.getId().equals(first.getId()));
 
 	}
 
@@ -127,7 +127,7 @@ public class ScoreVOTest {
 		// score igual, Kills >
 		ScoreVO first = list.get(0);
 		logger.debug(first);
-		assertTrue(new Long(3).equals(first.getId()));
+		assertTrue(vo3.getId().equals(first.getId()));
 
 		vo1.setScore(250);
 		vo1.setK(2);
@@ -142,7 +142,7 @@ public class ScoreVOTest {
 
 		first = list.get(0);
 		logger.debug(first);
-		assertTrue(new Long(1).equals(first.getId()));
+		assertTrue(vo1.getId().equals(first.getId()));
 
 	}
 

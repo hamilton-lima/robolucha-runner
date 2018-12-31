@@ -49,8 +49,8 @@ public class CheckPunchHitActionTest {
 
         MockMatchRunner.start(match);
 
-        LuchadorRunner runnerA = match.getRunners().get(new Long(1L));
-        LuchadorRunner runnerB = match.getRunners().get(new Long(2L));
+        LuchadorRunner runnerA = match.getRunners().get(1L);
+        LuchadorRunner runnerB = match.getRunners().get(2L);
 
         runnerA.getState().setX(100);
         runnerA.getState().setY(100);

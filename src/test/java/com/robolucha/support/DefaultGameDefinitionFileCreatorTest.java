@@ -53,6 +53,7 @@ public class DefaultGameDefinitionFileCreatorTest {
 			buffer.append(line);
 			line = reader.readLine();
 		}
+		reader.close();
 		return buffer.toString();
 	}
 
@@ -65,6 +66,7 @@ public class DefaultGameDefinitionFileCreatorTest {
 		String actual = reader.readLine();
 		assertNotNull(actual);
 		assertEquals("{", actual);
+		reader.close();
 		
 	}
 	

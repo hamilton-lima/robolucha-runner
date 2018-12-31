@@ -37,14 +37,14 @@ public class BugOnFoundPertoDemais {
         Luchador b = MockLuchador.build(2L);
 
         MockMatchRunner.start(match);
-        LuchadorRunner runnerA = match.getRunners().get(new Long(1L));
+        LuchadorRunner runnerA = match.getRunners().get(1L);
 
         runnerA.getState().setX(200);
         runnerA.getState().setY(100);
         runnerA.getState().setAngle(90);
         runnerA.getState().setGunAngle(90);
 
-        LuchadorRunner runnerB = match.getRunners().get(new Long(2L));
+        LuchadorRunner runnerB = match.getRunners().get(2L);
 
         runnerB.getState().setX(200);
         runnerB.getState().setY(299);
@@ -92,13 +92,13 @@ public class BugOnFoundPertoDemais {
 
         MockMatchRunner.start(match);
 
-        LuchadorRunner runnerA = match.getRunners().get(new Long(1L));
+        LuchadorRunner runnerA = match.getRunners().get(1L);
 
         runnerA.getState().setX(xa);
         runnerA.getState().setY(ya);
         runnerA.getState().setGunAngle(gunAngle);
 
-        LuchadorRunner runnerB = match.getRunners().get(new Long(2L));
+        LuchadorRunner runnerB = match.getRunners().get(2L);
 
         runnerB.getState().setX(xb);
         runnerB.getState().setY(yb);

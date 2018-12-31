@@ -257,7 +257,7 @@ public class LuchadorRunnerTest {
 
         Double result = Double.parseDouble(one.getString("return counter"));
         logger.debug("count call result = " + result);
-        Double expected = new Double(45);
+        Double expected = 45.0;
         assertTrue(expected.equals(result));
     }
 
@@ -292,7 +292,7 @@ public class LuchadorRunnerTest {
             MockMatchRunner.start(runner);
 
             logger.debug("===== method=" + methods[i] + ", count call result = " + result);
-            Double expected = new Double(4);
+            Double expected = 4.0;
             assertTrue(expected.equals(result));
 
         }

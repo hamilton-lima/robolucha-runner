@@ -48,7 +48,7 @@ public class GeneralEventManagerTest {
 
         MockMatchRunner.start(runner);
 
-        LuchadorRunner runnerA = runner.getRunners().get(new Long(1L));
+        LuchadorRunner runnerA = runner.getRunners().get(1L);
         String name1 = runnerA.getScoreVO().getName();
         logger.debug("name1=" + name1);
 

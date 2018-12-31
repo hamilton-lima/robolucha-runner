@@ -37,7 +37,7 @@ public class LuchadorConstantsTest {
 
         MockMatchRunner.start(match);
 
-        LuchadorRunner runnerA = match.getRunners().get(new Long(1L));
+        LuchadorRunner runnerA = match.getRunners().get(1L);
         logger.debug("--- A : " + runnerA.getState().getPublicState());
 
         // stop the match

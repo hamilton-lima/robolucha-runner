@@ -35,7 +35,7 @@ public class BugAcessoVariavelMeTest {
 
         MockMatchRunner.start(match);
 
-        LuchadorRunner runnerA = match.getRunners().get(new Long(1L));
+        LuchadorRunner runnerA = match.getRunners().get(1L);
 
         runnerA.getState().setX(100);
         runnerA.getState().setY(100);

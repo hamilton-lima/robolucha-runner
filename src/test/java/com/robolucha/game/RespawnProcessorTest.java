@@ -31,7 +31,7 @@ public class RespawnProcessorTest {
         match.add(b);
 
         MockMatchRunner.start(match);
-        LuchadorRunner runnerA = match.getRunners().get(new Long(1L));
+        LuchadorRunner runnerA = match.getRunners().get(1L);
         RespawnProcessor p = new RespawnProcessor(match);
 
         int size = runnerA.getSize();

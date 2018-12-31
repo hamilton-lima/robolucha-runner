@@ -45,13 +45,13 @@ public class CalcTest {
 
         MockMatchRunner.start(match);
 
-        LuchadorRunner runnerA = match.getRunners().get(new Long(1L));
+        LuchadorRunner runnerA = match.getRunners().get(1L);
         runnerA.getState().setX(100);
         runnerA.getState().setY(100);
 
         double newX = runnerA.getState().getX() + (2 * runnerA.getSize()) + 1;
 
-        LuchadorRunner runnerB = match.getRunners().get(new Long(2L));
+        LuchadorRunner runnerB = match.getRunners().get(2L);
         runnerB.getState().setX(newX);
         runnerB.getState().setY(100);
         runnerB.getState().setAngle(180);
