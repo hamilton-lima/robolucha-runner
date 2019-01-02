@@ -17,10 +17,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainMatch
+ * MainCode
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-01-02T18:17:16.002098-05:00[America/Toronto]")public class MainMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-01-02T18:17:16.002098-05:00[America/Toronto]")public class MainCode {
 
   @SerializedName("createdAt")
   private String createdAt = null;
@@ -28,24 +28,24 @@ import java.util.Objects;
   @SerializedName("deletedAt")
   private String deletedAt = null;
 
-  @SerializedName("duration")
-  private Integer duration = null;
+  @SerializedName("event")
+  private String event = null;
+
+  @SerializedName("exception")
+  private String exception = null;
 
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("lastTimeAlive")
-  private String lastTimeAlive = null;
+  @SerializedName("luchadorID")
+  private Integer luchadorID = null;
 
-  @SerializedName("timeEnd")
-  private String timeEnd = null;
-
-  @SerializedName("timeStart")
-  private String timeStart = null;
+  @SerializedName("script")
+  private String script = null;
 
   @SerializedName("updatedAt")
   private String updatedAt = null;
-  public MainMatch createdAt(String createdAt) {
+  public MainCode createdAt(String createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -63,7 +63,7 @@ import java.util.Objects;
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
-  public MainMatch deletedAt(String deletedAt) {
+  public MainCode deletedAt(String deletedAt) {
     this.deletedAt = deletedAt;
     return this;
   }
@@ -81,25 +81,43 @@ import java.util.Objects;
   public void setDeletedAt(String deletedAt) {
     this.deletedAt = deletedAt;
   }
-  public MainMatch duration(Integer duration) {
-    this.duration = duration;
+  public MainCode event(String event) {
+    this.event = event;
     return this;
   }
 
   
 
   /**
-  * Get duration
-  * @return duration
+  * Get event
+  * @return event
   **/
   @Schema(description = "")
-  public Integer getDuration() {
-    return duration;
+  public String getEvent() {
+    return event;
   }
-  public void setDuration(Integer duration) {
-    this.duration = duration;
+  public void setEvent(String event) {
+    this.event = event;
   }
-  public MainMatch id(Integer id) {
+  public MainCode exception(String exception) {
+    this.exception = exception;
+    return this;
+  }
+
+  
+
+  /**
+  * Get exception
+  * @return exception
+  **/
+  @Schema(description = "")
+  public String getException() {
+    return exception;
+  }
+  public void setException(String exception) {
+    this.exception = exception;
+  }
+  public MainCode id(Integer id) {
     this.id = id;
     return this;
   }
@@ -117,61 +135,43 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainMatch lastTimeAlive(String lastTimeAlive) {
-    this.lastTimeAlive = lastTimeAlive;
+  public MainCode luchadorID(Integer luchadorID) {
+    this.luchadorID = luchadorID;
     return this;
   }
 
   
 
   /**
-  * Get lastTimeAlive
-  * @return lastTimeAlive
+  * Get luchadorID
+  * @return luchadorID
   **/
   @Schema(description = "")
-  public String getLastTimeAlive() {
-    return lastTimeAlive;
+  public Integer getLuchadorID() {
+    return luchadorID;
   }
-  public void setLastTimeAlive(String lastTimeAlive) {
-    this.lastTimeAlive = lastTimeAlive;
+  public void setLuchadorID(Integer luchadorID) {
+    this.luchadorID = luchadorID;
   }
-  public MainMatch timeEnd(String timeEnd) {
-    this.timeEnd = timeEnd;
+  public MainCode script(String script) {
+    this.script = script;
     return this;
   }
 
   
 
   /**
-  * Get timeEnd
-  * @return timeEnd
+  * Get script
+  * @return script
   **/
   @Schema(description = "")
-  public String getTimeEnd() {
-    return timeEnd;
+  public String getScript() {
+    return script;
   }
-  public void setTimeEnd(String timeEnd) {
-    this.timeEnd = timeEnd;
+  public void setScript(String script) {
+    this.script = script;
   }
-  public MainMatch timeStart(String timeStart) {
-    this.timeStart = timeStart;
-    return this;
-  }
-
-  
-
-  /**
-  * Get timeStart
-  * @return timeStart
-  **/
-  @Schema(description = "")
-  public String getTimeStart() {
-    return timeStart;
-  }
-  public void setTimeStart(String timeStart) {
-    this.timeStart = timeStart;
-  }
-  public MainMatch updatedAt(String updatedAt) {
+  public MainCode updatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
@@ -197,34 +197,34 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainMatch mainMatch = (MainMatch) o;
-    return Objects.equals(this.createdAt, mainMatch.createdAt) &&
-        Objects.equals(this.deletedAt, mainMatch.deletedAt) &&
-        Objects.equals(this.duration, mainMatch.duration) &&
-        Objects.equals(this.id, mainMatch.id) &&
-        Objects.equals(this.lastTimeAlive, mainMatch.lastTimeAlive) &&
-        Objects.equals(this.timeEnd, mainMatch.timeEnd) &&
-        Objects.equals(this.timeStart, mainMatch.timeStart) &&
-        Objects.equals(this.updatedAt, mainMatch.updatedAt);
+    MainCode mainCode = (MainCode) o;
+    return Objects.equals(this.createdAt, mainCode.createdAt) &&
+        Objects.equals(this.deletedAt, mainCode.deletedAt) &&
+        Objects.equals(this.event, mainCode.event) &&
+        Objects.equals(this.exception, mainCode.exception) &&
+        Objects.equals(this.id, mainCode.id) &&
+        Objects.equals(this.luchadorID, mainCode.luchadorID) &&
+        Objects.equals(this.script, mainCode.script) &&
+        Objects.equals(this.updatedAt, mainCode.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(createdAt, deletedAt, duration, id, lastTimeAlive, timeEnd, timeStart, updatedAt);
+    return java.util.Objects.hash(createdAt, deletedAt, event, exception, id, luchadorID, script, updatedAt);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainMatch {\n");
+    sb.append("class MainCode {\n");
     
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
-    sb.append("    duration: ").append(toIndentedString(duration)).append("\n");
+    sb.append("    event: ").append(toIndentedString(event)).append("\n");
+    sb.append("    exception: ").append(toIndentedString(exception)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    lastTimeAlive: ").append(toIndentedString(lastTimeAlive)).append("\n");
-    sb.append("    timeEnd: ").append(toIndentedString(timeEnd)).append("\n");
-    sb.append("    timeStart: ").append(toIndentedString(timeStart)).append("\n");
+    sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
+    sb.append("    script: ").append(toIndentedString(script)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();

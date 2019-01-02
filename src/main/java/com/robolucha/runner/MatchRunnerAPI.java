@@ -1,10 +1,12 @@
 package com.robolucha.runner;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Iterator;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
+import com.robolucha.models.Code;
 import com.robolucha.models.GameComponent;
 import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Luchador;
@@ -17,7 +19,10 @@ import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.DefaultApi;
+import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainLuchador;
 import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.MainMatchParticipant;
 
 //TODO: MUST DO - Implement the API calls!!!
 public class MatchRunnerAPI {
@@ -35,33 +40,34 @@ public class MatchRunnerAPI {
 		return instance;
 	}
 
-	public LuchadorCoach findCoach(String facebookID) {
-		throw new RuntimeException("not implemented");
-	}
-
-	public LuchadorCoach addCoach(String name, String email) {
-		throw new RuntimeException("not implemented");
-	}
-
-	public Luchador addLuchador(Luchador luchador) {
-		throw new RuntimeException("not implemented");
-	}
-
 	public void saveMask(GameComponent gameComponent, MaskConfig mask) {
-//		
-//		throw new RuntimeException("not implemented");
-	}
-
-	public void addMatchParticipant(MatchParticipant matchParticipant) {
-		throw new RuntimeException("not implemented");
+		// throw new RuntimeException("not implemented");
 	}
 
 	public MaskConfig findMask(GameComponent gameComponent) {
 		return null;
 		// throw new RuntimeException("not implemented");
 	}
+	
+	public MatchScore findScore(Match match, GameComponent gameComponent) throws Exception {
+		throw new RuntimeException("not implemented");
+	}
 
-	// TODO implement API call
+	public void updateScore(MatchScore score) throws Exception {
+		throw new RuntimeException("not implemented");
+	}
+
+	public void addScore(MatchScore score) throws Exception {
+		throw new RuntimeException("not implemented");
+	}
+
+	public void addMatchParticipant(MatchParticipant matchParticipant) throws Exception {
+		MainMatchParticipant participant = new MainMatchParticipant();
+		participant.setMatchID(matchParticipant.getMatchRun().getId().intValue());
+		participant.setLuchadorID((int) matchParticipant.getLuchador().getId());
+		apiInstance.internalMatchParticipantPost(participant);
+	}
+
 	public Match createMatch(GameDefinition gameDefinition) throws Exception {
 		MainMatch match = new MainMatch();
 		match.setDuration(gameDefinition.getDuration());
@@ -80,24 +86,28 @@ public class MatchRunnerAPI {
 		MainMatch body = new MainMatch();
 		body.setId(match.getId().intValue());
 		body.setTimeEnd(JSONFormat.now());
-		
-		throw new RuntimeException("not implemented");
+
+		apiInstance.internalEndMatchPut(body);
 	}
 
-	public MatchScore findScore(Match match, GameComponent gameComponent) throws Exception {
-		throw new RuntimeException("not implemented");
-	}
+	public Luchador findLuchadorById(Long luchadorID) throws Exception {
+		MainLuchador luchadorFromAPI = apiInstance.internalLuchadorGet(luchadorID.intValue());
 
-	public void updateScore(MatchScore score) throws Exception {
-		throw new RuntimeException("not implemented");
-	}
+		// build luchador
+		Luchador luchador = new Luchador();
+		luchador.setId(luchadorFromAPI.getId());
+		luchador.setName(luchadorFromAPI.getName());
 
-	public void addScore(MatchScore score) throws Exception {
-		throw new RuntimeException("not implemented");
-	}
+		// copy code objects
+		Iterator<MainCode> iterator = luchadorFromAPI.getCodes().iterator();
+		while (iterator.hasNext()) {
+			MainCode codeFromAPI = iterator.next();
+			Code code = new Code();
+			BeanUtils.copyProperties(code, codeFromAPI);
+			luchador.getCodes().add(code);
+		}
 
-	public Match findMatchById(Long id) {
-		throw new RuntimeException("not implemented");
+		return luchador;
 	}
 
 }

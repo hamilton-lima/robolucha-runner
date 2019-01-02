@@ -20,7 +20,7 @@ import java.util.Objects;
  * MainLoginResponse
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2018-12-29T16:11:01.172798-05:00[America/Toronto]")public class MainLoginResponse {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-01-02T18:17:16.002098-05:00[America/Toronto]")public class MainLoginResponse {
 
   @SerializedName("error")
   private Boolean error = null;

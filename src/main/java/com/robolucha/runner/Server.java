@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.robolucha.game.action.OnInitAddNPC;
+import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Match;
 import com.robolucha.monitor.ThreadMonitor;
@@ -102,6 +103,9 @@ public class Server {
 
         // message listener 
         runner.addListener(new MatchMessagePublisher(queue));
+        
+        // join match listener
+        JoinMatchListener.listen(queue, runner);
 
         return new Thread(runner);
     }
@@ -109,6 +113,8 @@ public class Server {
     public static void configAPIClient() {
     	ApiClient apiClient = new ApiClient();
     	apiClient.setBasePath( Config.getInstance().getBasePath());
+    	apiClient.addDefaultHeader("Authorization", Config.getInstance().getInternalAPIKey());
+    	
     	Configuration.setDefaultApiClient(apiClient);
     }
 }

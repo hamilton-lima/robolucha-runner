@@ -5,14 +5,17 @@ public class Config {
 	public static final String REDIS_HOST = "REDIS_HOST";
 	public static final String REDIS_PORT = "REDIS_PORT";
 	public static final String API_CLIENT_BASEPATH = "API_CLIENT_BASEPATH";
+	public static final String INTERNAL_API_KEY = "INTERNAL_API_KEY";
 
 	public static final String DEFAULT_REDIS_HOST = "localhost";
 	public static final int DEFAULT_REDIS_PORT = 6379;
 	public static final String DEFAULT_API_CLIENT_BASEPATH = "http://localhost:8080";
+	public static final String DEFAULT_INTERNAL_API_KEY = "9239";
 
 	private String redisHost;
 	private int redisPort;
 	private String basePath;
+	private String internalAPIKey;
 
 	private static Config instance;
 
@@ -20,6 +23,7 @@ public class Config {
 		setRedisHost();
 		setRedisPort();
 		setAPIClientBasePath();
+		setInternalAPIKey();
 	}
 
 	private void setRedisHost() {
@@ -49,6 +53,15 @@ public class Config {
 
 	}
 
+	private void setInternalAPIKey() {
+		String internalAPIKey = System.getenv(INTERNAL_API_KEY);
+		if (isValidString(internalAPIKey)) {
+			this.internalAPIKey = internalAPIKey;
+		} else {
+			this.internalAPIKey = DEFAULT_INTERNAL_API_KEY;
+		}
+	}
+
 	boolean isValidString(String s) {
 		return s != null && !s.trim().isEmpty();
 	}
@@ -74,6 +87,10 @@ public class Config {
 
 	public String getBasePath() {
 		return basePath;
+	}
+
+	public String getInternalAPIKey() {
+		return internalAPIKey;
 	}
 
 }

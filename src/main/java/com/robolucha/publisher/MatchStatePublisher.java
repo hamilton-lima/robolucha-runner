@@ -107,7 +107,6 @@ public class MatchStatePublisher {
         }
 
         vo.clock = matchRunner.getGameDefinition().getDuration() - matchRunner.getTimeElapsed();
-
         publish(vo);
 
     }

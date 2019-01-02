@@ -68,9 +68,13 @@ public class RemoteQueue implements AutoCloseable {
     }
 
     public <T> BehaviorSubject subscribe(Class<T> clazzToSubscribe) {
+        String channel = getChannelName(clazzToSubscribe);
+        return subscribe(channel, clazzToSubscribe);
+    }
+    	
+    public <T> BehaviorSubject subscribe(String channel, Class<T> clazzToSubscribe) {
 
         BehaviorSubject<T> result = BehaviorSubject.create();
-        String channel = getChannelName(clazzToSubscribe);
         logger.debug("subscribing to " + channel);
 
         Thread subscriber = new Thread(new Runnable() {

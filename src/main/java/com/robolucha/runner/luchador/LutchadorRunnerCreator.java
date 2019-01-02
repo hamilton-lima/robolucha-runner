@@ -12,6 +12,7 @@ import com.robolucha.models.MaskConfigVO;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
+import com.robolucha.runner.luchador.mask.MaskGenerator;
 
 /**
  * 
@@ -61,7 +62,11 @@ public class LutchadorRunnerCreator implements Runnable {
 
 			GameComponent component = gameComponents.poll();
 			if (component != null) {
-				create(component);
+				try {
+					create(component);
+				} catch (Exception e) {
+					logger.error("Error creating component", e);
+				}
 
 				if (gameComponents.isEmpty()) {
 					logger.info("Nothing else to create, My job here is done.");
@@ -85,7 +90,7 @@ public class LutchadorRunnerCreator implements Runnable {
 
 	}
 
-	private void create(GameComponent gameComponent) {
+	private void create(GameComponent gameComponent) throws Exception {
 
 		logger.info("gamecomponent started (run): " + gameComponent);
 		MaskConfigVO mask = null;
@@ -125,10 +130,11 @@ public class LutchadorRunnerCreator implements Runnable {
 		MaskConfig mask = MatchRunnerAPI.getInstance().findMask(gameComponent);
 
 		if (mask == null) {
-			mask = BuildDefaultLuchadorCoachHelper.addRandomMaskToGameComponent(gameComponent);
+			mask = MaskGenerator.getInstance().random();
+			MatchRunnerAPI.getInstance().saveMask(gameComponent, mask);
 		}
 
 		return mask;
 	}
-
+	
 }

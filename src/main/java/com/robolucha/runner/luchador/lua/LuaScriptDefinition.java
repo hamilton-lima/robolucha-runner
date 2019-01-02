@@ -117,23 +117,4 @@ public class LuaScriptDefinition implements ScriptDefinition {
 		return new LuaFacade(luchadorRunner);
 	}
 
-	@Override
-	public List<Code> getLuchadorFirstCode() {
-		Code c1 = new Code();
-		c1.setEvent(MethodNames.REPEAT);
-		c1.setScript("move(20)\nfire(1)");
-		c1.setVersion(1L);
-
-		Code c2 = new Code();
-		c2.setEvent(MethodNames.ON_HIT_WALL);
-		c2.setScript("turn(45)");
-		c2.setVersion(1L);
-		
-		List<Code> result = new ArrayList<Code>();
-		result.add(c1);
-		result.add(c2);
-		
-		return result;
-	}
-
 }

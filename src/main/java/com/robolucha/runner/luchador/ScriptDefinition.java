@@ -31,6 +31,4 @@ public interface ScriptDefinition {
 	//TODO: create interface for the Facade
 	LuaFacade buildFacade(LuchadorRunner luchadorRunner);
 	
-	List<Code> getLuchadorFirstCode();
-
 }

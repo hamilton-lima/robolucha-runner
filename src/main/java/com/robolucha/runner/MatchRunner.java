@@ -12,6 +12,7 @@ import com.robolucha.game.processor.PunchesProcessor;
 import com.robolucha.game.processor.RespawnProcessor;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MessageVO;
+import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.models.Bullet;
 import com.robolucha.models.GameComponent;
 import com.robolucha.models.GameDefinition;
@@ -51,6 +52,11 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private GameDefinition gameDefinition;
 
 	private MatchStatePublisher publisher;
+	private JoinMatchListener joinListener;
+
+	public void setJoinListener(JoinMatchListener joinListener) {
+		this.joinListener = joinListener;
+	}
 
 	private List<LuchadorEventListener> eventListeners;
 	private List<MatchEventListener> matchEventListeners;
@@ -293,6 +299,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		eventHandler.cleanup();
 		luchadorCreator.cleanup();
+		joinListener.dispose();
 		cleanup();
 	}
 
