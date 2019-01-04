@@ -11,21 +11,19 @@ public class MessageVO {
 	public static final String SUCCESS = "success";
 	public static final String DANGER = "danger";
 
+	public Long luchadorID;
 	public String type;
 	public String event;
 	public String message;
 
-	@Override
-	public String toString() {
-		return "MessageVO [type=" + type + ", event=" + event + ", message=" + message + "]";
-	}
-
-	public MessageVO(String type, String message) {
+	public MessageVO(Long luchadorID, String type, String message) {
+		this.luchadorID = luchadorID;
 		this.type = type;
 		this.message = message;
 	}
 
-	public MessageVO(String type, String event, String message) {
+	public MessageVO(Long luchadorID, String type, String event, String message) {
+		this.luchadorID = luchadorID;
 		this.type = type;
 		this.event = event;
 		this.message = message;

@@ -9,40 +9,41 @@ import org.apache.log4j.Logger;
 
 public class MatchMessagePublisher implements Consumer<MessageVO>, MatchRunnerListener {
 
-    private static Logger logger = Logger.getLogger(MatchMessagePublisher.class);
+	private static Logger logger = Logger.getLogger(MatchMessagePublisher.class);
 
-    private RemoteQueue remoteQueue;
-    
-    private Disposable disposable;
+	private RemoteQueue remoteQueue;
 
-    public MatchMessagePublisher(RemoteQueue remoteQueue) {
-        this.remoteQueue = remoteQueue;
-    }
+	private Disposable disposable;
 
-    public void subscribe(MatchRunner matchRunner) {
-        this.disposable = matchRunner.getOnMessage().subscribe(this, new ErrorHandler());
-    }
+	public MatchMessagePublisher(RemoteQueue remoteQueue) {
+		this.remoteQueue = remoteQueue;
+	}
 
-    @Override
-    public void accept(MessageVO messageVO) throws Exception {
-        remoteQueue.publish(messageVO);
-    }
+	public void subscribe(MatchRunner matchRunner) {
+		this.disposable = matchRunner.getOnMessage().subscribe(this, new ErrorHandler());
+	}
 
-    @Override
-    public void dispose() {
-        this.disposable.dispose();
-    }
+	@Override
+	public void accept(MessageVO messageVO) throws Exception {
+		String channel = String.format("match.%s.message", messageVO.luchadorID);
+		remoteQueue.publish(channel, messageVO);
+	}
 
-    @Override
-    public boolean isDisposed() {
-        return this.disposable.isDisposed();
-    }
+	@Override
+	public void dispose() {
+		this.disposable.dispose();
+	}
 
-    protected class ErrorHandler implements Consumer<Throwable> {
-        @Override
-        public void accept(Throwable error) {
-            logger.error("Error from onMessage", error);
-        }
-    }
+	@Override
+	public boolean isDisposed() {
+		return this.disposable.isDisposed();
+	}
+
+	protected class ErrorHandler implements Consumer<Throwable> {
+		@Override
+		public void accept(Throwable error) {
+			logger.error("Error from onMessage", error);
+		}
+	}
 
 }

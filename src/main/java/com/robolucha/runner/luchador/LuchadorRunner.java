@@ -799,7 +799,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			logger.debug(String.format("---- add message, type=%s, event=%s, message=%s", type, event, message));
 		}
 
-		matchRunner.getOnMessage().onNext(new MessageVO(type, event, message));
+		matchRunner.getOnMessage().onNext(new MessageVO(gameComponent.getId(), type, event, message));
 	}
 
 	public void onMessage(String type, String message) {
@@ -807,7 +807,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			logger.debug(String.format("---- add message, type=%s, message=%s", type, message));
 		}
 
-		matchRunner.getOnMessage().onNext(new MessageVO(type, message));
+		matchRunner.getOnMessage().onNext(new MessageVO(gameComponent.getId(), type, message));
 	}
 
 	public void setHeadColor(String color) {

@@ -1,21 +1,24 @@
 package com.robolucha.publisher;
 
-import com.robolucha.game.vo.MatchRunStateVO;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockMatchRunner;
+import static junit.framework.TestCase.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import com.robolucha.game.vo.MatchRunStateVO;
+import com.robolucha.models.Match;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockMatchRunner;
 
 public class MatchStatePublisherTest {
 
     MockRemoteQueue queue = new MockRemoteQueue();
+	Match match = new Match();
     MatchStatePublisher publisher;
 
     @Before
     public void setup() {
-        publisher = new MatchStatePublisher(queue);
+        publisher = new MatchStatePublisher(match, queue);
     }
 
     @Test

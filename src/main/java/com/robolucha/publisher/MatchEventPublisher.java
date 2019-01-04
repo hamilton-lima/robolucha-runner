@@ -17,6 +17,7 @@ import java.util.Iterator;
 public class MatchEventPublisher implements MatchEventListener {
     private final RemoteQueue publisher;
     private final ThreadMonitor threadMonitor;
+    private final String channel;
 
     private Logger logger = Logger.getLogger(MatchEventPublisher.class);
     private Match match;
@@ -25,6 +26,7 @@ public class MatchEventPublisher implements MatchEventListener {
         this.match = match;
         this.publisher = publisher;
         this.threadMonitor = threadMonitor;
+        this.channel = String.format("match.%s.event", match.getId());
     }
 
     public void onInit(MatchRunner runner) {
@@ -155,7 +157,8 @@ public class MatchEventPublisher implements MatchEventListener {
             logger.debug("matchrunner.id=" + runner.getMatch().getId() + " " + name + " event=" + event);
         }
 
-        publisher.publish(event);
+        
+        publisher.publish(channel, event);
     }
 
 }

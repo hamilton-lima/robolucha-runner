@@ -9,10 +9,11 @@ import com.robolucha.runner.Config;
 import com.robolucha.runner.MatchRunner;
 
 public class MockMatchRunner {
+	static Match match = new Match();
 
     static class MatchStatePublisherSilent extends MatchStatePublisher {
         public MatchStatePublisherSilent() {
-            super(new RemoteQueue(Config.getInstance()));
+            super(match, new RemoteQueue(Config.getInstance()));
         }
 
         @Override

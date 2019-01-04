@@ -8,6 +8,7 @@ import com.robolucha.models.Bullet;
 import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.models.MaskConfigVO;
+import com.robolucha.models.Match;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.Punch;
 import com.robolucha.runner.luchador.LuchadorRunner;
@@ -28,7 +29,11 @@ public class MatchStatePublisher {
     private Map<Long, MatchRunStateVO> matchStates;
     private Map<Long, MatchRunner> matchRunners;
 
-    public MatchStatePublisher(RemoteQueue publisher) {
+	private String channel;
+
+    public MatchStatePublisher(Match match, RemoteQueue publisher) {
+		channel = String.format("match.%s.state", match.getId());
+
         matchStates = Collections.synchronizedMap(new HashMap<Long, MatchRunStateVO>());
         matchRunners = Collections.synchronizedMap(new HashMap<Long, MatchRunner>());
         this.publisher = publisher;
@@ -112,7 +117,7 @@ public class MatchStatePublisher {
     }
 
     public void publish(MatchRunStateVO state) {
-        publisher.publish(state);
+        publisher.publish(channel, state);
     }
 
 

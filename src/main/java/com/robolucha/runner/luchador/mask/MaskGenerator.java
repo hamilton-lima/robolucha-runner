@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import com.robolucha.models.MaskConfig;
-import com.robolucha.runner.luchador.BuildDefaultLuchadorCoachHelper;
 
 public class MaskGenerator {
 	
