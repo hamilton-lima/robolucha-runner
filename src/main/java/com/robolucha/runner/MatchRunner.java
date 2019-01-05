@@ -1,8 +1,25 @@
 package com.robolucha.runner;
 
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import com.robolucha.event.match.MatchEventVO;
+import com.robolucha.event.match.MatchEventVOEnd;
 import com.robolucha.event.match.MatchEventVOStart;
-import com.robolucha.game.action.*;
+import com.robolucha.game.action.AddOnListenEventAction;
+import com.robolucha.game.action.ChangeStateAction;
+import com.robolucha.game.action.CheckRadarAction;
+import com.robolucha.game.action.CheckRespawnAction;
+import com.robolucha.game.action.GameAction;
+import com.robolucha.game.action.ReduceCoolDownAction;
+import com.robolucha.game.action.RemoveDeadAction;
+import com.robolucha.game.action.RepeatAction;
+import com.robolucha.game.action.TriggerEventsAction;
 import com.robolucha.game.event.LuchadorEvent;
 import com.robolucha.game.event.LuchadorEventListener;
 import com.robolucha.game.event.MatchEventListener;
@@ -19,14 +36,11 @@ import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Match;
 import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.monitor.ThreadStatus;
-import com.robolucha.publisher.MatchMessagePublisher;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.LutchadorRunnerCreator;
-import io.reactivex.subjects.PublishSubject;
-import org.apache.log4j.Logger;
 
-import java.util.*;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * main match logic
@@ -44,6 +58,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	// TODO: replace all the listeners by Subjects
 	private PublishSubject<MatchEventVO> onMatchStart;
+	private PublishSubject<MatchEventVO> onMatchEnd;
 	private PublishSubject<MessageVO> onMessage;
 	private PublishSubject<MatchInitVO> onInit;
 
@@ -117,6 +132,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		luchadorCreator = new LutchadorRunnerCreator(this);
 
 		onMatchStart = PublishSubject.create();
+		onMatchEnd = PublishSubject.create();
 		onMessage = PublishSubject.create();
 		onInit = PublishSubject.create();
 
@@ -282,6 +298,9 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			}
 
 		}
+		
+		onMatchEnd.onNext(new MatchEventVOEnd());
+		onMatchEnd.onComplete();
 
 		logger.info("matchrun shutdown (1)");
 		// desliga tratador de eventos
@@ -299,7 +318,9 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		eventHandler.cleanup();
 		luchadorCreator.cleanup();
-		joinListener.dispose();
+		if( joinListener != null ) {
+			joinListener.dispose();
+		}
 		cleanup();
 	}
 
@@ -598,6 +619,10 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	public PublishSubject<MatchEventVO> getOnMatchStart() {
 		return onMatchStart;
+	}
+
+	public PublishSubject<MatchEventVO> getOnMatchEnd() {
+		return onMatchEnd;
 	}
 
 	public PublishSubject<MessageVO> getOnMessage() {

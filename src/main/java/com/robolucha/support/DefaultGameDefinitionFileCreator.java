@@ -53,7 +53,7 @@ public class DefaultGameDefinitionFileCreator {
 	public static final String OTTO = "otto";
 	public static final String FAROL = "farol";
 
-	private static void addGameComponent(GameDefinition gameDefinition) {
+	public static void addGameComponent(GameDefinition gameDefinition) {
 
 		GameComponent otto = new GameComponent();
 		otto.setId(1L);

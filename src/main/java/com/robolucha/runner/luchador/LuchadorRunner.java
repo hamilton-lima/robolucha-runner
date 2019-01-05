@@ -60,6 +60,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	int exceptionCounter;
 
 	private LuchadorMatchState state;
+	
+	public boolean cleanUpStateAtTheEnd = true;
 
 	// TODO: remove this?
 	private String getCurrentRunningCodeName() {
@@ -121,8 +123,11 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		LuchadorCodeChangeListener.getInstance().remove(this);
 
 		this.active = false;
-		this.state.score = null;
-		this.state = null;
+
+		if( cleanUpStateAtTheEnd ) {
+			this.state.score = null;
+			this.state = null;
+		}
 
 		this.gameComponent = null;
 		this.matchRunner = null;

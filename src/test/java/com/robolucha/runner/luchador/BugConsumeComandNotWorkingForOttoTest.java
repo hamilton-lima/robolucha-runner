@@ -10,18 +10,9 @@ import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockMatchRunner;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.subscribers.TestSubscriber;
 
-/**
- * quando adicionado move(1) e move(100) o primeiro move mais lentamente.
- * identificado que o move(1) esta levando varios ticks para ser adicionado
- * novamente a fila de comandos
- *
- * @author hamiltonlima
- */
 public class BugConsumeComandNotWorkingForOttoTest {
 
 	private static Logger logger = Logger.getLogger(BugConsumeComandNotWorkingForOttoTest.class);
@@ -37,14 +28,8 @@ public class BugConsumeComandNotWorkingForOttoTest {
 
 		MatchRunner match = MockMatchRunner.buildWithDefaultLuchador();
 
-//		while (match.getRunners().size() < 2) {
-//			Thread.sleep(500);
-//			logger.debug("waiting for runners");
-//		}
-
-		Disposable onStart = match.getOnMatchStart().subscribe(new Consumer<MatchEventVO>() {
-
-			@Override
+		// set initial position for luchador
+		match.getOnMatchStart().subscribe(new Consumer<MatchEventVO>() {
 			public void accept(MatchEventVO arg0) throws Exception {
 
 				LuchadorRunner otto = match.getRunners().get(1L);
@@ -70,9 +55,8 @@ public class BugConsumeComandNotWorkingForOttoTest {
 
 		MockMatchRunner.start(match);
 
+		// get final state
 		match.getOnMatchEnd().blockingSubscribe(new Consumer<MatchEventVO>() {
-
-			@Override
 			public void accept(MatchEventVO arg0) throws Exception {
 				otto = match.getRunners().get(1L);
 				farol = match.getRunners().get(2L);
@@ -82,22 +66,11 @@ public class BugConsumeComandNotWorkingForOttoTest {
 		logger.debug(">>> A depois : " + otto.getState().getPublicState());
 		logger.debug(">>> B depois : " + farol.getState().getPublicState());
 
+		// TODO: replace this tests with the proper turn() test 
 		int dif = otto.getState().getPublicState().x - farol.getState().getPublicState().x;
-
 		logger.debug("---diferenca do X  : " + dif);
-
 		assertTrue("moveram o mesmo ?", dif == 0);
 
-//		TestSubscriber<MatchEventVO> testSubscriber = new TestSubscriber<MatchEventVO>();
-//		match.getOnMatchEnd().subscribe(testSubscriber);
-
-//		   databaseHelper.loadUser().subscribe(testSubscriber);
-//		   testSubscriber.assertNoErrors();
-
-//        // stop the match
-//        Thread.sleep(500);
-//        match.kill();
-//        Thread.sleep(500);
 
 	}
 

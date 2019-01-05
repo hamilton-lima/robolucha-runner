@@ -1,5 +1,7 @@
 package com.robolucha.test;
 
+import com.robolucha.game.action.OnInitAddNPC;
+import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Match;
@@ -7,6 +9,7 @@ import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.Config;
 import com.robolucha.runner.MatchRunner;
+import com.robolucha.support.DefaultGameDefinitionFileCreator;
 
 public class MockMatchRunner {
 	static Match match = new Match();
@@ -35,6 +38,24 @@ public class MockMatchRunner {
 
         runner.setPublisher(new MatchStatePublisherSilent());
         return runner;
+    }
+
+    public static MatchRunner buildWithDefaultLuchador() {
+        GameDefinition gameDefinition = new GameDefinition();
+        gameDefinition.setDuration(1000);
+        
+        DefaultGameDefinitionFileCreator.addGameComponent(gameDefinition);
+
+        Match match = new Match();
+        MatchRunner runner = new MatchRunner(gameDefinition, match);
+
+        runner.setPublisher(new MatchStatePublisherSilent());
+        
+        runner.addListener(new OnInitAddNPC());
+		runner.getOnInit().onNext(new MatchInitVO(System.currentTimeMillis()));
+		runner.getOnInit().onComplete();
+        
+		return runner;
     }
 
     public static void start(MatchRunner runner) {
