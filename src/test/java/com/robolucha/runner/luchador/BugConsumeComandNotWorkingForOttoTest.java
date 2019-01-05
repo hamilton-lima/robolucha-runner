@@ -7,17 +7,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.robolucha.event.match.MatchEventVO;
+import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockMatchRunner;
 
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 public class BugConsumeComandNotWorkingForOttoTest {
 
 	private static Logger logger = Logger.getLogger(BugConsumeComandNotWorkingForOttoTest.class);
-	LuchadorRunner otto = null;
-	LuchadorRunner farol = null;
+	LuchadorPublicState  otto = null;
+	LuchadorPublicState  farol = null;
 
 	@Before
 	public void setUp() throws Exception {
@@ -32,23 +32,23 @@ public class BugConsumeComandNotWorkingForOttoTest {
 		match.getOnMatchStart().subscribe(new Consumer<MatchEventVO>() {
 			public void accept(MatchEventVO arg0) throws Exception {
 
-				LuchadorRunner otto = match.getRunners().get(1L);
-				LuchadorRunner farol = match.getRunners().get(2L);
+				LuchadorRunner ottoRunner = match.getRunners().get(-1L);
+				LuchadorRunner farolRunner = match.getRunners().get(-2L);
 
-				otto.cleanUpStateAtTheEnd = false;
-				farol.cleanUpStateAtTheEnd = false;
+				ottoRunner.cleanUpStateAtTheEnd = false;
+				farolRunner.cleanUpStateAtTheEnd = false;
 
 				int xCloseToTheWall = match.getGameDefinition().getArenaWidth()
 						- match.getGameDefinition().getLuchadorSize() - 1;
 
-				otto.getState().setX(xCloseToTheWall);
-				otto.getState().setY(100);
+				ottoRunner.getState().setX(xCloseToTheWall);
+				ottoRunner.getState().setY(100);
 
-				farol.getState().setX(100);
-				farol.getState().setY(300);
+				farolRunner.getState().setX(100);
+				farolRunner.getState().setY(300);
 
-				logger.debug(">> A : " + otto.getState().getPublicState());
-				logger.debug(">>  B : " + farol.getState().getPublicState());
+				logger.debug(">> otto : " + ottoRunner.getState().getPublicState());
+				logger.debug(">>  farol : " + farolRunner.getState().getPublicState());
 			}
 
 		});
@@ -58,19 +58,16 @@ public class BugConsumeComandNotWorkingForOttoTest {
 		// get final state
 		match.getOnMatchEnd().blockingSubscribe(new Consumer<MatchEventVO>() {
 			public void accept(MatchEventVO arg0) throws Exception {
-				otto = match.getRunners().get(1L);
-				farol = match.getRunners().get(2L);
+				otto = match.getRunners().get(-1L).getState().getPublicState();
+				farol = match.getRunners().get(-2L).getState().getPublicState();
 			}
 		});
 
-		logger.debug(">>> A depois : " + otto.getState().getPublicState());
-		logger.debug(">>> B depois : " + farol.getState().getPublicState());
+		logger.debug(">>> otto depois : " + otto);
+		logger.debug(">>> farol depois : " + farol);
 
-		// TODO: replace this tests with the proper turn() test 
-		int dif = otto.getState().getPublicState().x - farol.getState().getPublicState().x;
-		logger.debug("---diferenca do X  : " + dif);
-		assertTrue("moveram o mesmo ?", dif == 0);
-
+		assertTrue("Farol angle > 0", farol.angle > 0 );
+		assertTrue("Otto angle > 0", otto.angle > 0 );
 
 	}
 

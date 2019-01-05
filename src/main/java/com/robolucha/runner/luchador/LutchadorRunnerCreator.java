@@ -116,7 +116,7 @@ public class LutchadorRunnerCreator implements Runnable {
 		}
 
 		LuchadorRunner runner = new LuchadorRunner(gameComponent, this.owner, mask);
-		logger.info(">>>>>>>>> LUCHADOR runner created: " + runner.getGameComponent().getId());
+		logger.info(">>>>>>>>> LUCHADOR runner created: " + runner.getGameComponent().getName());
 
 		if (logger.isDebugEnabled()) {
 			logger.info(" runner=" + runner);
