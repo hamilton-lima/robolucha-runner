@@ -23,24 +23,24 @@ public class MatchStatePublisher {
 
     private static Logger logger = Logger.getLogger(MatchStatePublisher.class);
 
-    private static MatchStatePublisher instance;
+//    private static MatchStatePublisher instance;
     private final RemoteQueue publisher;
 
-    private Map<Long, MatchRunStateVO> matchStates;
-    private Map<Long, MatchRunner> matchRunners;
+//    private Map<Long, MatchRunStateVO> matchStates;
+//    private Map<Long, MatchRunner> matchRunners;
 
 	private String channel;
 
     public MatchStatePublisher(Match match, RemoteQueue publisher) {
 		channel = String.format("match.%s.state", match.getId());
 
-        matchStates = Collections.synchronizedMap(new HashMap<Long, MatchRunStateVO>());
-        matchRunners = Collections.synchronizedMap(new HashMap<Long, MatchRunner>());
+//        matchStates = Collections.synchronizedMap(new HashMap<Long, MatchRunStateVO>());
+//        matchRunners = Collections.synchronizedMap(new HashMap<Long, MatchRunner>());
         this.publisher = publisher;
     }
 
     public void update(MatchRunner matchRunner) throws Exception {
-        Long matchId = matchRunner.getMatch().getId();
+//        Long matchId = matchRunner.getMatch().getId();
         MatchRunStateVO vo = new MatchRunStateVO();
 
         Iterator<Long> iterator = matchRunner.getRunners().keySet().iterator();
@@ -54,7 +54,7 @@ public class MatchStatePublisher {
 
                 if (runner.isActive()) {
                     // read data to update the state
-                    Long lutchadorId = runner.getGameComponent().getId();
+//                    Long lutchadorId = runner.getGameComponent().getId();
                     String name = runner.getGameComponent().getName();
                     LuchadorPublicState publicState = runner.getState().getPublicState();
                     MaskConfigVO mask = runner.getMask();
@@ -77,7 +77,7 @@ public class MatchStatePublisher {
 
         // TODO: move this to the data consumer.
         // sort based on the score
-        Collections.sort(vo.scores);
+        // Collections.sort(vo.scores);
 
         // bullets
         int pos = 0;
