@@ -20,7 +20,7 @@ public class GameComponent {
     private int punchDamage = 2;
     private int punchCoolDown = 2;
     private int moveSpeed = 50;
-    private int turnSpeed = 90;
+    private int turnSpeed = 180;
     private int turnGunSpeed = 60;
     private int respawnCooldown = 10;
     private int maxFireCooldown = 10;
