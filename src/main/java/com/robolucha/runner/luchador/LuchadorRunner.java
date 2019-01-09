@@ -368,10 +368,11 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			}
 		}
 	}
-	
+
+	private static final Object[] EMPTY = new Object[0];
+
 	public void run(String name) throws Exception {
-		Object[] empty = new Object[0];
-		run(name, empty);
+		run(name, EMPTY);
 	}
 
 	public GameComponent getGameComponent() {
