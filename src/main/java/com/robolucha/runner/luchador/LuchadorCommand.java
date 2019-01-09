@@ -1,7 +1,5 @@
 package com.robolucha.runner.luchador;
 
-import org.apache.log4j.Logger;
-
 public class LuchadorCommand {
 
 	private String command;
@@ -10,11 +8,10 @@ public class LuchadorCommand {
 	private double value;
 	private int direction;
 	private int speed;
+	private String codeName;
 
-	private static Logger logger = Logger.getLogger(LuchadorCommand.class);
-
-	public LuchadorCommand(String command, double originalValue, int speed) {
-
+	public LuchadorCommand(String codeName, String command, double originalValue, int speed) {
+		this.codeName = codeName;
 		this.command = command;
 		this.originalValue = originalValue;
 		this.value = this.originalValue;
@@ -26,7 +23,7 @@ public class LuchadorCommand {
 			this.value = this.value * -1;
 		}
 	}
-	
+
 	private void calculateDirection() {
 		if (this.originalValue < 0) {
 			this.direction = -1;
@@ -38,55 +35,6 @@ public class LuchadorCommand {
 	public String getKey() {
 		return this.command + "." + this.direction;
 	}
-
-	/**
-	 * acumula valores do comando se execucao for no mesmo tick do servidor e
-	 * for da mesma origem e sinal for o mesmo.
-	 * 
-	 * @param add
-	 * @return
-	 */
-	// public LuchadorCommand addOnlyInTheSameTick(LuchadorCommand add) {
-	//
-	// if (logger.isDebugEnabled()) {
-	// logger.debug("addOnlyInTheSameTick()");
-	// logger.debug("add=" + add);
-	// logger.debug("current=" + this);
-	// }
-	//
-	// /**
-	// * se tentar reinserir mesmo comando em uma execucao subsequente do
-	// * REPEAT nao vai ser inserido porque add.start != this.start
-	// */
-	// if (add.start == this.start) {
-	// if (add.getKey().equals(this.getKey())) {
-	//
-	// if (logger.isDebugEnabled()) {
-	// logger.debug("==start ==getKey()");
-	// }
-	//
-	// double current = (this.originalValue * this.direction)
-	// + (add.originalValue * add.direction);
-	//
-	// current = current * this.direction;
-	//
-	// this.originalValue = current;
-	// this.value = current;
-	// calculateDirection();
-	//
-	// // corrige valor para poder consumir
-	// if (this.value < 0) {
-	// this.value = this.value * -1;
-	// }
-	// }
-	// }
-	//
-	// if (logger.isDebugEnabled()) {
-	// logger.debug("result=" + this);
-	// }
-	//
-	// return this;
-	// }
 
 	public boolean empty() {
 		if (value <= 0) {
@@ -148,14 +96,18 @@ public class LuchadorCommand {
 		this.speed = speed;
 	}
 
+	public void consumeAll() {
+		value = 0;
+	}
+
+	public String getCodeName() {
+		return codeName;
+	}
+
 	@Override
 	public String toString() {
 		return "LuchadorCommand [command=" + command + ", originalValue=" + originalValue + ", value=" + value
-				+ ", direction=" + direction + ", speed=" + speed + "]";
-	}
-
-	public void consumeAll() {
-		value = 0;
+				+ ", direction=" + direction + ", speed=" + speed + ", codeName=" + codeName + "]";
 	}
 
 }

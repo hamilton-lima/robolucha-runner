@@ -3,18 +3,20 @@ package com.robolucha.runner.luchador;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import com.robolucha.runner.luchador.lua.ScriptFacade;
+
 public class ScriptRunner implements Runnable {
 
 	private static Logger logger = Logger.getLogger(ScriptRunner.class);
 
 	private Object[] parameter;
-	private String name;
+	private String codeName;
 	private String currentName;
 	private LuchadorRunner runner;
 	private boolean finished;
 
-	ScriptRunner(LuchadorRunner runner, String name, Object... parameter) {
-		this.name = name;
+	ScriptRunner(LuchadorRunner runner, String codeName, Object... parameter) {
+		this.codeName = codeName;
 		this.parameter = parameter;
 		this.runner = runner;
 		this.finished = false;
@@ -24,10 +26,10 @@ public class ScriptRunner implements Runnable {
 
 	@Override
 	public void run() {
-		Thread.currentThread().setName("ScriptRunner-Thread-GameComponentID-" + runner.getGameComponent().getId() + "-"+ name);
+		Thread.currentThread().setName("ScriptRunner-Thread-GameComponentID-" + runner.getGameComponent().getId() + "-"+ codeName);
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("START run(" + name + "," + parameter + ")");
+			logger.debug("START run(" + codeName + "," + parameter + ")");
 		}
 
 		Object result = null;
@@ -37,15 +39,16 @@ public class ScriptRunner implements Runnable {
 
 		try {
 			start = System.currentTimeMillis();
-			currentName = name;
+			currentName = codeName;
 			if (logger.isDebugEnabled()) {
-				logger.debug("== running code " + name + "()");
+				logger.debug("== running code " + codeName + "()");
 			}
 
-			runner.getScriptDefinition().run(name, parameter);
+			ScriptFacade facade = runner.getScriptDefinition().buildFacade(runner, codeName);
+			runner.getScriptDefinition().run(facade, codeName, parameter);
 			
 		} catch (Exception e) {
-			String message = "server.exception.error.running=run(" + name + "," + parameter + ") " + e.getMessage();
+			String message = "server.exception.error.running=run(" + codeName + "," + parameter + ") " + e.getMessage();
 			if (logger.isDebugEnabled()) {
 				logger.error(message, e);
 			} else {
@@ -53,14 +56,14 @@ public class ScriptRunner implements Runnable {
 			}
 
 			runner.exceptionCounter++;
-			runner.saveExceptionToCode(name, e.getMessage());
+			runner.saveExceptionToCode(codeName, e.getMessage());
 
 		} finally {
 			try {
 				runner.getScriptDefinition().afterCompile();
 			} catch (Exception e) {
 				if (logger.isEnabledFor(Level.WARN)) {
-					logger.warn("error aftercompile running : run(" + name + "," + parameter + ")", e);
+					logger.warn("error aftercompile running : run(" + codeName + "," + parameter + ")", e);
 				}
 			}
 		}
@@ -70,7 +73,7 @@ public class ScriptRunner implements Runnable {
 		elapsed = System.currentTimeMillis() - start;
 		currentName = null;
 
-		this.name = null;
+		this.codeName = null;
 		this.parameter = null;
 		this.runner = null;
 		finished = true;

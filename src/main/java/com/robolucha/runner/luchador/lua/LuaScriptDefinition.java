@@ -16,7 +16,6 @@ public class LuaScriptDefinition implements ScriptDefinition {
 
 	private HashMap<String, MethodDefinition> methods;
 	private LuaVM lua;
-	private LuaFacade facade;
 
 	@Override
 	public HashMap<String, MethodDefinition> getDefaultMethods() {
@@ -47,7 +46,9 @@ public class LuaScriptDefinition implements ScriptDefinition {
 	}
 
 	@Override
-	public void run(String name, Object... parameter) {
+	public void run(ScriptFacade facade, String name, Object... parameter) {
+
+		lua.put("__internal", facade);
 
 		LuaFunction function = lua.getFunction(name);
 		if (parameter.length == 0) {
@@ -94,14 +95,6 @@ public class LuaScriptDefinition implements ScriptDefinition {
 	}
 
 	@Override
-	public void addFacade(LuaFacade facade) {
-		
-		this.facade = facade;
-		lua.put("__internal", facade);
-
-	}
-
-	@Override
 	public void loadDefaultLibraries() throws Exception {
 		ScriptReader reader = new ScriptReader();
 		
@@ -113,8 +106,14 @@ public class LuaScriptDefinition implements ScriptDefinition {
 	}
 
 	@Override
-	public LuaFacade buildFacade(LuchadorRunner luchadorRunner) {
-		return new LuaFacade(luchadorRunner);
+	public ScriptFacade buildFacade(LuchadorRunner luchadorRunner, String codeName) {
+		return new LuaFacade(luchadorRunner, codeName);
+	}
+
+	@Override
+	public void addFacade(ScriptFacade facade) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

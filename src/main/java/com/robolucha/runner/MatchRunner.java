@@ -407,7 +407,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 					action.run(runners, runner);
 				} catch (Exception e) {
 					runner.deactivate(action.getName());
-					runner.onMessage(MessageVO.DANGER, action.getName(), e.getMessage());
+					runner.onDangerMessage(MessageVO.DANGER, action.getName(), e.getMessage());
 
 					logger.error("error executing action: " + action.getName() + " on luchador: "
 							+ runner.getGameComponent().getId(), e);
@@ -446,7 +446,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 				} catch (Exception e) {
 					runner.deactivate(action.getName());
-					runner.onMessage(MessageVO.DANGER, action.getName(), e.getMessage());
+					runner.onDangerMessage(MessageVO.DANGER, action.getName(), e.getMessage());
 
 					logger.error("erro executando acao :" + action.getName() + " no lutchador : "
 							+ runner.getGameComponent().getId(), e);

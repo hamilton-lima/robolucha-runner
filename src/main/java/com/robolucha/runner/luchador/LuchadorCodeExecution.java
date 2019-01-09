@@ -5,18 +5,18 @@ import java.util.LinkedList;
 
 public class LuchadorCodeExecution {
 
-	private String name;
+	private String codeName;
 	private long start;
 	private LinkedList<LuchadorCommand> commands;
 
-	public LuchadorCodeExecution(String name, long start) {
-		this.name = name;
+	public LuchadorCodeExecution(String codeName, long start) {
+		this.codeName = codeName;
 		this.commands = new LinkedList<LuchadorCommand>();
 		this.start = start;
 	}
 
-	public String getName() {
-		return name;
+	public String getCodeName() {
+		return codeName;
 	}
 
 	public LinkedList<LuchadorCommand> getCommands() {
@@ -25,11 +25,6 @@ public class LuchadorCodeExecution {
 
 	public long getStart() {
 		return start;
-	}
-
-	@Override
-	public String toString() {
-		return "LuchadorCommandAction [name=" + name + ", start=" + start + ", commands=" + commands + "]";
 	}
 
 	public void clear(String prefix) {
@@ -42,6 +37,11 @@ public class LuchadorCodeExecution {
 			}
 
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "LuchadorCodeExecution [codeName=" + codeName + ", start=" + start + ", commands=" + commands + "]";
 	}
 
 }

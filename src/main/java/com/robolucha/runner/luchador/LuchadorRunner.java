@@ -1,5 +1,14 @@
 package com.robolucha.runner.luchador;
 
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Queue;
+
+import org.apache.log4j.Logger;
+
 import com.robolucha.event.ConstEvents;
 import com.robolucha.event.GeneralEventHandler;
 import com.robolucha.event.GeneralEventManager;
@@ -7,15 +16,18 @@ import com.robolucha.game.event.LuchadorEvent;
 import com.robolucha.game.event.OnHitWallEvent;
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.LuchadorCodeChangeListener;
-import com.robolucha.models.*;
+import com.robolucha.models.Bullet;
+import com.robolucha.models.Code;
+import com.robolucha.models.GameComponent;
+import com.robolucha.models.Luchador;
+import com.robolucha.models.LuchadorMatchState;
+import com.robolucha.models.LuchadorPublicState;
+import com.robolucha.models.MaskConfigVO;
+import com.robolucha.models.MatchStateProvider;
+import com.robolucha.models.ScoreVO;
 import com.robolucha.runner.Calc;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.RespawnPoint;
-import com.robolucha.runner.luchador.lua.LuaFacade;
-import org.apache.log4j.Logger;
-
-import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * Represents one play thread during the match
@@ -77,8 +89,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private double respawnCoolDown;
 	ScriptRunner currentRunner;
 	private MaskConfigVO mask;
-
-	LuaFacade facade;
 
 	public LuchadorRunner(GameComponent gameComponent, MatchRunner matchRunner, MaskConfigVO mask) {
 		this.gameComponent = gameComponent;
@@ -216,7 +226,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			scriptDefinition.set("LUCHADOR_WIDTH", this.getSize());
 			scriptDefinition.set("LUCHADOR_HEIGHT", this.getSize());
 
-			scriptDefinition.addFacade(scriptDefinition.buildFacade(this));
 			scriptDefinition.loadDefaultLibraries();
 
 			MethodBuilder.getInstance().buildAll(this, codes);
@@ -291,7 +300,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			Code code = (Code) iterator.next();
 			if (code.getException() != null && code.getException().trim().length() > 0) {
 
-				onMessage(MessageVO.DANGER, code.getEvent(), code.getException());
+				onDangerMessage(MessageVO.DANGER, code.getEvent(), code.getException());
 
 				// TODO: add call to save the code errors< or trigger events?
 				/*
@@ -314,7 +323,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			logger.debug("save exception to " + name + " exception=" + exception);
 		}
 
-		onMessage(MessageVO.DANGER, name, exception);
+		onDangerMessage(MessageVO.DANGER, name, exception);
 
 		for (Code code : getGameComponent().getCodes()) {
 			if (code.getEvent().equals(name)) {
@@ -332,17 +341,17 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	/**
 	 * Run the code in a separated thread
 	 *
-	 * @param name
+	 * @param codeName
 	 * @param parameter
 	 * @return
 	 * @throws NoSuchMethodException
 	 */
-	public void run(String name, Object... parameter) throws Exception {
+	public void run(String codeName, Object... parameter) throws Exception {
 		if (logger.isDebugEnabled()) {
-			logger.debug("Tying to run " + name + " currentRunner=" + currentRunner);
+			logger.debug("Tying to run " + codeName + " currentRunner=" + currentRunner);
 		}
 
-		logger.info("Tying to run " + name + " currentRunner=" + currentRunner);
+		logger.info("Tying to run " + codeName + " currentRunner=" + currentRunner);
 
 		// TODO: control running time to deactivate luchador
 		if (currentRunner == null || currentRunner.isFinished()) {
@@ -350,7 +359,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			// check if the code has exception to avoid running defective code
 			boolean canRunCode = true;
 			for (Code code : getGameComponent().getCodes()) {
-				if (code.getEvent().equals(name)) {
+				if (code.getEvent().equals(codeName)) {
 					if (code.getException() != null) {
 						canRunCode = false;
 						break;
@@ -359,12 +368,12 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			}
 
 			// check if Runner is already running this piece of code
-			if (codeExecutionQueue.get(name) != null) {
+			if (codeExecutionQueue.get(codeName) != null) {
 				canRunCode = false;
 			}
 
 			if (canRunCode) {
-				currentRunner = new ScriptRunner(this, name, parameter);
+				currentRunner = new ScriptRunner(this, codeName, parameter);
 				Thread thread = new Thread(currentRunner);
 				thread.start();
 			}
@@ -554,7 +563,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		try {
 			action = iterator.next();
 		} catch (Exception e) {
-			logger.warn("LuchadorCommandAction changed by other thread, try again.");
+			logger.warn("Error reading the first LuchadorCodeExecution, try again.");
 			return;
 		}
 
@@ -576,41 +585,26 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private void consumeComand(Iterator<LuchadorCommand> iterator, LuchadorCommand command) {
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("*** command found=" + command);
-			logger.debug("*** delta=" + matchRunner.getDelta());
-			logger.debug("*** amount=" + command.getValue());
+			logger.debug("consumeComand( ) : command=" + command.getCommand() + " delta=" + matchRunner.getDelta()
+					+ " amount=" + command.getValue() + " " + command);
 		}
 
 		if (command.getCommand().equals(COMMAND_MOVE)) {
 			double amount = command.consume(matchRunner.getDelta());
-
-			if (logger.isDebugEnabled()) {
-				logger.debug("move amount =" + amount);
-			}
-
 			executeMove(amount);
 		}
 
 		if (command.getCommand().equals(COMMAND_TURN)) {
 			double amount = command.consume(matchRunner.getDelta());
-			if (logger.isDebugEnabled()) {
-				logger.debug("turn amount =" + amount);
-			}
-
 			executeTurn(amount);
 		}
 
 		if (command.getCommand().equals(COMMAND_TURNGUN)) {
 			double amount = command.consume(matchRunner.getDelta());
-			if (logger.isDebugEnabled()) {
-				logger.debug("turnGUN amount =" + amount);
-			}
-
 			executeTurnGun(amount);
 		}
 
 		if (command.getCommand().equals(COMMAND_FIRE)) {
-			// the fire command is consumed at once
 			command.consumeAll();
 
 			// only if the fire cooldown is over
@@ -637,40 +631,33 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	}
 
 	/**
-	 * add a command to the commands queue only if: - if the action is not in queue
-	 * - if action already exist in the queue AND the start miliseconds is the same,
-	 * meaning that the command to insert is not the first line in the code, and the
-	 * code has several commands to insert
-	 * <p>
-	 * example: running an onfound with: turnGun() + fire() will wait for this
-	 * sequence to end until it can add a new onfound sequence.
+	 * add a command to the commands queue only if: 
+	 * 
+	 * - if the codeName is not in queue
 	 *
 	 * @param command
 	 */
 	public void addCommand(LuchadorCommand command) {
 
 		if (logger.isDebugEnabled()) {
-			logger.debug(String.format("ADD Command( %s, %s)", command.getCommand(), command.getOriginalValue()));
-			logger.debug(String.format("+++ command=%s", command));
+			logger.debug(String.format("ADD Command( %s, %s) %s", command.getCommand(), command.getOriginalValue(), command));
 		}
 
 		// check if the action is already in the queue
-		LuchadorCodeExecution action = codeExecutionQueue.get(command.getCommand());
+		LuchadorCodeExecution codeExecution = codeExecutionQueue.get(command.getCodeName());
 		if (logger.isDebugEnabled()) {
-			logger.debug(String.format("+++ current command=%s", action));
+			logger.debug(String.format("+++ current codeExecution=%s", codeExecution));
 		}
 
-		if (action == null) {
-			action = new LuchadorCodeExecution(command.getCommand(), this.start);
-			codeExecutionQueue.put(command.getCommand(), action);
-			action.getCommands().addLast(command);
+		if (codeExecution == null) {
+			codeExecution = new LuchadorCodeExecution(command.getCommand(), this.start);
+			codeExecutionQueue.put(command.getCodeName(), codeExecution);
+			codeExecution.getCommands().addLast(command);
 		} else {
-			// only add commands if the action is incomplete,
-			// and the new command is in the same execution time (aka start in
-			// milisecs)
-			if (action.getStart() == this.start) {
-				action.getCommands().add(command);
-			}
+			// TODO: NOW rewrite getCommands() to keep a queue of commands of the same type
+			// to avoid multiple execution of the same type of command, e.g. multiple move( ) at the same time
+			// would increase the luchador speed
+			codeExecution.getCommands().add(command);
 		}
 
 	}
@@ -732,12 +719,16 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		}
 	}
 
-	public void punch() {
+	// TODO: use codeName when punch is implemented
+	public void punch(String codeName) {
 		if (punchCoolDown <= 0) {
 			matchRunner.punch(this, gameComponent.getPunchDamage(), state.getX(), state.getY(), state.getAngle());
-
 			punchCoolDown = gameComponent.getPunchCoolDown();
 		}
+	}
+
+	public void fix(String codeName, int lutchador) {
+		// TODO: implement this
 	}
 
 	public void clearAllCommands() {
@@ -784,12 +775,12 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		return null;
 	}
 
-	public void onMessage(String type, String event, String message) {
+	public void onDangerMessage(String type, String event, String message) {
 		if (logger.isDebugEnabled()) {
-			logger.debug(String.format("---- add message, type=%s, event=%s, message=%s", type, event, message));
+			logger.debug(String.format("---- add DANGER message, event=%s, message=%s", event, message));
 		}
 
-		matchRunner.getOnMessage().onNext(new MessageVO(gameComponent.getId(), type, event, message));
+		matchRunner.getOnMessage().onNext(new MessageVO(gameComponent.getId(), MessageVO.DANGER, event, message));
 	}
 
 	public void onMessage(String type, String message) {
@@ -824,24 +815,25 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.state.setBodyColor(color);
 	}
 
-	public void addFire(int amount) {
+	public void addFire(String codeName, int amount) {
 		amount = cleanUpAmount(amount);
-		LuchadorCommand command = new LuchadorCommand(COMMAND_FIRE, amount, gameComponent.getMoveSpeed());
+		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_FIRE, amount, gameComponent.getMoveSpeed());
 		addCommand(command);
 	}
 
-	public void addMove(int amount) {
-		LuchadorCommand command = new LuchadorCommand(COMMAND_MOVE, amount, gameComponent.getMoveSpeed());
+	public void addMove(String codeName, int amount) {
+		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_MOVE, amount, gameComponent.getMoveSpeed());
 		addCommand(command);
 	}
 
-	public void addTurn(int amount) {
-		LuchadorCommand command = new LuchadorCommand(COMMAND_TURN, amount, gameComponent.getTurnSpeed());
+	public void addTurn(String codeName, int amount) {
+		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_TURN, amount, gameComponent.getTurnSpeed());
 		addCommand(command);
 	}
 
-	public void addTurnGun(int amount) {
-		LuchadorCommand command = new LuchadorCommand(COMMAND_TURNGUN, amount, gameComponent.getTurnGunSpeed());
+	public void addTurnGun(String codeName, int amount) {
+		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_TURNGUN, amount,
+				gameComponent.getTurnGunSpeed());
 		addCommand(command);
 	}
 
@@ -869,4 +861,5 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	public ScriptRunner getCurrentRunner() {
 		return currentRunner;
 	}
+
 }
