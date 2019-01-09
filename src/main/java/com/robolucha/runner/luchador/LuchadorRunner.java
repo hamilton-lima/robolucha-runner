@@ -49,7 +49,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private long elapsed;
 	private String lastRunningError;
 
-	private LinkedHashMap<String, LuchadorCommandAction> commands;
+	private LinkedHashMap<String, LuchadorCodeExecution> codeExecutionQueue;
 	LinkedHashMap<String, LuchadorEvent> events;
 	private Queue<MessageVO> messages;
 
@@ -60,7 +60,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	int exceptionCounter;
 
 	private LuchadorMatchState state;
-	
+
 	public boolean cleanUpStateAtTheEnd = true;
 
 	// TODO: remove this?
@@ -90,7 +90,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.halfSize = this.size / 2;
 
 		this.active = false;
-		this.commands = new LinkedHashMap<String, LuchadorCommandAction>();
+		this.codeExecutionQueue = new LinkedHashMap<String, LuchadorCodeExecution>();
 		this.events = new LinkedHashMap<String, LuchadorEvent>();
 		this.messages = new LinkedList<MessageVO>();
 
@@ -124,7 +124,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		this.active = false;
 
-		if( cleanUpStateAtTheEnd ) {
+		if (cleanUpStateAtTheEnd) {
 			this.state.score = null;
 			this.state = null;
 		}
@@ -132,11 +132,11 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.gameComponent = null;
 		this.matchRunner = null;
 
-		this.commands.clear();
+		this.codeExecutionQueue.clear();
 		this.events.clear();
 		this.messages.clear();
 
-		this.commands = null;
+		this.codeExecutionQueue = null;
 		this.events = null;
 		this.messages = null;
 
@@ -338,9 +338,11 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 * @throws NoSuchMethodException
 	 */
 	public void run(String name, Object... parameter) throws Exception {
-		if(logger.isDebugEnabled()) {
+		if (logger.isDebugEnabled()) {
 			logger.debug("Tying to run " + name + " currentRunner=" + currentRunner);
 		}
+
+		logger.info("Tying to run " + name + " currentRunner=" + currentRunner);
 
 		// TODO: control running time to deactivate luchador
 		if (currentRunner == null || currentRunner.isFinished()) {
@@ -357,7 +359,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			}
 
 			// check if Runner is already running this piece of code
-			if (commands.get(name) != null) {
+			if (codeExecutionQueue.get(name) != null) {
 				canRunCode = false;
 			}
 
@@ -518,7 +520,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		if (logger.isDebugEnabled()) {
 			logger.debug(String.format("execute turn gun, new angle : %s", newAngle));
 		}
-		
+
 		newAngle = Calc.fixAngle(newAngle);
 		if (logger.isDebugEnabled()) {
 			logger.debug(String.format("execute turn gun, after validation, new angle : %s", newAngle));
@@ -542,112 +544,94 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	public void consumeCommand() {
 		logger.debug("consumeCommand()");
 
-		if (commands.isEmpty()) {
+		if (codeExecutionQueue.isEmpty()) {
 			return;
 		}
 
-		Iterator<LuchadorCommandAction> iterator = commands.values().iterator();
-		LuchadorCommandAction action = null;
+		Iterator<LuchadorCodeExecution> iterator = codeExecutionQueue.values().iterator();
+		LuchadorCodeExecution action = null;
 
 		try {
 			action = iterator.next();
 		} catch (Exception e) {
-			logger.warn("LuchadorCommandAction changed by other thread");
-		}
-
-		if (action == null) {
+			logger.warn("LuchadorCommandAction changed by other thread, try again.");
 			return;
 		}
 
+		Iterator<LuchadorCommand> commandIterator = action.getCommands().iterator();
 		LuchadorCommand command = null;
-		if (action.getCommands().size() > 0) {
-			command = action.getCommands().getFirst();
+
+		while (commandIterator.hasNext()) {
+			command = commandIterator.next();
+			consumeComand(commandIterator, command);
 		}
 
-		// the action dont have any commands to execute, so remove from the
-		// queue
-		if (command == null) {
+		// the action dont have any commands to execute, so remove from the queue
+		if (action.getCommands().size() == 0) {
 			iterator.remove();
-		} else {
+		}
+
+	}
+
+	private void consumeComand(Iterator<LuchadorCommand> iterator, LuchadorCommand command) {
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("*** command found=" + command);
+			logger.debug("*** delta=" + matchRunner.getDelta());
+			logger.debug("*** amount=" + command.getValue());
+		}
+
+		if (command.getCommand().equals(COMMAND_MOVE)) {
+			double amount = command.consume(matchRunner.getDelta());
 
 			if (logger.isDebugEnabled()) {
-				logger.debug("*** command found=" + command);
-				logger.debug("*** delta=" + matchRunner.getDelta());
-				logger.debug("*** amount=" + command.getValue());
+				logger.debug("move amount =" + amount);
 			}
 
-			if (command.getCommand().equals(COMMAND_MOVE)) {
+			executeMove(amount);
+		}
 
-				double amount = command.consume(matchRunner.getDelta());
-
-				if (logger.isDebugEnabled()) {
-					logger.debug("move amount =" + amount);
-				}
-
-				executeMove(amount);
-
-				if (command.empty()) {
-					if (logger.isDebugEnabled()) {
-						logger.debug("command empty");
-					}
-					action.getCommands().removeFirst();
-				}
-				return;
+		if (command.getCommand().equals(COMMAND_TURN)) {
+			double amount = command.consume(matchRunner.getDelta());
+			if (logger.isDebugEnabled()) {
+				logger.debug("turn amount =" + amount);
 			}
 
-			if (command.getCommand().equals(COMMAND_TURN)) {
-				double amount = command.consume(matchRunner.getDelta());
-				if (logger.isDebugEnabled()) {
-					logger.debug("turn amount =" + amount);
-				}
+			executeTurn(amount);
+		}
 
-				executeTurn(amount);
-
-				if (command.empty()) {
-					if (logger.isDebugEnabled()) {
-						logger.debug("command empty");
-					}
-					action.getCommands().removeFirst();
-				}
-				return;
+		if (command.getCommand().equals(COMMAND_TURNGUN)) {
+			double amount = command.consume(matchRunner.getDelta());
+			if (logger.isDebugEnabled()) {
+				logger.debug("turnGUN amount =" + amount);
 			}
 
-			if (command.getCommand().equals(COMMAND_TURNGUN)) {
-				double amount = command.consume(matchRunner.getDelta());
-				if (logger.isDebugEnabled()) {
-					logger.debug("turnGUN amount =" + amount);
-				}
+			executeTurnGun(amount);
+		}
 
-				executeTurnGun(amount);
+		if (command.getCommand().equals(COMMAND_FIRE)) {
+			// the fire command is consumed at once
+			command.consumeAll();
 
-				if (command.empty()) {
-					if (logger.isDebugEnabled()) {
-						logger.debug("command empty");
-					}
-					action.getCommands().removeFirst();
-				}
-				return;
+			// only if the fire cooldown is over
+			if (fireCoolDown <= 0) {
+
+				Bullet bullet = new Bullet(matchRunner.getGameDefinition(), this, command.getOriginalValue(),
+						state.getX(), state.getY(), state.getGunAngle());
+
+				matchRunner.fire(bullet);
+
+				// starts the timer for the firecooldown
+				fireCoolDown = gameComponent.getMaxFireCooldown()
+						* (bullet.getAmount() / gameComponent.getMaxFireAmount());
 			}
+		}
 
-			if (command.getCommand().equals(COMMAND_FIRE)) {
-
-				// only if the fire cooldown is over
-				if (fireCoolDown <= 0) {
-
-					Bullet bullet = new Bullet(matchRunner.getGameDefinition(), this, command.getOriginalValue(),
-							state.getX(), state.getY(), state.getGunAngle());
-
-					matchRunner.fire(bullet);
-
-					// remove the fire from the command list, dont need to consume
-					// the command, the amount is aplied all at once
-					action.getCommands().removeFirst();
-
-					// starts the timer for the firecooldown
-					fireCoolDown = gameComponent.getMaxFireCooldown()
-							* (bullet.getAmount() / gameComponent.getMaxFireAmount());
-				}
+		if (command.empty()) {
+			if (logger.isDebugEnabled()) {
+				logger.debug("command empty");
 			}
+			iterator.remove();
 		}
 
 	}
@@ -671,14 +655,14 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		}
 
 		// check if the action is already in the queue
-		LuchadorCommandAction action = commands.get(command.getCommand());
+		LuchadorCodeExecution action = codeExecutionQueue.get(command.getCommand());
 		if (logger.isDebugEnabled()) {
 			logger.debug(String.format("+++ current command=%s", action));
 		}
 
 		if (action == null) {
-			action = new LuchadorCommandAction(command.getCommand(), this.start);
-			commands.put(command.getCommand(), action);
+			action = new LuchadorCodeExecution(command.getCommand(), this.start);
+			codeExecutionQueue.put(command.getCommand(), action);
 			action.getCommands().addLast(command);
 		} else {
 			// only add commands if the action is incomplete,
@@ -692,10 +676,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	}
 
 	public void clearCommand(String prefix) {
-		Iterator<String> iterator = commands.keySet().iterator();
+		Iterator<String> iterator = codeExecutionQueue.keySet().iterator();
 		while (iterator.hasNext()) {
 			String key = iterator.next();
-			LuchadorCommandAction action = commands.get(key);
+			LuchadorCodeExecution action = codeExecutionQueue.get(key);
 			action.clear(prefix);
 		}
 	}
@@ -757,7 +741,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	}
 
 	public void clearAllCommands() {
-		commands.clear();
+		codeExecutionQueue.clear();
 	}
 
 	public void say(String message) {

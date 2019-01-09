@@ -154,4 +154,8 @@ public class LuchadorCommand {
 				+ ", direction=" + direction + ", speed=" + speed + "]";
 	}
 
+	public void consumeAll() {
+		value = 0;
+	}
+
 }

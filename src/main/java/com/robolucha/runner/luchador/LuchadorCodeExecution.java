@@ -3,13 +3,13 @@ package com.robolucha.runner.luchador;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class LuchadorCommandAction {
+public class LuchadorCodeExecution {
 
 	private String name;
 	private long start;
 	private LinkedList<LuchadorCommand> commands;
 
-	public LuchadorCommandAction(String name, long start) {
+	public LuchadorCodeExecution(String name, long start) {
 		this.name = name;
 		this.commands = new LinkedList<LuchadorCommand>();
 		this.start = start;
