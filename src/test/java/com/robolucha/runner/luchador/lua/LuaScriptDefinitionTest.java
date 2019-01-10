@@ -14,10 +14,12 @@ import static org.junit.Assert.*;
 public class LuaScriptDefinitionTest {
 
 	LuaScriptDefinition definition;
+	ScriptFacade facade;
 
 	@Before
 	public void setup() {
 		definition = new LuaScriptDefinition();
+		facade = definition.buildFacade(null, "test");
 	}
 
 	@Test
@@ -54,7 +56,7 @@ public class LuaScriptDefinitionTest {
 		definition.eval(start);
 		definition.eval(nop);
 
-		definition.run("nop");
+		definition.run(facade, "nop");
 
 		assertEquals("OMG", definition.getString("return a"));
 	}
@@ -70,7 +72,7 @@ public class LuaScriptDefinitionTest {
 
 		PublicSharedData data = new PublicSharedData();
 		data.stringValue = "hey";
-		definition.run("one", data);
+		definition.run(facade,"one", data);
 
 		assertEquals("hey", definition.getString("return a"));
 	}
@@ -85,7 +87,7 @@ public class LuaScriptDefinitionTest {
 
 		PublicSharedData data = new PublicSharedData();
 		data.stringValue = "hey";
-		definition.run("two", data, 42);
+		definition.run(facade, "two", data, 42);
 
 		assertEquals("hey", definition.getString("return a"));
 		assertEquals(42, definition.getInt("return b"));
@@ -103,7 +105,7 @@ public class LuaScriptDefinitionTest {
 		data.stringValue = "hey";
 		data.doubleValue = 12.8;
 
-		definition.run("three", data, 42, 12.8);
+		definition.run(facade, "three", data, 42, 12.8);
 
 		assertEquals("hey", definition.getString("return a"));
 		assertEquals(42, definition.getInt("return b"));
@@ -123,7 +125,7 @@ public class LuaScriptDefinitionTest {
 		data.doubleValue = 12.8;
 
 		try {
-			definition.run("four", data, 42, 12.8, 1);
+			definition.run(facade, "four", data, 42, 12.8, 1);
 			fail("This should generate an exception");
 		} catch (Exception e) {
 
@@ -143,11 +145,11 @@ public class LuaScriptDefinitionTest {
 
 	private class LuaFacadeLocal extends LuaFacade {
 
-		private int amount;
-
-		public LuaFacadeLocal(LuchadorRunner owner) {
-			super(owner);
+		public LuaFacadeLocal(LuchadorRunner owner, String codeName) {
+			super(owner, codeName);
 		}
+
+		private int amount;
 
 		@Override
 		public void move(int amount) {
@@ -157,20 +159,8 @@ public class LuaScriptDefinitionTest {
 	}
 
 	@Test
-	public void testAddFacade() throws Exception {
-		LuaFacadeLocal facade = new LuaFacadeLocal(null);
-		definition.loadDefaultLibraries();
-		definition.addFacade(facade);
-		definition.eval("move(10)");
-		assertEquals(10, facade.amount);
-	}
-
-	@Test
 	public void testLoadDefaultLibraries() throws Exception {
-		LuaFacadeLocal facade = new LuaFacadeLocal(null);
 		definition.loadDefaultLibraries();
-		definition.addFacade(facade);
-		
 		assertEquals("#FAA21D", definition.getString("return NMSColor.TANGERINE"));
 	}
 

@@ -26,7 +26,7 @@
           "id": 0,
           "event": "onRepeat",
           "version": 1,
-          "script": "move(20)\nfire(3)"
+          "script": "move(400)"
         },
         {
           "id": 0,
@@ -42,7 +42,7 @@
       "energy": 30,
       "punchDamage": 2,
       "punchCoolDown": 2,
-      "moveSpeed": 50,
+      "moveSpeed": 200,
       "turnSpeed": 180,
       "turnGunSpeed": 60,
       "respawnCooldown": 10,

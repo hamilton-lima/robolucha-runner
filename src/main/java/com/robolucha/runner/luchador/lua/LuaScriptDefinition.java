@@ -1,16 +1,14 @@
 package com.robolucha.runner.luchador.lua;
 
-import com.robolucha.models.Code;
+import java.util.HashMap;
+
+import org.luaj.vm2.LuaFunction;
+import org.luaj.vm2.lib.jse.CoerceJavaToLua;
+
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.MethodDefinition;
 import com.robolucha.runner.luchador.MethodNames;
 import com.robolucha.runner.luchador.ScriptDefinition;
-import org.luaj.vm2.LuaFunction;
-import org.luaj.vm2.lib.jse.CoerceJavaToLua;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class LuaScriptDefinition implements ScriptDefinition {
 
@@ -108,12 +106,6 @@ public class LuaScriptDefinition implements ScriptDefinition {
 	@Override
 	public ScriptFacade buildFacade(LuchadorRunner luchadorRunner, String codeName) {
 		return new LuaFacade(luchadorRunner, codeName);
-	}
-
-	@Override
-	public void addFacade(ScriptFacade facade) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -281,6 +281,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	}
 
 	void eval(String name, String script) throws Exception {
+		logger.debug(">> eval name="+ name + "script=" + script);
 		scriptDefinition.eval(script);
 	}
 
@@ -348,10 +349,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 */
 	public void run(String codeName, Object... parameter) throws Exception {
 		if (logger.isDebugEnabled()) {
-			logger.debug("Tying to run " + codeName + " currentRunner=" + currentRunner);
+			logger.debug("Trying to run " + codeName + " currentRunner=" + currentRunner);
 		}
-
-		logger.info("Tying to run " + codeName + " currentRunner=" + currentRunner);
 
 		// TODO: control running time to deactivate luchador
 		if (currentRunner == null || currentRunner.isFinished()) {

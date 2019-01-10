@@ -24,8 +24,6 @@ public interface ScriptDefinition {
 
 	void loadDefaultLibraries() throws Exception;
 
-	void addFacade(ScriptFacade facade);
-
 	ScriptFacade buildFacade(LuchadorRunner luchadorRunner, String codeName);
 
 }

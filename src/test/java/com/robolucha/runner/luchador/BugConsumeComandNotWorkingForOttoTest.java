@@ -41,6 +41,8 @@ public class BugConsumeComandNotWorkingForOttoTest {
 				int xCloseToTheWall = match.getGameDefinition().getArenaWidth()
 						- match.getGameDefinition().getLuchadorSize() - 1;
 
+				logger.debug("set otto close to the wall" + xCloseToTheWall );
+				ottoRunner.getState().setAngle(0);
 				ottoRunner.getState().setX(xCloseToTheWall);
 				ottoRunner.getState().setY(100);
 
