@@ -1,17 +1,16 @@
 package com.robolucha.runner.luchador;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.LinkedHashMap;
 
 public class LuchadorCodeExecution {
 
 	private String codeName;
 	private long start;
-	private LinkedList<LuchadorCommand> commands;
+	private LinkedHashMap<String, LuchadorCommandQueue> commands;
 
 	public LuchadorCodeExecution(String codeName, long start) {
 		this.codeName = codeName;
-		this.commands = new LinkedList<LuchadorCommand>();
+		this.commands = new LinkedHashMap<String, LuchadorCommandQueue>();
 		this.start = start;
 	}
 
@@ -19,7 +18,7 @@ public class LuchadorCodeExecution {
 		return codeName;
 	}
 
-	public LinkedList<LuchadorCommand> getCommands() {
+	public LinkedHashMap<String, LuchadorCommandQueue> getCommands() {
 		return commands;
 	}
 
@@ -27,16 +26,18 @@ public class LuchadorCodeExecution {
 		return start;
 	}
 
-	public void clear(String prefix) {
-		Iterator<LuchadorCommand> iterator = commands.iterator();
-		while (iterator.hasNext()) {
-			LuchadorCommand command = iterator.next();
+	public void clear(String commandName) {
+		commands.remove(commandName);
+	}
 
-			if (command.getKey().startsWith(prefix)) {
-				iterator.remove();
-			}
-
+	public void add(LuchadorCommand command) {
+		LuchadorCommandQueue queue = commands.get(command.getCommand());
+		if (queue == null) {
+			queue = new LuchadorCommandQueue(command.getCommand());
+			commands.put(command.getCommand(), queue);
 		}
+
+		queue.add(command);
 	}
 
 	@Override

@@ -28,7 +28,7 @@ class LuchadorEventHandler extends Thread {
 		this.event = event;
 		this.eventListeners = eventListeners.toArray();
 
-		logger.debug("lutchador event handler iniciado : " + event);
+		logger.debug("Event handler started: " + event);
 	}
 
 	public void run() {

@@ -14,54 +14,58 @@ import com.robolucha.support.DefaultGameDefinitionFileCreator;
 public class MockMatchRunner {
 	static Match match = new Match();
 
-    static class MatchStatePublisherSilent extends MatchStatePublisher {
-        public MatchStatePublisherSilent() {
-            super(match, new RemoteQueue(Config.getInstance()));
-        }
+	static class MatchStatePublisherSilent extends MatchStatePublisher {
+		public MatchStatePublisherSilent() {
+			super(match, new RemoteQueue(Config.getInstance()));
+		}
 
-        @Override
-        public void update(MatchRunner matchRunner) throws Exception {
-        }
+		@Override
+		public void update(MatchRunner matchRunner) throws Exception {
+		}
 
-        @Override
-        public void publish(MatchRunStateVO vo) {
-        }
+		@Override
+		public void publish(MatchRunStateVO vo) {
+		}
 
-    }
+	}
 
-    public static MatchRunner build() {
-        GameDefinition gameDefinition = new GameDefinition();
-        gameDefinition.setDuration(1000);
+	public static MatchRunner build() {
+		return build(1000);
+	}
 
-        Match match = new Match();
-        MatchRunner runner = new MatchRunner(gameDefinition, match);
+	public static MatchRunner build(int duration) {
+		GameDefinition gameDefinition = new GameDefinition();
+		gameDefinition.setDuration(1000);
 
-        runner.setPublisher(new MatchStatePublisherSilent());
-        return runner;
-    }
+		Match match = new Match();
+		MatchRunner runner = new MatchRunner(gameDefinition, match);
 
-    public static MatchRunner buildWithDefaultLuchador() {
-        GameDefinition gameDefinition = new GameDefinition();
-        gameDefinition.setDuration(1000);
-        
-        DefaultGameDefinitionFileCreator.addGameComponent(gameDefinition);
+		runner.setPublisher(new MatchStatePublisherSilent());
+		return runner;
+	}
 
-        Match match = new Match();
-        MatchRunner runner = new MatchRunner(gameDefinition, match);
+	public static MatchRunner buildWithDefaultLuchador() {
+		GameDefinition gameDefinition = new GameDefinition();
+		gameDefinition.setDuration(1000);
 
-        runner.setPublisher(new MatchStatePublisherSilent());
-        
-        runner.addListener(new OnInitAddNPC());
+		DefaultGameDefinitionFileCreator.addGameComponent(gameDefinition);
+
+		Match match = new Match();
+		MatchRunner runner = new MatchRunner(gameDefinition, match);
+
+		runner.setPublisher(new MatchStatePublisherSilent());
+
+		runner.addListener(new OnInitAddNPC());
 		runner.getOnInit().onNext(new MatchInitVO(System.currentTimeMillis()));
 		runner.getOnInit().onComplete();
-        
-		return runner;
-    }
 
-    public static void start(MatchRunner runner) {
-        Thread t = new Thread(runner);
-        t.start();
-        // runner.getOnMatchStart().blockingFirst();
-    }
+		return runner;
+	}
+
+	public static void start(MatchRunner runner) {
+		Thread t = new Thread(runner);
+		t.start();
+		// runner.getOnMatchStart().blockingFirst();
+	}
 
 }

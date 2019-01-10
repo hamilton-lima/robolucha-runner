@@ -23,7 +23,7 @@ public class LuaScriptDefinition implements ScriptDefinition {
 	public LuaScriptDefinition() {
 		methods = new HashMap<String, MethodDefinition>();
 
-		addMethod(MethodNames.START, "", "");
+		addMethod(MethodNames.START, "function onStart()\n", "\nend");
 		addMethod(MethodNames.REPEAT, "function onRepeat()\n", "\nend");
 		addMethod(MethodNames.ON_HIT_WALL, "function onHitWall()\n", "\nend");
 		addMethod(MethodNames.ON_HIT_OTHER, "function onHitOther(other)\n", "\nend");

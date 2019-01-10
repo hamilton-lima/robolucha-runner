@@ -32,6 +32,7 @@ public class LuchadorCommand {
 		}
 	}
 
+	// TODO should the key contain direction now? with the implementation of the LuchadorCommandQueue?
 	public String getKey() {
 		return this.command + "." + this.direction;
 	}

@@ -14,6 +14,7 @@ import com.robolucha.event.GeneralEventHandler;
 import com.robolucha.event.GeneralEventManager;
 import com.robolucha.game.event.LuchadorEvent;
 import com.robolucha.game.event.OnHitWallEvent;
+import com.robolucha.game.event.OnStartEvent;
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.LuchadorCodeChangeListener;
 import com.robolucha.models.Bullet;
@@ -120,6 +121,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		// listen to luchador name change
 		GeneralEventManager.getInstance().addHandler(ConstEvents.LUCHADOR_NAME_CHANGE, this);
+		addEvent(new OnStartEvent(getState().getPublicState()));
 	}
 
 	// used for tests only
@@ -281,7 +283,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	}
 
 	void eval(String name, String script) throws Exception {
-		logger.debug(">> eval name="+ name + "script=" + script);
+		logger.debug(">> eval name=" + name + " script=" + script);
 		scriptDefinition.eval(script);
 	}
 
@@ -541,7 +543,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		int counter = 0;
 		LuchadorEvent event = getTopEvent();
+		logger.info("TTT triggerEvents " + event);
 		while (event != null && counter < MAX_EVENTS_PER_TICK) {
+
+			logger.info("TTT triggerEvents (2)" + event);
 			matchRunner.addLuchadorEvent(event);
 			run(event.getJavascriptMethod(), event.getMethodParameters());
 			event = getTopEvent();
@@ -553,38 +558,48 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		logger.debug("consumeCommand()");
 
 		if (codeExecutionQueue.isEmpty()) {
+			logger.debug("consumeCommand() codeExecutionQueue empty");
 			return;
 		}
 
 		Iterator<LuchadorCodeExecution> iterator = codeExecutionQueue.values().iterator();
-		LuchadorCodeExecution action = null;
+		LuchadorCodeExecution codeExecution = null;
 
 		try {
-			action = iterator.next();
+			codeExecution = iterator.next();
 		} catch (Exception e) {
 			logger.warn("Error reading the first LuchadorCodeExecution, try again.");
 			return;
 		}
 
-		Iterator<LuchadorCommand> commandIterator = action.getCommands().iterator();
-		LuchadorCommand command = null;
+		logger.debug("consumeCommand() action" + codeExecution );
+
+		Iterator<LuchadorCommandQueue> commandIterator = codeExecution.getCommands().values().iterator();
+		LuchadorCommandQueue command = null;
 
 		while (commandIterator.hasNext()) {
 			command = commandIterator.next();
-			consumeComand(commandIterator, command);
+			consumeCommand(commandIterator, command);
 		}
 
 		// the action dont have any commands to execute, so remove from the queue
-		if (action.getCommands().size() == 0) {
+		if (codeExecution.getCommands().size() == 0) {
 			iterator.remove();
 		}
 
 	}
 
-	private void consumeComand(Iterator<LuchadorCommand> iterator, LuchadorCommand command) {
+	private void consumeCommand(Iterator<LuchadorCommandQueue> iterator, LuchadorCommandQueue commandQueue) {
+		LuchadorCommand command = commandQueue.getFirst();
+
+		// The queue is empty 
+		if( command == null ) {
+			iterator.remove();
+			return;
+		}
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("consumeComand( ) : command=" + command.getCommand() + " delta=" + matchRunner.getDelta()
+			logger.debug("consumeCommand() : command=" + command.getCommand() + " delta=" + matchRunner.getDelta()
 					+ " amount=" + command.getValue() + " " + command);
 		}
 
@@ -624,13 +639,13 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			if (logger.isDebugEnabled()) {
 				logger.debug("command empty");
 			}
-			iterator.remove();
+			commandQueue.remove(command);
 		}
 
 	}
 
 	/**
-	 * add a command to the commands queue only if: 
+	 * add a command to the commands queue only if:
 	 * 
 	 * - if the codeName is not in queue
 	 *
@@ -639,7 +654,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	public void addCommand(LuchadorCommand command) {
 
 		if (logger.isDebugEnabled()) {
-			logger.debug(String.format("ADD Command( %s, %s) %s", command.getCommand(), command.getOriginalValue(), command));
+			logger.debug(String.format("ADD Command( %s, %s) %s", command.getCommand(), command.getOriginalValue(),
+					command));
 		}
 
 		// check if the action is already in the queue
@@ -649,16 +665,11 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		}
 
 		if (codeExecution == null) {
-			codeExecution = new LuchadorCodeExecution(command.getCommand(), this.start);
+			codeExecution = new LuchadorCodeExecution(command.getCodeName(), this.start);
 			codeExecutionQueue.put(command.getCodeName(), codeExecution);
-			codeExecution.getCommands().addLast(command);
-		} else {
-			// TODO: NOW rewrite getCommands() to keep a queue of commands of the same type
-			// to avoid multiple execution of the same type of command, e.g. multiple move( ) at the same time
-			// would increase the luchador speed
-			codeExecution.getCommands().add(command);
 		}
-
+		
+		codeExecution.add(command);
 	}
 
 	public void clearCommand(String prefix) {
