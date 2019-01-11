@@ -17,6 +17,9 @@ public class LuchadorCommandQueue {
 	}
 
 	public LuchadorCommand getFirst() {
+		if(commands.isEmpty()) {
+			return null;
+		}
 		return commands.getFirst();
 	}
 

@@ -543,10 +543,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		int counter = 0;
 		LuchadorEvent event = getTopEvent();
-		logger.info("TTT triggerEvents " + event);
+		logger.debug("TriggerEvents " + event);
 		while (event != null && counter < MAX_EVENTS_PER_TICK) {
 
-			logger.info("TTT triggerEvents (2)" + event);
+			logger.debug("TriggerEvents (2)" + event);
 			matchRunner.addLuchadorEvent(event);
 			run(event.getJavascriptMethod(), event.getMethodParameters());
 			event = getTopEvent();
