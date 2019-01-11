@@ -63,7 +63,7 @@ public class MethodBuilder {
 			try {
 				runner.eval(key, createdSourceCode);
 			} catch (Exception e) {
-				String message = "error compiling code code.id=" + codeId + " gamecomponent.id="
+				String message = "Error compiling code code.id=" + codeId + " gamecomponent.id="
 						+ runner.getGameComponent().getId();
 
 				if (logger.isDebugEnabled()) {

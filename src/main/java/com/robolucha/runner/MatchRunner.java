@@ -386,7 +386,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		LuchadorRunner runner = null;
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("runallactive : runners.size() = " + runners.size());
+			logger.debug("runallactive : runners.size() = " + runners.size() + " action=" + action);
 		}
 
 		LuchadorRunner[] localRunners = new LuchadorRunner[runners.values().size()];

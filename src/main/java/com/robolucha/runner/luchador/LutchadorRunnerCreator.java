@@ -9,6 +9,7 @@ import com.robolucha.models.GameComponent;
 import com.robolucha.models.Luchador;
 import com.robolucha.models.MaskConfig;
 import com.robolucha.models.MaskConfigVO;
+import com.robolucha.models.MatchEvent;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
@@ -121,6 +122,8 @@ public class LutchadorRunnerCreator implements Runnable {
 		if (logger.isDebugEnabled()) {
 			logger.info(" runner=" + runner);
 		}
+		
+		runner.run(MethodNames.START);
 
 		owner.getRunners().put(runner.getGameComponent().getId(), runner);
 	}

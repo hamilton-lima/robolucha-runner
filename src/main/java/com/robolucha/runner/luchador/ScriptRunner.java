@@ -1,5 +1,7 @@
 package com.robolucha.runner.luchador;
 
+import java.util.Arrays;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -11,7 +13,6 @@ public class ScriptRunner implements Runnable {
 
 	private Object[] parameter;
 	private String codeName;
-	private String currentName;
 	private LuchadorRunner runner;
 	private boolean finished;
 
@@ -22,11 +23,12 @@ public class ScriptRunner implements Runnable {
 		this.finished = false;
 	}
 
-	//TODO: Add observable to track time and end of the execution
+	// TODO: Add observable to track time and end of the execution
 
 	@Override
 	public void run() {
-		Thread.currentThread().setName("ScriptRunner-Thread-GameComponentID-" + runner.getGameComponent().getId() + "-"+ codeName);
+		Thread.currentThread()
+				.setName("ScriptRunner-Thread-GameComponentID-" + runner.getGameComponent().getId() + "-" + codeName);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("START run(" + codeName + "," + parameter + ")");
@@ -39,14 +41,13 @@ public class ScriptRunner implements Runnable {
 
 		try {
 			start = System.currentTimeMillis();
-			currentName = codeName;
 			if (logger.isDebugEnabled()) {
 				logger.debug("== running code " + codeName + "()");
 			}
 
 			ScriptFacade facade = runner.getScriptDefinition().buildFacade(runner, codeName);
 			runner.getScriptDefinition().run(facade, codeName, parameter);
-			
+
 		} catch (Exception e) {
 			String message = "server.exception.error.running=run(" + codeName + "," + parameter + ") " + e.getMessage();
 			if (logger.isDebugEnabled()) {
@@ -69,22 +70,23 @@ public class ScriptRunner implements Runnable {
 		}
 
 		logger.debug("END run(), result=" + result);
-
 		elapsed = System.currentTimeMillis() - start;
-		currentName = null;
-
-		this.codeName = null;
-		this.parameter = null;
-		this.runner = null;
 		finished = true;
 	}
 
-	public String getCurrentName() {
-		return currentName;
-	}
-	
 	public boolean isFinished() {
 		return finished;
+	}
+
+	@Override
+	public String toString() {
+		String luchadorName = null;
+		if (runner != null && runner.getGameComponent() != null) {
+			luchadorName = runner.getGameComponent().getName();
+		}
+
+		return "ScriptRunner [codeName=" + codeName + ", luchadorName=" + luchadorName + ", finished=" + finished
+				+ ", parameter=" + Arrays.toString(parameter) + "]";
 	}
 
 }

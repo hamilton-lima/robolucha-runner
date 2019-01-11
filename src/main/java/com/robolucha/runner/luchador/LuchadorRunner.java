@@ -76,14 +76,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public boolean cleanUpStateAtTheEnd = true;
 
-	// TODO: remove this?
-	private String getCurrentRunningCodeName() {
-		if (currentRunner != null) {
-			return currentRunner.getCurrentName();
-		}
-		return "";
-	}
-
 	private MatchRunner matchRunner;
 	private double fireCoolDown;
 	private double punchCoolDown;
@@ -121,7 +113,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		// listen to luchador name change
 		GeneralEventManager.getInstance().addHandler(ConstEvents.LUCHADOR_NAME_CHANGE, this);
-		addEvent(new OnStartEvent(getState().getPublicState()));
 	}
 
 	// used for tests only
@@ -361,11 +352,16 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			boolean canRunCode = true;
 			for (Code code : getGameComponent().getCodes()) {
 				if (code.getEvent().equals(codeName)) {
-					if (code.getException() != null) {
+					if (code.getException() != null 
+							&& code.getException().trim().length() > 0) {
 						canRunCode = false;
 						break;
 					}
 				}
+			}
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("Trying to run " + codeName + ", code exception, canRunCode=" + canRunCode);
 			}
 
 			// check if Runner is already running this piece of code
@@ -373,10 +369,19 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 				canRunCode = false;
 			}
 
+			if (logger.isDebugEnabled()) {
+				logger.debug(
+						"Trying to run " + codeName + ", search in the code execution queue, canRunCode=" + canRunCode);
+			}
+
 			if (canRunCode) {
 				currentRunner = new ScriptRunner(this, codeName, parameter);
 				Thread thread = new Thread(currentRunner);
 				thread.start();
+			}
+		} else {
+			if (logger.isDebugEnabled()) {
+				logger.debug("current runner exists and is still BUSY, currentRunner=" + currentRunner);
 			}
 		}
 	}
@@ -572,7 +577,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			return;
 		}
 
-		logger.debug("consumeCommand() action" + codeExecution );
+		logger.debug("consumeCommand() action" + codeExecution);
 
 		Iterator<LuchadorCommandQueue> commandIterator = codeExecution.getCommands().values().iterator();
 		LuchadorCommandQueue command = null;
@@ -592,8 +597,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private void consumeCommand(Iterator<LuchadorCommandQueue> iterator, LuchadorCommandQueue commandQueue) {
 		LuchadorCommand command = commandQueue.getFirst();
 
-		// The queue is empty 
-		if( command == null ) {
+		// The queue is empty
+		if (command == null) {
 			iterator.remove();
 			return;
 		}
@@ -668,7 +673,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			codeExecution = new LuchadorCodeExecution(command.getCodeName(), this.start);
 			codeExecutionQueue.put(command.getCodeName(), codeExecution);
 		}
-		
+
 		codeExecution.add(command);
 	}
 

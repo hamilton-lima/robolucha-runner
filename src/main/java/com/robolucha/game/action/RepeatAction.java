@@ -18,7 +18,7 @@ public class RepeatAction implements GameAction {
 	public void run(LinkedHashMap<Long, LuchadorRunner> runners,
 			LuchadorRunner runner) throws Exception {
 		
-		logger.debug( getName() + ", lutchador=" + runner.getGameComponent().getId());
+		logger.debug( getName() + ", lutchador=" + runner.getGameComponent().getName());
 		runner.run(getName());
 	}
 
