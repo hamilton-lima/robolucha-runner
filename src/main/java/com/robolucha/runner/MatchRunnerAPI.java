@@ -48,7 +48,7 @@ public class MatchRunnerAPI {
 		return null;
 		// throw new RuntimeException("not implemented");
 	}
-	
+
 	public MatchScore findScore(Match match, GameComponent gameComponent) throws Exception {
 		throw new RuntimeException("not implemented");
 	}
@@ -92,19 +92,24 @@ public class MatchRunnerAPI {
 
 	public Luchador findLuchadorById(Long luchadorID) throws Exception {
 		MainLuchador luchadorFromAPI = apiInstance.internalLuchadorGet(luchadorID.intValue());
+		return mapLuchadorAPI2Bean(luchadorFromAPI);
+	}
 
+	public Luchador mapLuchadorAPI2Bean(MainLuchador input) throws Exception {
 		// build luchador
 		Luchador luchador = new Luchador();
-		luchador.setId(luchadorFromAPI.getId());
-		luchador.setName(luchadorFromAPI.getName());
+		luchador.setId(input.getId());
+		luchador.setName(input.getName());
 
-		// copy code objects
-		Iterator<MainCode> iterator = luchadorFromAPI.getCodes().iterator();
-		while (iterator.hasNext()) {
-			MainCode codeFromAPI = iterator.next();
-			Code code = new Code();
-			BeanUtils.copyProperties(code, codeFromAPI);
-			luchador.getCodes().add(code);
+		if (input.getCodes() != null) {
+			// copy code objects
+			Iterator<MainCode> iterator = input.getCodes().iterator();
+			while (iterator.hasNext()) {
+				MainCode codeFromAPI = iterator.next();
+				Code code = new Code();
+				BeanUtils.copyProperties(code, codeFromAPI);
+				luchador.getCodes().add(code);
+			}
 		}
 
 		return luchador;

@@ -37,14 +37,12 @@ public class Server {
         addRunTimeHook();
         configAPIClient();
 
-
         GameDefinition gameDefinition = loadGameDefinition(args[0]);
         ThreadMonitor threadMonitor = ThreadMonitor.getInstance();
 
-        Match match = MatchRunnerAPI.getInstance().createMatch(gameDefinition);
-        MatchRunner runner = new MatchRunner(gameDefinition, match);
-
         RemoteQueue queue = new RemoteQueue(Config.getInstance());
+        Match match = MatchRunnerAPI.getInstance().createMatch(gameDefinition);
+        MatchRunner runner = new MatchRunner(gameDefinition, match, queue);
         MatchStatePublisher publisher = new MatchStatePublisher(match, queue);
 
         Thread thread = buildRunner(runner, queue, threadMonitor, publisher);

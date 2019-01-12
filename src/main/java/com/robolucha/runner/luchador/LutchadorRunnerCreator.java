@@ -5,12 +5,14 @@ import java.util.Queue;
 
 import org.apache.log4j.Logger;
 
+import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.GameComponent;
 import com.robolucha.models.Luchador;
 import com.robolucha.models.MaskConfig;
 import com.robolucha.models.MaskConfigVO;
 import com.robolucha.models.MatchEvent;
 import com.robolucha.models.MatchParticipant;
+import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
 import com.robolucha.runner.luchador.mask.MaskGenerator;
@@ -30,11 +32,14 @@ public class LutchadorRunnerCreator implements Runnable {
 	private Thread thread;
 	private boolean alive;
 	private String name;
+	private RemoteQueue queue;
 
 	// private GameComponent gameComponent;
 
-	public LutchadorRunnerCreator(MatchRunner owner) {
+	public LutchadorRunnerCreator(MatchRunner owner, RemoteQueue queue) {
 		this.owner = owner;
+		this.queue = queue;
+		
 		this.alive = true;
 		this.gameComponents = new LinkedList<GameComponent>();
 		this.name = "LutchadorRunnerCreator-Thread-" + owner.getMatch().getId();
@@ -117,6 +122,8 @@ public class LutchadorRunnerCreator implements Runnable {
 		}
 
 		LuchadorRunner runner = new LuchadorRunner(gameComponent, this.owner, mask);
+		LuchadorUpdateListener.listen(queue, runner);
+		
 		logger.info(">>>>>>>>> LUCHADOR runner created: " + runner.getGameComponent().getName());
 
 		if (logger.isDebugEnabled()) {

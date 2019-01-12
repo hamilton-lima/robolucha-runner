@@ -5,7 +5,7 @@ import io.reactivex.Observable;
 public class MockRemoteQueue extends RemoteQueue {
     public Object lastPublished;
 
-    MockRemoteQueue() {
+    public MockRemoteQueue() {
     }
 
     @Override

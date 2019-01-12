@@ -30,13 +30,16 @@ import com.robolucha.game.processor.RespawnProcessor;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.JoinMatchListener;
+import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.Bullet;
 import com.robolucha.models.GameComponent;
 import com.robolucha.models.GameDefinition;
+import com.robolucha.models.Luchador;
 import com.robolucha.models.Match;
 import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.monitor.ThreadStatus;
 import com.robolucha.publisher.MatchStatePublisher;
+import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.LutchadorRunnerCreator;
 
@@ -97,7 +100,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return eventHandler;
 	}
 
-	public MatchRunner(GameDefinition gamedefinition, Match match) {
+	public MatchRunner(GameDefinition gamedefinition, Match match, RemoteQueue queue) {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
 		status = ThreadStatus.STARTING;
@@ -129,7 +132,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		bulletsProcessor = new BulletsProcessor(this, bullets);
 
 		eventHandler = new MatchEventHandler(this, threadName);
-		luchadorCreator = new LutchadorRunnerCreator(this);
+		luchadorCreator = new LutchadorRunnerCreator(this, queue);
 
 		onMatchStart = PublishSubject.create();
 		onMatchEnd = PublishSubject.create();
@@ -198,7 +201,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		// TODO: add observable to the init procedures
 		// getOnInit()... is it completed?
 
-		 
 		mainLoop();
 	}
 
@@ -298,7 +300,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			}
 
 		}
-		
+
 		onMatchEnd.onNext(new MatchEventVOEnd());
 		onMatchEnd.onComplete();
 
@@ -318,9 +320,11 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		eventHandler.cleanup();
 		luchadorCreator.cleanup();
-		if( joinListener != null ) {
+		
+		if (joinListener != null) {
 			joinListener.dispose();
 		}
+		
 		cleanup();
 	}
 
@@ -632,4 +636,5 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	public PublishSubject<MatchInitVO> getOnInit() {
 		return onInit;
 	}
+
 }

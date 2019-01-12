@@ -14,9 +14,8 @@ import com.robolucha.event.GeneralEventHandler;
 import com.robolucha.event.GeneralEventManager;
 import com.robolucha.game.event.LuchadorEvent;
 import com.robolucha.game.event.OnHitWallEvent;
-import com.robolucha.game.event.OnStartEvent;
 import com.robolucha.game.vo.MessageVO;
-import com.robolucha.listener.LuchadorCodeChangeListener;
+import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.Bullet;
 import com.robolucha.models.Code;
 import com.robolucha.models.GameComponent;
@@ -83,6 +82,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	ScriptRunner currentRunner;
 	private MaskConfigVO mask;
 
+	private LuchadorUpdateListener luchadorUpdatelistener;
+
 	public LuchadorRunner(GameComponent gameComponent, MatchRunner matchRunner, MaskConfigVO mask) {
 		this.gameComponent = gameComponent;
 		this.matchRunner = matchRunner;
@@ -103,15 +104,13 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		try {
 			setDefaultState(matchRunner.getRespawnPoint(this));
 			createCodeEngine(gameComponent.getCodes());
-
-			// TODO: add this to GeneralEventManager?
-			LuchadorCodeChangeListener.getInstance().register(this);
 			this.active = true;
 		} catch (Exception e) {
 			logger.error("error on luchador constructor: " + gameComponent, e);
 		}
 
 		// listen to luchador name change
+		// TODO: Remove this?
 		GeneralEventManager.getInstance().addHandler(ConstEvents.LUCHADOR_NAME_CHANGE, this);
 	}
 
@@ -123,13 +122,16 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	public void cleanup() {
 		logger.info("*** luchador CLEAN-UP " + this.getGameComponent().getId());
 
-		LuchadorCodeChangeListener.getInstance().remove(this);
-
 		this.active = false;
 
 		if (cleanUpStateAtTheEnd) {
 			this.state.score = null;
 			this.state = null;
+		}
+
+		if( luchadorUpdatelistener != null ) {
+			luchadorUpdatelistener.dispose();
+			luchadorUpdatelistener = null;
 		}
 
 		this.gameComponent = null;
@@ -142,6 +144,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.codeExecutionQueue = null;
 		this.events = null;
 		this.messages = null;
+		
 
 	}
 
@@ -875,6 +878,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public ScriptRunner getCurrentRunner() {
 		return currentRunner;
+	}
+
+	public void setUpdateListener(LuchadorUpdateListener luchadorUpdatelistener) {
+		this.luchadorUpdatelistener = luchadorUpdatelistener;
 	}
 
 }
