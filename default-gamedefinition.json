@@ -1,7 +1,7 @@
 {
 	"id": 1,
 	"name": "default",
-	"duration": 60000,
+	"duration": 600000,
 	"minParticipants": 2,
 	"maxParticipants": 14,
 	"arenaWidth": 1200,
@@ -26,7 +26,7 @@
 					"id": 0,
 					"event": "onRepeat",
 					"version": 1,
-					"script": "move(20)\nfire(3)"
+					"script": "move(20)\nturn(40)"
 				},
 				{
 					"id": 0,
