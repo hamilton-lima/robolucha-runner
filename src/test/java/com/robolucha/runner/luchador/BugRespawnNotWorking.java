@@ -41,7 +41,7 @@ public class BugRespawnNotWorking {
 	@Test
 	public void testRun() throws Exception {
 
-		MatchRunner match = MockMatchRunner.build(5000);
+		MatchRunner match = MockMatchRunner.build(3000);
 		match.getGameDefinition().setMinParticipants(2);
 		Luchador a = MockLuchador.build(1L, MethodNames.ON_START, "fire(5)");
 		Luchador b = MockLuchador.build(2L, MethodNames.ON_REPEAT, "turn(90)");

@@ -734,6 +734,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	public void updateRespawnCooldown() {
 		if (this.respawnCoolDown > 0) {
 			this.respawnCoolDown = this.respawnCoolDown - matchRunner.getDelta();
+			logger.warn(">>> respawnCoolDown" + respawnCoolDown);
 		}
 	}
 

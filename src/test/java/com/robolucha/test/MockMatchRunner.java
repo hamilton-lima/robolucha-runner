@@ -37,7 +37,7 @@ public class MockMatchRunner {
 
 	public static MatchRunner build(int duration) {
 		GameDefinition gameDefinition = new GameDefinition();
-		gameDefinition.setDuration(1000);
+		gameDefinition.setDuration(duration);
 
 		Match match = new Match();
 		MatchRunner runner = new MatchRunner(gameDefinition, match, remoteQueue);
