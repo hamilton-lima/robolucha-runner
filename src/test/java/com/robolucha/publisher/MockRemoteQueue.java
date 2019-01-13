@@ -1,6 +1,7 @@
 package com.robolucha.publisher;
 
 import io.reactivex.Observable;
+import io.reactivex.subjects.BehaviorSubject;
 
 public class MockRemoteQueue extends RemoteQueue {
     public Object lastPublished;
@@ -12,5 +13,9 @@ public class MockRemoteQueue extends RemoteQueue {
     public Observable<Long> publish(String channel, Object subjectToPublish) {
         lastPublished = subjectToPublish;
         return Observable.just(0L);
+    }
+    
+    public <T> BehaviorSubject subscribe(String channel, Class<T> clazzToSubscribe) {
+        return BehaviorSubject.create();
     }
 }
