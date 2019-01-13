@@ -44,28 +44,27 @@ public class ScoreVO implements Comparable<ScoreVO> {
         this.score = score;
     }
 
-    //TODO: move this to other class to sort the Score
     public int compareTo(ScoreVO o) {
         int sub = o.score - this.score;
 
-        // iguais realiza desempate
+        // retturn the difference as comparable
         if (sub != 0) {
             return sub;
         } else {
 
-            // desempate pelo numero de kill
+            // amount of kill
             sub = o.k - this.k;
             if (sub != 0) {
                 return sub;
             } else {
 
-                // desempate por quem morreu menos
+                // died less 
                 sub = this.d - o.d;
                 if (sub != 0) {
                     return sub;
                 } else {
 
-                    // se nada der certo o mais velhor tem prioridade :)
+                    // if nothing else works the older one goes first :)
                     return (int) (this.id - o.id);
                 }
             }

@@ -7,17 +7,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.robolucha.event.match.MatchEventVO;
-import com.robolucha.game.event.LuchadorEvent;
-import com.robolucha.game.event.LuchadorEventListener;
 import com.robolucha.game.event.MatchEventListener;
+import com.robolucha.game.vo.LuchadorPublicStateVO;
+import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.models.LuchadorPublicState;
+import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
+import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.BehaviorSubject;
 
 /**
  * This test creates 2 luchadores A and B - A need to be a the left of B with
@@ -33,6 +36,40 @@ public class BugRespawnNotWorking {
 	LuchadorPublicState finalState = null;
 	protected int defaultLife;
 	protected int bodyCount;
+	public Object lastPublished;
+	LuchadorPublicStateVO found = null;
+	public int notFoundCounter;
+
+	private class RemoteQueueInspector extends RemoteQueue {
+
+		public RemoteQueueInspector() {
+		}
+
+		@Override
+		public Observable<Long> publish(String channel, Object subjectToPublish) {
+			lastPublished = subjectToPublish;
+			MatchRunStateVO publishedState = (MatchRunStateVO) lastPublished;
+			logger.debug(">> Publishing data: luchadores.size=" + publishedState.luchadores.size());
+
+			found = null;
+			
+			publishedState.luchadores.forEach((luchador) -> {
+				if (luchador.state.id == 2L) {
+					found = luchador;
+				}
+			});
+
+			if (found == null) {
+				notFoundCounter++;
+			}
+
+			return Observable.just(0L);
+		}
+
+		public <T> BehaviorSubject subscribe(String channel, Class<T> clazzToSubscribe) {
+			return BehaviorSubject.create();
+		}
+	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -41,8 +78,10 @@ public class BugRespawnNotWorking {
 	@Test
 	public void testRun() throws Exception {
 
-		MatchRunner match = MockMatchRunner.build(3000);
+		RemoteQueueInspector queue = new RemoteQueueInspector();
+		MatchRunner match = MockMatchRunner.build(3000, queue);
 		match.getGameDefinition().setMinParticipants(2);
+
 		Luchador a = MockLuchador.build(1L, MethodNames.ON_START, "fire(5)");
 		Luchador b = MockLuchador.build(2L, MethodNames.ON_REPEAT, "turn(90)");
 
@@ -110,6 +149,23 @@ public class BugRespawnNotWorking {
 				finalState = runner.getState().getPublicState();
 			}
 		});
+
+		MatchRunStateVO publishedState = (MatchRunStateVO) lastPublished;
+		publishedState.luchadores.forEach((luchador) -> {
+			if (luchador.state.id == 2L) {
+				found = luchador;
+			}
+		});
+
+		assertTrue("Luchador B should not be found in the publishing list when is DEAD", notFoundCounter > 0);
+
+		if (found != null) {
+			logger.debug(">> luchador B found in the pusblishing data: name=" + found.name + " id=" + found.state.id);
+		} else {
+			logger.debug(">> luchador B NOT found in the publishing data");
+		}
+
+		assertTrue("Luchador B is part of the data to be published", found != null);
 
 		logger.debug(">> body count: " + bodyCount);
 		assertTrue("Body count > 0 ", bodyCount > 0);

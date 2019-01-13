@@ -21,7 +21,7 @@ public class CheckRespawnAction implements GameAction {
 			LuchadorRunner runner) {
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("*** " + getName() + ", lutchador="
+			logger.debug("*** " + getName() + ", luchador="
 					+ runner.getGameComponent());
 
 			logger.debug("*** " + getName() + ", isActive=" + runner.isActive());
@@ -33,13 +33,13 @@ public class CheckRespawnAction implements GameAction {
 
 		}
 
-		// nao esta ativo
+		// not active
 		if (!runner.isActive()) {
 
-			// foi desativado porque morreu
+			// DEAD
 			if (LuchadorRunner.DEAD.equals(runner.getLastRunningError())) {
 
-				// acabou o tempo para o respawn
+				// respawn timer is done
 				if (runner.getRespawnCoolDown() <= 0) {
 
 					RespawnPoint point = matchRunner.getRespawnPoint(runner);
