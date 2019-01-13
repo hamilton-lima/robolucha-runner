@@ -78,7 +78,7 @@ public class BugOnFoundPertoDemais {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1L, MethodNames.START, "var found2 = 0;");
+        Luchador a = MockLuchador.build(1L, MethodNames.ON_START, "var found2 = 0;");
 
         Code c = new Code();
         c.setEvent(MethodNames.ON_FOUND);

@@ -29,7 +29,7 @@ public class CheckRespawnTest {
         b.setId(2L);
 
         Code c = new Code();
-        c.setEvent(MethodNames.REPEAT);
+        c.setEvent(MethodNames.ON_REPEAT);
         c.setScript("fire(2);");
         a.getCodes().add(c);
 

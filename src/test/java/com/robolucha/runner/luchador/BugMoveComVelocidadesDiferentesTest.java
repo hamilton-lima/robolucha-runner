@@ -31,8 +31,8 @@ public class BugMoveComVelocidadesDiferentesTest {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        match.add(MockLuchador.build(1L, MethodNames.REPEAT, "move(160);"));
-        match.add(MockLuchador.build(2L, MethodNames.REPEAT, "move(80);"));
+        match.add(MockLuchador.build(1L, MethodNames.ON_REPEAT, "move(160);"));
+        match.add(MockLuchador.build(2L, MethodNames.ON_REPEAT, "move(80);"));
 
         MockMatchRunner.start(match);
 

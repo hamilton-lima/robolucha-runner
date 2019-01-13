@@ -29,8 +29,8 @@ public class CheckTurnGunActionTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        Luchador a = MockLuchador.build(1L, MethodNames.REPEAT, "turnGun(10);");
-        Luchador b = MockLuchador.build(2L, MethodNames.REPEAT, "turnGun(-10);");
+        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "turnGun(10);");
+        Luchador b = MockLuchador.build(2L, MethodNames.ON_REPEAT, "turnGun(-10);");
 
         match.add(a);
         match.add(b);

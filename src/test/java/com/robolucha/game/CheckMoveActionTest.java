@@ -27,8 +27,8 @@ public class CheckMoveActionTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        Luchador a = MockLuchador.build(1L, MethodNames.REPEAT, "move(10);");
-        Luchador b = MockLuchador.build(2L, MethodNames.REPEAT, "move(-10);");
+        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "move(10);");
+        Luchador b = MockLuchador.build(2L, MethodNames.ON_REPEAT, "move(-10);");
 
         match.add(a);
         match.add(b);

@@ -30,8 +30,8 @@ public class CheckTurnActionTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        Luchador a = MockLuchador.build(1L, MethodNames.REPEAT, "turn(45);");
-        Luchador b = MockLuchador.build(2L, MethodNames.REPEAT, "turn(-45);");
+        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "turn(45);");
+        Luchador b = MockLuchador.build(2L, MethodNames.ON_REPEAT, "turn(-45);");
 
         match.add(a);
         match.add(b);

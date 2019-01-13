@@ -30,7 +30,7 @@ public class LuchadorConstantsTest {
                 " lw = LUCHADOR_WIDTH; " +
                 " lh = LUCHADOR_HEIGHT;";
 
-        Luchador a = MockLuchador.build(1L, MethodNames.REPEAT, script);
+        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, script);
 
         match.add(a);
         match.add(MockLuchador.build());

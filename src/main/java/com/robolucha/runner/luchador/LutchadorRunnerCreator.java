@@ -130,7 +130,7 @@ public class LutchadorRunnerCreator implements Runnable {
 			logger.info(" runner=" + runner);
 		}
 		
-		runner.run(MethodNames.START);
+		runner.run(MethodNames.ON_START);
 
 		owner.getRunners().put(runner.getGameComponent().getId(), runner);
 	}

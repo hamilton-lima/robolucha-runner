@@ -10,11 +10,11 @@ public class OnStartEvent extends LuchadorEvent {
 	}
 
 	public String getKey() {
-		return MethodNames.START;
+		return MethodNames.ON_START;
 	}
 
 	public String getJavascriptMethod() {
-		return MethodNames.START;
+		return MethodNames.ON_START;
 	}
 
 	public Object[] getMethodParameters() {

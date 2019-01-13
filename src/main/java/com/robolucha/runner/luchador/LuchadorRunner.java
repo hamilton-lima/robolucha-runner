@@ -785,7 +785,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			Iterator iterator = this.gameComponent.getCodes().iterator();
 			while (iterator.hasNext()) {
 				Code code = (Code) iterator.next();
-				if (code.getEvent().equals(MethodNames.START)) {
+				if (code.getEvent().equals(MethodNames.ON_START)) {
 					return code;
 				}
 			}

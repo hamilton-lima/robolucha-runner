@@ -38,7 +38,7 @@ public class BugConsumeCommandsOfSameType {
 
 		MatchRunner match = MockMatchRunner.build(300);
 		match.getGameDefinition().setMinParticipants(1);
-		Luchador a = MockLuchador.build(1L, MethodNames.REPEAT, "move(10) \n move(30) \n move(30)");
+		Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "move(10) \n move(30) \n move(30)");
 
 		match.add(a);
 

@@ -191,7 +191,7 @@ public class LuchadorRunnerTest {
         assertTrue(expected.equals(result));
 
         one.damage(3);
-        one.run(MethodNames.REPEAT);
+        one.run(MethodNames.ON_REPEAT);
 
         while (one.currentRunner != null) {
             // wait for the runner to complete
@@ -265,7 +265,7 @@ public class LuchadorRunnerTest {
     @Test
     public void testMethodsWithoutParameter() throws Exception, ScriptException {
 
-        String[] methods = {MethodNames.REPEAT, MethodNames.ON_HIT_WALL};
+        String[] methods = {MethodNames.ON_REPEAT, MethodNames.ON_HIT_WALL};
         MatchRunner runner = MockMatchRunner.build();
 
         for (int i = 0; i < methods.length; i++) {

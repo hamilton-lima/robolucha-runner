@@ -23,7 +23,7 @@ public class RepeatAction implements GameAction {
 	}
 
 	public String getName() {
-		return MethodNames.REPEAT;
+		return MethodNames.ON_REPEAT;
 	}
 
 }

@@ -28,7 +28,7 @@ public class CheckTurnJuntoComTurnGunTest {
 
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
-        Luchador a = MockLuchador.build(1L, MethodNames.REPEAT, "move(10);turn(45);turnGun(-45);");
+        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "move(10);turn(45);turnGun(-45);");
 
         match.add(a);
 

@@ -206,7 +206,7 @@ public class MemoryLeakChecks {
         b.setId(2L);
 
         Code c = new Code();
-        c.setEvent(MethodNames.REPEAT);
+        c.setEvent(MethodNames.ON_REPEAT);
         c.setScript("turnGun(10);fire(1);turn(12);move(-10);");
         List<Code> codes = new ArrayList<Code>();
         codes.add(c);
@@ -214,7 +214,7 @@ public class MemoryLeakChecks {
         a.getCodes().addAll(codes);
 
         Code c1 = new Code();
-        c1.setEvent(MethodNames.REPEAT);
+        c1.setEvent(MethodNames.ON_REPEAT);
         c1.setScript("turnGun(-10);fire(2);turn(12);move(10);");
         List<Code> codes1 = new ArrayList<Code>();
         codes1.add(c1);

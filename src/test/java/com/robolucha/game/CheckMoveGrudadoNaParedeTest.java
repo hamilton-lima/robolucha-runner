@@ -31,7 +31,7 @@ public class CheckMoveGrudadoNaParedeTest {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1L, MethodNames.REPEAT, "move(-100);");
+        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "move(-100);");
 
         Code c1 = new Code();
         c1.setEvent(MethodNames.ON_HIT_WALL);

@@ -48,7 +48,7 @@ public class MockLuchador {
 		a.setName(faker.name().username());
 
 		Code c = new Code();
-		c.setEvent(MethodNames.REPEAT);
+		c.setEvent(MethodNames.ON_REPEAT);
 		c.setScript(repeatCode);
 
 		a.getCodes().add(c);
@@ -56,7 +56,7 @@ public class MockLuchador {
 	}
 
 	public static Code getRepeatCode(List<Code> codes) {
-		return getCode(codes, MethodNames.REPEAT);
+		return getCode(codes, MethodNames.ON_REPEAT);
 	}
 
 	public static Code getCode(List<Code> codes, String event) {

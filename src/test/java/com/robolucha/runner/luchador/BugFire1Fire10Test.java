@@ -30,13 +30,13 @@ public class BugFire1Fire10Test {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1L, MethodNames.REPEAT, "fire(1);");
-        a.getCodes().add(new Code(MethodNames.START, "var foundIt = 0;"));
+        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "fire(1);");
+        a.getCodes().add(new Code(MethodNames.ON_START, "var foundIt = 0;"));
         a.getCodes().add(new Code(MethodNames.ON_FOUND, "foundIt = 1; fire(10);"));
 
         match.add(a);
 
-        match.add(MockLuchador.build(2L, MethodNames.REPEAT, "turn(20);"));
+        match.add(MockLuchador.build(2L, MethodNames.ON_REPEAT, "turn(20);"));
         MockMatchRunner.start(match);
 
         LuchadorRunner runnerA = match.getRunners().get(1L);

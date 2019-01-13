@@ -100,13 +100,13 @@ public class SetColorTest {
     }
 
     private Luchador createLuchador(long id, String headColor, String bodyColor) {
-        Luchador a = MockLuchador.build(id, MethodNames.START,
+        Luchador a = MockLuchador.build(id, MethodNames.ON_START,
                 "setHeadColor('" + headColor + "');setBodyColor('" + bodyColor + "');");
         return a;
     }
 
     private Luchador createLuchadorNMS(long id, String headColor, String bodyColor) {
-        Luchador a = MockLuchador.build(id, MethodNames.START,
+        Luchador a = MockLuchador.build(id, MethodNames.ON_START,
                 "setHeadColor(" + headColor + ");setBodyColor(" + bodyColor + ");");
         return a;
     }

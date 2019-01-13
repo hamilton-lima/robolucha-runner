@@ -29,8 +29,8 @@ public class CheckPunchHitActionTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        Luchador a = MockLuchador.build(1L, MethodNames.REPEAT, "punch();");
-        Luchador b = MockLuchador.build(2L, MethodNames.REPEAT, "punch();");
+        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "punch();");
+        Luchador b = MockLuchador.build(2L, MethodNames.ON_REPEAT, "punch();");
 
         match.add(a);
         match.add(b);
