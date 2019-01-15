@@ -83,7 +83,7 @@ public class BugRespawnNotWorking {
 		match.getGameDefinition().setMinParticipants(2);
 
 		Luchador a = MockLuchador.build(1L, MethodNames.ON_START, "fire(5)");
-		Luchador b = MockLuchador.build(2L, MethodNames.ON_REPEAT, "turn(90)");
+		Luchador b = MockLuchador.build(-2L, MethodNames.ON_REPEAT, "turn(90)");
 
 		match.add(a);
 		match.add(b);
@@ -93,7 +93,7 @@ public class BugRespawnNotWorking {
 			public void accept(MatchEventVO arg0) throws Exception {
 
 				LuchadorRunner runnerA = match.getRunners().get(1L);
-				LuchadorRunner runnerB = match.getRunners().get(2L);
+				LuchadorRunner runnerB = match.getRunners().get(-2L);
 				runnerA.cleanUpStateAtTheEnd = false;
 				runnerB.cleanUpStateAtTheEnd = false;
 
@@ -145,14 +145,14 @@ public class BugRespawnNotWorking {
 		// get final state
 		match.getOnMatchEnd().blockingSubscribe(new Consumer<MatchEventVO>() {
 			public void accept(MatchEventVO arg0) throws Exception {
-				LuchadorRunner runner = match.getRunners().get(2L);
+				LuchadorRunner runner = match.getRunners().get(-2L);
 				finalState = runner.getState().getPublicState();
 			}
 		});
 
 		MatchRunStateVO publishedState = (MatchRunStateVO) lastPublished;
 		publishedState.luchadores.forEach((luchador) -> {
-			if (luchador.state.id == 2L) {
+			if (luchador.state.id == -2L) {
 				found = luchador;
 			}
 		});

@@ -40,9 +40,4 @@ public class LuchadorCodeExecution {
 		queue.add(command);
 	}
 
-	@Override
-	public String toString() {
-		return "LuchadorCodeExecution [codeName=" + codeName + ", start=" + start + ", commands=" + commands + "]";
-	}
-
 }
