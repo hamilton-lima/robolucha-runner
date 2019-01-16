@@ -1,9 +1,11 @@
 package com.robolucha.runner.luchador;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 
@@ -61,8 +63,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private long elapsed;
 	private String lastRunningError;
 
-	private LinkedHashMap<String, LuchadorCodeExecution> codeExecutionQueue;
-	LinkedHashMap<String, LuchadorEvent> events;
+	private Map<String, LuchadorCodeExecution> codeExecutionQueue;
+	Map<String, LuchadorEvent> events;
 	private Queue<MessageVO> messages;
 
 	private int size;
@@ -94,8 +96,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.halfSize = this.size / 2;
 
 		this.active = false;
-		this.codeExecutionQueue = new LinkedHashMap<String, LuchadorCodeExecution>();
-		this.events = new LinkedHashMap<String, LuchadorEvent>();
+		this.codeExecutionQueue = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorCodeExecution>());
+		this.events = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorEvent>());
 		this.messages = new LinkedList<MessageVO>();
 
 		// TODO: add script type to the factory call to support multiple scripts
@@ -129,7 +131,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			this.state = null;
 		}
 
-		if( luchadorUpdatelistener != null ) {
+		if (luchadorUpdatelistener != null) {
 			luchadorUpdatelistener.dispose();
 			luchadorUpdatelistener = null;
 		}
@@ -144,7 +146,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.codeExecutionQueue = null;
 		this.events = null;
 		this.messages = null;
-		
 
 	}
 
@@ -355,8 +356,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			boolean canRunCode = true;
 			for (Code code : getGameComponent().getCodes()) {
 				if (code.getEvent().equals(codeName)) {
-					if (code.getException() != null 
-							&& code.getException().trim().length() > 0) {
+					if (code.getException() != null && code.getException().trim().length() > 0) {
 						canRunCode = false;
 						break;
 					}
@@ -575,20 +575,20 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		try {
 			codeExecution = iterator.next();
+
+			Iterator<LuchadorCommandQueue> commandIterator = codeExecution.getCommands().values().iterator();
+			LuchadorCommandQueue command = null;
+
+			while (commandIterator.hasNext()) {
+				command = commandIterator.next();
+				consumeCommand(commandIterator, command);
+			}
 		} catch (Exception e) {
 			logger.warn("Error reading the first LuchadorCodeExecution, try again.");
 			return;
 		}
 
 		logger.debug("consumeCommand() action" + codeExecution);
-
-		Iterator<LuchadorCommandQueue> commandIterator = codeExecution.getCommands().values().iterator();
-		LuchadorCommandQueue command = null;
-
-		while (commandIterator.hasNext()) {
-			command = commandIterator.next();
-			consumeCommand(commandIterator, command);
-		}
 
 		// the action dont have any commands to execute, so remove from the queue
 		if (codeExecution.getCommands().size() == 0) {

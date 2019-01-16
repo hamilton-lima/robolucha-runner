@@ -1,16 +1,18 @@
 package com.robolucha.runner.luchador;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class LuchadorCodeExecution {
 
 	private String codeName;
 	private long start;
-	private LinkedHashMap<String, LuchadorCommandQueue> commands;
+	private Map<String, LuchadorCommandQueue> commands;
 
 	public LuchadorCodeExecution(String codeName, long start) {
 		this.codeName = codeName;
-		this.commands = new LinkedHashMap<String, LuchadorCommandQueue>();
+		this.commands = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorCommandQueue>());
 		this.start = start;
 	}
 
@@ -18,7 +20,7 @@ public class LuchadorCodeExecution {
 		return codeName;
 	}
 
-	public LinkedHashMap<String, LuchadorCommandQueue> getCommands() {
+	public Map<String, LuchadorCommandQueue> getCommands() {
 		return commands;
 	}
 
