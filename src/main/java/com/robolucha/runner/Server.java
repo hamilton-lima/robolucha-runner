@@ -15,6 +15,7 @@ import com.robolucha.publisher.MatchEventPublisher;
 import com.robolucha.publisher.MatchMessagePublisher;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
+import com.robolucha.runner.luchador.lua.LuaScriptDefinition;
 import com.robolucha.score.ScoreUpdater;
 
 import io.swagger.client.ApiClient;
@@ -25,7 +26,7 @@ import io.swagger.client.Configuration;
  */
 public class Server {
 
-    static Logger logger = Logger.getLogger(MatchEventHandler.class);
+    static Logger logger = Logger.getLogger(Server.class);
     MatchMessagePublisher matchMessagePublisher;
 
     public static void main(String[] args) throws Exception {

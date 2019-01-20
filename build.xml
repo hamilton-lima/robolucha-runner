@@ -14,13 +14,15 @@
 	</target>
 
 	<target name="compile" depends="resolve">
-		<javac includeantruntime="false" target="1.8" encoding="utf-8" destdir="target" debug="true" verbose="true" srcdir="src/main/java">
+		<javac includeantruntime="false" target="1.8" encoding="utf-8" destdir="target" 
+			debug="true" verbose="true" srcdir="src/main/java">
 			<classpath refid="default.classpath" />
 		</javac>
+
 	</target>
 
 	<target name="deploy" depends="compile">
-		<delete dir="deploy" failonerror="false"/>
+		<!-- <delete dir="deploy" failonerror="false"/> -->
 		<mkdir dir="deploy" />
 
 		<copy verbose="yes" overwrite="yes" todir="deploy/lib">
@@ -32,6 +34,11 @@
 			<fileset file="log4j.properties" />
 		</copy>
 
+		<copy verbose="yes" overwrite="yes" todir="target/com/robolucha/runner/luchador/lua/">
+			<fileset file="src/main/java/com/robolucha/runner/luchador/lua/default-methods.lua" />
+			<fileset file="src/main/java/com/robolucha/runner/luchador/lua/nmscolor.lua" />
+		</copy>
+
 		<manifestclasspath property="manifest.classpath" jarfile="${dist.jar}">
 			<classpath>
 				<fileset dir="lib" includes="*.jar"/>
@@ -40,6 +47,7 @@
 
 		<jar compress="true" update="false" destfile="deploy/robolucha-runner.jar">
 			<fileset dir="target" excludes="log4j.properties"/>
+
 			<manifest>
 				<attribute name="Main-Class" value="${dist.main.class}"/>
 				<attribute name="Class-Path" value="${manifest.classpath}"/>

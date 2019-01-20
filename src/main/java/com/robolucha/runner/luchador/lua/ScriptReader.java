@@ -14,14 +14,13 @@ public class ScriptReader {
 
 	public String readDefinitions(Class clazz, String file) throws Exception {
 		StringBuffer buffer = new StringBuffer();
-
+//		String fileName = "<emtpy>";
+		
 		try {
-			String fileName = resolveName(clazz, file);
-			logger.debug("reading file name definition : " + fileName);
-			InputStream in = clazz.getResourceAsStream(fileName);
-
-			logger.debug("input stream = " + in);
-
+//			fileName = resolveName(clazz, file);
+			logger.info("reading file : " + file);
+			InputStream in = clazz.getResourceAsStream(file);
+			logger.info("input stream: " + in);
 			Reader fr = new InputStreamReader(in, "utf-8");
 
 			BufferedReader reader = new BufferedReader(fr);
@@ -31,7 +30,7 @@ public class ScriptReader {
 				line = reader.readLine();
 			}
 		} catch (Exception e) {
-			logger.error("error reading : " + file, e);
+			logger.error("error reading: " + file, e);
 			throw e;
 		}
 
@@ -49,23 +48,23 @@ public class ScriptReader {
 	 *      ://docs.oracle.com/javase/6/docs/technotes/guides/lang/resources.
 	 *      html
 	 */
-	private String resolveName(Class c, String name) {
-		if (name == null) {
-			return name;
-		}
-		if (!name.startsWith("/")) {
-
-			while (c.isArray()) {
-				c = c.getComponentType();
-			}
-			String baseName = c.getName();
-			int index = baseName.lastIndexOf('.');
-			if (index != -1) {
-				name = "/" + baseName.substring(0, index).replace('.', '/') + "/" + name;
-			}
-		} else {
-			name = name.substring(1);
-		}
-		return name;
-	}
+//	private String resolveName(Class c, String name) {
+//		if (name == null) {
+//			return name;
+//		}
+//		if (!name.startsWith("/")) {
+//
+//			while (c.isArray()) {
+//				c = c.getComponentType();
+//			}
+//			String baseName = c.getName();
+//			int index = baseName.lastIndexOf('.');
+//			if (index != -1) {
+//				name = "/" + baseName.substring(0, index).replace('.', '/') + "/" + name;
+//			}
+//		} else {
+//			name = name.substring(1);
+//		}
+//		return name;
+//	}
 }
