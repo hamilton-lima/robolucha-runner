@@ -14,6 +14,8 @@
 	</target>
 
 	<target name="compile" depends="resolve">
+		<mkdir dir="target" />
+
 		<javac includeantruntime="false" target="1.8" encoding="utf-8" destdir="target" 
 			debug="true" verbose="true" srcdir="src/main/java">
 			<classpath refid="default.classpath" />
