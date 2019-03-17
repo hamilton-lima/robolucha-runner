@@ -56,7 +56,7 @@ public class Config {
 	private void setInternalAPIKey() {
 		String internalAPIKey = System.getenv(INTERNAL_API_KEY);
 		if (isValidString(internalAPIKey)) {
-			this.internalAPIKey = internalAPIKey;
+			this.internalAPIKey = internalAPIKey.trim();
 		} else {
 			this.internalAPIKey = DEFAULT_INTERNAL_API_KEY;
 		}
