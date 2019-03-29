@@ -326,6 +326,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		}
 		
 		cleanup();
+
+		System.exit(1);
 	}
 
 	public void cleanup() {
