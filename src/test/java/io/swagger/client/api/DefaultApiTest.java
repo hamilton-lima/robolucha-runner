@@ -137,6 +137,21 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * return luchador configs for current match
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMatchConfigGetTest() throws ApiException {
+        Integer matchID = null;
+        List<MainLuchador> response = api.privateMatchConfigGet(matchID);
+
+        // TODO: test validations
+    }
+    /**
      * find active matches
      *
      * 
