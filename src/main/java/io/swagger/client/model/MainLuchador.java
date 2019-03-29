@@ -22,10 +22,13 @@ import java.util.Objects;
  * MainLuchador
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-01-02T18:17:16.002098-05:00[America/Toronto]")public class MainLuchador {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-03-27T09:01:57.551946-03:00[America/Sao_Paulo]")public class MainLuchador {
 
   @SerializedName("codes")
   private List<MainCode> codes = null;
+
+  @SerializedName("configs")
+  private List<MainConfig> configs = null;
 
   @SerializedName("createdAt")
   private String createdAt = null;
@@ -67,6 +70,30 @@ import java.util.Objects;
   }
   public void setCodes(List<MainCode> codes) {
     this.codes = codes;
+  }
+  public MainLuchador configs(List<MainConfig> configs) {
+    this.configs = configs;
+    return this;
+  }
+
+  public MainLuchador addConfigsItem(MainConfig configsItem) {
+    if (this.configs == null) {
+      this.configs = new ArrayList<MainConfig>();
+    }
+    this.configs.add(configsItem);
+    return this;
+  }
+
+  /**
+  * Get configs
+  * @return configs
+  **/
+  @Schema(description = "")
+  public List<MainConfig> getConfigs() {
+    return configs;
+  }
+  public void setConfigs(List<MainConfig> configs) {
+    this.configs = configs;
   }
   public MainLuchador createdAt(String createdAt) {
     this.createdAt = createdAt;
@@ -186,6 +213,7 @@ import java.util.Objects;
     }
     MainLuchador mainLuchador = (MainLuchador) o;
     return Objects.equals(this.codes, mainLuchador.codes) &&
+        Objects.equals(this.configs, mainLuchador.configs) &&
         Objects.equals(this.createdAt, mainLuchador.createdAt) &&
         Objects.equals(this.deletedAt, mainLuchador.deletedAt) &&
         Objects.equals(this.id, mainLuchador.id) &&
@@ -196,7 +224,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(codes, createdAt, deletedAt, id, name, updatedAt, userID);
+    return java.util.Objects.hash(codes, configs, createdAt, deletedAt, id, name, updatedAt, userID);
   }
 
   @Override
@@ -205,6 +233,7 @@ import java.util.Objects;
     sb.append("class MainLuchador {\n");
     
     sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
+    sb.append("    configs: ").append(toIndentedString(configs)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");

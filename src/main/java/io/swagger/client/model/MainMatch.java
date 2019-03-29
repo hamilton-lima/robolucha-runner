@@ -14,13 +14,15 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * MainMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-01-02T18:17:16.002098-05:00[America/Toronto]")public class MainMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-03-27T09:01:57.551946-03:00[America/Sao_Paulo]")public class MainMatch {
 
   @SerializedName("createdAt")
   private String createdAt = null;
@@ -36,6 +38,9 @@ import java.util.Objects;
 
   @SerializedName("lastTimeAlive")
   private String lastTimeAlive = null;
+
+  @SerializedName("participants")
+  private List<MainLuchador> participants = null;
 
   @SerializedName("timeEnd")
   private String timeEnd = null;
@@ -135,6 +140,30 @@ import java.util.Objects;
   public void setLastTimeAlive(String lastTimeAlive) {
     this.lastTimeAlive = lastTimeAlive;
   }
+  public MainMatch participants(List<MainLuchador> participants) {
+    this.participants = participants;
+    return this;
+  }
+
+  public MainMatch addParticipantsItem(MainLuchador participantsItem) {
+    if (this.participants == null) {
+      this.participants = new ArrayList<MainLuchador>();
+    }
+    this.participants.add(participantsItem);
+    return this;
+  }
+
+  /**
+  * Get participants
+  * @return participants
+  **/
+  @Schema(description = "")
+  public List<MainLuchador> getParticipants() {
+    return participants;
+  }
+  public void setParticipants(List<MainLuchador> participants) {
+    this.participants = participants;
+  }
   public MainMatch timeEnd(String timeEnd) {
     this.timeEnd = timeEnd;
     return this;
@@ -203,6 +232,7 @@ import java.util.Objects;
         Objects.equals(this.duration, mainMatch.duration) &&
         Objects.equals(this.id, mainMatch.id) &&
         Objects.equals(this.lastTimeAlive, mainMatch.lastTimeAlive) &&
+        Objects.equals(this.participants, mainMatch.participants) &&
         Objects.equals(this.timeEnd, mainMatch.timeEnd) &&
         Objects.equals(this.timeStart, mainMatch.timeStart) &&
         Objects.equals(this.updatedAt, mainMatch.updatedAt);
@@ -210,7 +240,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(createdAt, deletedAt, duration, id, lastTimeAlive, timeEnd, timeStart, updatedAt);
+    return java.util.Objects.hash(createdAt, deletedAt, duration, id, lastTimeAlive, participants, timeEnd, timeStart, updatedAt);
   }
 
   @Override
@@ -223,6 +253,7 @@ import java.util.Objects;
     sb.append("    duration: ").append(toIndentedString(duration)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    lastTimeAlive: ").append(toIndentedString(lastTimeAlive)).append("\n");
+    sb.append("    participants: ").append(toIndentedString(participants)).append("\n");
     sb.append("    timeEnd: ").append(toIndentedString(timeEnd)).append("\n");
     sb.append("    timeStart: ").append(toIndentedString(timeStart)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");

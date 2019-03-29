@@ -8,66 +8,41 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/android-default-jar-4.1.1.4.jar"/>
-	<classpathentry kind="lib" path="lib/animal-sniffer-annotations-default-jar-1.14.jar"/>
 	<classpathentry kind="lib" path="lib/asm-default-jar-5.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/asm-tree-default-jar-5.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/asm-util-default-jar-5.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/automaton-default-jar-1.11-8.jar"/>
-	<classpathentry kind="lib" path="lib/bcprov-jdk15on-default-jar-1.50.jar"/>
-	<classpathentry kind="lib" path="lib/byte-buddy-agent-default-jar-1.8.0.jar"/>
-	<classpathentry kind="lib" path="lib/byte-buddy-default-jar-1.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/cglib-default-jar-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/checker-compat-qual-default-jar-2.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils-default-jar-1.9.2.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-default-jar-1.6.jar"/>
-	<classpathentry kind="lib" path="lib/commons-collections-default-jar-3.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/commons-digester-default-jar-1.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-default-jar-3.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-default-jar-3.5.jar"/>
-	<classpathentry kind="lib" path="lib/commons-logging-default-jar-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-default-jar-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-pool2-default-jar-2.4.2.jar"/>
-	<classpathentry kind="lib" path="lib/commons-validator-default-jar-1.6.jar"/>
-	<classpathentry kind="lib" path="lib/error_prone_annotations-default-jar-2.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/generex-default-jar-1.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/gson-default-jar-2.8.1.jar"/>
-	<classpathentry kind="lib" path="lib/guava-default-bundle-24.0-jre.jar"/>
+	<classpathentry kind="lib" path="lib/gson-fire-default-jar-1.8.3.jar"/>
 	<classpathentry kind="lib" path="lib/hamcrest-core-default-jar-1.3.jar"/>
-	<classpathentry kind="lib" path="lib/hamcrest-library-default-jar-1.3.jar"/>
 	<classpathentry kind="lib" path="lib/httpclient-default-jar-4.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-default-jar-4.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/j2objc-annotations-default-jar-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/javafaker-default-jar-0.15.jar"/>
-	<classpathentry kind="lib" path="lib/javassist-default-bundle-3.21.0-GA.jar"/>
-	<classpathentry kind="lib" path="lib/jcommander-default-jar-1.64.jar"/>
+	<classpathentry kind="lib" path="lib/javax.annotation-api-default-jar-1.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/jedis-default-jar-2.9.0.jar"/>
 	<classpathentry kind="lib" path="lib/json-default-jar-20080701.jar"/>
-	<classpathentry kind="lib" path="lib/jsr305-default-jar-1.3.9.jar"/>
 	<classpathentry kind="lib" path="lib/junit-default-jar-4.12.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-default-jar-1.2.12.jar"/>
 	<classpathentry kind="lib" path="lib/logging-interceptor-default-jar-2.7.5.jar"/>
 	<classpathentry kind="lib" path="lib/luaj-jse-default-jar-3.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/mockito-core-default-jar-2.17.0.jar"/>
-	<classpathentry kind="lib" path="lib/mockwebserver-default-jar-2.7.5.jar"/>
-	<classpathentry kind="lib" path="lib/objenesis-default-jar-2.6.jar"/>
 	<classpathentry kind="lib" path="lib/okhttp-default-jar-2.7.5.jar"/>
-	<classpathentry kind="lib" path="lib/okhttp-testing-support-default-jar-2.7.5.jar"/>
-	<classpathentry kind="lib" path="lib/okhttp-ws-default-jar-2.7.5.jar"/>
 	<classpathentry kind="lib" path="lib/okio-default-jar-1.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/opengl-api-default-jar-gl1.1-android-2.1_r1.jar"/>
 	<classpathentry kind="lib" path="lib/reactive-streams-default-jar-1.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/reactive-streams-examples-default-jar-1.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/reactive-streams-tck-default-jar-1.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/reflections-default-jar-0.9.11.jar"/>
 	<classpathentry kind="lib" path="lib/rxjava-default-jar-2.1.14-RC1.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-api-default-test-jar-1.7.25.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-simple-default-jar-1.7.25.jar"/>
 	<classpathentry kind="lib" path="lib/snakeyaml-default-jar-1.20.jar"/>
+	<classpathentry kind="lib" path="lib/swagger-annotations-default-bundle-2.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/system-rules-default-jar-1.17.0.jar"/>
-	<classpathentry kind="lib" path="lib/testng-default-jar-6.11.jar"/>
 	<classpathentry kind="lib" path="lib/threetenbp-default-jar-1.3.5.jar"/>
 	<classpathentry kind="lib" path="lib/xmlParserAPIs-default-jar-2.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/xpp3-default-jar-1.1.4c.jar"/>
-	<classpathentry kind="lib" path="lib/gson-fire-default-jar-1.8.3.jar"/>
-	<classpathentry kind="lib" path="lib/swagger-annotations-default-bundle-2.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/javax.annotation-api-default-jar-1.3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
