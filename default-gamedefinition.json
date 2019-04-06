@@ -1,7 +1,7 @@
 {
   "id": 1,
   "name": "default",
-  "duration": 60000,
+  "duration": 1200000,
   "minParticipants": 2,
   "maxParticipants": 14,
   "arenaWidth": 1200,
