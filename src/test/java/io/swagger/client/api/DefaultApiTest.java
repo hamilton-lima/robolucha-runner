@@ -13,6 +13,7 @@
 package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
+import io.swagger.client.model.MainConfig;
 import io.swagger.client.model.MainJoinMatch;
 import io.swagger.client.model.MainLoginRequest;
 import io.swagger.client.model.MainLoginResponse;
@@ -162,6 +163,21 @@ public class DefaultApiTest {
     public void privateLuchadorPutTest() throws ApiException {
         MainLuchador body = null;
         MainLuchador response = api.privateLuchadorPut(body);
+
+        // TODO: test validations
+    }
+    /**
+     * find maskConfig for a luchador
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMaskConfigIdGetTest() throws ApiException {
+        Integer id = null;
+        List<MainConfig> response = api.privateMaskConfigIdGet(id);
 
         // TODO: test validations
     }
