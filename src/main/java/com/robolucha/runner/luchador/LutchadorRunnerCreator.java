@@ -8,14 +8,10 @@ import org.apache.log4j.Logger;
 import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.GameComponent;
 import com.robolucha.models.Luchador;
-import com.robolucha.models.MaskConfig;
-import com.robolucha.models.MaskConfigVO;
-import com.robolucha.models.MatchEvent;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
-import com.robolucha.runner.luchador.mask.MaskGenerator;
 
 /**
  * 
