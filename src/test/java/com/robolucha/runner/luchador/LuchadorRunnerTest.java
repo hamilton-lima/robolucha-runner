@@ -33,7 +33,7 @@ public class LuchadorRunnerTest {
         code.setScript(" "); // EMPTY CODE!!
         l1.getCodes().add(code);
 
-        LuchadorRunner one = new LuchadorRunner(l1, runner, null);
+        LuchadorRunner one = new LuchadorRunner(l1, runner);
 
         // TODO: add observable
         one.run("start");
@@ -61,7 +61,7 @@ public class LuchadorRunnerTest {
         code.setScript("this is an invalid code");
         l1.getCodes().add(code);
 
-        LuchadorRunner one = new LuchadorRunner(l1, runner, null);
+        LuchadorRunner one = new LuchadorRunner(l1, runner);
         one.run("start");
 
         while (one.getCurrentRunner() != null) {
@@ -88,13 +88,13 @@ public class LuchadorRunnerTest {
             Luchador l1 = MockLuchador.build();
             l1.setId(1L);
 
-            LuchadorRunner one = new LuchadorRunner(l1, runner, null);
+            LuchadorRunner one = new LuchadorRunner(l1, runner);
             one.run(methods[i]);
         }
 
         Luchador l1 = MockLuchador.build();
         l1.setId(1L);
-        LuchadorRunner one = new LuchadorRunner(l1, runner, null);
+        LuchadorRunner one = new LuchadorRunner(l1, runner);
         one.run("invalidMethod");
 
 //        while (one.getCurrentRunner() != null) {
@@ -124,7 +124,7 @@ public class LuchadorRunnerTest {
         c2.setScript("");
         l1.getCodes().add(c2);
 
-        LuchadorRunner one = new LuchadorRunner(l1, MockMatchRunner.build(), null);
+        LuchadorRunner one = new LuchadorRunner(l1, MockMatchRunner.build());
 
 //        c2.setScript("move(10);");
 //        one.updateCodeEngine();
@@ -183,7 +183,7 @@ public class LuchadorRunnerTest {
         l1.getCodes().add(code);
 
         MatchRunner runner = MockMatchRunner.build();
-        LuchadorRunner one = new LuchadorRunner(l1, runner, null);
+        LuchadorRunner one = new LuchadorRunner(l1, runner);
 
         String result = one.getString("getLife()");
         logger.debug(">>>> #1 call result = " + result);
@@ -215,13 +215,13 @@ public class LuchadorRunnerTest {
         code.setScript("var counter = 3; function count(a){counter += a; return counter;}");
         l1.getCodes().add(code);
 
-        LuchadorRunner one = new LuchadorRunner(l1, runner, null);
+        LuchadorRunner one = new LuchadorRunner(l1, runner);
 
         Luchador l2 = MockLuchador.build(2L,
                 "start",
                 "var counter = 10; function count(a){counter += a; debug('updated counter=' + counter); return counter;}");
 
-        LuchadorRunner two = new LuchadorRunner(l2, runner, null);
+        LuchadorRunner two = new LuchadorRunner(l2, runner);
         two.run("count", 42);
 
         while (one.currentRunner != null) {
@@ -250,7 +250,7 @@ public class LuchadorRunnerTest {
                 + "end");
 
         MatchRunner runner = MockMatchRunner.build();
-        LuchadorRunner one = new LuchadorRunner(l1, runner, null);
+        LuchadorRunner one = new LuchadorRunner(l1, runner);
         one.run("count", 42);
 
         MockMatchRunner.start(runner);
@@ -285,7 +285,7 @@ public class LuchadorRunnerTest {
 
             l1.getCodes().addAll(codes);
 
-            LuchadorRunner one = new LuchadorRunner(l1, runner, null);
+            LuchadorRunner one = new LuchadorRunner(l1, runner);
             one.run(methods[i]);
 
             String result = one.getString("return counter");

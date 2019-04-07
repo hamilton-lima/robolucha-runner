@@ -12,7 +12,7 @@ public class FireAmountTest {
 	@Test
 	public void testFireAmount() {
 
-		LuchadorRunner runner = new LuchadorRunner(new Luchador(), MockMatchRunner.build(), null);
+		LuchadorRunner runner = new LuchadorRunner(new Luchador(), MockMatchRunner.build());
 
 		assertEquals(1, runner.cleanUpAmount(-1));
 		assertEquals(1, runner.cleanUpAmount(0));

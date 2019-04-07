@@ -18,7 +18,7 @@ public class MethodBuilderTest {
     public void buildAllWithLuaFunctionInCode() {
         MatchRunner match = MockMatchRunner.build();
         Luchador luchador = MockLuchador.build(1L, MethodNames.ON_REPEAT, "print('1');");
-        LuchadorRunner runner = new LuchadorRunner(luchador, match, new MaskConfigVO());
+        LuchadorRunner runner = new LuchadorRunner(luchador, match);
         MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
 
         long errors = luchador.getCodes().stream().filter(code -> code.getException() != null).map(
@@ -34,7 +34,7 @@ public class MethodBuilderTest {
     public void buildAllWithLuaVariables() {
         MatchRunner match = MockMatchRunner.build();
         Luchador luchador = MockLuchador.build(1L, MethodNames.ON_REPEAT, "a = 1;b = 2 \n if a >= b then \n b = a \n end");
-        LuchadorRunner runner = new LuchadorRunner(luchador, match, new MaskConfigVO());
+        LuchadorRunner runner = new LuchadorRunner(luchador, match);
         MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
 
         long errors = luchador.getCodes().stream().filter(code -> code.getException() != null).map(
@@ -50,7 +50,7 @@ public class MethodBuilderTest {
     public void buildAllCheckMoveMethod() {
         MatchRunner match = MockMatchRunner.build();
         Luchador luchador = MockLuchador.build(1L, MethodNames.ON_REPEAT, "move(10)");
-        LuchadorRunner runner = new LuchadorRunner(luchador, match, new MaskConfigVO());
+        LuchadorRunner runner = new LuchadorRunner(luchador, match);
         MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
 
         long errors = luchador.getCodes().stream().filter(code -> code.getException() != null).map(
@@ -66,7 +66,7 @@ public class MethodBuilderTest {
     public void buildAll() {
         MatchRunner match = MockMatchRunner.build();
         Luchador luchador = MockLuchador.build(1L, MethodNames.ON_REPEAT, "fire(1)");
-        LuchadorRunner runner = new LuchadorRunner(luchador, match, new MaskConfigVO());
+        LuchadorRunner runner = new LuchadorRunner(luchador, match);
         MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
 
         long errors = luchador.getCodes().stream().filter(code -> code.getException() != null).map(
@@ -82,7 +82,7 @@ public class MethodBuilderTest {
     public void buildAllWithError() {
         MatchRunner match = MockMatchRunner.build();
         Luchador luchador = MockLuchador.build(1L, MethodNames.ON_REPEAT, "fire(1); nheco");
-        LuchadorRunner runner = new LuchadorRunner(luchador, match, new MaskConfigVO());
+        LuchadorRunner runner = new LuchadorRunner(luchador, match);
         MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
 
         long errors = luchador.getCodes().stream().filter(code -> code.getException() != null).map(
