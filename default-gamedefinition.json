@@ -12,7 +12,7 @@
   "buletSpeed": 120,
   "gameComponents": [
     {
-      "id": -1,
+      "id": 1,
       "name": "otto",
       "calculateRanking": "NO",
       "codes": [
@@ -58,7 +58,7 @@
       "fireEnergyCost": 2
     },
     {
-      "id": -2,
+      "id": 2,
       "name": "farol",
       "calculateRanking": "NO",
       "codes": [
