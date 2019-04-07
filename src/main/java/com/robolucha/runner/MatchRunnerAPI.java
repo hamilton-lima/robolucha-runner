@@ -1,7 +1,8 @@
 package com.robolucha.runner;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
@@ -10,14 +11,12 @@ import com.robolucha.models.Code;
 import com.robolucha.models.GameComponent;
 import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Luchador;
-import com.robolucha.models.LuchadorCoach;
 import com.robolucha.models.MaskConfig;
 import com.robolucha.models.Match;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.models.MatchScore;
 import com.robolucha.shared.JSONFormat;
 
-import io.swagger.client.ApiException;
 import io.swagger.client.api.DefaultApi;
 import io.swagger.client.model.MainCode;
 import io.swagger.client.model.MainLuchador;
@@ -72,6 +71,25 @@ public class MatchRunnerAPI {
 		MainMatch match = new MainMatch();
 		match.setDuration(gameDefinition.getDuration());
 		match.setTimeStart(JSONFormat.now());
+		match.setMinParticipants(gameDefinition.getMinParticipants());
+		match.setMaxParticipants(gameDefinition.getMaxParticipants());
+		match.setArenaWidth(gameDefinition.getArenaWidth());
+		match.setArenaHeight(gameDefinition.getArenaHeight());
+		match.setBulletSize(gameDefinition.getBulletSize());
+		match.setLuchadorSize(gameDefinition.getLuchadorSize());
+		match.setFps(gameDefinition.getFps());
+		match.setBuletSpeed(gameDefinition.getBuletSpeed());
+
+		Iterator<GameComponent> iterator = gameDefinition.getGameComponents().iterator();
+		while (iterator.hasNext()) {
+			GameComponent component = iterator.next();
+			MainLuchador participant = new MainLuchador();
+			participant.setName(component.getName());
+			participant.setCodes(convertCodes(component.getCodes()));
+
+			MainLuchador updatedComponent = apiInstance.internalGameComponentPost(participant);
+			updateGameDefinitionWithID(gameDefinition, updatedComponent);
+		}
 
 		match = apiInstance.internalMatchPost(match);
 		logger.info("createMatch() API response" + match);
@@ -79,6 +97,29 @@ public class MatchRunnerAPI {
 		Match result = new Match();
 		BeanUtils.copyProperties(result, match);
 		logger.info("createMatch()" + result);
+		return result;
+	}
+
+	private void updateGameDefinitionWithID(GameDefinition gameDefinition, MainLuchador updatedComponent) {
+		for (GameComponent component : gameDefinition.getGameComponents()) {
+			if (component.getName().equals(updatedComponent.getName())) {
+				component.setId(updatedComponent.getId());
+				logger.info("Updated gamedefinition gamecomponent, ID:" + component.getId() + " name:"
+						+ component.getName());
+			}
+		}
+	}
+
+	private List<MainCode> convertCodes(List<Code> codes) {
+		List<MainCode> result = new ArrayList<MainCode>();
+		Iterator<Code> iterator = codes.iterator();
+		while (iterator.hasNext()) {
+			Code code = iterator.next();
+			MainCode insert = new MainCode();
+			insert.setEvent(code.getEvent());
+			insert.setScript(code.getScript());
+			result.add(insert);
+		}
 		return result;
 	}
 

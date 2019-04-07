@@ -48,6 +48,21 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * Create Gamecomponent as Luchador
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalGameComponentPostTest() throws ApiException {
+        MainLuchador body = null;
+        MainLuchador response = api.internalGameComponentPost(body);
+
+        // TODO: test validations
+    }
+    /**
      * find Luchador by ID
      *
      * 
@@ -63,7 +78,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * adds match participant
+     * Adds luchador to a match
      *
      * 
      *
@@ -93,7 +108,21 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * join match
+     * returns application health check information
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalReadyGetTest() throws ApiException {
+        api.internalReadyGet();
+
+        // TODO: test validations
+    }
+    /**
+     * Sends message with the request to join the match
      *
      * 
      *
