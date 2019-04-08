@@ -45,11 +45,3 @@ end
 danger = function (message)
 	__internal:danger(message)
 end
-
-setHeadColor = function (color)
-	__internal:setHeadColor(color)
-end
-
-setBodyColor = function (color)
-	__internal:setBodyColor(color)
-end

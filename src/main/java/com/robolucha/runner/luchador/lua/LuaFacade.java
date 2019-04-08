@@ -150,28 +150,6 @@ public class LuaFacade implements ScriptFacade {
 		owner.onMessage(MessageVO.DANGER, message);
 	}
 
-	// TODO: restrict String size
-	/* (non-Javadoc)
-	 * @see com.robolucha.runner.luchador.lua.ScriptFacade#setHeadColor(java.lang.String)
-	 */
-	@Override
-	public void setHeadColor(String color) {
-		lastCall = "setHeadColor(" + color + ")";
-		logger.debug(lastCall);
-		owner.setHeadColor(color);
-	}
-
-	// TODO: restrict String size
-	/* (non-Javadoc)
-	 * @see com.robolucha.runner.luchador.lua.ScriptFacade#setBodyColor(java.lang.String)
-	 */
-	@Override
-	public void setBodyColor(String color) {
-		lastCall = "setBodyColor(" + color + ")";
-		logger.debug(lastCall);
-		owner.setBodyColor(color);
-	}
-
 	/* (non-Javadoc)
 	 * @see com.robolucha.runner.luchador.lua.ScriptFacade#getLastCall()
 	 */

@@ -806,30 +806,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		matchRunner.getOnMessage().onNext(new MessageVO(gameComponent.getId(), type, message));
 	}
 
-	public void setHeadColor(String color) {
-		if (color == null) {
-			return;
-		}
-
-		if (color.length() > MAX_COLOR_LENGTH) {
-			color = color.substring(0, MAX_COLOR_LENGTH);
-		}
-
-		this.state.setHeadColor(color);
-	}
-
-	public void setBodyColor(String color) {
-		if (color == null) {
-			return;
-		}
-
-		if (color.length() > MAX_COLOR_LENGTH) {
-			color = color.substring(0, MAX_COLOR_LENGTH);
-		}
-
-		this.state.setBodyColor(color);
-	}
-
 	public void addFire(String codeName, int amount) {
 		amount = cleanUpAmount(amount);
 		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_FIRE, amount, gameComponent.getMoveSpeed());

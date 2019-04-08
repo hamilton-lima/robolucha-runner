@@ -25,9 +25,6 @@ public class LuchadorMatchState {
 
 	public double fireCoolDown;
 
-	public String headColor = Const.DEFAULT_HEAD_COLOR;
-	public String bodyColor = Const.DEFAULT_BODY_COLOR;
-
 	public ScoreVO score;
 	public LuchadorPublicState publicState;
 
@@ -46,20 +43,11 @@ public class LuchadorMatchState {
 		publicState.angle = (int) angle;
 		publicState.gunAngle = (int) gunAngle;
 		publicState.fireCoolDown = fireCoolDown;
-		publicState.headColor = headColor;
-		publicState.bodyColor = bodyColor;
 		publicState.k = score.getK();
 		publicState.d = score.getD();
 		publicState.score = score.getScore();
 
 		return publicState;
-	}
-
-	@Override
-	public String toString() {
-		return "LuchadorMatchState [id=" + id + ", name=" + name + ", x=" + x + ", y=" + y + ", life=" + life
-				+ ", angle=" + angle + ", gunAngle=" + gunAngle + ", fireCoolDown=" + fireCoolDown + ", headColor="
-				+ headColor + ", bodyColor=" + bodyColor + ", score=" + score + "]";
 	}
 
 	public long getId() {
@@ -126,28 +114,19 @@ public class LuchadorMatchState {
 		this.fireCoolDown = fireCoolDown;
 	}
 
-	public String getHeadColor() {
-		return headColor;
-	}
-
-	public void setHeadColor(String headColor) {
-		this.headColor = headColor;
-	}
-
-	public String getBodyColor() {
-		return bodyColor;
-	}
-
-	public void setBodyColor(String bodyColor) {
-		this.bodyColor = bodyColor;
-	}
-
 	public ScoreVO getScore() {
 		return score;
 	}
 
 	public void setScore(ScoreVO score) {
 		this.score = score;
+	}
+
+	@Override
+	public String toString() {
+		return "LuchadorMatchState [id=" + id + ", name=" + name + ", x=" + x + ", y=" + y + ", life=" + life
+				+ ", angle=" + angle + ", gunAngle=" + gunAngle + ", fireCoolDown=" + fireCoolDown + ", score=" + score
+				+ ", publicState=" + publicState + "]";
 	}
 
 }
