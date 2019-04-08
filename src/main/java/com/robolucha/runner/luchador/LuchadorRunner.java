@@ -24,7 +24,6 @@ import com.robolucha.models.GameComponent;
 import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.models.LuchadorPublicState;
-import com.robolucha.models.MaskConfigVO;
 import com.robolucha.models.MatchStateProvider;
 import com.robolucha.models.ScoreVO;
 import com.robolucha.runner.Calc;
@@ -82,15 +81,13 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private double punchCoolDown;
 	private double respawnCoolDown;
 	ScriptRunner currentRunner;
-	private MaskConfigVO mask;
 
 	private LuchadorUpdateListener luchadorUpdatelistener;
 
-	public LuchadorRunner(GameComponent gameComponent, MatchRunner matchRunner, MaskConfigVO mask) {
+	public LuchadorRunner(GameComponent gameComponent, MatchRunner matchRunner) {
 		this.gameComponent = gameComponent;
 		this.matchRunner = matchRunner;
 		this.exceptionCounter = 0;
-		this.mask = mask;
 
 		this.size = matchRunner.getGameDefinition().getLuchadorSize();
 		this.halfSize = this.size / 2;
@@ -809,30 +806,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		matchRunner.getOnMessage().onNext(new MessageVO(gameComponent.getId(), type, message));
 	}
 
-	public void setHeadColor(String color) {
-		if (color == null) {
-			return;
-		}
-
-		if (color.length() > MAX_COLOR_LENGTH) {
-			color = color.substring(0, MAX_COLOR_LENGTH);
-		}
-
-		this.state.setHeadColor(color);
-	}
-
-	public void setBodyColor(String color) {
-		if (color == null) {
-			return;
-		}
-
-		if (color.length() > MAX_COLOR_LENGTH) {
-			color = color.substring(0, MAX_COLOR_LENGTH);
-		}
-
-		this.state.setBodyColor(color);
-	}
-
 	public void addFire(String codeName, int amount) {
 		amount = cleanUpAmount(amount);
 		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_FIRE, amount, gameComponent.getMoveSpeed());
@@ -857,10 +830,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public int getExceptionCounter() {
 		return exceptionCounter;
-	}
-
-	public MaskConfigVO getMask() {
-		return mask;
 	}
 
 	@Override

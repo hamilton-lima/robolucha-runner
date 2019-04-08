@@ -13,6 +13,7 @@
 package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
+import io.swagger.client.model.MainConfig;
 import io.swagger.client.model.MainJoinMatch;
 import io.swagger.client.model.MainLoginRequest;
 import io.swagger.client.model.MainLoginResponse;
@@ -48,6 +49,21 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * Create Gamecomponent as Luchador
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalGameComponentPostTest() throws ApiException {
+        MainLuchador body = null;
+        MainLuchador response = api.internalGameComponentPost(body);
+
+        // TODO: test validations
+    }
+    /**
      * find Luchador by ID
      *
      * 
@@ -63,7 +79,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * adds match participant
+     * Adds luchador to a match
      *
      * 
      *
@@ -93,7 +109,21 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * join match
+     * returns application health check information
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalReadyGetTest() throws ApiException {
+        api.internalReadyGet();
+
+        // TODO: test validations
+    }
+    /**
+     * Sends message with the request to join the match
      *
      * 
      *
@@ -133,6 +163,21 @@ public class DefaultApiTest {
     public void privateLuchadorPutTest() throws ApiException {
         MainLuchador body = null;
         MainLuchador response = api.privateLuchadorPut(body);
+
+        // TODO: test validations
+    }
+    /**
+     * find maskConfig for a luchador
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMaskConfigIdGetTest() throws ApiException {
+        Integer id = null;
+        List<MainConfig> response = api.privateMaskConfigIdGet(id);
 
         // TODO: test validations
     }

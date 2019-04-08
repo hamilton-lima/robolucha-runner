@@ -8,14 +8,10 @@ import org.apache.log4j.Logger;
 import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.GameComponent;
 import com.robolucha.models.Luchador;
-import com.robolucha.models.MaskConfig;
-import com.robolucha.models.MaskConfigVO;
-import com.robolucha.models.MatchEvent;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
-import com.robolucha.runner.luchador.mask.MaskGenerator;
 
 /**
  * 
@@ -99,7 +95,6 @@ public class LutchadorRunnerCreator implements Runnable {
 	private void create(GameComponent gameComponent) throws Exception {
 
 		logger.info("gamecomponent started (run): " + gameComponent);
-		MaskConfigVO mask = null;
 
 		if (gameComponent instanceof Luchador) {
 			MatchParticipant matchParticipant = new MatchParticipant();
@@ -110,18 +105,13 @@ public class LutchadorRunnerCreator implements Runnable {
 			if (matchParticipant.getMatchRun().getId() != null) {
 
 				MatchRunnerAPI.getInstance().addMatchParticipant(matchParticipant);
-
-				mask = getMask(gameComponent);
 			} else {
 				logger.warn("!!! trying to save match participation with unsaved MatchRun, is it running a TEST?");
 			}
 
-		} else {
-			// generate masks for gamecompoent that is not a luchador
-			mask = getMask(gameComponent);
-		}
+		} 
 
-		LuchadorRunner runner = new LuchadorRunner(gameComponent, this.owner, mask);
+		LuchadorRunner runner = new LuchadorRunner(gameComponent, this.owner);
 		LuchadorUpdateListener.listen(queue, runner);
 		
 		logger.info(">>>>>>>>> LUCHADOR runner created: " + runner.getGameComponent().getName());
@@ -135,16 +125,5 @@ public class LutchadorRunnerCreator implements Runnable {
 		owner.getRunners().put(runner.getGameComponent().getId(), runner);
 	}
 
-	protected MaskConfigVO getMask(GameComponent gameComponent) {
-
-		MaskConfig mask = MatchRunnerAPI.getInstance().findMask(gameComponent);
-
-		if (mask == null) {
-			mask = MaskGenerator.getInstance().random();
-			MatchRunnerAPI.getInstance().saveMask(gameComponent, mask);
-		}
-
-		return mask;
-	}
 	
 }

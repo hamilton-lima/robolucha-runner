@@ -20,79 +20,13 @@ import java.util.Objects;
  * MainMatchParticipant
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-03-27T09:01:57.551946-03:00[America/Sao_Paulo]")public class MainMatchParticipant {
-
-  @SerializedName("createdAt")
-  private String createdAt = null;
-
-  @SerializedName("deletedAt")
-  private String deletedAt = null;
-
-  @SerializedName("id")
-  private Integer id = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-07T21:57:22.207Z[GMT]")public class MainMatchParticipant {
 
   @SerializedName("luchadorID")
   private Integer luchadorID = null;
 
   @SerializedName("matchID")
   private Integer matchID = null;
-
-  @SerializedName("updatedAt")
-  private String updatedAt = null;
-  public MainMatchParticipant createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get createdAt
-  * @return createdAt
-  **/
-  @Schema(description = "")
-  public String getCreatedAt() {
-    return createdAt;
-  }
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
-  public MainMatchParticipant deletedAt(String deletedAt) {
-    this.deletedAt = deletedAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get deletedAt
-  * @return deletedAt
-  **/
-  @Schema(description = "")
-  public String getDeletedAt() {
-    return deletedAt;
-  }
-  public void setDeletedAt(String deletedAt) {
-    this.deletedAt = deletedAt;
-  }
-  public MainMatchParticipant id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  
-
-  /**
-  * Get id
-  * @return id
-  **/
-  @Schema(description = "")
-  public Integer getId() {
-    return id;
-  }
-  public void setId(Integer id) {
-    this.id = id;
-  }
   public MainMatchParticipant luchadorID(Integer luchadorID) {
     this.luchadorID = luchadorID;
     return this;
@@ -129,24 +63,6 @@ import java.util.Objects;
   public void setMatchID(Integer matchID) {
     this.matchID = matchID;
   }
-  public MainMatchParticipant updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get updatedAt
-  * @return updatedAt
-  **/
-  @Schema(description = "")
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -156,17 +72,13 @@ import java.util.Objects;
       return false;
     }
     MainMatchParticipant mainMatchParticipant = (MainMatchParticipant) o;
-    return Objects.equals(this.createdAt, mainMatchParticipant.createdAt) &&
-        Objects.equals(this.deletedAt, mainMatchParticipant.deletedAt) &&
-        Objects.equals(this.id, mainMatchParticipant.id) &&
-        Objects.equals(this.luchadorID, mainMatchParticipant.luchadorID) &&
-        Objects.equals(this.matchID, mainMatchParticipant.matchID) &&
-        Objects.equals(this.updatedAt, mainMatchParticipant.updatedAt);
+    return Objects.equals(this.luchadorID, mainMatchParticipant.luchadorID) &&
+        Objects.equals(this.matchID, mainMatchParticipant.matchID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(createdAt, deletedAt, id, luchadorID, matchID, updatedAt);
+    return java.util.Objects.hash(luchadorID, matchID);
   }
 
   @Override
@@ -174,12 +86,8 @@ import java.util.Objects;
     StringBuilder sb = new StringBuilder();
     sb.append("class MainMatchParticipant {\n");
     
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
     sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -18,8 +18,6 @@ public class LuchadorPublicState {
 	public int gunAngle;
 
 	public double fireCoolDown;
-	public String headColor;
-	public String bodyColor;
 	
 	public int k;
 	public int d;
@@ -36,8 +34,6 @@ public class LuchadorPublicState {
                 ", angle=" + angle +
                 ", gunAngle=" + gunAngle +
                 ", fireCoolDown=" + fireCoolDown +
-                ", headColor='" + headColor + '\'' +
-                ", bodyColor='" + bodyColor + '\'' +
                 ", k=" + k +
                 ", d=" + d +
                 ", score=" + score +

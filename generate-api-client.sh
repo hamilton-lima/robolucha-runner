@@ -5,7 +5,7 @@ if [ ! -f "swagger-codegen-cli.jar" ]; then
     wget http://central.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.0/swagger-codegen-cli-3.0.0.jar -O swagger-codegen-cli.jar
 fi
 
-java -jar swagger-codegen-cli.jar generate --output ./sdk --lang java --input-spec ../robolucha-api/docs/swagger/swagger.yaml
+java -jar swagger-codegen-cli.jar generate --output ./sdk --lang java --input-spec ../robolucha-api/docs/swagger.yaml
 
 # remove unused file 
 rm sdk/src/main/AndroidManifest.xml

@@ -30,12 +30,6 @@ public interface ScriptFacade {
 	// TODO: restrict String size
 	void danger(String message);
 
-	// TODO: restrict String size
-	void setHeadColor(String color);
-
-	// TODO: restrict String size
-	void setBodyColor(String color);
-
 	String getLastCall();
 
 }

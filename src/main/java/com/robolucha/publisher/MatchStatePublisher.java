@@ -10,7 +10,6 @@ import com.robolucha.game.vo.PunchVO;
 import com.robolucha.models.Bullet;
 import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorPublicState;
-import com.robolucha.models.MaskConfigVO;
 import com.robolucha.models.Match;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.Punch;
@@ -42,7 +41,6 @@ public class MatchStatePublisher {
 					// read data to update the state
 					String name = runner.getGameComponent().getName();
 					LuchadorPublicState publicState = runner.getState().getPublicState();
-					MaskConfigVO mask = runner.getMask();
 
 					// luchador owner data
 					Long ownerId = null;
@@ -54,7 +52,7 @@ public class MatchStatePublisher {
 					}
 
 					// update luchador data
-					vo.luchadores.add(new LuchadorPublicStateVO(publicState, name, ownerId, mask));
+					vo.luchadores.add(new LuchadorPublicStateVO(publicState, name, ownerId));
 				}
 			}
 

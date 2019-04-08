@@ -7,7 +7,7 @@ public class GameDefinition {
 
 	private long id = 1;
 	private String name = "default";
-	private int duration = 60000;
+	private int duration = 1200000;
 	private int minParticipants = 2;
 	private int maxParticipants = 14;
 
