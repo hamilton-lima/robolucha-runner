@@ -1,6 +1,11 @@
 package com.robolucha.publisher;
 
 public class MessageEnvelope {
-	String messageType;
+	public MessageEnvelope(String type, Object message)
+	{
+		this.type = type;
+		this.message = message;
+	}
+	String type;
 	Object message;
 }

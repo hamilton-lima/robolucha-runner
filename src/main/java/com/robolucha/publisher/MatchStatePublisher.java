@@ -98,9 +98,7 @@ public class MatchStatePublisher {
 	}
 
 	public void publish(MatchRunStateVO state) {
-		MessageEnvelope envelope = new MessageEnvelope();
-		envelope.message = state;
-		envelope.messageType = "MatchRunStateVO";
+		MessageEnvelope envelope = new MessageEnvelope("Match State", state);
 		publisher.publish(channel,envelope);
 	}
 
