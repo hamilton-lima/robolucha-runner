@@ -18,10 +18,10 @@ public class MessageEnvelope {
 	}
 
 	public static MessageEnvelope buildMatchState(Object matchState) {
-		return new MessageEnvelope(MessageEnvelope.EVENT, matchState);
+		return new MessageEnvelope(MessageEnvelope.MATCH_STATE, matchState);
 	}
 
 	public static MessageEnvelope buildMessage(Object message) {
-		return new MessageEnvelope(MessageEnvelope.EVENT, message);
+		return new MessageEnvelope(MessageEnvelope.MESSAGE, message);
 	}
 }
