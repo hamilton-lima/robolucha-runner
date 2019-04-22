@@ -157,8 +157,9 @@ public class MatchEventPublisher implements MatchEventListener {
             logger.debug("matchrunner.id=" + runner.getMatch().getId() + " " + name + " event=" + event);
         }
 
+        MessageEnvelope eventEnvelope = MessageEnvelope.buildEvent(event);
         
-        publisher.publish(channel, event);
+        publisher.publish(channel, eventEnvelope);
     }
 
 }
