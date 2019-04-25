@@ -22,6 +22,7 @@ import io.swagger.client.model.MainCode;
 import io.swagger.client.model.MainLuchador;
 import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainMatchParticipant;
+import io.swagger.client.model.MainMatchScore;
 
 //TODO: MUST DO - Implement the API calls!!!
 public class MatchRunnerAPI {
@@ -57,13 +58,20 @@ public class MatchRunnerAPI {
 	}
 
 	public void addScore(MatchScore score) throws Exception {
-		throw new RuntimeException("not implemented");
+		MainMatchScore mainScore = new MainMatchScore();
+		mainScore.setMatchID(score.getMatchRun().getId().intValue());
+		mainScore.setGameComponentID(score.getGameComponent().getId().intValue());
+		mainScore.setKills(score.getKills());
+		mainScore.setDeaths(score.getDeaths());
+		mainScore.setScore(score.getScore());
+		apiInstance.privateAddScorePost(mainScore);
+		
 	}
 
 	public void addMatchParticipant(MatchParticipant matchParticipant) throws Exception {
 		MainMatchParticipant participant = new MainMatchParticipant();
 		participant.setMatchID(matchParticipant.getMatchRun().getId().intValue());
-		participant.setLuchadorID((int) matchParticipant.getLuchador().getId());
+		participant.setLuchadorID(matchParticipant.getLuchador().getId().intValue());
 		apiInstance.internalMatchParticipantPost(participant);
 	}
 
@@ -127,7 +135,7 @@ public class MatchRunnerAPI {
 		MainMatch body = new MainMatch();
 		body.setId(match.getId().intValue());
 		body.setTimeEnd(JSONFormat.now());
-
+		
 		apiInstance.internalEndMatchPut(body);
 	}
 

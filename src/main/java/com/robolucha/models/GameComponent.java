@@ -47,7 +47,7 @@ public class GameComponent {
     // how much energy cost to fire
     private int fireEnergyCost = 2;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
