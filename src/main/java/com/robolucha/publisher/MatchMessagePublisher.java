@@ -26,7 +26,7 @@ public class MatchMessagePublisher implements Consumer<MessageVO>, MatchRunnerLi
 	@Override
 	public void accept(MessageVO messageVO) throws Exception {
 		String channel = String.format("luchador.%s.message", messageVO.luchadorID);
-		MessageEnvelope envelope = new MessageEnvelope("Message", messageVO);
+		MessageEnvelope envelope = MessageEnvelope.buildMessage(messageVO);
 		remoteQueue.publish(channel, envelope);
 	}
 

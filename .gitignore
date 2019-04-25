@@ -20,3 +20,4 @@ lib
 swagger-codegen-cli.jar
 google-java-format.jar
 .classpath
+.settings
