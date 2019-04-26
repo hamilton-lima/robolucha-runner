@@ -20,25 +20,13 @@ import java.util.Objects;
  * MainMatchScore
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-25T15:38:30.114990-03:00[America/Sao_Paulo]")public class MainMatchScore {
-
-  @SerializedName("Deaths")
-  private Integer deaths = null;
-
-  @SerializedName("GameComponentID")
-  private Integer gameComponentID = null;
-
-  @SerializedName("Kills")
-  private Integer kills = null;
-
-  @SerializedName("MatchID")
-  private Integer matchID = null;
-
-  @SerializedName("Score")
-  private Integer score = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T03:12:38.627Z[GMT]")public class MainMatchScore {
 
   @SerializedName("createdAt")
   private String createdAt = null;
+
+  @SerializedName("deaths")
+  private Integer deaths = null;
 
   @SerializedName("deletedAt")
   private String deletedAt = null;
@@ -46,98 +34,20 @@ import java.util.Objects;
   @SerializedName("id")
   private Integer id = null;
 
+  @SerializedName("kills")
+  private Integer kills = null;
+
+  @SerializedName("luchadorID")
+  private Integer luchadorID = null;
+
+  @SerializedName("matchID")
+  private Integer matchID = null;
+
+  @SerializedName("score")
+  private Integer score = null;
+
   @SerializedName("updatedAt")
   private String updatedAt = null;
-  public MainMatchScore deaths(Integer deaths) {
-    this.deaths = deaths;
-    return this;
-  }
-
-  
-
-  /**
-  * Get deaths
-  * @return deaths
-  **/
-  @Schema(description = "")
-  public Integer getDeaths() {
-    return deaths;
-  }
-  public void setDeaths(Integer deaths) {
-    this.deaths = deaths;
-  }
-  public MainMatchScore gameComponentID(Integer gameComponentID) {
-    this.gameComponentID = gameComponentID;
-    return this;
-  }
-
-  
-
-  /**
-  * Get gameComponentID
-  * @return gameComponentID
-  **/
-  @Schema(description = "")
-  public Integer getGameComponentID() {
-    return gameComponentID;
-  }
-  public void setGameComponentID(Integer gameComponentID) {
-    this.gameComponentID = gameComponentID;
-  }
-  public MainMatchScore kills(Integer kills) {
-    this.kills = kills;
-    return this;
-  }
-
-  
-
-  /**
-  * Get kills
-  * @return kills
-  **/
-  @Schema(description = "")
-  public Integer getKills() {
-    return kills;
-  }
-  public void setKills(Integer kills) {
-    this.kills = kills;
-  }
-  public MainMatchScore matchID(Integer matchID) {
-    this.matchID = matchID;
-    return this;
-  }
-
-  
-
-  /**
-  * Get matchID
-  * @return matchID
-  **/
-  @Schema(description = "")
-  public Integer getMatchID() {
-    return matchID;
-  }
-  public void setMatchID(Integer matchID) {
-    this.matchID = matchID;
-  }
-  public MainMatchScore score(Integer score) {
-    this.score = score;
-    return this;
-  }
-
-  
-
-  /**
-  * Get score
-  * @return score
-  **/
-  @Schema(description = "")
-  public Integer getScore() {
-    return score;
-  }
-  public void setScore(Integer score) {
-    this.score = score;
-  }
   public MainMatchScore createdAt(String createdAt) {
     this.createdAt = createdAt;
     return this;
@@ -155,6 +65,24 @@ import java.util.Objects;
   }
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
+  }
+  public MainMatchScore deaths(Integer deaths) {
+    this.deaths = deaths;
+    return this;
+  }
+
+  
+
+  /**
+  * Get deaths
+  * @return deaths
+  **/
+  @Schema(description = "")
+  public Integer getDeaths() {
+    return deaths;
+  }
+  public void setDeaths(Integer deaths) {
+    this.deaths = deaths;
   }
   public MainMatchScore deletedAt(String deletedAt) {
     this.deletedAt = deletedAt;
@@ -192,6 +120,78 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
+  public MainMatchScore kills(Integer kills) {
+    this.kills = kills;
+    return this;
+  }
+
+  
+
+  /**
+  * Get kills
+  * @return kills
+  **/
+  @Schema(description = "")
+  public Integer getKills() {
+    return kills;
+  }
+  public void setKills(Integer kills) {
+    this.kills = kills;
+  }
+  public MainMatchScore luchadorID(Integer luchadorID) {
+    this.luchadorID = luchadorID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get luchadorID
+  * @return luchadorID
+  **/
+  @Schema(description = "")
+  public Integer getLuchadorID() {
+    return luchadorID;
+  }
+  public void setLuchadorID(Integer luchadorID) {
+    this.luchadorID = luchadorID;
+  }
+  public MainMatchScore matchID(Integer matchID) {
+    this.matchID = matchID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get matchID
+  * @return matchID
+  **/
+  @Schema(description = "")
+  public Integer getMatchID() {
+    return matchID;
+  }
+  public void setMatchID(Integer matchID) {
+    this.matchID = matchID;
+  }
+  public MainMatchScore score(Integer score) {
+    this.score = score;
+    return this;
+  }
+
+  
+
+  /**
+  * Get score
+  * @return score
+  **/
+  @Schema(description = "")
+  public Integer getScore() {
+    return score;
+  }
+  public void setScore(Integer score) {
+    this.score = score;
+  }
   public MainMatchScore updatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
     return this;
@@ -219,20 +219,20 @@ import java.util.Objects;
       return false;
     }
     MainMatchScore mainMatchScore = (MainMatchScore) o;
-    return Objects.equals(this.deaths, mainMatchScore.deaths) &&
-        Objects.equals(this.gameComponentID, mainMatchScore.gameComponentID) &&
-        Objects.equals(this.kills, mainMatchScore.kills) &&
-        Objects.equals(this.matchID, mainMatchScore.matchID) &&
-        Objects.equals(this.score, mainMatchScore.score) &&
-        Objects.equals(this.createdAt, mainMatchScore.createdAt) &&
+    return Objects.equals(this.createdAt, mainMatchScore.createdAt) &&
+        Objects.equals(this.deaths, mainMatchScore.deaths) &&
         Objects.equals(this.deletedAt, mainMatchScore.deletedAt) &&
         Objects.equals(this.id, mainMatchScore.id) &&
+        Objects.equals(this.kills, mainMatchScore.kills) &&
+        Objects.equals(this.luchadorID, mainMatchScore.luchadorID) &&
+        Objects.equals(this.matchID, mainMatchScore.matchID) &&
+        Objects.equals(this.score, mainMatchScore.score) &&
         Objects.equals(this.updatedAt, mainMatchScore.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(deaths, gameComponentID, kills, matchID, score, createdAt, deletedAt, id, updatedAt);
+    return java.util.Objects.hash(createdAt, deaths, deletedAt, id, kills, luchadorID, matchID, score, updatedAt);
   }
 
   @Override
@@ -240,14 +240,14 @@ import java.util.Objects;
     StringBuilder sb = new StringBuilder();
     sb.append("class MainMatchScore {\n");
     
-    sb.append("    deaths: ").append(toIndentedString(deaths)).append("\n");
-    sb.append("    gameComponentID: ").append(toIndentedString(gameComponentID)).append("\n");
-    sb.append("    kills: ").append(toIndentedString(kills)).append("\n");
-    sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");
-    sb.append("    score: ").append(toIndentedString(score)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    deaths: ").append(toIndentedString(deaths)).append("\n");
     sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    kills: ").append(toIndentedString(kills)).append("\n");
+    sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
+    sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");
+    sb.append("    score: ").append(toIndentedString(score)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();

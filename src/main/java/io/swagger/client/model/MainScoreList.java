@@ -14,38 +14,22 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
- * MainJoinMatch
+ * MainScoreList
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T03:12:38.627Z[GMT]")public class MainJoinMatch {
-
-  @SerializedName("luchadorID")
-  private Integer luchadorID = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T03:12:38.627Z[GMT]")public class MainScoreList {
 
   @SerializedName("matchID")
   private Integer matchID = null;
-  public MainJoinMatch luchadorID(Integer luchadorID) {
-    this.luchadorID = luchadorID;
-    return this;
-  }
 
-  
-
-  /**
-  * Get luchadorID
-  * @return luchadorID
-  **/
-  @Schema(description = "")
-  public Integer getLuchadorID() {
-    return luchadorID;
-  }
-  public void setLuchadorID(Integer luchadorID) {
-    this.luchadorID = luchadorID;
-  }
-  public MainJoinMatch matchID(Integer matchID) {
+  @SerializedName("scores")
+  private List<MainMatchScore> scores = null;
+  public MainScoreList matchID(Integer matchID) {
     this.matchID = matchID;
     return this;
   }
@@ -63,6 +47,30 @@ import java.util.Objects;
   public void setMatchID(Integer matchID) {
     this.matchID = matchID;
   }
+  public MainScoreList scores(List<MainMatchScore> scores) {
+    this.scores = scores;
+    return this;
+  }
+
+  public MainScoreList addScoresItem(MainMatchScore scoresItem) {
+    if (this.scores == null) {
+      this.scores = new ArrayList<MainMatchScore>();
+    }
+    this.scores.add(scoresItem);
+    return this;
+  }
+
+  /**
+  * Get scores
+  * @return scores
+  **/
+  @Schema(description = "")
+  public List<MainMatchScore> getScores() {
+    return scores;
+  }
+  public void setScores(List<MainMatchScore> scores) {
+    this.scores = scores;
+  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -71,23 +79,23 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainJoinMatch mainJoinMatch = (MainJoinMatch) o;
-    return Objects.equals(this.luchadorID, mainJoinMatch.luchadorID) &&
-        Objects.equals(this.matchID, mainJoinMatch.matchID);
+    MainScoreList mainScoreList = (MainScoreList) o;
+    return Objects.equals(this.matchID, mainScoreList.matchID) &&
+        Objects.equals(this.scores, mainScoreList.scores);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(luchadorID, matchID);
+    return java.util.Objects.hash(matchID, scores);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainJoinMatch {\n");
+    sb.append("class MainScoreList {\n");
     
-    sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
     sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");
+    sb.append("    scores: ").append(toIndentedString(scores)).append("\n");
     sb.append("}");
     return sb.toString();
   }
