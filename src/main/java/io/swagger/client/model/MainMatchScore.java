@@ -17,13 +17,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainConfig
+ * MainMatchScore
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class MainConfig {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class MainMatchScore {
 
   @SerializedName("createdAt")
   private String createdAt = null;
+
+  @SerializedName("deaths")
+  private Integer deaths = null;
 
   @SerializedName("deletedAt")
   private String deletedAt = null;
@@ -31,18 +34,21 @@ import java.util.Objects;
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("key")
-  private String key = null;
+  @SerializedName("kills")
+  private Integer kills = null;
 
   @SerializedName("luchadorID")
   private Integer luchadorID = null;
 
+  @SerializedName("matchID")
+  private Integer matchID = null;
+
+  @SerializedName("score")
+  private Integer score = null;
+
   @SerializedName("updatedAt")
   private String updatedAt = null;
-
-  @SerializedName("value")
-  private String value = null;
-  public MainConfig createdAt(String createdAt) {
+  public MainMatchScore createdAt(String createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -60,7 +66,25 @@ import java.util.Objects;
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
-  public MainConfig deletedAt(String deletedAt) {
+  public MainMatchScore deaths(Integer deaths) {
+    this.deaths = deaths;
+    return this;
+  }
+
+  
+
+  /**
+  * Get deaths
+  * @return deaths
+  **/
+  @Schema(description = "")
+  public Integer getDeaths() {
+    return deaths;
+  }
+  public void setDeaths(Integer deaths) {
+    this.deaths = deaths;
+  }
+  public MainMatchScore deletedAt(String deletedAt) {
     this.deletedAt = deletedAt;
     return this;
   }
@@ -78,7 +102,7 @@ import java.util.Objects;
   public void setDeletedAt(String deletedAt) {
     this.deletedAt = deletedAt;
   }
-  public MainConfig id(Integer id) {
+  public MainMatchScore id(Integer id) {
     this.id = id;
     return this;
   }
@@ -96,25 +120,25 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainConfig key(String key) {
-    this.key = key;
+  public MainMatchScore kills(Integer kills) {
+    this.kills = kills;
     return this;
   }
 
   
 
   /**
-  * Get key
-  * @return key
+  * Get kills
+  * @return kills
   **/
   @Schema(description = "")
-  public String getKey() {
-    return key;
+  public Integer getKills() {
+    return kills;
   }
-  public void setKey(String key) {
-    this.key = key;
+  public void setKills(Integer kills) {
+    this.kills = kills;
   }
-  public MainConfig luchadorID(Integer luchadorID) {
+  public MainMatchScore luchadorID(Integer luchadorID) {
     this.luchadorID = luchadorID;
     return this;
   }
@@ -132,7 +156,43 @@ import java.util.Objects;
   public void setLuchadorID(Integer luchadorID) {
     this.luchadorID = luchadorID;
   }
-  public MainConfig updatedAt(String updatedAt) {
+  public MainMatchScore matchID(Integer matchID) {
+    this.matchID = matchID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get matchID
+  * @return matchID
+  **/
+  @Schema(description = "")
+  public Integer getMatchID() {
+    return matchID;
+  }
+  public void setMatchID(Integer matchID) {
+    this.matchID = matchID;
+  }
+  public MainMatchScore score(Integer score) {
+    this.score = score;
+    return this;
+  }
+
+  
+
+  /**
+  * Get score
+  * @return score
+  **/
+  @Schema(description = "")
+  public Integer getScore() {
+    return score;
+  }
+  public void setScore(Integer score) {
+    this.score = score;
+  }
+  public MainMatchScore updatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
@@ -150,24 +210,6 @@ import java.util.Objects;
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
-  public MainConfig value(String value) {
-    this.value = value;
-    return this;
-  }
-
-  
-
-  /**
-  * Get value
-  * @return value
-  **/
-  @Schema(description = "")
-  public String getValue() {
-    return value;
-  }
-  public void setValue(String value) {
-    this.value = value;
-  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -176,33 +218,37 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainConfig mainConfig = (MainConfig) o;
-    return Objects.equals(this.createdAt, mainConfig.createdAt) &&
-        Objects.equals(this.deletedAt, mainConfig.deletedAt) &&
-        Objects.equals(this.id, mainConfig.id) &&
-        Objects.equals(this.key, mainConfig.key) &&
-        Objects.equals(this.luchadorID, mainConfig.luchadorID) &&
-        Objects.equals(this.updatedAt, mainConfig.updatedAt) &&
-        Objects.equals(this.value, mainConfig.value);
+    MainMatchScore mainMatchScore = (MainMatchScore) o;
+    return Objects.equals(this.createdAt, mainMatchScore.createdAt) &&
+        Objects.equals(this.deaths, mainMatchScore.deaths) &&
+        Objects.equals(this.deletedAt, mainMatchScore.deletedAt) &&
+        Objects.equals(this.id, mainMatchScore.id) &&
+        Objects.equals(this.kills, mainMatchScore.kills) &&
+        Objects.equals(this.luchadorID, mainMatchScore.luchadorID) &&
+        Objects.equals(this.matchID, mainMatchScore.matchID) &&
+        Objects.equals(this.score, mainMatchScore.score) &&
+        Objects.equals(this.updatedAt, mainMatchScore.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(createdAt, deletedAt, id, key, luchadorID, updatedAt, value);
+    return java.util.Objects.hash(createdAt, deaths, deletedAt, id, kills, luchadorID, matchID, score, updatedAt);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainConfig {\n");
+    sb.append("class MainMatchScore {\n");
     
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    deaths: ").append(toIndentedString(deaths)).append("\n");
     sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    kills: ").append(toIndentedString(kills)).append("\n");
     sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
+    sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");
+    sb.append("    score: ").append(toIndentedString(score)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
   }

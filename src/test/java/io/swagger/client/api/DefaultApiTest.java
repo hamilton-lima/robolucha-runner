@@ -20,6 +20,8 @@ import io.swagger.client.model.MainLoginResponse;
 import io.swagger.client.model.MainLuchador;
 import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainMatchParticipant;
+import io.swagger.client.model.MainMatchScore;
+import io.swagger.client.model.MainScoreList;
 import io.swagger.client.model.MainUserSetting;
 import java.util.List;
 import org.junit.Ignore;
@@ -33,6 +35,21 @@ public class DefaultApiTest {
 
     private final DefaultApi api = new DefaultApi();
 
+    /**
+     * saves a match score
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalAddMatchScoresPostTest() throws ApiException {
+        MainScoreList body = null;
+        MainMatchScore response = api.internalAddMatchScoresPost(body);
+
+        // TODO: test validations
+    }
     /**
      * ends existing match
      *
