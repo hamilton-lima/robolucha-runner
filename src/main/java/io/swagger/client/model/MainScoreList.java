@@ -22,31 +22,10 @@ import java.util.Objects;
  * MainScoreList
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T03:12:38.627Z[GMT]")public class MainScoreList {
-
-  @SerializedName("matchID")
-  private Integer matchID = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class MainScoreList {
 
   @SerializedName("scores")
   private List<MainMatchScore> scores = null;
-  public MainScoreList matchID(Integer matchID) {
-    this.matchID = matchID;
-    return this;
-  }
-
-  
-
-  /**
-  * Get matchID
-  * @return matchID
-  **/
-  @Schema(description = "")
-  public Integer getMatchID() {
-    return matchID;
-  }
-  public void setMatchID(Integer matchID) {
-    this.matchID = matchID;
-  }
   public MainScoreList scores(List<MainMatchScore> scores) {
     this.scores = scores;
     return this;
@@ -80,13 +59,12 @@ import java.util.Objects;
       return false;
     }
     MainScoreList mainScoreList = (MainScoreList) o;
-    return Objects.equals(this.matchID, mainScoreList.matchID) &&
-        Objects.equals(this.scores, mainScoreList.scores);
+    return Objects.equals(this.scores, mainScoreList.scores);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(matchID, scores);
+    return java.util.Objects.hash(scores);
   }
 
   @Override
@@ -94,7 +72,6 @@ import java.util.Objects;
     StringBuilder sb = new StringBuilder();
     sb.append("class MainScoreList {\n");
     
-    sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");
     sb.append("    scores: ").append(toIndentedString(scores)).append("\n");
     sb.append("}");
     return sb.toString();

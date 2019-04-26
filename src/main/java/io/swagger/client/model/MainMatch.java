@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T03:12:38.627Z[GMT]")public class MainMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class MainMatch {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
