@@ -39,7 +39,7 @@ public class RemoteQueueTest {
                 public void accept(Luchador luchador) throws Exception {
                     logger.info("Luchador from REDIS subscription=" + luchador.toString());
 
-                    assertEquals(luchador.getId().longValue(), 2L);
+                    assertEquals(luchador.getId(), 2L);
                     assertEquals(luchador.getCodes().size(), 1);
 
                     Code code = luchador.getCodes().stream().findFirst().get();

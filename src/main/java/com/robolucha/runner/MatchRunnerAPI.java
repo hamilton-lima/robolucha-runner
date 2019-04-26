@@ -46,7 +46,7 @@ public class MatchRunnerAPI {
 		for (MatchScore score : scores) {
 			MainMatchScore mainScore = new MainMatchScore();
 			mainScore.setMatchID(score.getMatchRun().getId().intValue());
-			mainScore.luchadorID(score.getGameComponent().getId().intValue());
+			mainScore.luchadorID(Long.valueOf(score.getGameComponent().getId()).intValue());
 			mainScore.setKills(score.getKills());
 			mainScore.setDeaths(score.getDeaths());
 			mainScore.setScore(score.getScore());
@@ -59,7 +59,7 @@ public class MatchRunnerAPI {
 	public void addMatchParticipant(MatchParticipant matchParticipant) throws Exception {
 		MainMatchParticipant participant = new MainMatchParticipant();
 		participant.setMatchID(matchParticipant.getMatchRun().getId().intValue());
-		participant.setLuchadorID(matchParticipant.getLuchador().getId().intValue());
+		participant.setLuchadorID(Long.valueOf(matchParticipant.getLuchador().getId()).intValue());
 		apiInstance.internalMatchParticipantPost(participant);
 	}
 
