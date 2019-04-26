@@ -11,7 +11,6 @@ import com.robolucha.models.Code;
 import com.robolucha.models.GameComponent;
 import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Luchador;
-import com.robolucha.models.MaskConfig;
 import com.robolucha.models.Match;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.models.MatchScore;
@@ -23,8 +22,8 @@ import io.swagger.client.model.MainLuchador;
 import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainMatchParticipant;
 import io.swagger.client.model.MainMatchScore;
+import io.swagger.client.model.MainScoreList;
 
-//TODO: MUST DO - Implement the API calls!!!
 public class MatchRunnerAPI {
 
 	private Logger logger = Logger.getLogger(MatchRunnerAPI.class);
@@ -40,32 +39,21 @@ public class MatchRunnerAPI {
 		return instance;
 	}
 
-	public void saveMask(GameComponent gameComponent, MaskConfig mask) {
-		// throw new RuntimeException("not implemented");
-	}
+	public void addScores(List<MatchScore> scores) throws Exception {
 
-	public MaskConfig findMask(GameComponent gameComponent) {
-		return null;
-		// throw new RuntimeException("not implemented");
-	}
+		MainScoreList requestBody = new MainScoreList();
 
-	public MatchScore findScore(Match match, GameComponent gameComponent) throws Exception {
-		throw new RuntimeException("not implemented");
-	}
+		for (MatchScore score : scores) {
+			MainMatchScore mainScore = new MainMatchScore();
+			mainScore.setMatchID(score.getMatchRun().getId().intValue());
+			mainScore.luchadorID(score.getGameComponent().getId().intValue());
+			mainScore.setKills(score.getKills());
+			mainScore.setDeaths(score.getDeaths());
+			mainScore.setScore(score.getScore());
+			requestBody.addScoresItem(mainScore);
+		}
 
-	public void updateScore(MatchScore score) throws Exception {
-		throw new RuntimeException("not implemented");
-	}
-
-	public void addScore(MatchScore score) throws Exception {
-		MainMatchScore mainScore = new MainMatchScore();
-		mainScore.setMatchID(score.getMatchRun().getId().intValue());
-		mainScore.setGameComponentID(score.getGameComponent().getId().intValue());
-		mainScore.setKills(score.getKills());
-		mainScore.setDeaths(score.getDeaths());
-		mainScore.setScore(score.getScore());
-		apiInstance.privateAddScorePost(mainScore);
-		
+		apiInstance.internalAddMatchScoresPost(requestBody);
 	}
 
 	public void addMatchParticipant(MatchParticipant matchParticipant) throws Exception {
@@ -135,7 +123,7 @@ public class MatchRunnerAPI {
 		MainMatch body = new MainMatch();
 		body.setId(match.getId().intValue());
 		body.setTimeEnd(JSONFormat.now());
-		
+
 		apiInstance.internalEndMatchPut(body);
 	}
 
