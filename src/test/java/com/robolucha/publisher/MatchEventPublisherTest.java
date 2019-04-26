@@ -51,7 +51,8 @@ public class MatchEventPublisherTest {
     @Test
     public void onInit() {
         publisher.onInit(runner);
-        MatchEvent event = (MatchEvent) queue.lastPublished;
+        MessageEnvelope envelope = (MessageEnvelope) queue.lastPublished;
+        MatchEvent event = (MatchEvent) envelope.message;
         logger.debug("last published " + event);
 
         assertTrue(event.getTimeStart() >= start);
@@ -65,7 +66,8 @@ public class MatchEventPublisherTest {
     @Test
     public void onStart() {
         publisher.onStart(runner);
-        MatchEvent event = (MatchEvent) queue.lastPublished;
+        MessageEnvelope envelope = (MessageEnvelope) queue.lastPublished;
+        MatchEvent event = (MatchEvent) envelope.message;
         logger.debug("last published " + event);
 
         assertTrue(event.getTimeStart() >= start);
@@ -79,7 +81,8 @@ public class MatchEventPublisherTest {
     @Test
     public void onEnd() {
         publisher.onEnd(runner);
-        MatchEvent event = (MatchEvent) queue.lastPublished;
+        MessageEnvelope envelope = (MessageEnvelope) queue.lastPublished;
+        MatchEvent event = (MatchEvent) envelope.message;
         logger.debug("last published " + event);
 
         assertTrue(event.getTimeStart() >= start);
@@ -103,7 +106,8 @@ public class MatchEventPublisherTest {
         LuchadorMatchState luchador2 = MockLuchador.buildLuchadorMatchState(2L);
 
         publisher.onKill(runner, luchador1, luchador2);
-        MatchEvent event = (MatchEvent) queue.lastPublished;
+        MessageEnvelope envelope = (MessageEnvelope) queue.lastPublished;
+        MatchEvent event = (MatchEvent) envelope.message;
         logger.debug("last published " + event);
 
         assertTrue(event.getTimeStart() >= start);
@@ -121,7 +125,8 @@ public class MatchEventPublisherTest {
         LuchadorMatchState luchador2 = MockLuchador.buildLuchadorMatchState(2L);
 
         publisher.onDamage(runner, luchador2, luchador1, 54.3);
-        MatchEvent event = (MatchEvent) queue.lastPublished;
+        MessageEnvelope envelope = (MessageEnvelope) queue.lastPublished;
+        MatchEvent event = (MatchEvent) envelope.message;
         logger.debug("last published " + event);
 
         assertTrue(event.getTimeStart() >= start);
