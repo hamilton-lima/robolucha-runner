@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.game.event.MatchEventListener;
-import com.robolucha.game.vo.LuchadorPublicStateVO;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorMatchState;
@@ -16,14 +15,11 @@ import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.models.ScoreVO;
 import com.robolucha.publisher.MessageEnvelope;
 import com.robolucha.publisher.MockRemoteQueue;
-import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.subjects.BehaviorSubject;
 
 /**
  * This test creates 2 luchadores A and B - A need to be a the left of B with
