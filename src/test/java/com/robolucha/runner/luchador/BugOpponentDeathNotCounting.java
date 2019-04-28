@@ -15,6 +15,7 @@ import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.models.ScoreVO;
 import com.robolucha.publisher.MessageEnvelope;
+import com.robolucha.publisher.MockRemoteQueue;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
@@ -32,65 +33,26 @@ import io.reactivex.subjects.BehaviorSubject;
  * @author hamilton
  * @since 2019-04-27
  * @see https://robolucha.atlassian.net/browse/RB-59
- *
  */
 public class BugOpponentDeathNotCounting {
 
 	private static Logger logger = Logger.getLogger(BugOpponentDeathNotCounting.class);
-	LuchadorPublicState finalState = null;
-	protected int defaultLife;
-	protected int bodyCount;
-	public Object lastPublished;
-	LuchadorPublicStateVO found = null;
-	public int notFoundCounter;
 
-	private class RemoteQueueInspector extends RemoteQueue {
-
-		public RemoteQueueInspector() {
-		}
-
-		@Override
-		public Observable<Long> publish(String channel, Object subjectToPublish) {
-			lastPublished = subjectToPublish;
-			MessageEnvelope envelope = (MessageEnvelope) lastPublished;
-			MatchRunStateVO publishedState = (MatchRunStateVO) envelope.message;
-
-			logger.debug(">> Publishing data: luchadores.size=" + publishedState.luchadores.size());
-
-			found = null;
-
-			publishedState.luchadores.forEach((luchador) -> {
-				if (luchador.state.id == 2L) {
-					found = luchador;
-				}
-			});
-
-			if (found == null) {
-				notFoundCounter++;
-			}
-
-			return Observable.just(0L);
-		}
-
-		public <T> BehaviorSubject subscribe(String channel, Class<T> clazzToSubscribe) {
-			return BehaviorSubject.create();
-		}
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
+	int bodyCount;
 	LuchadorPublicState finalStateA = null;
 	LuchadorPublicState finalStateB = null;
 
 	ScoreVO finalScoreA = null;
 	ScoreVO finalScoreB = null;
 
+	@Before
+	public void setUp() throws Exception {
+	}
+
 	@Test
 	public void testRun() throws Exception {
 
-		RemoteQueueInspector queue = new RemoteQueueInspector();
+		MockRemoteQueue queue = new MockRemoteQueue();
 		MatchRunner match = MockMatchRunner.build(3000, queue);
 		match.getGameDefinition().setMinParticipants(2);
 
@@ -108,8 +70,6 @@ public class BugOpponentDeathNotCounting {
 				LuchadorRunner runnerB = match.getRunners().get(2L);
 				runnerA.cleanUpStateAtTheEnd = false;
 				runnerB.cleanUpStateAtTheEnd = false;
-
-				defaultLife = runnerB.getGameComponent().getLife();
 
 				runnerA.getState().setAngle(0);
 				runnerA.getState().setX(100);
@@ -158,14 +118,13 @@ public class BugOpponentDeathNotCounting {
 				finalStateA = runner.getState().getPublicState();
 				logger.debug(">> final state A: " + finalStateA);
 
-
 				runner = match.getRunners().get(2L);
 				finalStateB = runner.getState().getPublicState();
-				logger.debug(">> final state BA: " + finalStateB);
+				logger.debug(">> final state B: " + finalStateB);
 			}
 		});
 
-		MessageEnvelope envelope = (MessageEnvelope) lastPublished;
+		MessageEnvelope envelope = (MessageEnvelope) queue.lastPublished;
 		MatchRunStateVO publishedState = (MatchRunStateVO) envelope.message;
 		publishedState.scores.forEach((score) -> {
 			if (score.getId().equals(1L)) {
