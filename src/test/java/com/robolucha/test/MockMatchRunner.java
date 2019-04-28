@@ -9,6 +9,7 @@ import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.MockRemoteQueue;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
+import com.robolucha.score.ScoreUpdater;
 import com.robolucha.support.DefaultGameDefinitionFileCreator;
 
 public class MockMatchRunner {
@@ -52,6 +53,7 @@ public class MockMatchRunner {
 			publisher = new MatchStatePublisher(match, queue);
 		}
 
+        runner.addListener(new ScoreUpdater());
 		runner.setPublisher(publisher);
 		return runner;
 	}

@@ -2,114 +2,119 @@ package com.robolucha.models;
 
 public class ScoreVO implements Comparable<ScoreVO> {
 
-    //TODO: validate if still need the id and name
-    private Long id;
-    private String name;
-    private int k;
-    private int d;
-    private int score;
+	// TODO: validate if still need the id and name
+	private Long id;
+	private String name;
+	private int k;
+	private int d;
+	private int score;
 
-    public ScoreVO() {
-        this.k = 0;
-        this.d = 0;
-        this.score = 0;
-    }
+	public ScoreVO() {
+		this.k = 0;
+		this.d = 0;
+		this.score = 0;
+	}
 
-    /**
-     * for renaming
-     *
-     * @param previous
-     * @param name
-     */
-    public ScoreVO(ScoreVO previous, String name) {
-        this.id = previous.id;
-        this.name = name;
-        this.k = previous.k;
-        this.d = previous.d;
-        this.score = previous.score;
-    }
+	/**
+	 * for renaming
+	 *
+	 * @param previous
+	 * @param name
+	 */
+	public ScoreVO(ScoreVO previous, String name) {
+		this.id = previous.id;
+		this.name = name;
+		this.k = previous.k;
+		this.d = previous.d;
+		this.score = previous.score;
+	}
 
-    public ScoreVO(Long id, String name) {
-        this();
-        this.id = id;
-        this.name = name;
-    }
+	public ScoreVO(Long id, String name) {
+		this();
+		this.id = id;
+		this.name = name;
+	}
 
-    // for tests only
-    ScoreVO(Long id, String name, int k, int d, int score) {
-        this.id = id;
-        this.name = name;
-        this.k = k;
-        this.d = d;
-        this.score = score;
-    }
+	// for tests only
+	ScoreVO(Long id, String name, int k, int d, int score) {
+		this.id = id;
+		this.name = name;
+		this.k = k;
+		this.d = d;
+		this.score = score;
+	}
 
-    public int compareTo(ScoreVO o) {
-        int sub = o.score - this.score;
+	public int compareTo(ScoreVO o) {
+		int sub = o.score - this.score;
 
-        // retturn the difference as comparable
-        if (sub != 0) {
-            return sub;
-        } else {
+		// retturn the difference as comparable
+		if (sub != 0) {
+			return sub;
+		} else {
 
-            // amount of kill
-            sub = o.k - this.k;
-            if (sub != 0) {
-                return sub;
-            } else {
+			// amount of kill
+			sub = o.k - this.k;
+			if (sub != 0) {
+				return sub;
+			} else {
 
-                // died less 
-                sub = this.d - o.d;
-                if (sub != 0) {
-                    return sub;
-                } else {
+				// died less
+				sub = this.d - o.d;
+				if (sub != 0) {
+					return sub;
+				} else {
 
-                    // if nothing else works the older one goes first :)
-                    return (int) (this.id - o.id);
-                }
-            }
+					// if nothing else works the older one goes first :)
+					return (int) (this.id - o.id);
+				}
+			}
 
-        }
-    }
+		}
+	}
 
-    public int getScore() {
-        return score;
-    }
+	public int getScore() {
+		return score;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public int getK() {
-        return k;
-    }
+	public int getK() {
+		return k;
+	}
 
-    public void setK(int k) {
-        this.k = k;
-    }
+	public void setK(int k) {
+		this.k = k;
+	}
 
-    public int getD() {
-        return d;
-    }
+	public int getD() {
+		return d;
+	}
 
-    public void setD(int d) {
-        this.d = d;
-    }
+	public void setD(int d) {
+		this.d = d;
+	}
 
-    public void setScore(int score) {
-        this.score = score;
-    }
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	@Override
+	public String toString() {
+		return "ScoreVO [id=" + id + ", name=" + name + ", k=" + k + ", d=" + d + ", score=" + score + "]";
+	}
 
 }
