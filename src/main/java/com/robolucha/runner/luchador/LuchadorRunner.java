@@ -97,11 +97,15 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.events = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorEvent>());
 		this.messages = new LinkedList<MessageVO>();
 
-		// TODO: add script type to the factory call to support multiple scripts
 		scriptDefinition = ScriptDefinitionFactory.getInstance().getDefault();
-
+		
+		state = new LuchadorMatchState();
+		state.setId(gameComponent.getId());
+		state.setName(gameComponent.getName());
+		
 		try {
 			setDefaultState(matchRunner.getRespawnPoint(this));
+			setDefaultScore();
 			createCodeEngine(gameComponent.getCodes());
 			this.active = true;
 		} catch (Exception e) {
@@ -256,22 +260,20 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	}
 
 	private void setDefaultState(RespawnPoint point) {
-		this.state = new LuchadorMatchState();
-		this.state.setId(gameComponent.getId());
-		this.state.setName(gameComponent.getName());
-
-		this.state.setX(point.x);
-		this.state.setY(point.y);
-		this.state.setLife(gameComponent.getLife());
-		this.state.setAngle(0);
-		this.state.setGunAngle(0);
-		this.state.setFireCoolDown(0);
-
-		this.state.score = new ScoreVO(gameComponent.getId(), gameComponent.getName());
+		state.setX(point.x);
+		state.setY(point.y);
+		state.setLife(gameComponent.getLife());
+		state.setAngle(0);
+		state.setGunAngle(0);
+		state.setFireCoolDown(0);
 
 		respawnCoolDown = 0.0;
 		fireCoolDown = 0.0;
 		punchCoolDown = 0.0;
+	}
+
+	private void setDefaultScore() {
+		state.score = new ScoreVO(gameComponent.getId(), gameComponent.getName());
 	}
 
 	void eval(String name, String script) throws Exception {
