@@ -74,6 +74,8 @@ public class BugOpponentDeathNotCounting {
 				runnerB.getState().setX(200);
 				runnerB.getState().setY(100);
 				runnerB.getState().setLife(1.0);
+				runnerB.getState().score.setScore(1000);
+				runnerB.getGameComponent().setRespawnCooldown(1);
 
 				logger.debug(">> luchador A: " + runnerA.getState().getPublicState());
 				logger.debug(">> luchador B: " + runnerB.getState().getPublicState());
@@ -141,6 +143,8 @@ public class BugOpponentDeathNotCounting {
 
 		assertTrue("Luchador A Score.K should be > 0", finalScoreA.getK() > 0);
 		assertTrue("Luchador B Score.D should be > 0", finalScoreB.getD() > 0);
+
+		assertTrue("Luchador B Score.score should be = 1000", finalStateB.score == 1000);
 	}
 
 }
