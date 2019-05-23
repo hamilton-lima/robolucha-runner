@@ -13,8 +13,10 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 public class CheckRadarAction implements GameAction {
 
 	private static Logger logger = Logger.getLogger(CheckRadarAction.class);
+	private MatchRunner matchRunner;
 	
 	public CheckRadarAction(MatchRunner matchRunner) {
+		this.matchRunner = matchRunner;
 	}
 
 	public void run(LinkedHashMap<Long, LuchadorRunner> runners,
@@ -80,6 +82,7 @@ public class CheckRadarAction implements GameAction {
 						}
 
 						if (dot > 0) {
+							runner.getState().setLastOnfound(matchRunner.getTimeElapsed());
 							runner.addEvent(new OnFoundEvent(runner.getState().getPublicState(),
 									current.getState().getPublicState(), dot));
 						}

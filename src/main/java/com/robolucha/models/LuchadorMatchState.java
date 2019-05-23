@@ -23,7 +23,12 @@ public class LuchadorMatchState {
 	public double angle;
 	public double gunAngle;
 
+	public void setLastOnfound(long lastOnfound) {
+		this.lastOnfound = lastOnfound;
+	}
+
 	public double fireCoolDown;
+	public long lastOnfound;
 
 	public ScoreVO score;
 	public LuchadorPublicState publicState;
@@ -43,6 +48,7 @@ public class LuchadorMatchState {
 		publicState.angle = (int) angle;
 		publicState.gunAngle = (int) gunAngle;
 		publicState.fireCoolDown = fireCoolDown;
+		publicState.lastOnfound = lastOnfound;
 		publicState.k = score.getK();
 		publicState.d = score.getD();
 		publicState.score = score.getScore();
