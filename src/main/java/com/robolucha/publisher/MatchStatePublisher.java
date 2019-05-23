@@ -70,6 +70,7 @@ public class MatchStatePublisher {
 
 			BulletVO foo = new BulletVO();
 			foo.id = bullet.getId();
+			foo.owner = bullet.getOwner().getId();
 			foo.x = (int)bullet.getX();
 			foo.y = (int)bullet.getY();
 			foo.amount = bullet.getAmount();

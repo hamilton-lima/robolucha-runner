@@ -18,6 +18,7 @@ public class LuchadorPublicState {
 	public int gunAngle;
 
 	public double fireCoolDown;
+	public long lastOnfound;
 	
 	public int k;
 	public int d;
@@ -34,6 +35,7 @@ public class LuchadorPublicState {
                 ", angle=" + angle +
                 ", gunAngle=" + gunAngle +
                 ", fireCoolDown=" + fireCoolDown +
+                ", lastOnfound=" + lastOnfound +
                 ", k=" + k +
                 ", d=" + d +
                 ", score=" + score +
