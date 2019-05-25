@@ -1,5 +1,6 @@
 package com.robolucha.runner;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,7 @@ import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.api.DefaultApi;
 import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainLuchador;
 import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainMatchParticipant;
@@ -63,31 +65,8 @@ public class MatchRunnerAPI {
 		apiInstance.internalMatchParticipantPost(participant);
 	}
 
-	public Match createMatch(GameDefinition gameDefinition) throws Exception {
-		MainMatch match = new MainMatch();
-		match.setDuration(gameDefinition.getDuration());
-		match.setTimeStart(JSONFormat.now());
-		match.setMinParticipants(gameDefinition.getMinParticipants());
-		match.setMaxParticipants(gameDefinition.getMaxParticipants());
-		match.setArenaWidth(gameDefinition.getArenaWidth());
-		match.setArenaHeight(gameDefinition.getArenaHeight());
-		match.setBulletSize(gameDefinition.getBulletSize());
-		match.setLuchadorSize(gameDefinition.getLuchadorSize());
-		match.setFps(gameDefinition.getFps());
-		match.setBuletSpeed(gameDefinition.getBuletSpeed());
-
-		Iterator<GameComponent> iterator = gameDefinition.getGameComponents().iterator();
-		while (iterator.hasNext()) {
-			GameComponent component = iterator.next();
-			MainLuchador participant = new MainLuchador();
-			participant.setName(component.getName());
-			participant.setCodes(convertCodes(component.getCodes()));
-
-			MainLuchador updatedComponent = apiInstance.internalGameComponentPost(participant);
-			updateGameDefinitionWithID(gameDefinition, updatedComponent);
-		}
-
-		match = apiInstance.internalMatchPost(match);
+	public Match createMatch(String gameDefinitionName) throws Exception {
+		MainMatch match = apiInstance.internalStartMatchNamePost(gameDefinitionName);
 		logger.info("createMatch() API response" + match);
 
 		Match result = new Match();
@@ -150,6 +129,16 @@ public class MatchRunnerAPI {
 		}
 
 		return luchador;
+	}
+
+	public GameDefinition getGameDefinition(String gameDefinitionName) throws Exception {
+		MainGameDefinition gamedefinition = apiInstance.internalGameDefinitionNameGet(gameDefinitionName);
+		logger.info("getGameDefinition() API response" + gamedefinition);
+
+		GameDefinition result = new GameDefinition();
+		BeanUtils.copyProperties(result, gamedefinition);
+		logger.info("getGameDefinition()" + result);
+		return result;
 	}
 
 }

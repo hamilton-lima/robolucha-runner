@@ -1,11 +1,7 @@
 package com.robolucha.runner;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-
 import org.apache.log4j.Logger;
 
-import com.google.gson.Gson;
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.models.GameDefinition;
@@ -15,7 +11,6 @@ import com.robolucha.publisher.MatchEventPublisher;
 import com.robolucha.publisher.MatchMessagePublisher;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
-import com.robolucha.runner.luchador.lua.LuaScriptDefinition;
 import com.robolucha.score.ScoreUpdater;
 
 import io.swagger.client.ApiClient;
@@ -32,17 +27,19 @@ public class Server {
     public static void main(String[] args) throws Exception {
 
         if (args.length < 1) {
-            throw new RuntimeException("Invalid use, must provide GameDefinition json file name");
+            throw new RuntimeException("Invalid use, must provide GameDefinition name (1)");
         }
 
         addRunTimeHook();
         configAPIClient();
 
-        GameDefinition gameDefinition = loadGameDefinition(args[0]);
+        String gameDefinitionName = args[0];
         ThreadMonitor threadMonitor = ThreadMonitor.getInstance();
 
         RemoteQueue queue = new RemoteQueue(Config.getInstance());
-        Match match = MatchRunnerAPI.getInstance().createMatch(gameDefinition);
+        Match match = MatchRunnerAPI.getInstance().createMatch(gameDefinitionName);
+        GameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(gameDefinitionName);
+        
         MatchRunner runner = new MatchRunner(gameDefinition, match, queue);
         MatchStatePublisher publisher = new MatchStatePublisher(match, queue);
 
@@ -57,30 +54,6 @@ public class Server {
                 ThreadMonitor.getInstance().contextDestroyed();
             }
         });
-    }
-
-    static GameDefinition loadGameDefinition(String filename) throws Exception {
-        Gson gson = new Gson();
-        String fileContent = readFile(filename);
-        logger.info("configuration file content: " + fileContent);
-        
-        GameDefinition definition = gson.fromJson(fileContent, GameDefinition.class);
-        return definition;
-    }
-
-    private static String readFile(String filename) throws Exception {
-        logger.info("reading configuration file: " + filename );
-
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
-        StringBuffer buffer = new StringBuffer();
-
-        String line = reader.readLine();
-        while (line != null) {
-            buffer.append(line);
-            line = reader.readLine();
-        }
-        reader.close();
-        return buffer.toString();
     }
 
     public static Thread buildRunner(MatchRunner runner, RemoteQueue queue, ThreadMonitor threadMonitor, MatchStatePublisher publisher) {
