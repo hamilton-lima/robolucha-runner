@@ -14,14 +14,15 @@ package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.MainConfig;
+import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainJoinMatch;
-import io.swagger.client.model.MainLoginRequest;
-import io.swagger.client.model.MainLoginResponse;
 import io.swagger.client.model.MainLuchador;
 import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainMatchParticipant;
 import io.swagger.client.model.MainMatchScore;
 import io.swagger.client.model.MainScoreList;
+import io.swagger.client.model.MainUpdateLuchadorResponse;
+import io.swagger.client.model.MainUser;
 import io.swagger.client.model.MainUserSetting;
 import java.util.List;
 import org.junit.Ignore;
@@ -81,6 +82,51 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * find a game definition
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalGameDefinitionIdIdGetTest() throws ApiException {
+        Integer id = null;
+        MainGameDefinition response = api.internalGameDefinitionIdIdGet(id);
+
+        // TODO: test validations
+    }
+    /**
+     * find a game definition
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalGameDefinitionNameGetTest() throws ApiException {
+        String name = null;
+        MainGameDefinition response = api.internalGameDefinitionNameGet(name);
+
+        // TODO: test validations
+    }
+    /**
+     * create Game definition
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalGameDefinitionPostTest() throws ApiException {
+        MainGameDefinition body = null;
+        MainGameDefinition response = api.internalGameDefinitionPost(body);
+
+        // TODO: test validations
+    }
+    /**
      * find Luchador by ID
      *
      * 
@@ -111,21 +157,6 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * create Match
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void internalMatchPostTest() throws ApiException {
-        MainMatch body = null;
-        MainMatch response = api.internalMatchPost(body);
-
-        // TODO: test validations
-    }
-    /**
      * returns application health check information
      *
      * 
@@ -136,6 +167,35 @@ public class DefaultApiTest {
     @Test
     public void internalReadyGetTest() throws ApiException {
         api.internalReadyGet();
+
+        // TODO: test validations
+    }
+    /**
+     * create Match
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalStartMatchNamePostTest() throws ApiException {
+        String name = null;
+        MainMatch response = api.internalStartMatchNamePost(name);
+
+        // TODO: test validations
+    }
+    /**
+     * find The current user information
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateGetUserGetTest() throws ApiException {
+        MainUser response = api.privateGetUserGet();
 
         // TODO: test validations
     }
@@ -179,7 +239,7 @@ public class DefaultApiTest {
     @Test
     public void privateLuchadorPutTest() throws ApiException {
         MainLuchador body = null;
-        MainLuchador response = api.privateLuchadorPut(body);
+        MainUpdateLuchadorResponse response = api.privateLuchadorPut(body);
 
         // TODO: test validations
     }
@@ -195,6 +255,20 @@ public class DefaultApiTest {
     public void privateMaskConfigIdGetTest() throws ApiException {
         Integer id = null;
         List<MainConfig> response = api.privateMaskConfigIdGet(id);
+
+        // TODO: test validations
+    }
+    /**
+     * create random maskConfig
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMaskRandomGetTest() throws ApiException {
+        List<MainConfig> response = api.privateMaskRandomGet();
 
         // TODO: test validations
     }
@@ -228,6 +302,20 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * find tutorial GameDefinition
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateTutorialGetTest() throws ApiException {
+        List<MainGameDefinition> response = api.privateTutorialGet();
+
+        // TODO: test validations
+    }
+    /**
      * find current user userSetting
      *
      * 
@@ -253,21 +341,6 @@ public class DefaultApiTest {
     public void privateUserSettingPutTest() throws ApiException {
         MainUserSetting body = null;
         MainUserSetting response = api.privateUserSettingPut(body);
-
-        // TODO: test validations
-    }
-    /**
-     * Logs the user
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void publicLoginPostTest() throws ApiException {
-        MainLoginRequest body = null;
-        MainLoginResponse response = api.publicLoginPost(body);
 
         // TODO: test validations
     }

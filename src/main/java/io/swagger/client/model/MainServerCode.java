@@ -17,10 +17,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainCode
+ * MainServerCode
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-25T12:53:46.102Z[GMT]")public class MainCode {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-25T12:53:46.102Z[GMT]")public class MainServerCode {
 
   @SerializedName("event")
   private String event = null;
@@ -31,12 +31,9 @@ import java.util.Objects;
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("luchadorID")
-  private Integer luchadorID = null;
-
   @SerializedName("script")
   private String script = null;
-  public MainCode event(String event) {
+  public MainServerCode event(String event) {
     this.event = event;
     return this;
   }
@@ -54,7 +51,7 @@ import java.util.Objects;
   public void setEvent(String event) {
     this.event = event;
   }
-  public MainCode exception(String exception) {
+  public MainServerCode exception(String exception) {
     this.exception = exception;
     return this;
   }
@@ -72,7 +69,7 @@ import java.util.Objects;
   public void setException(String exception) {
     this.exception = exception;
   }
-  public MainCode id(Integer id) {
+  public MainServerCode id(Integer id) {
     this.id = id;
     return this;
   }
@@ -90,25 +87,7 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainCode luchadorID(Integer luchadorID) {
-    this.luchadorID = luchadorID;
-    return this;
-  }
-
-  
-
-  /**
-  * Get luchadorID
-  * @return luchadorID
-  **/
-  @Schema(description = "")
-  public Integer getLuchadorID() {
-    return luchadorID;
-  }
-  public void setLuchadorID(Integer luchadorID) {
-    this.luchadorID = luchadorID;
-  }
-  public MainCode script(String script) {
+  public MainServerCode script(String script) {
     this.script = script;
     return this;
   }
@@ -134,28 +113,26 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainCode mainCode = (MainCode) o;
-    return Objects.equals(this.event, mainCode.event) &&
-        Objects.equals(this.exception, mainCode.exception) &&
-        Objects.equals(this.id, mainCode.id) &&
-        Objects.equals(this.luchadorID, mainCode.luchadorID) &&
-        Objects.equals(this.script, mainCode.script);
+    MainServerCode mainServerCode = (MainServerCode) o;
+    return Objects.equals(this.event, mainServerCode.event) &&
+        Objects.equals(this.exception, mainServerCode.exception) &&
+        Objects.equals(this.id, mainServerCode.id) &&
+        Objects.equals(this.script, mainServerCode.script);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(event, exception, id, luchadorID, script);
+    return java.util.Objects.hash(event, exception, id, script);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainCode {\n");
+    sb.append("class MainServerCode {\n");
     
     sb.append("    event: ").append(toIndentedString(event)).append("\n");
     sb.append("    exception: ").append(toIndentedString(exception)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
     sb.append("    script: ").append(toIndentedString(script)).append("\n");
     sb.append("}");
     return sb.toString();

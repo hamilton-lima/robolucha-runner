@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainLuchador
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class MainLuchador {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-25T12:53:46.102Z[GMT]")public class MainLuchador {
 
   @SerializedName("codes")
   private List<MainCode> codes = null;
@@ -30,20 +30,11 @@ import java.util.Objects;
   @SerializedName("configs")
   private List<MainConfig> configs = null;
 
-  @SerializedName("createdAt")
-  private String createdAt = null;
-
-  @SerializedName("deletedAt")
-  private String deletedAt = null;
-
   @SerializedName("id")
   private Integer id = null;
 
   @SerializedName("name")
   private String name = null;
-
-  @SerializedName("updatedAt")
-  private String updatedAt = null;
 
   @SerializedName("userID")
   private Integer userID = null;
@@ -95,42 +86,6 @@ import java.util.Objects;
   public void setConfigs(List<MainConfig> configs) {
     this.configs = configs;
   }
-  public MainLuchador createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get createdAt
-  * @return createdAt
-  **/
-  @Schema(description = "")
-  public String getCreatedAt() {
-    return createdAt;
-  }
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
-  public MainLuchador deletedAt(String deletedAt) {
-    this.deletedAt = deletedAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get deletedAt
-  * @return deletedAt
-  **/
-  @Schema(description = "")
-  public String getDeletedAt() {
-    return deletedAt;
-  }
-  public void setDeletedAt(String deletedAt) {
-    this.deletedAt = deletedAt;
-  }
   public MainLuchador id(Integer id) {
     this.id = id;
     return this;
@@ -167,24 +122,6 @@ import java.util.Objects;
   public void setName(String name) {
     this.name = name;
   }
-  public MainLuchador updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get updatedAt
-  * @return updatedAt
-  **/
-  @Schema(description = "")
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
   public MainLuchador userID(Integer userID) {
     this.userID = userID;
     return this;
@@ -214,17 +151,14 @@ import java.util.Objects;
     MainLuchador mainLuchador = (MainLuchador) o;
     return Objects.equals(this.codes, mainLuchador.codes) &&
         Objects.equals(this.configs, mainLuchador.configs) &&
-        Objects.equals(this.createdAt, mainLuchador.createdAt) &&
-        Objects.equals(this.deletedAt, mainLuchador.deletedAt) &&
         Objects.equals(this.id, mainLuchador.id) &&
         Objects.equals(this.name, mainLuchador.name) &&
-        Objects.equals(this.updatedAt, mainLuchador.updatedAt) &&
         Objects.equals(this.userID, mainLuchador.userID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(codes, configs, createdAt, deletedAt, id, name, updatedAt, userID);
+    return java.util.Objects.hash(codes, configs, id, name, userID);
   }
 
   @Override
@@ -234,11 +168,8 @@ import java.util.Objects;
     
     sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
     sb.append("    configs: ").append(toIndentedString(configs)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("}");
     return sb.toString();

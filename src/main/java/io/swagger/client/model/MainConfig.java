@@ -20,13 +20,7 @@ import java.util.Objects;
  * MainConfig
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class MainConfig {
-
-  @SerializedName("createdAt")
-  private String createdAt = null;
-
-  @SerializedName("deletedAt")
-  private String deletedAt = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-25T12:53:46.102Z[GMT]")public class MainConfig {
 
   @SerializedName("id")
   private Integer id = null;
@@ -37,47 +31,8 @@ import java.util.Objects;
   @SerializedName("luchadorID")
   private Integer luchadorID = null;
 
-  @SerializedName("updatedAt")
-  private String updatedAt = null;
-
   @SerializedName("value")
   private String value = null;
-  public MainConfig createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get createdAt
-  * @return createdAt
-  **/
-  @Schema(description = "")
-  public String getCreatedAt() {
-    return createdAt;
-  }
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
-  public MainConfig deletedAt(String deletedAt) {
-    this.deletedAt = deletedAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get deletedAt
-  * @return deletedAt
-  **/
-  @Schema(description = "")
-  public String getDeletedAt() {
-    return deletedAt;
-  }
-  public void setDeletedAt(String deletedAt) {
-    this.deletedAt = deletedAt;
-  }
   public MainConfig id(Integer id) {
     this.id = id;
     return this;
@@ -132,24 +87,6 @@ import java.util.Objects;
   public void setLuchadorID(Integer luchadorID) {
     this.luchadorID = luchadorID;
   }
-  public MainConfig updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get updatedAt
-  * @return updatedAt
-  **/
-  @Schema(description = "")
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
   public MainConfig value(String value) {
     this.value = value;
     return this;
@@ -177,18 +114,15 @@ import java.util.Objects;
       return false;
     }
     MainConfig mainConfig = (MainConfig) o;
-    return Objects.equals(this.createdAt, mainConfig.createdAt) &&
-        Objects.equals(this.deletedAt, mainConfig.deletedAt) &&
-        Objects.equals(this.id, mainConfig.id) &&
+    return Objects.equals(this.id, mainConfig.id) &&
         Objects.equals(this.key, mainConfig.key) &&
         Objects.equals(this.luchadorID, mainConfig.luchadorID) &&
-        Objects.equals(this.updatedAt, mainConfig.updatedAt) &&
         Objects.equals(this.value, mainConfig.value);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(createdAt, deletedAt, id, key, luchadorID, updatedAt, value);
+    return java.util.Objects.hash(id, key, luchadorID, value);
   }
 
   @Override
@@ -196,12 +130,9 @@ import java.util.Objects;
     StringBuilder sb = new StringBuilder();
     sb.append("class MainConfig {\n");
     
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
     sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
