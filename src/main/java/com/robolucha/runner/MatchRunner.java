@@ -32,6 +32,7 @@ import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.models.Bullet;
 import com.robolucha.models.GameComponent;
+import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
@@ -67,7 +68,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private List<MatchRunnerListener> listeners;
 
-	private MainGameDefinition gameDefinition;
+	private GameDefinition gameDefinition;
 
 	private MatchStatePublisher publisher;
 	private JoinMatchListener joinListener;
@@ -101,7 +102,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return eventHandler;
 	}
 
-	public MatchRunner(MainGameDefinition gamedefinition, Match match, RemoteQueue queue, ServerMonitor monitor) {
+	public MatchRunner(GameDefinition gamedefinition, Match match, RemoteQueue queue, ServerMonitor monitor) {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
 		status = ThreadStatus.STARTING;
@@ -470,7 +471,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return delta;
 	}
 
-	public MainGameDefinition getGameDefinition() {
+	public GameDefinition getGameDefinition() {
 		return gameDefinition;
 	}
 
