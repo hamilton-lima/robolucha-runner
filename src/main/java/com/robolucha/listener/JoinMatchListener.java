@@ -1,15 +1,17 @@
 package com.robolucha.listener;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
-import com.robolucha.models.Luchador;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainJoinMatch;
+import io.swagger.client.model.MainLuchador;
 
 public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable{
 
@@ -43,10 +45,9 @@ public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable{
 	@Override
 	public void accept(MainJoinMatch joinMatch) throws Exception {
 		logger.info("Luchador wants to join a match " + joinMatch);
-		Luchador luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID().longValue());
-		logger.info("Luchador found by ID " + luchador);
+		MainGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID());
+		logger.info(">>>>>>>> Luchador found by ID " + luchador);
 		runner.addLuchador(luchador);
-		
 	}
 
 	@Override

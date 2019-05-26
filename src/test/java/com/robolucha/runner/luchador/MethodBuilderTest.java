@@ -1,14 +1,14 @@
 package com.robolucha.runner.luchador;
 
-import com.robolucha.models.Luchador;
-import com.robolucha.models.MaskConfigVO;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockLuchador;
-import com.robolucha.test.MockMatchRunner;
+import static org.junit.Assert.assertEquals;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import com.robolucha.models.Luchador;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockLuchador;
+import com.robolucha.test.MockMatchRunner;
 
 public class MethodBuilderTest {
 

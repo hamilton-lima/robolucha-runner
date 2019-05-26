@@ -1,11 +1,12 @@
 package com.robolucha.game;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import com.robolucha.models.Luchador;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockMatchRunner;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class FireAmountTest {
 

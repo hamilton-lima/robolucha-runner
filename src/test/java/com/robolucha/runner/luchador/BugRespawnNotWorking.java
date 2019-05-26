@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.game.event.MatchEventListener;
-import com.robolucha.game.vo.LuchadorPublicStateVO;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorMatchState;

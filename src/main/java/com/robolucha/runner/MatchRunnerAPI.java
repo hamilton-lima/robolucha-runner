@@ -1,5 +1,6 @@
 package com.robolucha.runner;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +17,7 @@ import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.api.DefaultApi;
 import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainLuchador;
 import io.swagger.client.model.MainMatch;
@@ -93,23 +95,21 @@ public class MatchRunnerAPI {
 		apiInstance.internalEndMatchPut(body);
 	}
 
-	public Luchador findLuchadorById(Long luchadorID) throws Exception {
-		MainLuchador luchadorFromAPI = apiInstance.internalLuchadorGet(luchadorID.intValue());
-		return mapLuchadorAPI2Bean(luchadorFromAPI);
-	}
-
-	public Luchador mapLuchadorAPI2Bean(MainLuchador input) throws Exception {
-		Luchador luchador = new Luchador();
-		luchador.setId(input.getId());
-		luchador.setName(input.getName());
-		luchador.getCodes().addAll(input.getCodes());
-		return luchador;
+	public MainGameComponent findLuchadorById(Integer luchadorID) throws Exception {
+		MainLuchador luchadorFromAPI = apiInstance.internalLuchadorGet(luchadorID);
+		return mapLuchador2GameDefinition(luchadorFromAPI);
 	}
 
 	public MainGameDefinition  getGameDefinition(String gameDefinitionName) throws Exception {
 		MainGameDefinition gamedefinition = apiInstance.internalGameDefinitionNameGet(gameDefinitionName);
 		logger.info("getGameDefinition() API response" + gamedefinition);
 		return gamedefinition;
+	}
+	
+	public MainGameComponent mapLuchador2GameDefinition(MainLuchador luchador) throws Exception {
+		MainGameComponent component = new MainGameComponent();
+		BeanUtils.copyProperties(component, luchador);
+		return component;
 	}
 
 }

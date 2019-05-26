@@ -1,13 +1,19 @@
 package com.robolucha.support;
 
-import com.google.gson.Gson;
-import com.robolucha.models.GameDefinition;
-import org.junit.Test;
-
-import java.io.*;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
+
+import org.junit.Test;
+
+import com.google.gson.Gson;
+
+import io.swagger.client.model.MainGameDefinition;
 
 public class DefaultGameDefinitionFileCreatorTest {
 
@@ -23,8 +29,8 @@ public class DefaultGameDefinitionFileCreatorTest {
 		assertNotNull(output);
 		
 		Gson gson = new Gson();
-		GameDefinition actual = gson.fromJson(output, GameDefinition.class);
-		GameDefinition expected = new GameDefinition();
+		MainGameDefinition actual = gson.fromJson(output, MainGameDefinition.class);
+		MainGameDefinition expected = new MainGameDefinition();
 
 		assertEquals(expected, actual);
 	}
@@ -38,8 +44,8 @@ public class DefaultGameDefinitionFileCreatorTest {
 		assertNotNull(output);
 		
 		Gson gson = new Gson();
-		GameDefinition actual = gson.fromJson(output, GameDefinition.class);
-		GameDefinition expected = new GameDefinition();
+		MainGameDefinition actual = gson.fromJson(output, MainGameDefinition.class);
+		MainGameDefinition expected = new MainGameDefinition();
 
 		assertEquals(expected, actual);
 	}

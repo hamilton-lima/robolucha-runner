@@ -1,11 +1,11 @@
 package com.robolucha.models;
 
-import com.robolucha.models.Bullet;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockMatchRunner;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-import static org.junit.Assert.fail;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockMatchRunner;
 
 public class BulletTest {
 

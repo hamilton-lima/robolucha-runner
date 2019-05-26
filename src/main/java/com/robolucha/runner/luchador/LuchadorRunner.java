@@ -20,7 +20,6 @@ import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.Bullet;
 import com.robolucha.models.Code;
-import com.robolucha.models.GameComponent;
 import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.models.LuchadorPublicState;
@@ -193,7 +192,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 *
 	 * @param luchador
 	 */
-	public void update(Luchador luchador) {
+	public void update(MainGameComponent luchador) {
 		logger.info("*** luchador UPDATE " + luchador.getId());
 
 		try {

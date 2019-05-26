@@ -1,12 +1,13 @@
 package com.robolucha.publisher;
 
-import com.robolucha.game.vo.MessageVO;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockMatchRunner;
+import static junit.framework.TestCase.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import com.robolucha.game.vo.MessageVO;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockMatchRunner;
 
 public class MatchMessagePublisherTest {
     MockRemoteQueue queue = new MockRemoteQueue();

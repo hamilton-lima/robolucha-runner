@@ -1,5 +1,11 @@
 package com.robolucha.runner.luchador;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+
 import com.robolucha.models.Luchador;
 import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
@@ -11,11 +17,6 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.Server;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
-import org.apache.log4j.Logger;
-import org.junit.Test;
-
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 public class BugNaoRetornandoMatchRunnerAtivoTest {
 

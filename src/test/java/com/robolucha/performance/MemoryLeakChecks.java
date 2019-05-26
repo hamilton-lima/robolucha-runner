@@ -1,15 +1,6 @@
 package com.robolucha.performance;
 
-import com.robolucha.models.Code;
-import com.robolucha.models.Luchador;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.runner.luchador.LuchadorRunner;
-import com.robolucha.runner.luchador.MethodNames;
-import com.robolucha.test.MockLuchador;
-import com.robolucha.test.MockMatchRunner;
-import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
@@ -18,7 +9,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.robolucha.models.Code;
+import com.robolucha.models.Luchador;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.runner.luchador.MethodNames;
+import com.robolucha.test.MockLuchador;
+import com.robolucha.test.MockMatchRunner;
 
 /**
  * testes para suporte a investigacao de vazamento de memoria apos a execucao de

@@ -1,5 +1,10 @@
 package com.robolucha.game;
 
+import static org.junit.Assert.assertTrue;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+
 import com.robolucha.models.Code;
 import com.robolucha.models.Luchador;
 import com.robolucha.runner.MatchRunner;
@@ -7,10 +12,6 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
-import org.apache.log4j.Logger;
-import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
 
 public class CheckRespawnTest {
 

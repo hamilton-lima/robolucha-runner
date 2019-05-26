@@ -1,11 +1,12 @@
 package com.robolucha.game;
 
-import com.robolucha.models.LuchadorMatchState;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+import com.robolucha.models.LuchadorMatchState;
 
 
 public class LuchadorMatchStateTest {

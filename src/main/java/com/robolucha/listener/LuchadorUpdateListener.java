@@ -9,6 +9,7 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainLuchador;
 
 public class LuchadorUpdateListener implements Consumer<MainLuchador>, Disposable {
@@ -40,7 +41,7 @@ public class LuchadorUpdateListener implements Consumer<MainLuchador>, Disposabl
 	@Override
 	public void accept(MainLuchador luchadorFromAPI) throws Exception {
 		logger.info("Luchador updated " + luchadorFromAPI);
-		Luchador luchador = MatchRunnerAPI.getInstance().mapLuchadorAPI2Bean(luchadorFromAPI);
+		MainGameComponent luchador = MatchRunnerAPI.getInstance().mapLuchador2GameDefinition(luchadorFromAPI);
 		runner.update(luchador);
 	}
 

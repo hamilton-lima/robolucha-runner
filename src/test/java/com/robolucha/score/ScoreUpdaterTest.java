@@ -1,12 +1,13 @@
 package com.robolucha.score;
 
-import com.robolucha.models.LuchadorMatchState;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockMatchRunner;
+import static junit.framework.TestCase.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import com.robolucha.models.LuchadorMatchState;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockMatchRunner;
 
 public class ScoreUpdaterTest {
 

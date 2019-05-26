@@ -1,13 +1,7 @@
 package com.robolucha.game;
 
-import com.robolucha.models.Luchador;
-import com.robolucha.runner.luchador.LuchadorCommand;
-import com.robolucha.test.MockLuchador;
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class LuchadorCommandTest {
 

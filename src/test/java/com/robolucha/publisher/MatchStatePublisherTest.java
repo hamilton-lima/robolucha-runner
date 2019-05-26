@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.game.vo.LuchadorPublicStateVO;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.models.Match;

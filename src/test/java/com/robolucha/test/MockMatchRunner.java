@@ -3,7 +3,6 @@ package com.robolucha.test;
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MatchRunStateVO;
-import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.publisher.MatchStatePublisher;
