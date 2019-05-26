@@ -19,33 +19,33 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * MainLuchador
+ * MainGameComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainLuchador {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainGameComponent {
 
   @SerializedName("codes")
-  private List<MainCode> codes = null;
+  private List<MainServerCode> codes = null;
 
   @SerializedName("configs")
-  private List<MainConfig> configs = null;
+  private List<MainServerConfig> configs = null;
+
+  @SerializedName("gameDefinition")
+  private Integer gameDefinition = null;
 
   @SerializedName("id")
   private Integer id = null;
 
   @SerializedName("name")
   private String name = null;
-
-  @SerializedName("userID")
-  private Integer userID = null;
-  public MainLuchador codes(List<MainCode> codes) {
+  public MainGameComponent codes(List<MainServerCode> codes) {
     this.codes = codes;
     return this;
   }
 
-  public MainLuchador addCodesItem(MainCode codesItem) {
+  public MainGameComponent addCodesItem(MainServerCode codesItem) {
     if (this.codes == null) {
-      this.codes = new ArrayList<MainCode>();
+      this.codes = new ArrayList<MainServerCode>();
     }
     this.codes.add(codesItem);
     return this;
@@ -56,20 +56,20 @@ import java.util.Objects;
   * @return codes
   **/
   @Schema(description = "")
-  public List<MainCode> getCodes() {
+  public List<MainServerCode> getCodes() {
     return codes;
   }
-  public void setCodes(List<MainCode> codes) {
+  public void setCodes(List<MainServerCode> codes) {
     this.codes = codes;
   }
-  public MainLuchador configs(List<MainConfig> configs) {
+  public MainGameComponent configs(List<MainServerConfig> configs) {
     this.configs = configs;
     return this;
   }
 
-  public MainLuchador addConfigsItem(MainConfig configsItem) {
+  public MainGameComponent addConfigsItem(MainServerConfig configsItem) {
     if (this.configs == null) {
-      this.configs = new ArrayList<MainConfig>();
+      this.configs = new ArrayList<MainServerConfig>();
     }
     this.configs.add(configsItem);
     return this;
@@ -80,13 +80,31 @@ import java.util.Objects;
   * @return configs
   **/
   @Schema(description = "")
-  public List<MainConfig> getConfigs() {
+  public List<MainServerConfig> getConfigs() {
     return configs;
   }
-  public void setConfigs(List<MainConfig> configs) {
+  public void setConfigs(List<MainServerConfig> configs) {
     this.configs = configs;
   }
-  public MainLuchador id(Integer id) {
+  public MainGameComponent gameDefinition(Integer gameDefinition) {
+    this.gameDefinition = gameDefinition;
+    return this;
+  }
+
+  
+
+  /**
+  * Get gameDefinition
+  * @return gameDefinition
+  **/
+  @Schema(description = "")
+  public Integer getGameDefinition() {
+    return gameDefinition;
+  }
+  public void setGameDefinition(Integer gameDefinition) {
+    this.gameDefinition = gameDefinition;
+  }
+  public MainGameComponent id(Integer id) {
     this.id = id;
     return this;
   }
@@ -104,7 +122,7 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainLuchador name(String name) {
+  public MainGameComponent name(String name) {
     this.name = name;
     return this;
   }
@@ -122,24 +140,6 @@ import java.util.Objects;
   public void setName(String name) {
     this.name = name;
   }
-  public MainLuchador userID(Integer userID) {
-    this.userID = userID;
-    return this;
-  }
-
-  
-
-  /**
-  * Get userID
-  * @return userID
-  **/
-  @Schema(description = "")
-  public Integer getUserID() {
-    return userID;
-  }
-  public void setUserID(Integer userID) {
-    this.userID = userID;
-  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -148,29 +148,29 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainLuchador mainLuchador = (MainLuchador) o;
-    return Objects.equals(this.codes, mainLuchador.codes) &&
-        Objects.equals(this.configs, mainLuchador.configs) &&
-        Objects.equals(this.id, mainLuchador.id) &&
-        Objects.equals(this.name, mainLuchador.name) &&
-        Objects.equals(this.userID, mainLuchador.userID);
+    MainGameComponent mainGameComponent = (MainGameComponent) o;
+    return Objects.equals(this.codes, mainGameComponent.codes) &&
+        Objects.equals(this.configs, mainGameComponent.configs) &&
+        Objects.equals(this.gameDefinition, mainGameComponent.gameDefinition) &&
+        Objects.equals(this.id, mainGameComponent.id) &&
+        Objects.equals(this.name, mainGameComponent.name);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(codes, configs, id, name, userID);
+    return java.util.Objects.hash(codes, configs, gameDefinition, id, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainLuchador {\n");
+    sb.append("class MainGameComponent {\n");
     
     sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
     sb.append("    configs: ").append(toIndentedString(configs)).append("\n");
+    sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

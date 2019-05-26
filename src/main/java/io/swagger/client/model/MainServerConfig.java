@@ -17,17 +17,20 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainUser
+ * MainServerConfig
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainUser {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainServerConfig {
 
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("username")
-  private String username = null;
-  public MainUser id(Integer id) {
+  @SerializedName("key")
+  private String key = null;
+
+  @SerializedName("value")
+  private String value = null;
+  public MainServerConfig id(Integer id) {
     this.id = id;
     return this;
   }
@@ -45,23 +48,41 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainUser username(String username) {
-    this.username = username;
+  public MainServerConfig key(String key) {
+    this.key = key;
     return this;
   }
 
   
 
   /**
-  * Get username
-  * @return username
+  * Get key
+  * @return key
   **/
   @Schema(description = "")
-  public String getUsername() {
-    return username;
+  public String getKey() {
+    return key;
   }
-  public void setUsername(String username) {
-    this.username = username;
+  public void setKey(String key) {
+    this.key = key;
+  }
+  public MainServerConfig value(String value) {
+    this.value = value;
+    return this;
+  }
+
+  
+
+  /**
+  * Get value
+  * @return value
+  **/
+  @Schema(description = "")
+  public String getValue() {
+    return value;
+  }
+  public void setValue(String value) {
+    this.value = value;
   }
   @Override
   public boolean equals(java.lang.Object o) {
@@ -71,23 +92,25 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainUser mainUser = (MainUser) o;
-    return Objects.equals(this.id, mainUser.id) &&
-        Objects.equals(this.username, mainUser.username);
+    MainServerConfig mainServerConfig = (MainServerConfig) o;
+    return Objects.equals(this.id, mainServerConfig.id) &&
+        Objects.equals(this.key, mainServerConfig.key) &&
+        Objects.equals(this.value, mainServerConfig.value);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, username);
+    return java.util.Objects.hash(id, key, value);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainUser {\n");
+    sb.append("class MainServerConfig {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
   }

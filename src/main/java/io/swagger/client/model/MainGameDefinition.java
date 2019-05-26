@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainGameDefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-25T12:53:46.102Z[GMT]")public class MainGameDefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainGameDefinition {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
@@ -53,6 +53,9 @@ import java.util.Objects;
 
   @SerializedName("fps")
   private Integer fps = null;
+
+  @SerializedName("gameComponents")
+  private List<MainGameComponent> gameComponents = null;
 
   @SerializedName("id")
   private Integer id = null;
@@ -98,9 +101,6 @@ import java.util.Objects;
 
   @SerializedName("name")
   private String name = null;
-
-  @SerializedName("participants")
-  private List<MainLuchador> participants = null;
 
   @SerializedName("punchAngle")
   private Integer punchAngle = null;
@@ -328,6 +328,30 @@ import java.util.Objects;
   }
   public void setFps(Integer fps) {
     this.fps = fps;
+  }
+  public MainGameDefinition gameComponents(List<MainGameComponent> gameComponents) {
+    this.gameComponents = gameComponents;
+    return this;
+  }
+
+  public MainGameDefinition addGameComponentsItem(MainGameComponent gameComponentsItem) {
+    if (this.gameComponents == null) {
+      this.gameComponents = new ArrayList<MainGameComponent>();
+    }
+    this.gameComponents.add(gameComponentsItem);
+    return this;
+  }
+
+  /**
+  * Get gameComponents
+  * @return gameComponents
+  **/
+  @Schema(description = "")
+  public List<MainGameComponent> getGameComponents() {
+    return gameComponents;
+  }
+  public void setGameComponents(List<MainGameComponent> gameComponents) {
+    this.gameComponents = gameComponents;
   }
   public MainGameDefinition id(Integer id) {
     this.id = id;
@@ -598,30 +622,6 @@ import java.util.Objects;
   }
   public void setName(String name) {
     this.name = name;
-  }
-  public MainGameDefinition participants(List<MainLuchador> participants) {
-    this.participants = participants;
-    return this;
-  }
-
-  public MainGameDefinition addParticipantsItem(MainLuchador participantsItem) {
-    if (this.participants == null) {
-      this.participants = new ArrayList<MainLuchador>();
-    }
-    this.participants.add(participantsItem);
-    return this;
-  }
-
-  /**
-  * Get participants
-  * @return participants
-  **/
-  @Schema(description = "")
-  public List<MainLuchador> getParticipants() {
-    return participants;
-  }
-  public void setParticipants(List<MainLuchador> participants) {
-    this.participants = participants;
   }
   public MainGameDefinition punchAngle(Integer punchAngle) {
     this.punchAngle = punchAngle;
@@ -906,6 +906,7 @@ import java.util.Objects;
         Objects.equals(this.energy, mainGameDefinition.energy) &&
         Objects.equals(this.fireEnergyCost, mainGameDefinition.fireEnergyCost) &&
         Objects.equals(this.fps, mainGameDefinition.fps) &&
+        Objects.equals(this.gameComponents, mainGameDefinition.gameComponents) &&
         Objects.equals(this.id, mainGameDefinition.id) &&
         Objects.equals(this.increaseSpeedEnergyCost, mainGameDefinition.increaseSpeedEnergyCost) &&
         Objects.equals(this.increaseSpeedPercentage, mainGameDefinition.increaseSpeedPercentage) &&
@@ -921,7 +922,6 @@ import java.util.Objects;
         Objects.equals(this.minParticipants, mainGameDefinition.minParticipants) &&
         Objects.equals(this.moveSpeed, mainGameDefinition.moveSpeed) &&
         Objects.equals(this.name, mainGameDefinition.name) &&
-        Objects.equals(this.participants, mainGameDefinition.participants) &&
         Objects.equals(this.punchAngle, mainGameDefinition.punchAngle) &&
         Objects.equals(this.punchCoolDown, mainGameDefinition.punchCoolDown) &&
         Objects.equals(this.punchDamage, mainGameDefinition.punchDamage) &&
@@ -940,7 +940,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxParticipants, minFireAmount, minFireDamage, minParticipants, moveSpeed, name, participants, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnCooldown, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, turnGunSpeed, turnSpeed, type);
+    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxParticipants, minFireAmount, minFireDamage, minParticipants, moveSpeed, name, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnCooldown, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, turnGunSpeed, turnSpeed, type);
   }
 
   @Override
@@ -958,6 +958,7 @@ import java.util.Objects;
     sb.append("    energy: ").append(toIndentedString(energy)).append("\n");
     sb.append("    fireEnergyCost: ").append(toIndentedString(fireEnergyCost)).append("\n");
     sb.append("    fps: ").append(toIndentedString(fps)).append("\n");
+    sb.append("    gameComponents: ").append(toIndentedString(gameComponents)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    increaseSpeedEnergyCost: ").append(toIndentedString(increaseSpeedEnergyCost)).append("\n");
     sb.append("    increaseSpeedPercentage: ").append(toIndentedString(increaseSpeedPercentage)).append("\n");
@@ -973,7 +974,6 @@ import java.util.Objects;
     sb.append("    minParticipants: ").append(toIndentedString(minParticipants)).append("\n");
     sb.append("    moveSpeed: ").append(toIndentedString(moveSpeed)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    participants: ").append(toIndentedString(participants)).append("\n");
     sb.append("    punchAngle: ").append(toIndentedString(punchAngle)).append("\n");
     sb.append("    punchCoolDown: ").append(toIndentedString(punchCoolDown)).append("\n");
     sb.append("    punchDamage: ").append(toIndentedString(punchDamage)).append("\n");
