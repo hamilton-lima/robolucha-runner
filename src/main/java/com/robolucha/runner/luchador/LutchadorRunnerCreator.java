@@ -9,6 +9,7 @@ import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.GameComponent;
 import com.robolucha.models.Luchador;
 import com.robolucha.models.MatchParticipant;
+import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
@@ -29,12 +30,14 @@ public class LutchadorRunnerCreator implements Runnable {
 	private boolean alive;
 	private String name;
 	private RemoteQueue queue;
+	private ServerMonitor monitor;
 
 	// private GameComponent gameComponent;
 
-	public LutchadorRunnerCreator(MatchRunner owner, RemoteQueue queue) {
+	public LutchadorRunnerCreator(MatchRunner owner, RemoteQueue queue, ServerMonitor monitor) {
 		this.owner = owner;
 		this.queue = queue;
+		this.monitor = monitor;
 		
 		this.alive = true;
 		this.gameComponents = new LinkedList<GameComponent>();
@@ -77,7 +80,7 @@ public class LutchadorRunnerCreator implements Runnable {
 
 			if ((System.currentTimeMillis() - logStart) > logThreshold) {
 				logStart = System.currentTimeMillis();
-				logger.info(message);
+				monitor.heartBeat(message);
 			}
 
 			try {
