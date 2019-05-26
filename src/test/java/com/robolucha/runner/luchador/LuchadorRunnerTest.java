@@ -25,7 +25,7 @@ public class LuchadorRunnerTest {
         MatchRunner runner = MockMatchRunner.build();
 
         Luchador l1 = MockLuchador.build();
-        l1.setId(1L);
+        l1.setId(1);
         List<Code> codes = new ArrayList<Code>();
 
         Code code = new Code();
@@ -54,7 +54,7 @@ public class LuchadorRunnerTest {
         MatchRunner runner = MockMatchRunner.build();
 
         Luchador l1 = MockLuchador.build();
-        l1.setId(1L);
+        l1.setId(1);
 
         Code code = new Code();
         code.setEvent("start");
@@ -86,14 +86,14 @@ public class LuchadorRunnerTest {
 
         for (int i = 0; i < methods.length; i++) {
             Luchador l1 = MockLuchador.build();
-            l1.setId(1L);
+            l1.setId(1);
 
             LuchadorRunner one = new LuchadorRunner(l1, runner);
             one.run(methods[i]);
         }
 
         Luchador l1 = MockLuchador.build();
-        l1.setId(1L);
+        l1.setId(1);
         LuchadorRunner one = new LuchadorRunner(l1, runner);
         one.run("invalidMethod");
 
@@ -117,7 +117,7 @@ public class LuchadorRunnerTest {
     @Test
     public void testFacadeMethodsCall() throws Exception, ScriptException {
         Luchador l1 = MockLuchador.build();
-        l1.setId(1L);
+        l1.setId(1);
 
         Code c2 = new Code();
         c2.setEvent("start");
@@ -174,7 +174,7 @@ public class LuchadorRunnerTest {
     public void testVariableME() throws Exception, ScriptException {
 
         Luchador l1 = MockLuchador.build();
-        l1.setId(1L);
+        l1.setId(1);
         List<Code> codes = new ArrayList<Code>();
 
         Code code = new Code();
@@ -187,7 +187,7 @@ public class LuchadorRunnerTest {
 
         String result = one.getString("getLife()");
         logger.debug(">>>> #1 call result = " + result);
-        String expected = Integer.toString(l1.getLife());
+        String expected = Integer.toString(runner.getGameDefinition().getLife());
         assertTrue(expected.equals(result));
 
         one.damage(3);
@@ -208,7 +208,7 @@ public class LuchadorRunnerTest {
 
         MatchRunner runner = MockMatchRunner.build();
         Luchador l1 = MockLuchador.build();
-        l1.setId(1L);
+        l1.setId(1);
 
         Code code = new Code();
         code.setEvent("start");
@@ -217,7 +217,7 @@ public class LuchadorRunnerTest {
 
         LuchadorRunner one = new LuchadorRunner(l1, runner);
 
-        Luchador l2 = MockLuchador.build(2L,
+        Luchador l2 = MockLuchador.build(2,
                 "start",
                 "var counter = 10; function count(a){counter += a; debug('updated counter=' + counter); return counter;}");
 
@@ -241,7 +241,7 @@ public class LuchadorRunnerTest {
 
     @Test
     public void testStart() throws Exception, ScriptException {
-        Luchador l1 = MockLuchador.build(1L,
+        Luchador l1 = MockLuchador.build(1,
                 "start",
                 "local counter = 3\n"
                 +"function count(a)\n"
@@ -270,7 +270,7 @@ public class LuchadorRunnerTest {
 
         for (int i = 0; i < methods.length; i++) {
             Luchador l1 = MockLuchador.build();
-            l1.setId(1L);
+            l1.setId(1);
             List<Code> codes = new ArrayList<Code>();
 
             Code code = new Code();

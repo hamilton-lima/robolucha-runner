@@ -1,11 +1,12 @@
 package com.robolucha.runner.luchador;
 
-import com.robolucha.models.Code;
-import org.apache.log4j.Logger;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import io.swagger.client.model.MainCode;
 
 /**
  * 
@@ -21,11 +22,11 @@ public class MethodBuilder {
 		return instance;
 	}
 
-	public void buildAll(LuchadorRunner runner, List<Code> codes) {
+	public void buildAll(LuchadorRunner runner, List<MainCode> codes) {
 
-		HashMap<String, Code> local = populateLocalHash(codes);
+		HashMap<String, MainCode> local = populateLocalHash(codes);
 		String script = "";
-		Long codeId = 0L;
+		Integer codeId = 0;
 		String key = null;
 		
 		HashMap<String, MethodDefinition> methods = ScriptDefinitionFactory.getInstance().getDefault()
@@ -37,9 +38,9 @@ public class MethodBuilder {
 
 			key = (String) iterator.next();
 			script = "";
-			codeId = 0L;
+			codeId = 0;
 
-			Code code = null;
+			MainCode code = null;
 
 			if (local.containsKey(key)) {
 				code = local.get(key);
@@ -55,13 +56,13 @@ public class MethodBuilder {
 			buffer.append(script);
 			buffer.append(definition.getEnd());
 
-			String createdSourceCode = buffer.toString();
+			String createdSourceMainCode = buffer.toString();
 			if (logger.isDebugEnabled()) {
-				logger.debug(createdSourceCode);
+				logger.debug(createdSourceMainCode);
 			}
 
 			try {
-				runner.eval(key, createdSourceCode);
+				runner.eval(key, createdSourceMainCode);
 			} catch (Exception e) {
 				String message = "Error compiling code code.id=" + codeId + " gamecomponent.id="
 						+ runner.getGameComponent().getId();
@@ -72,7 +73,7 @@ public class MethodBuilder {
 				}
 
 				if (code != null) {
-					runner.saveExceptionToCode(code.getEvent(), e.getMessage());
+					runner.saveExceptionToMainCode(code.getEvent(), e.getMessage());
 				}
 
 				if (logger.isDebugEnabled()) {
@@ -89,19 +90,19 @@ public class MethodBuilder {
 
 	}
 
-	private HashMap<String, Code> populateLocalHash(List<Code> codes) {
-		HashMap<String, Code> result = new HashMap<String, Code>();
+	private HashMap<String, MainCode> populateLocalHash(List<MainCode> codes) {
+		HashMap<String, MainCode> result = new HashMap<String, MainCode>();
 		if (codes != null) {
-			Iterator<Code> iterator = codes.iterator();
+			Iterator<MainCode> iterator = codes.iterator();
 			while (iterator.hasNext()) {
-				Code code = iterator.next();
+				MainCode code = iterator.next();
 				result.put(code.getEvent(), code);
 			}
 		}
 		return result;
 	}
 
-	public void build(LuchadorRunner runner, Code code) {
+	public void build(LuchadorRunner runner, MainCode code) {
 
 		logger.debug("building code: " + code);
 		if (code == null) {
@@ -109,7 +110,7 @@ public class MethodBuilder {
 		}
 
 		String script = code.getScript();
-		Long codeId = code.getId();
+		Integer codeId = code.getId();
 		String key = code.getEvent();
 		
 		ScriptDefinition scriptDef = ScriptDefinitionFactory.getInstance().getDefault();
@@ -123,11 +124,11 @@ public class MethodBuilder {
 		buffer.append(script);
 		buffer.append(definition.getEnd());
 
-		String createdSourceCode = buffer.toString();
-		logger.debug(createdSourceCode);
+		String createdSourceMainCode = buffer.toString();
+		logger.debug(createdSourceMainCode);
 
 		try {
-			runner.eval(key, createdSourceCode);
+			runner.eval(key, createdSourceMainCode);
 		} catch (Exception e) {
 			logger.error("error compiling code: " + codeId);
 			if (key != null) {

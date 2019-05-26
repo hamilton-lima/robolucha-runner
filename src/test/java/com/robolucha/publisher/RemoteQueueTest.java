@@ -1,20 +1,21 @@
 package com.robolucha.publisher;
 
-import com.robolucha.models.Code;
-import com.robolucha.models.Luchador;
-import com.robolucha.runner.Config;
-import com.robolucha.test.MockLuchador;
-import io.reactivex.functions.Consumer;
-import io.reactivex.subjects.BehaviorSubject;
-import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static junit.framework.TestCase.assertEquals;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-import static junit.framework.TestCase.assertEquals;
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.robolucha.models.Luchador;
+import com.robolucha.runner.Config;
+import com.robolucha.test.MockLuchador;
+
+import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.BehaviorSubject;
+import io.swagger.client.model.MainCode;
 
 public class RemoteQueueTest {
     RedisDockerHelper docker = new RedisDockerHelper();
@@ -39,17 +40,17 @@ public class RemoteQueueTest {
                 public void accept(Luchador luchador) throws Exception {
                     logger.info("Luchador from REDIS subscription=" + luchador.toString());
 
-                    assertEquals(luchador.getId(), 2L);
+                    assertEquals(luchador.getId().intValue(), 2);
                     assertEquals(luchador.getCodes().size(), 1);
 
-                    Code code = luchador.getCodes().stream().findFirst().get();
+                    MainCode code = luchador.getCodes().stream().findFirst().get();
                     assertEquals("start", code.getEvent());
                     assertEquals("move(10)", code.getScript());
                     future.complete("subscribe");
                 }
             });
 
-            Luchador foo = MockLuchador.build(2L, "start", "move(10)");
+            Luchador foo = MockLuchador.build(2, "start", "move(10)");
             queue.publish(foo);
 
             assertEquals("subscribe", future.get(5, TimeUnit.SECONDS));

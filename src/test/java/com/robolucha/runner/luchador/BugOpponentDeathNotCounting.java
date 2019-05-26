@@ -52,8 +52,8 @@ public class BugOpponentDeathNotCounting {
 		MatchRunner match = MockMatchRunner.build(3000, queue);
 		match.getGameDefinition().setMinParticipants(2);
 
-		Luchador a = MockLuchador.build(1L, MethodNames.ON_START, "fire(5)");
-		Luchador b = MockLuchador.build(2L, MethodNames.ON_REPEAT, "turn(90)");
+		Luchador a = MockLuchador.build(1, MethodNames.ON_START, "fire(5)");
+		Luchador b = MockLuchador.build(2, MethodNames.ON_REPEAT, "turn(90)");
 
 		match.add(a);
 		match.add(b);

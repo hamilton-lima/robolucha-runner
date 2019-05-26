@@ -24,8 +24,8 @@ public class RespawnProcessorTest {
     public void testCalculateLocations() throws Exception {
 
         MatchRunner match = MockMatchRunner.build();
-        Luchador a = MockLuchador.build(1L);
-        Luchador b = MockLuchador.build(2L);
+        Luchador a = MockLuchador.build(1);
+        Luchador b = MockLuchador.build(2);
 
         match.add(a);
         match.add(b);

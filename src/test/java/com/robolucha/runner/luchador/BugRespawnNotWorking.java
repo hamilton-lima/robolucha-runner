@@ -37,7 +37,7 @@ public class BugRespawnNotWorking {
 	protected int defaultLife;
 	protected int bodyCount;
 	public Object lastPublished;
-	LuchadorPublicStateVO found = null;
+	LuchadorPublicState found = null;
 	public int notFoundCounter;
 
 	private class RemoteQueueInspector extends RemoteQueue {
@@ -54,7 +54,7 @@ public class BugRespawnNotWorking {
 			found = null;
 			
 			publishedState.luchadores.forEach((luchador) -> {
-				if (luchador.state.id == 2L) {
+				if (luchador.id == 2) {
 					found = luchador;
 				}
 			});
@@ -82,8 +82,8 @@ public class BugRespawnNotWorking {
 		MatchRunner match = MockMatchRunner.build(3000, queue);
 		match.getGameDefinition().setMinParticipants(2);
 
-		Luchador a = MockLuchador.build(1L, MethodNames.ON_START, "fire(5)");
-		Luchador b = MockLuchador.build(-2L, MethodNames.ON_REPEAT, "turn(90)");
+		Luchador a = MockLuchador.build(1, MethodNames.ON_START, "fire(5)");
+		Luchador b = MockLuchador.build(-2, MethodNames.ON_REPEAT, "turn(90)");
 
 		match.add(a);
 		match.add(b);
@@ -152,7 +152,7 @@ public class BugRespawnNotWorking {
 
 		MatchRunStateVO publishedState = (MatchRunStateVO) lastPublished;
 		publishedState.luchadores.forEach((luchador) -> {
-			if (luchador.state.id == -2L) {
+			if (luchador.id == -2L) {
 				found = luchador;
 			}
 		});
@@ -160,7 +160,7 @@ public class BugRespawnNotWorking {
 		assertTrue("Luchador B should not be found in the publishing list when is DEAD", notFoundCounter > 0);
 
 		if (found != null) {
-			logger.debug(">> luchador B found in the pusblishing data: name=" + found.name + " id=" + found.state.id);
+			logger.debug(">> luchador B found in the pusblishing data: name=" + found.name + " id=" + found.id);
 		} else {
 			logger.debug(">> luchador B NOT found in the publishing data");
 		}

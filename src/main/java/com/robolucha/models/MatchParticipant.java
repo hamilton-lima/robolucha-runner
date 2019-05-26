@@ -3,10 +3,12 @@ package com.robolucha.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.client.model.MainGameComponent;
+
 public class MatchParticipant {
 	private long id;
 	private Match matchRun;
-	private Luchador luchador;
+	private MainGameComponent luchador;
 	private List<CodeHistory> codePackages = new ArrayList<CodeHistory>();
 	private long timeStart;
 
@@ -32,12 +34,12 @@ public class MatchParticipant {
 		this.matchRun = matchRun;
 	}
 
-	public Luchador getLuchador() {
+	public MainGameComponent getLuchador() {
 		return luchador;
 	}
 
-	public void setLuchador(Luchador luchador) {
-		this.luchador = luchador;
+	public void setLuchador(MainGameComponent component) {
+		this.luchador = component;
 	}
 
 	public List<CodeHistory> getCodePackages() {

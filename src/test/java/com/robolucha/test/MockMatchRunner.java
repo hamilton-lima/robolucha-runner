@@ -13,6 +13,8 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.score.ScoreUpdater;
 import com.robolucha.support.DefaultGameDefinitionFileCreator;
 
+import io.swagger.client.model.MainGameDefinition;
+
 public class MockMatchRunner {
 	static Match match = new Match();
 	static MockRemoteQueue remoteQueue = new MockRemoteQueue();
@@ -46,7 +48,8 @@ public class MockMatchRunner {
 	}
 
 	public static MatchRunner build(int duration, RemoteQueue queue, MatchStatePublisher publisher) {
-		GameDefinition gameDefinition = new GameDefinition();
+		// TODO: create method to populate with defautls
+		MainGameDefinition gameDefinition = new MainGameDefinition();
 		gameDefinition.setDuration(duration);
 		ServerMonitor monitor = new ServerMonitor(queue);
 
@@ -62,7 +65,8 @@ public class MockMatchRunner {
 	}
 
 	public static MatchRunner buildWithDefaultLuchador() {
-		GameDefinition gameDefinition = new GameDefinition();
+		// TODO: create method to populate with defautls
+		MainGameDefinition gameDefinition = new MainGameDefinition();
 		gameDefinition.setDuration(1000);
 
 		DefaultGameDefinitionFileCreator.addGameComponent(gameDefinition);

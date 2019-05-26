@@ -42,17 +42,8 @@ public class MatchStatePublisher {
 					String name = runner.getGameComponent().getName();
 					LuchadorPublicState publicState = runner.getState().getPublicState();
 
-					// luchador owner data
-					Long ownerId = null;
-					if (runner.getGameComponent() instanceof Luchador) {
-						Luchador luchador = (Luchador) runner.getGameComponent();
-						if (luchador.getCoach() != null) {
-							ownerId = luchador.getCoach().getId();
-						}
-					}
-
 					// update luchador data
-					vo.luchadores.add(new LuchadorPublicStateVO(publicState, name, ownerId));
+					vo.luchadores.add(publicState);
 				}
 			}
 

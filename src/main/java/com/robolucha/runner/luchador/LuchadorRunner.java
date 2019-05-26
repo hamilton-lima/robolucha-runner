@@ -30,6 +30,8 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.RespawnPoint;
 import com.robolucha.shared.Calc;
 
+import io.swagger.client.model.MainGameComponent;
+
 /**
  * Represents one play thread during the match
  *
@@ -55,7 +57,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private static Logger logger = Logger.getLogger(LuchadorRunner.class);
 
 	// test classes can update this.
-	GameComponent gameComponent;
+	MainGameComponent gameComponent;
 
 	private boolean active;
 	private long start;
@@ -84,8 +86,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	private LuchadorUpdateListener luchadorUpdatelistener;
 
-	public LuchadorRunner(GameComponent gameComponent, MatchRunner matchRunner) {
-		this.gameComponent = gameComponent;
+	public LuchadorRunner(MainGameComponent component, MatchRunner matchRunner) {
+		this.gameComponent = component;
 		this.matchRunner = matchRunner;
 		this.exceptionCounter = 0;
 
@@ -100,16 +102,16 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		scriptDefinition = ScriptDefinitionFactory.getInstance().getDefault();
 		
 		state = new LuchadorMatchState();
-		state.setId(gameComponent.getId());
-		state.setName(gameComponent.getName());
+		state.setId(component.getId());
+		state.setName(component.getName());
 		
 		try {
 			setDefaultState(matchRunner.getRespawnPoint(this));
 			setDefaultScore();
-			createCodeEngine(gameComponent.getCodes());
+			createCodeEngine(component.getCodes());
 			this.active = true;
 		} catch (Exception e) {
-			logger.error("error on luchador constructor: " + gameComponent, e);
+			logger.error("error on luchador constructor: " + component, e);
 		}
 
 		// listen to luchador name change

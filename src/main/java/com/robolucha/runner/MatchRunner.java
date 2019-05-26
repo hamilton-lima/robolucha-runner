@@ -44,6 +44,7 @@ import com.robolucha.runner.luchador.LutchadorRunnerCreator;
 import com.robolucha.shared.Calc;
 
 import io.reactivex.subjects.PublishSubject;
+import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 
 /**
@@ -68,7 +69,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private List<MatchRunnerListener> listeners;
 
-	private GameDefinition gameDefinition;
+	private MainGameDefinition gameDefinition;
 
 	private MatchStatePublisher publisher;
 	private JoinMatchListener joinListener;
@@ -102,13 +103,13 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return eventHandler;
 	}
 
-	public MatchRunner(GameDefinition gamedefinition, Match match, RemoteQueue queue, ServerMonitor monitor) {
+	public MatchRunner(MainGameDefinition gameDefinition, Match match, RemoteQueue queue, ServerMonitor monitor) {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
 		status = ThreadStatus.STARTING;
 		alive = true;
 		delta = 0.0;
-		this.gameDefinition = gamedefinition;
+		this.gameDefinition = gameDefinition;
 
 		this.match = match;
 
@@ -153,7 +154,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		listener.subscribe(this);
 	}
 
-	public void add(final GameComponent component) throws Exception {
+	public void add(final MainGameComponent component) throws Exception {
 
 		if (runners.containsKey(component.getId())) {
 			logger.info("trying to add luchador that is already in the match, id: " + component.getId());
@@ -169,13 +170,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	}
 
-	public void addLuchador(final GameComponent component) throws Exception {
-
-		// check if luchador is in another arena
-		if (MatchRunnerValidationHelper.getInstance().currentMatchFromLuchador(component) != null) {
-			throw new RuntimeException("luchador is already participating in another match");
-		}
-
+	public void addLuchador(final MainGameComponent component) throws Exception {
 		add(component);
 	}
 
@@ -471,7 +466,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return delta;
 	}
 
-	public GameDefinition getGameDefinition() {
+	public MainGameDefinition getGameDefinition() {
 		return gameDefinition;
 	}
 

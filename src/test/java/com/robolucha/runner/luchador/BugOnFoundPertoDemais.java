@@ -31,10 +31,10 @@ public class BugOnFoundPertoDemais {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_FOUND, "move(-10);");
+        Luchador a = MockLuchador.build(1, MethodNames.ON_FOUND, "move(-10);");
         match.add(a);
 
-        Luchador b = MockLuchador.build(2L);
+        Luchador b = MockLuchador.build(2);
 
         MockMatchRunner.start(match);
         LuchadorRunner runnerA = match.getRunners().get(1L);
@@ -78,7 +78,7 @@ public class BugOnFoundPertoDemais {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_START, "var found2 = 0;");
+        Luchador a = MockLuchador.build(1, MethodNames.ON_START, "var found2 = 0;");
 
         Code c = new Code();
         c.setEvent(MethodNames.ON_FOUND);
@@ -87,7 +87,7 @@ public class BugOnFoundPertoDemais {
 
         match.add(a);
 
-        Luchador b = MockLuchador.build(2L);
+        Luchador b = MockLuchador.build(2);
         match.add(b);
 
         MockMatchRunner.start(match);

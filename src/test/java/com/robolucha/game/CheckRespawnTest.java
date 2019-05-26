@@ -23,10 +23,10 @@ public class CheckRespawnTest {
         match.getGameDefinition().setMinParticipants(1);
 
         Luchador a = MockLuchador.build();
-        a.setId(1L);
+        a.setId(1);
 
         Luchador b = MockLuchador.build();
-        b.setId(2L);
+        b.setId(2);
 
         Code c = new Code();
         c.setEvent(MethodNames.ON_REPEAT);
@@ -54,7 +54,7 @@ public class CheckRespawnTest {
         logger.debug("--- B : " + runnerB.getState().getPublicState());
 
         // stop the match
-        Thread.sleep((long) a.getRespawnCooldown());
+        Thread.sleep((long) match.getGameDefinition().getRespawnCooldown());
 
         match.kill();
         Thread.sleep(500);

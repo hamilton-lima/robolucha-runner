@@ -134,27 +134,10 @@ public class MatchRunnerAPI {
 		return luchador;
 	}
 
-	public GameDefinition getGameDefinition(String gameDefinitionName) throws Exception {
+	public MainGameDefinition  getGameDefinition(String gameDefinitionName) throws Exception {
 		MainGameDefinition gamedefinition = apiInstance.internalGameDefinitionNameGet(gameDefinitionName);
 		logger.info("getGameDefinition() API response" + gamedefinition);
-
-		GameDefinition result = new GameDefinition();
-		BeanUtils.copyProperties(result, gamedefinition);
-
-		// reset the game component list
-		// REMOVE THIS WHEN converting From GameComponent to MainGameComponent
-		result.setGameComponents(new LinkedList<GameComponent>());
-
-		Iterator<MainGameComponent> iterator = gamedefinition.getGameComponents().iterator();
-		while (iterator.hasNext()) {
-			MainGameComponent source = iterator.next();
-			GameComponent target = new GameComponent();
-			BeanUtils.copyProperties(source, target);
-			result.getGameComponents().add(target);
-		}
-
-		logger.info("getGameDefinition()" + result);
-		return result;
+		return gamedefinition;
 	}
 
 }

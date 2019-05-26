@@ -200,10 +200,10 @@ public class MemoryLeakChecks {
         MatchRunner match = MockMatchRunner.build();
 
         Luchador a = MockLuchador.build();
-        a.setId(1L);
+        a.setId(1);
 
         Luchador b = MockLuchador.build();
-        b.setId(2L);
+        b.setId(2);
 
         Code c = new Code();
         c.setEvent(MethodNames.ON_REPEAT);

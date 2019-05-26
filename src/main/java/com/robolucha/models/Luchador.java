@@ -2,13 +2,14 @@ package com.robolucha.models;
 
 import com.robolucha.shared.Const;
 
-public class Luchador extends GameComponent {
+import io.swagger.client.model.MainGameComponent;
+
+public class Luchador extends MainGameComponent {
 
 	private LuchadorCoach coach;
 
 	public Luchador() {
 		super();
-		setCalculateRanking(Const.YES);
 	}
 
 	@Override

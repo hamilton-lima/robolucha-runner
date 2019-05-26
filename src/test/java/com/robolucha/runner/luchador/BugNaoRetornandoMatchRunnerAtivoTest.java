@@ -44,7 +44,7 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 		match.getGameDefinition().setDuration(500);
 
 		Luchador a = MockLuchador.build();
-		a.setId(1L);
+		a.setId(1);
 
 		match.add(a);
 

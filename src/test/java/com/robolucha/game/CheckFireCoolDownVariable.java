@@ -31,7 +31,7 @@ public class CheckFireCoolDownVariable {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT,
+        Luchador a = MockLuchador.build(1, MethodNames.ON_REPEAT,
                 "fire(3); if (me.fireCoolDown > 1) {move(10);}");
 
         match.add(a);

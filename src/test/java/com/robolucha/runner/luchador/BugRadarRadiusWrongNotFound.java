@@ -42,8 +42,8 @@ public class BugRadarRadiusWrongNotFound {
 		logger.setLevel(Level.DEBUG);
 		MatchRunner match = MockMatchRunner.build(1000);
 		match.getGameDefinition().setMinParticipants(2);
-		Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "--turnGun(90)");
-		Luchador b = MockLuchador.build(-2L, MethodNames.ON_REPEAT, "--turnGun(90)");
+		Luchador a = MockLuchador.build(1, MethodNames.ON_REPEAT, "--turnGun(90)");
+		Luchador b = MockLuchador.build(-2, MethodNames.ON_REPEAT, "--turnGun(90)");
 
 		match.add(a);
 		match.add(b);

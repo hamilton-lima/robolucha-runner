@@ -30,7 +30,7 @@ public class BugAcessoVariavelMeTest {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "me.x = 200;");
+        Luchador a = MockLuchador.build(1, MethodNames.ON_REPEAT, "me.x = 200;");
         match.add(a);
 
         MockMatchRunner.start(match);

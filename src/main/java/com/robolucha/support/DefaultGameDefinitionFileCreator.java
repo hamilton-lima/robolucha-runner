@@ -11,6 +11,9 @@ import com.robolucha.models.GameComponent;
 import com.robolucha.models.GameDefinition;
 import com.robolucha.runner.luchador.MethodNames;
 
+import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.MainGameDefinition;
+
 /**
  * Create a json file with the default Game definition values to be used as
  * template for game definitions
@@ -20,7 +23,7 @@ import com.robolucha.runner.luchador.MethodNames;
 public class DefaultGameDefinitionFileCreator {
 
 	public static void main(String[] args) throws IOException {
-		GameDefinition gameDefinition = new GameDefinition();
+		MainGameDefinition gameDefinition = new MainGameDefinition();
 		addGameComponent(gameDefinition);
 
 		String json = generateJson(gameDefinition);
@@ -41,7 +44,7 @@ public class DefaultGameDefinitionFileCreator {
 		writer.close();
 	}
 
-	private static String generateJson(GameDefinition gameDefinition) {
+	private static String generateJson(MainGameDefinition gameDefinition) {
 		GsonBuilder builder = new GsonBuilder();
 		builder.setPrettyPrinting();
 		Gson gson = builder.create();
@@ -53,15 +56,15 @@ public class DefaultGameDefinitionFileCreator {
 	public static final String OTTO = "otto";
 	public static final String FAROL = "farol";
 
-	public static void addGameComponent(GameDefinition gameDefinition) {
+	public static void addGameComponent(MainGameDefinition gameDefinition) {
 
-		GameComponent otto = new GameComponent();
+		MainGameComponent otto = new MainGameComponent();
 		otto.setName(OTTO);
 		otto.getCodes().add(new Code(MethodNames.ON_START, "turnGun(90)"));
 		otto.getCodes().add(new Code(MethodNames.ON_REPEAT, "move(20)\nfire(3)"));
 		otto.getCodes().add(new Code(MethodNames.ON_HIT_WALL, "turn(90)\nturnGun(90)"));
 
-		GameComponent farol = new GameComponent();
+		MainGameComponent farol = new MainGameComponent();
 		farol.setName(FAROL);
 		farol.getCodes().add(new Code(MethodNames.ON_REPEAT, "turn(10)\nturnGun(-10)\nfire(1)"));
 

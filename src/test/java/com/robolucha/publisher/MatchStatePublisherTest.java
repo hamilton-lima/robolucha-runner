@@ -62,12 +62,9 @@ public class MatchStatePublisherTest {
 		LuchadorPublicState publicState2 = new LuchadorPublicState();
 		publicState2.d = 1;
 
-		LuchadorPublicStateVO state1 = new LuchadorPublicStateVO(publicState1, "one", 1L);
-		LuchadorPublicStateVO state2 = new LuchadorPublicStateVO(publicState2, "two", 2L);
-
-		ArrayList<LuchadorPublicStateVO> states = new ArrayList<LuchadorPublicStateVO>();
-		states.add(state1);
-		states.add(state2);
+		ArrayList<LuchadorPublicState> states = new ArrayList<LuchadorPublicState>();
+		states.add(publicState1);
+		states.add(publicState2);
 		vo.luchadores = states;
 
 		publisher.publish(vo);
@@ -76,17 +73,17 @@ public class MatchStatePublisherTest {
 		assertEquals(expected, sentToQueue.clock);
 
 		int found = 0;
-		for (LuchadorPublicStateVO state : sentToQueue.luchadores) {
+		for (LuchadorPublicState state : sentToQueue.luchadores) {
 			if (state.name.equals("one")) {
 				found++;
-				assertEquals(1, state.state.k);
-				assertEquals(0, state.state.d);
+				assertEquals(1, state.k);
+				assertEquals(0, state.d);
 			}
 
 			if (state.name.equals("two")) {
 				found++;
-				assertEquals(0, state.state.k);
-				assertEquals(1, state.state.d);
+				assertEquals(0, state.k);
+				assertEquals(1, state.d);
 			}
 		}
 

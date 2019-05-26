@@ -18,13 +18,13 @@ public class MockLuchador {
 		return a;
 	}
 
-	public static Luchador build(long id) {
+	public static Luchador build(int id) {
 		Luchador a = build();
 		a.setId(id);
 		return a;
 	}
 
-	public static Luchador build(long id, String event, String code) {
+	public static Luchador build(int id, String event, String code) {
 		Luchador a = build(id);
 
 		Code c2 = new Code();

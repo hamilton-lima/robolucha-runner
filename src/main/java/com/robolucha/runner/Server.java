@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.listener.JoinMatchListener;
-import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
@@ -16,6 +15,7 @@ import com.robolucha.score.ScoreUpdater;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.Configuration;
+import io.swagger.client.model.MainGameDefinition;
 
 /*
  * Runs a Match based on the input MatchDefinition ID
@@ -40,7 +40,7 @@ public class Server {
 		RemoteQueue queue = new RemoteQueue(Config.getInstance());
 		ServerMonitor monitor = new ServerMonitor(queue);
 		Match match = MatchRunnerAPI.getInstance().createMatch(gameDefinitionName);
-		GameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(gameDefinitionName);
+		MainGameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(gameDefinitionName);
 
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
 		MatchStatePublisher publisher = new MatchStatePublisher(match, queue);
