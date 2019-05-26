@@ -7,8 +7,6 @@ import java.io.IOException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.robolucha.models.Code;
-import com.robolucha.models.GameComponent;
-import com.robolucha.models.GameDefinition;
 import com.robolucha.runner.luchador.MethodNames;
 
 import io.swagger.client.model.MainGameComponent;

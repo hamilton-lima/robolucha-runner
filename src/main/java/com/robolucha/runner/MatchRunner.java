@@ -31,8 +31,6 @@ import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.models.Bullet;
-import com.robolucha.models.GameComponent;
-import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
