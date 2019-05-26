@@ -26,9 +26,9 @@ import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.models.MatchStateProvider;
 import com.robolucha.models.ScoreVO;
-import com.robolucha.runner.Calc;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.RespawnPoint;
+import com.robolucha.shared.Calc;
 
 /**
  * Represents one play thread during the match
@@ -479,7 +479,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 */
 	private boolean insideTheMapLimits(double x, double y) {
 
-		if (!Calc.insideTheMapLimits(matchRunner.getGameDefinition(), x, y, halfSize)) {
+		if (!Calc.insideTheMapLimits(matchRunner.getGameDefinition().getArenaWidth(),
+				matchRunner.getGameDefinition().getArenaHeight(), x, y, halfSize)) {
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("not inside the map limits: x=" + x + ",y=" + y);

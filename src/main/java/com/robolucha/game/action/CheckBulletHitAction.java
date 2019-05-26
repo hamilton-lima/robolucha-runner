@@ -6,9 +6,9 @@ import org.apache.log4j.Logger;
 
 import com.robolucha.game.event.OnGotDamageEvent;
 import com.robolucha.models.Bullet;
-import com.robolucha.runner.Calc;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.shared.Calc;
 
 public class CheckBulletHitAction implements GameAction {
 

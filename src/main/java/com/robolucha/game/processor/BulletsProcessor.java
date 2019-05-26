@@ -4,9 +4,9 @@ import org.apache.log4j.Logger;
 
 import com.robolucha.game.action.CheckBulletHitAction;
 import com.robolucha.models.Bullet;
-import com.robolucha.runner.Calc;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.SafeList;
+import com.robolucha.shared.Calc;
 
 public class BulletsProcessor {
 
