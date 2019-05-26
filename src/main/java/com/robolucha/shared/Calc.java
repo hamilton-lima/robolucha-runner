@@ -1,21 +1,18 @@
 package com.robolucha.shared;
 
-import com.robolucha.models.Bullet;
-import com.robolucha.models.GameDefinition;
-import com.robolucha.models.LuchadorMatchState;
-import com.robolucha.models.MatchStateProvider;
 import org.apache.log4j.Logger;
+
+import com.robolucha.models.Bullet;
+import com.robolucha.models.LuchadorMatchState;
+import com.robolucha.runner.luchador.LuchadorRunner;
 
 public class Calc {
 
 	private static Logger logger = Logger.getLogger(Calc.class);
 
-	public static boolean insideTheMapLimits(GameDefinition arena, double x,
-			double y, int halfSize) {
+	public static boolean insideTheMapLimits(int width, int height, double x, double y, int halfSize) {
 
-		if (x - halfSize < 0 || y - halfSize < 0
-				|| x + halfSize > arena.getArenaWidth()
-				|| y + halfSize > arena.getArenaHeight()) {
+		if (x - halfSize < 0 || y - halfSize < 0 || x + halfSize > width || y + halfSize > height) {
 
 			return false;
 		}
@@ -38,15 +35,12 @@ public class Calc {
 	 * @param posY
 	 * @return double if greater than ZERO the point is found in the radar arc
 	 */
-	public static double detectEnemy(double myPosX, double myPosY,
-			double myRadarAngle, double myRadarRangeAngle,
+	public static double detectEnemy(double myPosX, double myPosY, double myRadarAngle, double myRadarRangeAngle,
 			double myRadarRadius, double posX, double posY) {
 
 		if (logger.isDebugEnabled()) {
-			logger.debug(String
-					.format("***** detectEnemy source(%s,%s,%s) radar(%s,%s) target(%s,%s)",
-							myPosX, myPosY, myRadarAngle, myRadarRangeAngle,
-							myRadarRadius, posX, posY));
+			logger.debug(String.format("***** detectEnemy source(%s,%s,%s) radar(%s,%s) target(%s,%s)", myPosX, myPosY,
+					myRadarAngle, myRadarRangeAngle, myRadarRadius, posX, posY));
 		}
 
 		double dirX = myPosX + Math.cos(Calc.toRadian(myRadarAngle));
@@ -70,17 +64,15 @@ public class Calc {
 		double dot = (v1X * v2X) + (v1Y * v2Y);
 
 		dot = Calc.roundTo4Decimals(dot);
-		double dotThreshold = Calc.roundTo4Decimals(Math
-				.cos(toRadian(myRadarRangeAngle/2)));
+		double dotThreshold = Calc.roundTo4Decimals(Math.cos(toRadian(myRadarRangeAngle / 2)));
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("dot = " + dotThreshold );			
-			logger.debug("dotThreshold = " + dotThreshold );
+			logger.debug("dot = " + dotThreshold);
+			logger.debug("dotThreshold = " + dotThreshold);
 		}
-		
+
 		if (dot >= dotThreshold) {
-			double dist = Math.sqrt(Math.pow(myPosX - posX, 2)
-					+ Math.pow(myPosY - posY, 2));
+			double dist = Math.sqrt(Math.pow(myPosX - posX, 2) + Math.pow(myPosY - posY, 2));
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("dist = " + dist);
@@ -88,8 +80,7 @@ public class Calc {
 
 			if (dist < myRadarRadius) {
 				if (logger.isDebugEnabled()) {
-					logger.debug("colision on: " + myPosX + " dist: " + dist
-							+ " dot: " + dot);
+					logger.debug("colision on: " + myPosX + " dist: " + dist + " dot: " + dot);
 				}
 				return dot; // chance de colidir
 			}
@@ -107,8 +98,7 @@ public class Calc {
 	 * @param target
 	 * @return
 	 */
-	public static boolean intersectRobot(double x, double y,
-			MatchStateProvider source, MatchStateProvider target) {
+	public static boolean intersectRobot(double x, double y, LuchadorRunner source, LuchadorRunner target) {
 
 		// double radiusA = Math.sqrt(2) * (source.getSize() / 2.0);
 		// double radiusB = Math.sqrt(2) * (target.getSize() / 2.0);
@@ -116,18 +106,14 @@ public class Calc {
 		double radiusA = source.getSize() / 2.0;
 		double radiusB = target.getSize() / 2.0;
 
-		double dist = Math.sqrt(Math.pow(x - target.getState().getX(), 2)
-				+ Math.pow(y - target.getState().getY(), 2));
+		double dist = Math.sqrt(Math.pow(x - target.getState().getX(), 2) + Math.pow(y - target.getState().getY(), 2));
 
 		if (logger.isDebugEnabled()) {
-			logger.debug(String.format(
-					"intersectRobot (%s,%s) source.size=%s, target(%s,%s)", x,
-					y, source.getSize(), target.getState().getX(), target
-							.getState().getY()));
+			logger.debug(String.format("intersectRobot (%s,%s) source.size=%s, target(%s,%s)", x, y, source.getSize(),
+					target.getState().getX(), target.getState().getY()));
 
-			logger.debug(String.format(
-					"intersectRobot dist=%s, radius %s + %s = %s", dist,
-					radiusA, radiusB, (radiusA + radiusB)));
+			logger.debug(String.format("intersectRobot dist=%s, radius %s + %s = %s", dist, radiusA, radiusB,
+					(radiusA + radiusB)));
 
 		}
 
@@ -141,15 +127,15 @@ public class Calc {
 	 * @param bullet
 	 * @return
 	 */
-	public static boolean intersectBullet(MatchStateProvider source, Bullet bullet) {
+	public static boolean intersectBullet(LuchadorRunner source, Bullet bullet) {
 
 		LuchadorMatchState lutchador = source.getState();
 
 		double radiusA = source.getSize() / 2;
 		double radiusB = bullet.getSize() / 2;
 
-		double dist = Math.sqrt(Math.pow(lutchador.getX() - bullet.getX(), 2)
-				+ Math.pow(lutchador.getY() - bullet.getY(), 2));
+		double dist = Math
+				.sqrt(Math.pow(lutchador.getX() - bullet.getX(), 2) + Math.pow(lutchador.getY() - bullet.getY(), 2));
 
 		return (dist < (radiusA + radiusB));
 	}

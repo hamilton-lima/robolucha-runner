@@ -24,16 +24,15 @@ public class BulletsProcessor {
 
 	public void process() {
 
-		logger.debug("----- bullets process(), bullets.size()="
-				+ bullets.size());
+		logger.debug("----- bullets process(), bullets.size()=" + bullets.size());
 
-	  	int pos = 0;
+		int pos = 0;
 		while (pos < bullets.size()) {
 			Bullet bullet = (Bullet) bullets.get(pos++);
 			if (bullet == null) {
 				continue;
 			}
-			
+
 			if (logger.isDebugEnabled()) {
 				logger.debug(">>> " + bullet);
 			}
@@ -57,7 +56,7 @@ public class BulletsProcessor {
 
 	public void removeDeadBullets() {
 
-	  	int pos = 0;
+		int pos = 0;
 		while (pos < bullets.size()) {
 			Bullet bullet = (Bullet) bullets.get(pos);
 			if (bullet == null) {
@@ -71,11 +70,12 @@ public class BulletsProcessor {
 				continue;
 			}
 
-			if (!Calc.insideTheMapLimits(runner.getGameDefinition(),
+			if (!Calc.insideTheMapLimits(runner.getGameDefinition().getArenaWidth(),
+					runner.getGameDefinition().getArenaHeight(),
 					bullet.getX(), bullet.getY(), halfSize)) {
 				bullets.remove(pos);
 			}
-			
+
 			pos++;
 		}
 
