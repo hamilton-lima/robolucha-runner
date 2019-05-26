@@ -11,7 +11,7 @@ public class ChangeStateAction implements GameAction {
 
 	private static Logger logger = Logger.getLogger(ChangeStateAction.class);
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners, LuchadorRunner runner) {
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners, LuchadorRunner runner) {
 		if (logger.isDebugEnabled()) {
 			logger.debug(getName() + ", lutchador=" + runner.getGameComponent().getName());
 		}

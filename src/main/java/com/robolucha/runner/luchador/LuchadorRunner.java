@@ -30,6 +30,7 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.RespawnPoint;
 import com.robolucha.shared.Calc;
 
+import io.swagger.client.model.MainCode;
 import io.swagger.client.model.MainGameComponent;
 
 /**
@@ -211,7 +212,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		scriptDefinition.set("me", state);
 	}
 
-	private void createCodeEngine(List<Code> codes) throws Exception {
+	private void createCodeEngine(List<MainCode> list) throws Exception {
 
 		logger.debug("START createCodeEngine()");
 		start = System.currentTimeMillis();
@@ -219,17 +220,17 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 			// TODO: REMOVE SCORE FROM STATE
 			updateScriptState(state.getPublicState());
-			scriptDefinition.set("ARENA_WIDTH", this.matchRunner.getGameDefinition().getArenaWidth());
-			scriptDefinition.set("ARENA_HEIGHT", this.matchRunner.getGameDefinition().getArenaHeight());
-			scriptDefinition.set("RADAR_ANGLE", this.getGameComponent().getRadarAngle());
-			scriptDefinition.set("RADAR_RADIUS", this.getGameComponent().getRadarRadius());
-			scriptDefinition.set("LUCHADOR_WIDTH", this.getSize());
-			scriptDefinition.set("LUCHADOR_HEIGHT", this.getSize());
+			scriptDefinition.set("ARENA_WIDTH", matchRunner.getGameDefinition().getArenaWidth());
+			scriptDefinition.set("ARENA_HEIGHT", matchRunner.getGameDefinition().getArenaHeight());
+			scriptDefinition.set("RADAR_ANGLE", matchRunner.getGameDefinition().getRadarAngle());
+			scriptDefinition.set("RADAR_RADIUS", matchRunner.getGameDefinition().getRadarRadius());
+			scriptDefinition.set("LUCHADOR_WIDTH", getSize());
+			scriptDefinition.set("LUCHADOR_HEIGHT", getSize());
 
 			scriptDefinition.loadDefaultLibraries();
 
-			MethodBuilder.getInstance().buildAll(this, codes);
-			updateInvalidCodes(codes);
+			MethodBuilder.getInstance().buildAll(this, list);
+			updateInvalidCodes(list);
 
 		} catch (Exception e) {
 			logger.error("error running code initialization", e);
@@ -243,14 +244,14 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		logger.debug("END createCodeEngine()");
 	}
 
-	public void updateCodeEngine(List<Code> codes) throws Exception {
+	public void updateCodeEngine(List<MainCode> list) throws Exception {
 
 		logger.debug("START updateCodeEngine()");
 		this.active = false;
 		this.lastRunningError = null;
 
 		try {
-			createCodeEngine(codes);
+			createCodeEngine(list);
 			this.active = true;
 		} catch (Exception e) {
 			logger.error("error running code initialization", e);
@@ -264,7 +265,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private void setDefaultState(RespawnPoint point) {
 		state.setX(point.x);
 		state.setY(point.y);
-		state.setLife(gameComponent.getLife());
+		state.setLife(matchRunner.getGameDefinition().getLife());
 		state.setAngle(0);
 		state.setGunAngle(0);
 		state.setFireCoolDown(0);
@@ -287,14 +288,14 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		return scriptDefinition.getString(script);
 	}
 
-	private void updateInvalidCodes(List<Code> codes) throws Exception {
+	private void updateInvalidCodes(List<MainCode> list) throws Exception {
 
-		if (codes == null) {
+		if (list == null) {
 			logger.warn("list of codes is empty.");
 			return;
 		}
 
-		Iterator iterator = codes.iterator();
+		Iterator iterator = list.iterator();
 		while (iterator.hasNext()) {
 			Code code = (Code) iterator.next();
 			if (code.getException() != null && code.getException().trim().length() > 0) {
@@ -324,7 +325,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		onDangerMessage(MessageVO.DANGER, name, exception);
 
-		for (Code code : getGameComponent().getCodes()) {
+		for (MainCode code : getGameComponent().getCodes()) {
 			if (code.getEvent().equals(name)) {
 				code.setException(exception);
 
@@ -355,7 +356,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 			// check if the code has exception to avoid running defective code
 			boolean canRunCode = true;
-			for (Code code : getGameComponent().getCodes()) {
+			for (MainCode code : getGameComponent().getCodes()) {
 				if (code.getEvent().equals(codeName)) {
 					if (code.getException() != null && code.getException().trim().length() > 0) {
 						canRunCode = false;
@@ -396,7 +397,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		run(name, EMPTY);
 	}
 
-	public GameComponent getGameComponent() {
+	public MainGameComponent getGameComponent() {
 		return gameComponent;
 	}
 
@@ -418,7 +419,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public void kill() {
 		deactivate(DEAD);
-		this.respawnCoolDown = gameComponent.getRespawnCooldown();
+		this.respawnCoolDown = matchRunner.getGameDefinition().getRespawnCooldown();
 	}
 
 	public double getRespawnCoolDown() {
@@ -634,14 +635,15 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			// only if the fire cooldown is over
 			if (fireCoolDown <= 0) {
 
-				Bullet bullet = new Bullet(matchRunner.getGameDefinition(), this, command.getOriginalValue(),
-						state.getX(), state.getY(), state.getGunAngle());
+				Bullet bullet = new Bullet(matchRunner.getGameDefinition().getBuletSpeed(),
+						matchRunner.getGameDefinition().getBulletSize(), this, command.getOriginalValue(), state.getX(),
+						state.getY(), state.getGunAngle());
 
 				matchRunner.fire(bullet);
 
 				// starts the timer for the firecooldown
-				fireCoolDown = gameComponent.getMaxFireCooldown()
-						* (bullet.getAmount() / gameComponent.getMaxFireAmount());
+				fireCoolDown = matchRunner.getGameDefinition().getMaxFireCooldown()
+						* (bullet.getAmount() / matchRunner.getGameDefinition().getMaxFireAmount());
 			}
 		}
 
@@ -699,11 +701,11 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 */
 	public int cleanUpAmount(int amount) {
 
-		if (amount > gameComponent.getMaxFireAmount()) {
-			amount = (int) gameComponent.getMaxFireAmount();
+		if (amount > matchRunner.getGameDefinition().getMaxFireAmount()) {
+			amount = (int) matchRunner.getGameDefinition().getMaxFireAmount();
 		} else {
-			if (amount <= gameComponent.getMinFireAmount()) {
-				amount = (int) gameComponent.getMinFireAmount();
+			if (amount <= matchRunner.getGameDefinition().getMinFireAmount()) {
+				amount = (int) matchRunner.getGameDefinition().getMinFireAmount();
 			}
 		}
 
@@ -742,8 +744,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	// TODO: use codeName when punch is implemented
 	public void punch(String codeName) {
 		if (punchCoolDown <= 0) {
-			matchRunner.punch(this, gameComponent.getPunchDamage(), state.getX(), state.getY(), state.getAngle());
-			punchCoolDown = gameComponent.getPunchCoolDown();
+			matchRunner.punch(this, matchRunner.getGameDefinition().getPunchDamage(), state.getX(), state.getY(), state.getAngle());
+			punchCoolDown = matchRunner.getGameDefinition().getPunchCoolDown();
 		}
 	}
 
@@ -813,23 +815,23 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public void addFire(String codeName, int amount) {
 		amount = cleanUpAmount(amount);
-		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_FIRE, amount, gameComponent.getMoveSpeed());
+		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_FIRE, amount, matchRunner.getGameDefinition().getBuletSpeed());
 		addCommand(command);
 	}
 
 	public void addMove(String codeName, int amount) {
-		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_MOVE, amount, gameComponent.getMoveSpeed());
+		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_MOVE, amount, matchRunner.getGameDefinition().getMoveSpeed());
 		addCommand(command);
 	}
 
 	public void addTurn(String codeName, int amount) {
-		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_TURN, amount, gameComponent.getTurnSpeed());
+		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_TURN, amount, matchRunner.getGameDefinition().getTurnSpeed());
 		addCommand(command);
 	}
 
 	public void addTurnGun(String codeName, int amount) {
 		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_TURNGUN, amount,
-				gameComponent.getTurnGunSpeed());
+				matchRunner.getGameDefinition().getTurnGunSpeed());
 		addCommand(command);
 	}
 

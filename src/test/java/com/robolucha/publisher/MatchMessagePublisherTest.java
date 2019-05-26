@@ -24,7 +24,7 @@ public class MatchMessagePublisherTest {
         String type = "type1";
         String event = "event1";
         String message = "message1";
-        runner.getOnMessage().onNext(new MessageVO(1L, type, event, message));
+        runner.getOnMessage().onNext(new MessageVO(1, type, event, message));
 
         MessageVO sentToQueue = (MessageVO) queue.lastPublished;
         assertEquals(type, sentToQueue.luchadorID);

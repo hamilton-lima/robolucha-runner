@@ -26,7 +26,7 @@ public class TurnAction implements GameAction {
 		return instance;
 	}
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners,
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners,
 			LuchadorRunner runner) {
 
 		logger.debug(getName() + ", lutchador="

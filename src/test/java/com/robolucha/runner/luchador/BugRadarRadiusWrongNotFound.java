@@ -57,13 +57,13 @@ public class BugRadarRadiusWrongNotFound {
 				runnerA.cleanUpStateAtTheEnd = false;
 				runnerB.cleanUpStateAtTheEnd = false;
 
-				defaultLife = runnerB.getGameComponent().getLife();
+				defaultLife = match.getGameDefinition().getLife();
 
 				runnerA.getState().setGunAngle(0);
 				runnerA.getState().setX(100);
 				runnerA.getState().setY(100);
 
-				int farAway = (int) (runnerA.getState().getX() + runnerB.getGameComponent().getRadarRadius() + 1);
+				int farAway = (int) (runnerA.getState().getX() + match.getGameDefinition().getRadarRadius() + 1);
 
 				runnerB.getState().setGunAngle(180);
 				runnerB.getState().setX(farAway);

@@ -32,7 +32,7 @@ public class RespawnProcessor {
 	}
 
 	public RespawnPoint getRespawnPoint(LuchadorRunner runner,
-			LinkedHashMap<Long, LuchadorRunner> runners) {
+			LinkedHashMap<Integer, LuchadorRunner> runners) {
 
 		int pos = -1;
 		boolean lookForPlaceToRespawn = true;
@@ -57,7 +57,7 @@ public class RespawnProcessor {
 	 * @return
 	 */
 	boolean canRespawnHere(RespawnPoint point, LuchadorRunner current,
-			LinkedHashMap<Long, LuchadorRunner> runners) {
+			LinkedHashMap<Integer, LuchadorRunner> runners) {
 
 		if( logger.isDebugEnabled() ){
 			logger.debug("canRespawnHere : point = " + point);

@@ -17,7 +17,7 @@ public class CheckRespawnAction implements GameAction {
 		this.matchRunner = matchRunner;
 	}
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners,
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners,
 			LuchadorRunner runner) {
 
 		if (logger.isDebugEnabled()) {

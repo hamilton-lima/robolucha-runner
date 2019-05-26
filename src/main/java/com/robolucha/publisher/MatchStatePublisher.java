@@ -28,7 +28,7 @@ public class MatchStatePublisher {
 	public void update(MatchRunner matchRunner) throws Exception {
 		MatchRunStateVO vo = new MatchRunStateVO();
 
-		Iterator<Long> iterator = matchRunner.getRunners().keySet().iterator();
+		Iterator<Integer> iterator = matchRunner.getRunners().keySet().iterator();
 		while (iterator.hasNext()) {
 			Object key = (Object) iterator.next();
 			LuchadorRunner runner = matchRunner.getRunners().get(key);

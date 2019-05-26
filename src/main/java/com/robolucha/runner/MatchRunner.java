@@ -83,7 +83,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	static Logger logger = Logger.getLogger(MatchRunner.class);
 
-	LinkedHashMap<Long, LuchadorRunner> runners;
+	LinkedHashMap<Integer, LuchadorRunner> runners;
 	boolean alive;
 	private RespawnProcessor respawnProcessor;
 
@@ -121,7 +121,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		runOnActive.add(new TriggerEventsAction());
 		runOnActive.add(new ChangeStateAction());
 
-		runners = new LinkedHashMap<Long, LuchadorRunner>();
+		runners = new LinkedHashMap<Integer, LuchadorRunner>();
 
 		respawnProcessor = new RespawnProcessor(this);
 
@@ -581,7 +581,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return punches;
 	}
 
-	public LinkedHashMap<Long, LuchadorRunner> getRunners() {
+	public LinkedHashMap<Integer, LuchadorRunner> getRunners() {
 		return runners;
 	}
 

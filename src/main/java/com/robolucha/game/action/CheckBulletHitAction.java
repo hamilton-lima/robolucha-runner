@@ -23,7 +23,7 @@ public class CheckBulletHitAction implements GameAction {
 		this.matchRunner = matchRunner;
 	}
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners, LuchadorRunner runner) {
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners, LuchadorRunner runner) {
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("checkbullethit, bullet=" + bullet);

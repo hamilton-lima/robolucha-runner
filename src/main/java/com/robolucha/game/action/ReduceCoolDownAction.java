@@ -26,7 +26,7 @@ public class ReduceCoolDownAction implements GameAction {
 		return instance;
 	}
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners,
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners,
 			LuchadorRunner runner) throws Exception {
 		
 		if( logger.isDebugEnabled()){

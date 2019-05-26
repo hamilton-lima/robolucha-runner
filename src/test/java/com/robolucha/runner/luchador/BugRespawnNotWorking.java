@@ -97,7 +97,7 @@ public class BugRespawnNotWorking {
 				runnerA.cleanUpStateAtTheEnd = false;
 				runnerB.cleanUpStateAtTheEnd = false;
 
-				defaultLife = runnerB.getGameComponent().getLife();
+				defaultLife = match.getGameDefinition().getLife();
 
 				runnerA.getState().setAngle(0);
 				runnerA.getState().setX(100);
@@ -106,7 +106,7 @@ public class BugRespawnNotWorking {
 				runnerB.getState().setX(200);
 				runnerB.getState().setY(100);
 				runnerB.getState().setLife(1.0);
-				runnerB.getGameComponent().setRespawnCooldown(1);
+//				runnerB.getGameComponent().setRespawnCooldown(1);
 
 				logger.debug(">> luchador A: " + runnerA.getState().getPublicState());
 				logger.debug(">> luchador B: " + runnerB.getState().getPublicState());

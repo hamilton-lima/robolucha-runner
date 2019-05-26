@@ -73,7 +73,7 @@ public class MethodBuilder {
 				}
 
 				if (code != null) {
-					runner.saveExceptionToMainCode(code.getEvent(), e.getMessage());
+					runner.saveExceptionToCode(code.getEvent(), e.getMessage());
 				}
 
 				if (logger.isDebugEnabled()) {

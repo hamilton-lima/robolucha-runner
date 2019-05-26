@@ -1,17 +1,19 @@
 package com.robolucha.models;
 
+import io.swagger.client.model.MainGameComponent;
+
 public class MatchScore {
 
 	private long id;
 	private Match matchRun;
-	private GameComponent gameComponent;
+	private MainGameComponent gameComponent;
 	private int kills;
 	private int deaths;
 	private int score;
 
 	@Override
 	public String toString() {
-		Long luchadorId = 0L;
+		Integer luchadorId = 0;
 		Long matchRunId = 0L;
 
 		if (gameComponent != null) {
@@ -41,11 +43,11 @@ public class MatchScore {
 		this.matchRun = matchRun;
 	}
 
-	public GameComponent getGameComponent() {
+	public MainGameComponent getGameComponent() {
 		return gameComponent;
 	}
 
-	public void setGameComponent(GameComponent gameComponent) {
+	public void setGameComponent(MainGameComponent gameComponent) {
 		this.gameComponent = gameComponent;
 	}
 

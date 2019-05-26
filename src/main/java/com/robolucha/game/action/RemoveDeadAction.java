@@ -16,7 +16,7 @@ public class RemoveDeadAction implements GameAction {
 		this.matchRunner = matchRunner;
 	}
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners,
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners,
 			LuchadorRunner runner) {
 
 		logger.debug("RemoveDeadAction, lutchador=" + runner.getGameComponent());

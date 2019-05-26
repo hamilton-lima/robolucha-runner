@@ -24,7 +24,7 @@ public class CheckPunchHitAction implements GameAction {
 		this.punch = punch;
 	}
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners, LuchadorRunner runner) {
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners, LuchadorRunner runner) {
 
 		if (punch.isActive()) {
 
@@ -35,7 +35,7 @@ public class CheckPunchHitAction implements GameAction {
 				double myPosX = current.getX();
 				double myPosY = current.getY();
 				double myRadarAngle = current.getAngle();
-				double myRadarRangeAngle = punch.getOwner().getGameComponent().getPunchAngle();
+				double myRadarRangeAngle = matchRunner.getGameDefinition().getPunchAngle();
 
 				// o alcance do soco eh o mesmo tamanho do lutchador
 				int myRadarRadius = (int) (punch.getOwner().getSize() * 1.5);

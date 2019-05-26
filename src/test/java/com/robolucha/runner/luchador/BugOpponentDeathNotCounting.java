@@ -75,7 +75,7 @@ public class BugOpponentDeathNotCounting {
 				runnerB.getState().setY(100);
 				runnerB.getState().setLife(1.0);
 				runnerB.getState().score.setScore(1000);
-				runnerB.getGameComponent().setRespawnCooldown(1);
+//				runnerB.getGameComponent().setRespawnCooldown(1);
 
 				logger.debug(">> luchador A: " + runnerA.getState().getPublicState());
 				logger.debug(">> luchador B: " + runnerB.getState().getPublicState());
