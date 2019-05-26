@@ -5,6 +5,7 @@ import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.GameDefinition;
 import com.robolucha.models.Match;
+import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.MockRemoteQueue;
 import com.robolucha.publisher.RemoteQueue;
@@ -15,6 +16,7 @@ import com.robolucha.support.DefaultGameDefinitionFileCreator;
 public class MockMatchRunner {
 	static Match match = new Match();
 	static MockRemoteQueue remoteQueue = new MockRemoteQueue();
+	static ServerMonitor monitor = new ServerMonitor(remoteQueue);
 
 	static class MatchStatePublisherSilent extends MatchStatePublisher {
 		public MatchStatePublisherSilent() {
@@ -46,9 +48,10 @@ public class MockMatchRunner {
 	public static MatchRunner build(int duration, RemoteQueue queue, MatchStatePublisher publisher) {
 		GameDefinition gameDefinition = new GameDefinition();
 		gameDefinition.setDuration(duration);
+		ServerMonitor monitor = new ServerMonitor(queue);
 
 		Match match = new Match();
-		MatchRunner runner = new MatchRunner(gameDefinition, match, queue);
+		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
 		if (publisher == null) {
 			publisher = new MatchStatePublisher(match, queue);
 		}
@@ -65,7 +68,7 @@ public class MockMatchRunner {
 		DefaultGameDefinitionFileCreator.addGameComponent(gameDefinition);
 
 		Match match = new Match();
-		MatchRunner runner = new MatchRunner(gameDefinition, match, remoteQueue);
+		MatchRunner runner = new MatchRunner(gameDefinition, match, remoteQueue, monitor);
 
 		runner.setPublisher(new MatchStatePublisherSilent());
 

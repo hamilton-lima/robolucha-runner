@@ -30,12 +30,10 @@ import com.robolucha.game.processor.RespawnProcessor;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.JoinMatchListener;
-import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.Bullet;
 import com.robolucha.models.GameComponent;
-import com.robolucha.models.GameDefinition;
-import com.robolucha.models.Luchador;
 import com.robolucha.models.Match;
+import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.monitor.ThreadStatus;
 import com.robolucha.publisher.MatchStatePublisher;
@@ -44,6 +42,7 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.LutchadorRunnerCreator;
 
 import io.reactivex.subjects.PublishSubject;
+import io.swagger.client.model.MainGameDefinition;
 
 /**
  * main match logic
@@ -67,7 +66,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private List<MatchRunnerListener> listeners;
 
-	private GameDefinition gameDefinition;
+	private MainGameDefinition gameDefinition;
 
 	private MatchStatePublisher publisher;
 	private JoinMatchListener joinListener;
@@ -95,12 +94,13 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private MatchEventHandler eventHandler;
 	private LutchadorRunnerCreator luchadorCreator;
 	private Match match;
+	private ServerMonitor monitor;
 
 	public MatchEventHandler getEventHandler() {
 		return eventHandler;
 	}
 
-	public MatchRunner(GameDefinition gamedefinition, Match match, RemoteQueue queue) {
+	public MatchRunner(MainGameDefinition gamedefinition, Match match, RemoteQueue queue, ServerMonitor monitor) {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
 		status = ThreadStatus.STARTING;
@@ -131,8 +131,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		punchesProcessor = new PunchesProcessor(this, punches);
 		bulletsProcessor = new BulletsProcessor(this, bullets);
 
-		eventHandler = new MatchEventHandler(this, threadName);
-		luchadorCreator = new LutchadorRunnerCreator(this, queue);
+		eventHandler = new MatchEventHandler(this, threadName, monitor);
+		luchadorCreator = new LutchadorRunnerCreator(this, queue, monitor);
 
 		onMatchStart = PublishSubject.create();
 		onMatchEnd = PublishSubject.create();
@@ -320,11 +320,11 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		eventHandler.cleanup();
 		luchadorCreator.cleanup();
-		
+
 		if (joinListener != null) {
 			joinListener.dispose();
 		}
-		
+
 		cleanup();
 
 		System.exit(1);
@@ -469,7 +469,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return delta;
 	}
 
-	public GameDefinition getGameDefinition() {
+	public MainGameDefinition getGameDefinition() {
 		return gameDefinition;
 	}
 
@@ -638,5 +638,4 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	public PublishSubject<MatchInitVO> getOnInit() {
 		return onInit;
 	}
-
 }

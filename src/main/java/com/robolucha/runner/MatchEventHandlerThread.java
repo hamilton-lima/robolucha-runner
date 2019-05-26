@@ -3,6 +3,8 @@ package com.robolucha.runner;
 import com.robolucha.event.ConstEvents;
 import com.robolucha.event.GeneralEvent;
 import com.robolucha.game.event.MatchEventListener;
+import com.robolucha.monitor.ServerMonitor;
+
 import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
@@ -20,10 +22,13 @@ public class MatchEventHandlerThread implements Runnable {
 	private boolean alive;
 	private Object[] eventListeners;
 
-	public MatchEventHandlerThread(MatchEventHandler matchEventHandler, String name) {
+	private ServerMonitor monitor;
+
+	public MatchEventHandlerThread(MatchEventHandler matchEventHandler, String name, ServerMonitor monitor) {
 		this.matchEventHandler = matchEventHandler;
 		this.events = new LinkedList<GeneralEvent>();
 		this.name = name;
+		this.monitor = monitor;
 		this.alive = true;
 	}
 
@@ -50,7 +55,7 @@ public class MatchEventHandlerThread implements Runnable {
 		String message = "MatchEventHandler waiting for new events [" + name + "]";
 
 		long logStart = System.currentTimeMillis();
-		long logThreshold = 10000;
+		long logThreshold = 1000;
 
 		while (alive | this.events.size() > 0) {
 
@@ -63,7 +68,7 @@ public class MatchEventHandlerThread implements Runnable {
 
 			if ((System.currentTimeMillis() - logStart) > logThreshold) {
 				logStart = System.currentTimeMillis();
-				logger.info(message);
+				monitor.heartBeat(message);
 			}
 
 			try {
