@@ -1,8 +1,8 @@
 package com.robolucha.runner;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -15,16 +15,19 @@ import com.robolucha.models.Luchador;
 import com.robolucha.models.Match;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.models.MatchScore;
+import com.robolucha.models.SceneComponent;
 import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.api.DefaultApi;
 import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainLuchador;
 import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainMatchParticipant;
 import io.swagger.client.model.MainMatchScore;
 import io.swagger.client.model.MainScoreList;
+import io.swagger.client.model.MainServerCode;
 
 public class MatchRunnerAPI {
 
@@ -137,6 +140,19 @@ public class MatchRunnerAPI {
 
 		GameDefinition result = new GameDefinition();
 		BeanUtils.copyProperties(result, gamedefinition);
+
+		// reset the game component list
+		// REMOVE THIS WHEN converting From GameComponent to MainGameComponent
+		result.setGameComponents(new LinkedList<GameComponent>());
+
+		Iterator<MainGameComponent> iterator = gamedefinition.getGameComponents().iterator();
+		while (iterator.hasNext()) {
+			MainGameComponent source = iterator.next();
+			GameComponent target = new GameComponent();
+			BeanUtils.copyProperties(source, target);
+			result.getGameComponents().add(target);
+		}
+
 		logger.info("getGameDefinition()" + result);
 		return result;
 	}

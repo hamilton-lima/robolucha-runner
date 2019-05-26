@@ -3,6 +3,8 @@ package com.robolucha.models;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.swagger.client.model.MainSceneComponent;
+
 public class GameDefinition {
 
 	private long id = 1;
@@ -23,11 +25,11 @@ public class GameDefinition {
 	private List<GameComponent> gameComponents;
 
 	// predefined scene elements
-	private List<SceneComponent> sceneComponents;
+	private List<MainSceneComponent> sceneComponents;
 
 	public GameDefinition() {
 		gameComponents = new LinkedList<GameComponent>();
-		sceneComponents = new LinkedList<SceneComponent>();
+		sceneComponents = new LinkedList<MainSceneComponent>();
 	}
 
 	public long getId() {
@@ -126,11 +128,11 @@ public class GameDefinition {
 		this.gameComponents = gameComponents;
 	}
 
-	public List<SceneComponent> getSceneComponents() {
+	public List<MainSceneComponent> getSceneComponents() {
 		return sceneComponents;
 	}
 
-	public void setSceneComponents(List<SceneComponent> sceneComponents) {
+	public void setSceneComponents(List<MainSceneComponent> sceneComponents) {
 		this.sceneComponents = sceneComponents;
 	}
 

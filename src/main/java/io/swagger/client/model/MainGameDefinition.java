@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainGameDefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainGameDefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class MainGameDefinition {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
@@ -37,7 +37,7 @@ import java.util.Objects;
   private Integer bulletSize = null;
 
   @SerializedName("codes")
-  private List<MainServerCode> codes = null;
+  private List<MainCode> codes = null;
 
   @SerializedName("description")
   private String description = null;
@@ -133,7 +133,7 @@ import java.util.Objects;
   private Integer sortOrder = null;
 
   @SerializedName("suggestedCodes")
-  private List<MainServerCode> suggestedCodes = null;
+  private List<MainCode> suggestedCodes = null;
 
   @SerializedName("turnGunSpeed")
   private Integer turnGunSpeed = null;
@@ -215,14 +215,14 @@ import java.util.Objects;
   public void setBulletSize(Integer bulletSize) {
     this.bulletSize = bulletSize;
   }
-  public MainGameDefinition codes(List<MainServerCode> codes) {
+  public MainGameDefinition codes(List<MainCode> codes) {
     this.codes = codes;
     return this;
   }
 
-  public MainGameDefinition addCodesItem(MainServerCode codesItem) {
+  public MainGameDefinition addCodesItem(MainCode codesItem) {
     if (this.codes == null) {
-      this.codes = new ArrayList<MainServerCode>();
+      this.codes = new ArrayList<MainCode>();
     }
     this.codes.add(codesItem);
     return this;
@@ -233,10 +233,10 @@ import java.util.Objects;
   * @return codes
   **/
   @Schema(description = "")
-  public List<MainServerCode> getCodes() {
+  public List<MainCode> getCodes() {
     return codes;
   }
-  public void setCodes(List<MainServerCode> codes) {
+  public void setCodes(List<MainCode> codes) {
     this.codes = codes;
   }
   public MainGameDefinition description(String description) {
@@ -809,14 +809,14 @@ import java.util.Objects;
   public void setSortOrder(Integer sortOrder) {
     this.sortOrder = sortOrder;
   }
-  public MainGameDefinition suggestedCodes(List<MainServerCode> suggestedCodes) {
+  public MainGameDefinition suggestedCodes(List<MainCode> suggestedCodes) {
     this.suggestedCodes = suggestedCodes;
     return this;
   }
 
-  public MainGameDefinition addSuggestedCodesItem(MainServerCode suggestedCodesItem) {
+  public MainGameDefinition addSuggestedCodesItem(MainCode suggestedCodesItem) {
     if (this.suggestedCodes == null) {
-      this.suggestedCodes = new ArrayList<MainServerCode>();
+      this.suggestedCodes = new ArrayList<MainCode>();
     }
     this.suggestedCodes.add(suggestedCodesItem);
     return this;
@@ -827,10 +827,10 @@ import java.util.Objects;
   * @return suggestedCodes
   **/
   @Schema(description = "")
-  public List<MainServerCode> getSuggestedCodes() {
+  public List<MainCode> getSuggestedCodes() {
     return suggestedCodes;
   }
-  public void setSuggestedCodes(List<MainServerCode> suggestedCodes) {
+  public void setSuggestedCodes(List<MainCode> suggestedCodes) {
     this.suggestedCodes = suggestedCodes;
   }
   public MainGameDefinition turnGunSpeed(Integer turnGunSpeed) {

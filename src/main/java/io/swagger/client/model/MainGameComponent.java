@@ -22,13 +22,13 @@ import java.util.Objects;
  * MainGameComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainGameComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class MainGameComponent {
 
   @SerializedName("codes")
-  private List<MainServerCode> codes = null;
+  private List<MainCode> codes = null;
 
   @SerializedName("configs")
-  private List<MainServerConfig> configs = null;
+  private List<MainConfig> configs = null;
 
   @SerializedName("gameDefinition")
   private Integer gameDefinition = null;
@@ -38,14 +38,14 @@ import java.util.Objects;
 
   @SerializedName("name")
   private String name = null;
-  public MainGameComponent codes(List<MainServerCode> codes) {
+  public MainGameComponent codes(List<MainCode> codes) {
     this.codes = codes;
     return this;
   }
 
-  public MainGameComponent addCodesItem(MainServerCode codesItem) {
+  public MainGameComponent addCodesItem(MainCode codesItem) {
     if (this.codes == null) {
-      this.codes = new ArrayList<MainServerCode>();
+      this.codes = new ArrayList<MainCode>();
     }
     this.codes.add(codesItem);
     return this;
@@ -56,20 +56,20 @@ import java.util.Objects;
   * @return codes
   **/
   @Schema(description = "")
-  public List<MainServerCode> getCodes() {
+  public List<MainCode> getCodes() {
     return codes;
   }
-  public void setCodes(List<MainServerCode> codes) {
+  public void setCodes(List<MainCode> codes) {
     this.codes = codes;
   }
-  public MainGameComponent configs(List<MainServerConfig> configs) {
+  public MainGameComponent configs(List<MainConfig> configs) {
     this.configs = configs;
     return this;
   }
 
-  public MainGameComponent addConfigsItem(MainServerConfig configsItem) {
+  public MainGameComponent addConfigsItem(MainConfig configsItem) {
     if (this.configs == null) {
-      this.configs = new ArrayList<MainServerConfig>();
+      this.configs = new ArrayList<MainConfig>();
     }
     this.configs.add(configsItem);
     return this;
@@ -80,10 +80,10 @@ import java.util.Objects;
   * @return configs
   **/
   @Schema(description = "")
-  public List<MainServerConfig> getConfigs() {
+  public List<MainConfig> getConfigs() {
     return configs;
   }
-  public void setConfigs(List<MainServerConfig> configs) {
+  public void setConfigs(List<MainConfig> configs) {
     this.configs = configs;
   }
   public MainGameComponent gameDefinition(Integer gameDefinition) {

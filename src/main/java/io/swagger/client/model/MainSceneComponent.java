@@ -22,13 +22,13 @@ import java.util.Objects;
  * MainSceneComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainSceneComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class MainSceneComponent {
 
   @SerializedName("blockMovement")
   private Boolean blockMovement = null;
 
   @SerializedName("codes")
-  private List<MainServerCode> codes = null;
+  private List<MainCode> codes = null;
 
   @SerializedName("colider")
   private Boolean colider = null;
@@ -80,14 +80,14 @@ import java.util.Objects;
   public void setBlockMovement(Boolean blockMovement) {
     this.blockMovement = blockMovement;
   }
-  public MainSceneComponent codes(List<MainServerCode> codes) {
+  public MainSceneComponent codes(List<MainCode> codes) {
     this.codes = codes;
     return this;
   }
 
-  public MainSceneComponent addCodesItem(MainServerCode codesItem) {
+  public MainSceneComponent addCodesItem(MainCode codesItem) {
     if (this.codes == null) {
-      this.codes = new ArrayList<MainServerCode>();
+      this.codes = new ArrayList<MainCode>();
     }
     this.codes.add(codesItem);
     return this;
@@ -98,10 +98,10 @@ import java.util.Objects;
   * @return codes
   **/
   @Schema(description = "")
-  public List<MainServerCode> getCodes() {
+  public List<MainCode> getCodes() {
     return codes;
   }
-  public void setCodes(List<MainServerCode> codes) {
+  public void setCodes(List<MainCode> codes) {
     this.codes = codes;
   }
   public MainSceneComponent colider(Boolean colider) {

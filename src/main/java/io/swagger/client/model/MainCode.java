@@ -20,7 +20,7 @@ import java.util.Objects;
  * MainCode
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainCode {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class MainCode {
 
   @SerializedName("event")
   private String event = null;
@@ -30,9 +30,6 @@ import java.util.Objects;
 
   @SerializedName("id")
   private Integer id = null;
-
-  @SerializedName("luchadorID")
-  private Integer luchadorID = null;
 
   @SerializedName("script")
   private String script = null;
@@ -90,24 +87,6 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainCode luchadorID(Integer luchadorID) {
-    this.luchadorID = luchadorID;
-    return this;
-  }
-
-  
-
-  /**
-  * Get luchadorID
-  * @return luchadorID
-  **/
-  @Schema(description = "")
-  public Integer getLuchadorID() {
-    return luchadorID;
-  }
-  public void setLuchadorID(Integer luchadorID) {
-    this.luchadorID = luchadorID;
-  }
   public MainCode script(String script) {
     this.script = script;
     return this;
@@ -138,13 +117,12 @@ import java.util.Objects;
     return Objects.equals(this.event, mainCode.event) &&
         Objects.equals(this.exception, mainCode.exception) &&
         Objects.equals(this.id, mainCode.id) &&
-        Objects.equals(this.luchadorID, mainCode.luchadorID) &&
         Objects.equals(this.script, mainCode.script);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(event, exception, id, luchadorID, script);
+    return java.util.Objects.hash(event, exception, id, script);
   }
 
   @Override
@@ -155,7 +133,6 @@ import java.util.Objects;
     sb.append("    event: ").append(toIndentedString(event)).append("\n");
     sb.append("    exception: ").append(toIndentedString(exception)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
     sb.append("    script: ").append(toIndentedString(script)).append("\n");
     sb.append("}");
     return sb.toString();

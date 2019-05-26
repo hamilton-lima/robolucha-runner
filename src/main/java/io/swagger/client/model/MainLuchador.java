@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainLuchador
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainLuchador {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class MainLuchador {
 
   @SerializedName("codes")
   private List<MainCode> codes = null;

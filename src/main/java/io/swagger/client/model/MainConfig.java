@@ -20,16 +20,13 @@ import java.util.Objects;
  * MainConfig
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainConfig {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class MainConfig {
 
   @SerializedName("id")
   private Integer id = null;
 
   @SerializedName("key")
   private String key = null;
-
-  @SerializedName("luchadorID")
-  private Integer luchadorID = null;
 
   @SerializedName("value")
   private String value = null;
@@ -69,24 +66,6 @@ import java.util.Objects;
   public void setKey(String key) {
     this.key = key;
   }
-  public MainConfig luchadorID(Integer luchadorID) {
-    this.luchadorID = luchadorID;
-    return this;
-  }
-
-  
-
-  /**
-  * Get luchadorID
-  * @return luchadorID
-  **/
-  @Schema(description = "")
-  public Integer getLuchadorID() {
-    return luchadorID;
-  }
-  public void setLuchadorID(Integer luchadorID) {
-    this.luchadorID = luchadorID;
-  }
   public MainConfig value(String value) {
     this.value = value;
     return this;
@@ -116,13 +95,12 @@ import java.util.Objects;
     MainConfig mainConfig = (MainConfig) o;
     return Objects.equals(this.id, mainConfig.id) &&
         Objects.equals(this.key, mainConfig.key) &&
-        Objects.equals(this.luchadorID, mainConfig.luchadorID) &&
         Objects.equals(this.value, mainConfig.value);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, key, luchadorID, value);
+    return java.util.Objects.hash(id, key, value);
   }
 
   @Override
@@ -132,7 +110,6 @@ import java.util.Objects;
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
-    sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
