@@ -12,12 +12,11 @@
 
 package io.swagger.client.auth;
 
+import io.swagger.client.Pair;
 import java.util.List;
 import java.util.Map;
 
-import io.swagger.client.Pair;
-
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T00:28:09.919Z[GMT]")public class ApiKeyAuth implements Authentication {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T02:01:18.189Z[GMT]")public class ApiKeyAuth implements Authentication {
   private final String location;
   private final String paramName;
 

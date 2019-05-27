@@ -12,11 +12,6 @@
 
 package io.swagger.client.api;
 
-import java.util.List;
-
-import org.junit.Ignore;
-import org.junit.Test;
-
 import io.swagger.client.ApiException;
 import io.swagger.client.model.MainConfig;
 import io.swagger.client.model.MainGameComponent;
@@ -29,6 +24,9 @@ import io.swagger.client.model.MainScoreList;
 import io.swagger.client.model.MainUpdateLuchadorResponse;
 import io.swagger.client.model.MainUser;
 import io.swagger.client.model.MainUserSetting;
+import java.util.List;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for DefaultApi
@@ -80,21 +78,6 @@ public class DefaultApiTest {
     public void internalGameComponentPostTest() throws ApiException {
         MainGameComponent body = null;
         MainGameComponent response = api.internalGameComponentPost(body);
-
-        // TODO: test validations
-    }
-    /**
-     * find a game definition
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void internalGameDefinitionIdIdGetTest() throws ApiException {
-        Integer id = null;
-        MainGameDefinition response = api.internalGameDefinitionIdIdGet(id);
 
         // TODO: test validations
     }
@@ -184,6 +167,21 @@ public class DefaultApiTest {
     public void internalStartMatchNamePostTest() throws ApiException {
         String name = null;
         MainMatch response = api.internalStartMatchNamePost(name);
+
+        // TODO: test validations
+    }
+    /**
+     * find a game definition
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateGameDefinitionIdIdGetTest() throws ApiException {
+        Integer id = null;
+        MainGameDefinition response = api.privateGameDefinitionIdIdGet(id);
 
         // TODO: test validations
     }

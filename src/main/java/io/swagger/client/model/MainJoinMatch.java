@@ -12,17 +12,15 @@
 
 package io.swagger.client.model;
 
-import java.util.Objects;
-
 import com.google.gson.annotations.SerializedName;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.Objects;
 
 /**
  * MainJoinMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T00:28:09.919Z[GMT]")public class MainJoinMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T02:01:18.189Z[GMT]")public class MainJoinMatch {
 
   @SerializedName("luchadorID")
   private Integer luchadorID = null;

@@ -12,10 +12,9 @@
 
 package io.swagger.client.auth;
 
+import io.swagger.client.Pair;
 import java.util.List;
 import java.util.Map;
-
-import io.swagger.client.Pair;
 
 public interface Authentication {
     /**
