@@ -11,11 +11,12 @@ import javax.script.ScriptException;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.robolucha.models.Code;
-import com.robolucha.models.Luchador;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainGameComponent;
 
 public class LuchadorRunnerTest {
 
@@ -26,11 +27,11 @@ public class LuchadorRunnerTest {
 
         MatchRunner runner = MockMatchRunner.build();
 
-        Luchador l1 = MockLuchador.build();
+        MainGameComponent l1 = MockLuchador.build();
         l1.setId(1);
-        List<Code> codes = new ArrayList<Code>();
+        List<MainCode> codes = new ArrayList<MainCode>();
 
-        Code code = new Code();
+        MainCode code = new MainCode();
         code.setEvent("start");
         code.setScript(" "); // EMPTY CODE!!
         l1.getCodes().add(code);
@@ -55,10 +56,10 @@ public class LuchadorRunnerTest {
 
         MatchRunner runner = MockMatchRunner.build();
 
-        Luchador l1 = MockLuchador.build();
+        MainGameComponent l1 = MockLuchador.build();
         l1.setId(1);
 
-        Code code = new Code();
+        MainCode code = new MainCode();
         code.setEvent("start");
         code.setScript("this is an invalid code");
         l1.getCodes().add(code);
@@ -87,14 +88,14 @@ public class LuchadorRunnerTest {
         MatchRunner runner = MockMatchRunner.build();
 
         for (int i = 0; i < methods.length; i++) {
-            Luchador l1 = MockLuchador.build();
+            MainGameComponent l1 = MockLuchador.build();
             l1.setId(1);
 
             LuchadorRunner one = new LuchadorRunner(l1, runner);
             one.run(methods[i]);
         }
 
-        Luchador l1 = MockLuchador.build();
+        MainGameComponent l1 = MockLuchador.build();
         l1.setId(1);
         LuchadorRunner one = new LuchadorRunner(l1, runner);
         one.run("invalidMethod");
@@ -118,10 +119,10 @@ public class LuchadorRunnerTest {
      */
     @Test
     public void testFacadeMethodsCall() throws Exception, ScriptException {
-        Luchador l1 = MockLuchador.build();
+        MainGameComponent l1 = MockLuchador.build();
         l1.setId(1);
 
-        Code c2 = new Code();
+        MainCode c2 = new MainCode();
         c2.setEvent("start");
         c2.setScript("");
         l1.getCodes().add(c2);
@@ -175,11 +176,11 @@ public class LuchadorRunnerTest {
     @Test
     public void testVariableME() throws Exception, ScriptException {
 
-        Luchador l1 = MockLuchador.build();
+        MainGameComponent l1 = MockLuchador.build();
         l1.setId(1);
-        List<Code> codes = new ArrayList<Code>();
+        List<MainCode> codes = new ArrayList<MainCode>();
 
-        Code code = new Code();
+        MainCode code = new MainCode();
         code.setEvent("start");
         code.setScript("function getLife(){debug(me); return me.life;}");
         l1.getCodes().add(code);
@@ -209,17 +210,17 @@ public class LuchadorRunnerTest {
     public void testMultipleLutchadores() throws Exception, ScriptException {
 
         MatchRunner runner = MockMatchRunner.build();
-        Luchador l1 = MockLuchador.build();
+        MainGameComponent l1 = MockLuchador.build();
         l1.setId(1);
 
-        Code code = new Code();
+        MainCode code = new MainCode();
         code.setEvent("start");
         code.setScript("var counter = 3; function count(a){counter += a; return counter;}");
         l1.getCodes().add(code);
 
         LuchadorRunner one = new LuchadorRunner(l1, runner);
 
-        Luchador l2 = MockLuchador.build(2,
+        MainGameComponent l2 = MockLuchador.build(2,
                 "start",
                 "var counter = 10; function count(a){counter += a; debug('updated counter=' + counter); return counter;}");
 
@@ -243,7 +244,7 @@ public class LuchadorRunnerTest {
 
     @Test
     public void testStart() throws Exception, ScriptException {
-        Luchador l1 = MockLuchador.build(1,
+        MainGameComponent l1 = MockLuchador.build(1,
                 "start",
                 "local counter = 3\n"
                 +"function count(a)\n"
@@ -271,16 +272,16 @@ public class LuchadorRunnerTest {
         MatchRunner runner = MockMatchRunner.build();
 
         for (int i = 0; i < methods.length; i++) {
-            Luchador l1 = MockLuchador.build();
+            MainGameComponent l1 = MockLuchador.build();
             l1.setId(1);
-            List<Code> codes = new ArrayList<Code>();
+            List<MainCode> codes = new ArrayList<MainCode>();
 
-            Code code = new Code();
+            MainCode code = new MainCode();
             code.setEvent(methods[i]);
             code.setScript("counter ++; return counter;");
             codes.add(code);
 
-            Code c2 = new Code();
+            MainCode c2 = new MainCode();
             c2.setEvent("start");
             c2.setScript("var counter = 3;");
             codes.add(c2);

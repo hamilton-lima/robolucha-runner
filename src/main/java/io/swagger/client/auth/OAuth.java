@@ -12,11 +12,12 @@
 
 package io.swagger.client.auth;
 
-import io.swagger.client.Pair;
 import java.util.List;
 import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class OAuth implements Authentication {
+import io.swagger.client.Pair;
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T00:28:09.919Z[GMT]")public class OAuth implements Authentication {
   private String accessToken;
 
   public String getAccessToken() {

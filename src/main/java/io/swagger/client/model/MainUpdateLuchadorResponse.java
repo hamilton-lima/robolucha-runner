@@ -12,23 +12,25 @@
 
 package io.swagger.client.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import com.google.gson.annotations.SerializedName;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * MainUpdateLuchadorResponse
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class MainUpdateLuchadorResponse {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T00:28:09.919Z[GMT]")public class MainUpdateLuchadorResponse {
 
   @SerializedName("errors")
   private List<String> errors = null;
 
   @SerializedName("luchador")
-  private MainLuchador luchador = null;
+  private MainGameComponent luchador = null;
   public MainUpdateLuchadorResponse errors(List<String> errors) {
     this.errors = errors;
     return this;
@@ -53,7 +55,7 @@ import java.util.Objects;
   public void setErrors(List<String> errors) {
     this.errors = errors;
   }
-  public MainUpdateLuchadorResponse luchador(MainLuchador luchador) {
+  public MainUpdateLuchadorResponse luchador(MainGameComponent luchador) {
     this.luchador = luchador;
     return this;
   }
@@ -65,10 +67,10 @@ import java.util.Objects;
   * @return luchador
   **/
   @Schema(description = "")
-  public MainLuchador getLuchador() {
+  public MainGameComponent getLuchador() {
     return luchador;
   }
-  public void setLuchador(MainLuchador luchador) {
+  public void setLuchador(MainGameComponent luchador) {
     this.luchador = luchador;
   }
   @Override

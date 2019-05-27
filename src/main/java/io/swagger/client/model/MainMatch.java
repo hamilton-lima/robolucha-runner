@@ -12,17 +12,19 @@
 
 package io.swagger.client.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import com.google.gson.annotations.SerializedName;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * MainMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class MainMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T00:28:09.919Z[GMT]")public class MainMatch {
 
   @SerializedName("gameDefinitionID")
   private Integer gameDefinitionID = null;
@@ -34,7 +36,7 @@ import java.util.Objects;
   private String lastTimeAlive = null;
 
   @SerializedName("participants")
-  private List<MainLuchador> participants = null;
+  private List<MainGameComponent> participants = null;
 
   @SerializedName("timeEnd")
   private String timeEnd = null;
@@ -95,14 +97,14 @@ import java.util.Objects;
   public void setLastTimeAlive(String lastTimeAlive) {
     this.lastTimeAlive = lastTimeAlive;
   }
-  public MainMatch participants(List<MainLuchador> participants) {
+  public MainMatch participants(List<MainGameComponent> participants) {
     this.participants = participants;
     return this;
   }
 
-  public MainMatch addParticipantsItem(MainLuchador participantsItem) {
+  public MainMatch addParticipantsItem(MainGameComponent participantsItem) {
     if (this.participants == null) {
-      this.participants = new ArrayList<MainLuchador>();
+      this.participants = new ArrayList<MainGameComponent>();
     }
     this.participants.add(participantsItem);
     return this;
@@ -113,10 +115,10 @@ import java.util.Objects;
   * @return participants
   **/
   @Schema(description = "")
-  public List<MainLuchador> getParticipants() {
+  public List<MainGameComponent> getParticipants() {
     return participants;
   }
-  public void setParticipants(List<MainLuchador> participants) {
+  public void setParticipants(List<MainGameComponent> participants) {
     this.participants = participants;
   }
   public MainMatch timeEnd(String timeEnd) {

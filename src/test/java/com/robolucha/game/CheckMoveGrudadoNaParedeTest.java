@@ -7,13 +7,14 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.models.Code;
-import com.robolucha.models.Luchador;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainGameComponent;
 
 public class CheckMoveGrudadoNaParedeTest {
 
@@ -32,11 +33,9 @@ public class CheckMoveGrudadoNaParedeTest {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(-100);");
+        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(-100);");
 
-        Code c1 = new Code();
-        c1.setEvent(MethodNames.ON_HIT_WALL);
-        c1.setScript("turn(45);");
+        MainCode c1 = MockLuchador.buildCode(MethodNames.ON_HIT_WALL, "turn(45);");
         a.getCodes().add(c1);
 
         match.add(a);

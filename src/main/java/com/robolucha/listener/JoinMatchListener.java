@@ -1,6 +1,5 @@
 package com.robolucha.listener;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
 import com.robolucha.publisher.RemoteQueue;
@@ -11,7 +10,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainJoinMatch;
-import io.swagger.client.model.MainLuchador;
 
 public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable{
 

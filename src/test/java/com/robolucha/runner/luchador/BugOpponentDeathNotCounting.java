@@ -9,7 +9,6 @@ import org.junit.Test;
 import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.game.event.MatchEventListener;
 import com.robolucha.game.vo.MatchRunStateVO;
-import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.models.ScoreVO;
@@ -20,6 +19,7 @@ import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
+import io.swagger.client.model.MainGameComponent;
 
 /**
  * This test creates 2 luchadores A and B - A need to be a the left of B with
@@ -52,8 +52,8 @@ public class BugOpponentDeathNotCounting {
 		MatchRunner match = MockMatchRunner.build(3000, queue);
 		match.getGameDefinition().setMinParticipants(2);
 
-		Luchador a = MockLuchador.build(1, MethodNames.ON_START, "fire(5)");
-		Luchador b = MockLuchador.build(2, MethodNames.ON_REPEAT, "turn(90)");
+		MainGameComponent a = MockLuchador.build(1, MethodNames.ON_START, "fire(5)");
+		MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "turn(90)");
 
 		match.add(a);
 		match.add(b);

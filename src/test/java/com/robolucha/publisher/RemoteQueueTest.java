@@ -9,13 +9,13 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.models.Luchador;
 import com.robolucha.runner.Config;
 import com.robolucha.test.MockLuchador;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.BehaviorSubject;
 import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainGameComponent;
 
 public class RemoteQueueTest {
     RedisDockerHelper docker = new RedisDockerHelper();
@@ -32,12 +32,12 @@ public class RemoteQueueTest {
 
         try (RemoteQueue queue = new RemoteQueue(Config.getInstance())) {
 
-            BehaviorSubject<Luchador> subject = queue.subscribe(Luchador.class);
+            BehaviorSubject<MainGameComponent> subject = queue.subscribe(MainGameComponent.class);
             CompletableFuture<String> future = new CompletableFuture<>();
 
-            subject.subscribe(new Consumer<Luchador>() {
+            subject.subscribe(new Consumer<MainGameComponent>() {
                 @Override
-                public void accept(Luchador luchador) throws Exception {
+                public void accept(MainGameComponent luchador) throws Exception {
                     logger.info("Luchador from REDIS subscription=" + luchador.toString());
 
                     assertEquals(luchador.getId().intValue(), 2);
@@ -50,7 +50,7 @@ public class RemoteQueueTest {
                 }
             });
 
-            Luchador foo = MockLuchador.build(2, "start", "move(10)");
+            MainGameComponent foo = MockLuchador.build(2, "start", "move(10)");
             queue.publish(foo);
 
             assertEquals("subscribe", future.get(5, TimeUnit.SECONDS));

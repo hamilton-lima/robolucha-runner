@@ -12,17 +12,19 @@
 
 package io.swagger.client.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import com.google.gson.annotations.SerializedName;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * MainGameComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class MainGameComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T00:28:09.919Z[GMT]")public class MainGameComponent {
 
   @SerializedName("codes")
   private List<MainCode> codes = null;
@@ -38,6 +40,9 @@ import java.util.Objects;
 
   @SerializedName("name")
   private String name = null;
+
+  @SerializedName("userID")
+  private Integer userID = null;
   public MainGameComponent codes(List<MainCode> codes) {
     this.codes = codes;
     return this;
@@ -140,6 +145,24 @@ import java.util.Objects;
   public void setName(String name) {
     this.name = name;
   }
+  public MainGameComponent userID(Integer userID) {
+    this.userID = userID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get userID
+  * @return userID
+  **/
+  @Schema(description = "")
+  public Integer getUserID() {
+    return userID;
+  }
+  public void setUserID(Integer userID) {
+    this.userID = userID;
+  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -153,12 +176,13 @@ import java.util.Objects;
         Objects.equals(this.configs, mainGameComponent.configs) &&
         Objects.equals(this.gameDefinition, mainGameComponent.gameDefinition) &&
         Objects.equals(this.id, mainGameComponent.id) &&
-        Objects.equals(this.name, mainGameComponent.name);
+        Objects.equals(this.name, mainGameComponent.name) &&
+        Objects.equals(this.userID, mainGameComponent.userID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(codes, configs, gameDefinition, id, name);
+    return java.util.Objects.hash(codes, configs, gameDefinition, id, name, userID);
   }
 
   @Override
@@ -171,6 +195,7 @@ import java.util.Objects;
     sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

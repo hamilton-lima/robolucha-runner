@@ -6,10 +6,11 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.models.Luchador;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainGameComponent;
 
 /**
  * atraves da variavel me com possibilidade de posicionar o lutchador
@@ -31,7 +32,7 @@ public class BugAcessoVariavelMeTest {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1, MethodNames.ON_REPEAT, "me.x = 200;");
+        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "me.x = 200;");
         match.add(a);
 
         MockMatchRunner.start(match);

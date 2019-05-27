@@ -4,11 +4,9 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import com.robolucha.game.vo.BulletVO;
-import com.robolucha.game.vo.LuchadorPublicStateVO;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.game.vo.PunchVO;
 import com.robolucha.models.Bullet;
-import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.models.Match;
 import com.robolucha.runner.MatchRunner;

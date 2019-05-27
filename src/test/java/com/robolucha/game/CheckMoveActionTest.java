@@ -6,12 +6,13 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.models.Luchador;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainGameComponent;
 
 public class CheckMoveActionTest {
 
@@ -28,8 +29,8 @@ public class CheckMoveActionTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        Luchador a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10);");
-        Luchador b = MockLuchador.build(2, MethodNames.ON_REPEAT, "move(-10);");
+        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10);");
+        MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "move(-10);");
 
         match.add(a);
         match.add(b);

@@ -7,13 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.robolucha.event.match.MatchEventVO;
-import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
+import io.swagger.client.model.MainGameComponent;
 
 /**
  * This bug happens when command execute queue dont retrict the execution of
@@ -38,7 +38,7 @@ public class BugConsumeCommandsOfSameType {
 
 		MatchRunner match = MockMatchRunner.build(300);
 		match.getGameDefinition().setMinParticipants(1);
-		Luchador a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10) \n move(30) \n move(30)");
+		MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10) \n move(30) \n move(30)");
 
 		match.add(a);
 

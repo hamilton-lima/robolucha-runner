@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.robolucha.models.Luchador;
 import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
@@ -17,6 +16,8 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.Server;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainGameComponent;
 
 public class BugNaoRetornandoMatchRunnerAtivoTest {
 
@@ -44,7 +45,7 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 		match.getGameDefinition().setMinParticipants(1);
 		match.getGameDefinition().setDuration(500);
 
-		Luchador a = MockLuchador.build();
+		MainGameComponent a = MockLuchador.build();
 		a.setId(1);
 
 		match.add(a);

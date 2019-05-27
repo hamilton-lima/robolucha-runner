@@ -1,8 +1,8 @@
 package com.robolucha.runner;
 
-import com.robolucha.event.ConstEvents;
 import org.apache.log4j.Logger;
 
+import com.robolucha.event.ConstEvents;
 import com.robolucha.event.GeneralEvent;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.monitor.ServerMonitor;

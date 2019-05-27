@@ -1,12 +1,14 @@
 package com.robolucha.publisher;
 
+import org.apache.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.robolucha.runner.Config;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.BehaviorSubject;
-import org.apache.log4j.Logger;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPubSub;

@@ -1,14 +1,14 @@
 package com.robolucha.runner;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
+import org.apache.log4j.Logger;
+
 import com.robolucha.event.ConstEvents;
 import com.robolucha.event.GeneralEvent;
 import com.robolucha.game.event.MatchEventListener;
 import com.robolucha.monitor.ServerMonitor;
-
-import org.apache.log4j.Logger;
-
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class MatchEventHandlerThread implements Runnable {
 

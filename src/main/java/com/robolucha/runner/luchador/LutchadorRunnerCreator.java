@@ -105,7 +105,6 @@ public class LutchadorRunnerCreator implements Runnable {
 		matchParticipant.setMatchRun(owner.getMatch());
 
 		if (matchParticipant.getMatchRun().getId() != null) {
-
 			MatchRunnerAPI.getInstance().addMatchParticipant(matchParticipant);
 		} else {
 			logger.warn("!!! trying to save match participation with unsaved MatchRun, is it running a TEST?");

@@ -19,8 +19,6 @@ import com.robolucha.game.event.OnHitWallEvent;
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.Bullet;
-import com.robolucha.models.Code;
-import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.models.MatchStateProvider;
@@ -167,7 +165,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		if (ConstEvents.LUCHADOR_NAME_CHANGE.equals(event)) {
 
 			if (data != null && this.gameComponent != null) {
-				Luchador changed = (Luchador) data;
+				MainGameComponent changed = (MainGameComponent) data;
 				if (changed.getId() == this.gameComponent.getId()) {
 					if (logger.isDebugEnabled()) {
 						logger.debug("*** same id, change ScoreVO");
@@ -294,9 +292,9 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			return;
 		}
 
-		Iterator iterator = list.iterator();
+		Iterator<MainCode> iterator = list.iterator();
 		while (iterator.hasNext()) {
-			Code code = (Code) iterator.next();
+			MainCode code = iterator.next();
 			if (code.getException() != null && code.getException().trim().length() > 0) {
 
 				onDangerMessage(MessageVO.DANGER, code.getEvent(), code.getException());
@@ -782,12 +780,12 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 * @return
 	 * @todo check
 	 */
-	private Code getStartCode() {
+	private MainCode getStartCode() {
 
 		if (this.gameComponent.getCodes() != null) {
-			Iterator iterator = this.gameComponent.getCodes().iterator();
+			Iterator<MainCode> iterator = this.gameComponent.getCodes().iterator();
 			while (iterator.hasNext()) {
-				Code code = (Code) iterator.next();
+				MainCode code = iterator.next();
 				if (code.getEvent().equals(MethodNames.ON_START)) {
 					return code;
 				}

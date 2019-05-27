@@ -5,13 +5,14 @@ import static org.junit.Assert.assertTrue;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.robolucha.models.Code;
-import com.robolucha.models.Luchador;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainGameComponent;
 
 public class CheckRespawnTest {
 
@@ -23,15 +24,13 @@ public class CheckRespawnTest {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build();
+        MainGameComponent a = MockLuchador.build();
         a.setId(1);
 
-        Luchador b = MockLuchador.build();
+        MainGameComponent b = MockLuchador.build();
         b.setId(2);
 
-        Code c = new Code();
-        c.setEvent(MethodNames.ON_REPEAT);
-        c.setScript("fire(2);");
+        MainCode c = MockLuchador.buildCode(MethodNames.ON_REPEAT, "fire(2)");
         a.getCodes().add(c);
 
         match.add(a);

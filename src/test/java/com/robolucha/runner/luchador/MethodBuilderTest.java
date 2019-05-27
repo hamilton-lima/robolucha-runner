@@ -5,10 +5,11 @@ import static org.junit.Assert.assertEquals;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.robolucha.models.Luchador;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainGameComponent;
 
 public class MethodBuilderTest {
 
@@ -17,7 +18,7 @@ public class MethodBuilderTest {
     @Test
     public void buildAllWithLuaFunctionInCode() {
         MatchRunner match = MockMatchRunner.build();
-        Luchador luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "print('1');");
+        MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "print('1');");
         LuchadorRunner runner = new LuchadorRunner(luchador, match);
         MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
 
@@ -33,7 +34,7 @@ public class MethodBuilderTest {
     @Test
     public void buildAllWithLuaVariables() {
         MatchRunner match = MockMatchRunner.build();
-        Luchador luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "a = 1;b = 2 \n if a >= b then \n b = a \n end");
+        MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "a = 1;b = 2 \n if a >= b then \n b = a \n end");
         LuchadorRunner runner = new LuchadorRunner(luchador, match);
         MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
 
@@ -49,7 +50,7 @@ public class MethodBuilderTest {
     @Test
     public void buildAllCheckMoveMethod() {
         MatchRunner match = MockMatchRunner.build();
-        Luchador luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
+        MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
         LuchadorRunner runner = new LuchadorRunner(luchador, match);
         MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
 
@@ -65,7 +66,7 @@ public class MethodBuilderTest {
     @Test
     public void buildAll() {
         MatchRunner match = MockMatchRunner.build();
-        Luchador luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1)");
+        MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1)");
         LuchadorRunner runner = new LuchadorRunner(luchador, match);
         MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
 
@@ -81,7 +82,7 @@ public class MethodBuilderTest {
     @Test
     public void buildAllWithError() {
         MatchRunner match = MockMatchRunner.build();
-        Luchador luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1); nheco");
+        MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1); nheco");
         LuchadorRunner runner = new LuchadorRunner(luchador, match);
         MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
 

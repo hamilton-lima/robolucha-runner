@@ -19,9 +19,9 @@ import org.junit.Test;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.MainConfig;
+import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainJoinMatch;
-import io.swagger.client.model.MainLuchador;
 import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainMatchParticipant;
 import io.swagger.client.model.MainMatchScore;
@@ -78,8 +78,8 @@ public class DefaultApiTest {
      */
     @Test
     public void internalGameComponentPostTest() throws ApiException {
-        MainLuchador body = null;
-        MainLuchador response = api.internalGameComponentPost(body);
+        MainGameComponent body = null;
+        MainGameComponent response = api.internalGameComponentPost(body);
 
         // TODO: test validations
     }
@@ -139,7 +139,7 @@ public class DefaultApiTest {
     @Test
     public void internalLuchadorGetTest() throws ApiException {
         Integer luchadorID = null;
-        MainLuchador response = api.internalLuchadorGet(luchadorID);
+        MainGameComponent response = api.internalLuchadorGet(luchadorID);
 
         // TODO: test validations
     }
@@ -226,7 +226,7 @@ public class DefaultApiTest {
      */
     @Test
     public void privateLuchadorGetTest() throws ApiException {
-        MainLuchador response = api.privateLuchadorGet();
+        MainGameComponent response = api.privateLuchadorGet();
 
         // TODO: test validations
     }
@@ -240,7 +240,7 @@ public class DefaultApiTest {
      */
     @Test
     public void privateLuchadorPutTest() throws ApiException {
-        MainLuchador body = null;
+        MainGameComponent body = null;
         MainUpdateLuchadorResponse response = api.privateLuchadorPut(body);
 
         // TODO: test validations
@@ -285,7 +285,7 @@ public class DefaultApiTest {
     @Test
     public void privateMatchConfigGetTest() throws ApiException {
         Integer matchID = null;
-        List<MainLuchador> response = api.privateMatchConfigGet(matchID);
+        List<MainGameComponent> response = api.privateMatchConfigGet(matchID);
 
         // TODO: test validations
     }

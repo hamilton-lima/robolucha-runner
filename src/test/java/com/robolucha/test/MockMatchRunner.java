@@ -10,7 +10,6 @@ import com.robolucha.publisher.MockRemoteQueue;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.score.ScoreUpdater;
-import com.robolucha.support.DefaultGameDefinitionFileCreator;
 
 import io.swagger.client.model.MainGameDefinition;
 
@@ -67,8 +66,6 @@ public class MockMatchRunner {
 		// TODO: create method to populate with defautls
 		MainGameDefinition gameDefinition = new MainGameDefinition();
 		gameDefinition.setDuration(1000);
-
-		DefaultGameDefinitionFileCreator.addGameComponent(gameDefinition);
 
 		Match match = new Match();
 		MatchRunner runner = new MatchRunner(gameDefinition, match, remoteQueue, monitor);

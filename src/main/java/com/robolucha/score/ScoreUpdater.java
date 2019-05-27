@@ -1,9 +1,10 @@
 package com.robolucha.score;
 
+import org.apache.log4j.Logger;
+
 import com.robolucha.game.event.MatchEventListener;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.runner.MatchRunner;
-import org.apache.log4j.Logger;
 
 public class ScoreUpdater implements MatchEventListener {
 	public static final String DAMAGE = "DAMAGE";
