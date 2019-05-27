@@ -1,17 +1,19 @@
 package com.robolucha.game;
 
-import com.robolucha.models.Luchador;
+import static org.junit.Assert.assertTrue;
+
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
-import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import io.swagger.client.model.MainGameComponent;
 
 public class CheckTurnJuntoComTurnGunTest {
 
@@ -28,7 +30,7 @@ public class CheckTurnJuntoComTurnGunTest {
 
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "move(10);turn(45);turnGun(-45);");
+        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10);turn(45);turnGun(-45);");
 
         match.add(a);
 

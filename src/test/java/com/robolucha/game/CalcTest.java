@@ -1,15 +1,19 @@
 package com.robolucha.game;
 
-import com.robolucha.models.Luchador;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.shared.Calc;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
-import org.apache.log4j.Logger;
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import io.swagger.client.model.MainGameComponent;
 
 public class CalcTest {
 
@@ -37,8 +41,8 @@ public class CalcTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        Luchador a = MockLuchador.build(1L);
-        Luchador b = MockLuchador.build(2L);
+        MainGameComponent a = MockLuchador.build(1);
+        MainGameComponent b = MockLuchador.build(2);
 
         match.add(a);
         match.add(b);

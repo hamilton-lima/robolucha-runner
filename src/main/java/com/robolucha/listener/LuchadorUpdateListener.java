@@ -2,16 +2,14 @@ package com.robolucha.listener;
 
 import org.apache.log4j.Logger;
 
-import com.robolucha.models.Luchador;
 import com.robolucha.publisher.RemoteQueue;
-import com.robolucha.runner.MatchRunnerAPI;
 import com.robolucha.runner.luchador.LuchadorRunner;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainLuchador;
+import io.swagger.client.model.MainGameComponent;
 
-public class LuchadorUpdateListener implements Consumer<MainLuchador>, Disposable {
+public class LuchadorUpdateListener implements Consumer<MainGameComponent>, Disposable {
 
 	static Logger logger = Logger.getLogger(LuchadorUpdateListener.class);
 	private Disposable disposable;
@@ -27,7 +25,7 @@ public class LuchadorUpdateListener implements Consumer<MainLuchador>, Disposabl
 		String channel = String.format("luchador.%s.update", runner.getGameComponent().getId());
 		logger.debug("listen " + channel);
 
-		listener.disposable = publisher.subscribe(channel, MainLuchador.class).subscribe(listener, new ErrorHandler());
+		listener.disposable = publisher.subscribe(channel, MainGameComponent.class).subscribe(listener, new ErrorHandler());
 	}
 
 	protected static class ErrorHandler implements Consumer<Throwable> {
@@ -38,10 +36,9 @@ public class LuchadorUpdateListener implements Consumer<MainLuchador>, Disposabl
 	}
 
 	@Override
-	public void accept(MainLuchador luchadorFromAPI) throws Exception {
-		logger.info("Luchador updated " + luchadorFromAPI);
-		Luchador luchador = MatchRunnerAPI.getInstance().mapLuchadorAPI2Bean(luchadorFromAPI);
-		runner.update(luchador);
+	public void accept(MainGameComponent component) throws Exception {
+		logger.info("Luchador updated " + component);
+		runner.update(component);
 	}
 
 	@Override

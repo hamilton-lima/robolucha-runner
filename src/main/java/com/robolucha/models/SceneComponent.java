@@ -1,5 +1,7 @@
 package com.robolucha.models;
 
+import io.swagger.client.model.MainGameComponent;
+
 /**
  * Defines all elements in the game that are not players, runs server side API
  * code instead of luchador API
@@ -7,7 +9,7 @@ package com.robolucha.models;
  * @author hamiltonlima
  *
  */
-public class SceneComponent extends GameComponent {
+public class SceneComponent extends MainGameComponent {
 
 	private int x;
 	private int y;

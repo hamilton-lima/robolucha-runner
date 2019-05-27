@@ -12,25 +12,27 @@
 
 package io.swagger.client.model;
 
-import com.google.gson.annotations.SerializedName;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
+import com.google.gson.annotations.SerializedName;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
- * MainUserSetting
+ * MainServerConfig
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T02:01:18.189Z[GMT]")public class MainUserSetting {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainServerConfig {
 
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("lastOption")
-  private String lastOption = null;
+  @SerializedName("key")
+  private String key = null;
 
-  @SerializedName("userID")
-  private Integer userID = null;
-  public MainUserSetting id(Integer id) {
+  @SerializedName("value")
+  private String value = null;
+  public MainServerConfig id(Integer id) {
     this.id = id;
     return this;
   }
@@ -48,41 +50,41 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainUserSetting lastOption(String lastOption) {
-    this.lastOption = lastOption;
+  public MainServerConfig key(String key) {
+    this.key = key;
     return this;
   }
 
   
 
   /**
-  * Get lastOption
-  * @return lastOption
+  * Get key
+  * @return key
   **/
   @Schema(description = "")
-  public String getLastOption() {
-    return lastOption;
+  public String getKey() {
+    return key;
   }
-  public void setLastOption(String lastOption) {
-    this.lastOption = lastOption;
+  public void setKey(String key) {
+    this.key = key;
   }
-  public MainUserSetting userID(Integer userID) {
-    this.userID = userID;
+  public MainServerConfig value(String value) {
+    this.value = value;
     return this;
   }
 
   
 
   /**
-  * Get userID
-  * @return userID
+  * Get value
+  * @return value
   **/
   @Schema(description = "")
-  public Integer getUserID() {
-    return userID;
+  public String getValue() {
+    return value;
   }
-  public void setUserID(Integer userID) {
-    this.userID = userID;
+  public void setValue(String value) {
+    this.value = value;
   }
   @Override
   public boolean equals(java.lang.Object o) {
@@ -92,25 +94,25 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainUserSetting mainUserSetting = (MainUserSetting) o;
-    return Objects.equals(this.id, mainUserSetting.id) &&
-        Objects.equals(this.lastOption, mainUserSetting.lastOption) &&
-        Objects.equals(this.userID, mainUserSetting.userID);
+    MainServerConfig mainServerConfig = (MainServerConfig) o;
+    return Objects.equals(this.id, mainServerConfig.id) &&
+        Objects.equals(this.key, mainServerConfig.key) &&
+        Objects.equals(this.value, mainServerConfig.value);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, lastOption, userID);
+    return java.util.Objects.hash(id, key, value);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainUserSetting {\n");
+    sb.append("class MainServerConfig {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    lastOption: ").append(toIndentedString(lastOption)).append("\n");
-    sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
   }

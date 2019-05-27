@@ -5,4 +5,4 @@ export MYSQL_DATABASE=robolucha_db
 export MYSQL_USER=robolucha_uzr
 export MYSQL_PASSWORD=45f01c0c331c
 
-docker exec -it  robolucha-deploy_database_1 mysql -uroot -p$MYSQL_ROOT_PASSWORD robolucha_db
+docker exec -it dev-database mysql -uroot -p$MYSQL_ROOT_PASSWORD robolucha_db

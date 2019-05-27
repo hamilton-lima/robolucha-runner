@@ -24,7 +24,7 @@ public class AddOnListenEventAction implements GameAction {
 		this.event = new OnListenEvent(source, message);
 	}
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners,
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners,
 			LuchadorRunner runner) throws Exception {
 
 		if (logger.isDebugEnabled()) {

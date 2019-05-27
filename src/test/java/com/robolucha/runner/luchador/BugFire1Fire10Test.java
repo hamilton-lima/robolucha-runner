@@ -1,15 +1,16 @@
 package com.robolucha.runner.luchador;
 
-import com.robolucha.models.Code;
-import com.robolucha.models.Luchador;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockLuchador;
-import com.robolucha.test.MockMatchRunner;
+import static org.junit.Assert.assertTrue;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockLuchador;
+import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainGameComponent;
 
 /**
  * @author hamiltonlima
@@ -30,13 +31,13 @@ public class BugFire1Fire10Test {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "fire(1);");
-        a.getCodes().add(new Code(MethodNames.ON_START, "var foundIt = 0;"));
-        a.getCodes().add(new Code(MethodNames.ON_FOUND, "foundIt = 1; fire(10);"));
+        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1);");
+        a.getCodes().add(MockLuchador.buildCode(MethodNames.ON_START, "var foundIt = 0;"));
+        a.getCodes().add(MockLuchador.buildCode(MethodNames.ON_FOUND, "foundIt = 1; fire(10);"));
 
         match.add(a);
 
-        match.add(MockLuchador.build(2L, MethodNames.ON_REPEAT, "turn(20);"));
+        match.add(MockLuchador.build(2, MethodNames.ON_REPEAT, "turn(20);"));
         MockMatchRunner.start(match);
 
         LuchadorRunner runnerA = match.getRunners().get(1L);

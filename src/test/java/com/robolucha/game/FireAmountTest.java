@@ -1,18 +1,20 @@
 package com.robolucha.game;
 
-import com.robolucha.models.Luchador;
-import com.robolucha.runner.luchador.LuchadorRunner;
-import com.robolucha.test.MockMatchRunner;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainGameComponent;
 
 public class FireAmountTest {
 
 	@Test
 	public void testFireAmount() {
 
-		LuchadorRunner runner = new LuchadorRunner(new Luchador(), MockMatchRunner.build());
+		LuchadorRunner runner = new LuchadorRunner(new MainGameComponent(), MockMatchRunner.build());
 
 		assertEquals(1, runner.cleanUpAmount(-1));
 		assertEquals(1, runner.cleanUpAmount(0));

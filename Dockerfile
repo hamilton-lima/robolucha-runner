@@ -10,10 +10,14 @@ RUN wget http://central.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar 
 
 RUN mkdir -pv /usr/src/app/target
 
-COPY . /usr/src/app
+# resolve dependencies
+COPY build.xml /usr/src/app
+COPY ivy.xml /usr/src/app
 WORKDIR /usr/src/app
+RUN ant resolve
 
 # build app
+COPY . /usr/src/app
 RUN ant 
 
 # base image with JRE only
@@ -27,4 +31,4 @@ RUN find /usr/src/app
 CMD ["/usr/bin/java", "-jar", \
     "-Dlog4j.configuration=file:/usr/src/app/log4j.properties", \
     "/usr/src/app/robolucha-runner.jar", \
-    "/usr/src/app/default-gamedefinition.json"]
+    "ALL-AGAINST-ALL"]

@@ -1,11 +1,13 @@
 package com.robolucha.publisher;
 
+import org.apache.log4j.Logger;
+
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerListener;
+
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import org.apache.log4j.Logger;
 
 public class MatchMessagePublisher implements Consumer<MessageVO>, MatchRunnerListener {
 

@@ -1,10 +1,11 @@
 package com.robolucha.runner;
 
-import com.robolucha.event.ConstEvents;
 import org.apache.log4j.Logger;
 
+import com.robolucha.event.ConstEvents;
 import com.robolucha.event.GeneralEvent;
 import com.robolucha.models.LuchadorMatchState;
+import com.robolucha.monitor.ServerMonitor;
 
 /**
  * @author hamiltonlima
@@ -16,11 +17,11 @@ public class MatchEventHandler {
     private Thread thread;
     private MatchEventHandlerThread handlerThread;
 
-    public MatchEventHandler(MatchRunner runner, String ownerThreadName) {
+    public MatchEventHandler(MatchRunner runner, String ownerThreadName, ServerMonitor monitor) {
         this.runner = runner;
         logger.info("match event handler started : ");
 
-        handlerThread = new MatchEventHandlerThread(this, "MatchEventHandler-" + ownerThreadName);
+        handlerThread = new MatchEventHandlerThread(this, "MatchEventHandler-" + ownerThreadName, monitor);
         thread = new Thread(handlerThread);
         thread.start();
     }

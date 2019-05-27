@@ -1,16 +1,17 @@
 package com.robolucha.models;
 
-import com.robolucha.score.ScoreBuilder;
-import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.robolucha.score.ScoreBuilder;
 
 public class ScoreVOTest {
 
@@ -23,7 +24,7 @@ public class ScoreVOTest {
 	@Test
 	public void testScoreVOLongString() {
 
-		ScoreVO vo = new ScoreVO(45L, "foo");
+		ScoreVO vo = new ScoreVO(45, "foo");
 		assertEquals("foo", vo.getName());
 		assertTrue(vo.getId().equals(vo.getId()));
 		assertEquals(0, vo.getK());
@@ -34,7 +35,7 @@ public class ScoreVOTest {
 	@Test
 	public void testScoreBuilder() {
 
-		ScoreVO vo = new ScoreVO(45L, "foo");
+		ScoreVO vo = new ScoreVO(45, "foo");
 		ScoreBuilder builder = ScoreBuilder.getInstance();
 
 		builder.addDamagePoints(vo, 5);
@@ -74,8 +75,8 @@ public class ScoreVOTest {
 
 		// tudo igual deve prevalecer o ID mais antigo
 		List<ScoreVO> list = new ArrayList<ScoreVO>();
-		ScoreVO vo1 = new ScoreVO(1L, "s1", 1, 1, 1);
-		ScoreVO vo2 = new ScoreVO(2L, "s1", 1, 1, 1);
+		ScoreVO vo1 = new ScoreVO(1, "s1", 1, 1, 1);
+		ScoreVO vo2 = new ScoreVO(2, "s1", 1, 1, 1);
 
 		list.add(vo1);
 		list.add(vo2);
@@ -90,8 +91,8 @@ public class ScoreVOTest {
 
 		// score maior
 		ArrayList<ScoreVO> list = new ArrayList<ScoreVO>();
-		ScoreVO vo1 = new ScoreVO(1L, "s1", 1, 0, 200);
-		ScoreVO vo2 = new ScoreVO(2L, "s1", 1, 1, 250);
+		ScoreVO vo1 = new ScoreVO(1, "s1", 1, 0, 200);
+		ScoreVO vo2 = new ScoreVO(2, "s1", 1, 1, 250);
 
 		list.add(vo1);
 		list.add(vo2);
@@ -115,9 +116,9 @@ public class ScoreVOTest {
 
 		// score maior
 		ArrayList<ScoreVO> list = new ArrayList<ScoreVO>();
-		ScoreVO vo1 = new ScoreVO(1L, "s1", 1, 0, 200);
-		ScoreVO vo2 = new ScoreVO(2L, "s1", 1, 1, 250);
-		ScoreVO vo3 = new ScoreVO(3L, "s1", 2, 1, 250);
+		ScoreVO vo1 = new ScoreVO(1, "s1", 1, 0, 200);
+		ScoreVO vo2 = new ScoreVO(2, "s1", 1, 1, 250);
+		ScoreVO vo3 = new ScoreVO(3, "s1", 2, 1, 250);
 
 		list.add(vo1);
 		list.add(vo2);

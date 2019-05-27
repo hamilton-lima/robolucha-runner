@@ -1,9 +1,9 @@
 package com.robolucha.event;
 
+import java.util.Arrays;
+
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.runner.RunAfterThisTask;
-
-import java.util.Arrays;
 
 public class GeneralEvent {
 

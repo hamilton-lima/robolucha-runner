@@ -64,7 +64,7 @@ public class MatchEventPublisher implements MatchEventListener {
 			logger.info("Match END saving score");
 			List<MatchScore> scores = new ArrayList<MatchScore>();
 			
-			Iterator<Long> iterator = runner.getRunners().keySet().iterator();
+			Iterator<Integer> iterator = runner.getRunners().keySet().iterator();
 			while (iterator.hasNext()) {
 				Object key = (Object) iterator.next();
 				LuchadorRunner luchadorRunner = runner.getRunners().get(key);

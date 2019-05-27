@@ -28,7 +28,7 @@ public class ScriptRunner implements Runnable {
 	@Override
 	public void run() {
 		Thread.currentThread()
-				.setName("ScriptRunner-Thread-GameComponentID-" + runner.getGameComponent().getId() + "-" + codeName);
+				.setName("ScriptRunner.Thread.GameComponentID." + runner.getGameComponent().getId() + "." + codeName);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("START run(" + codeName + "," + parameter + ")");

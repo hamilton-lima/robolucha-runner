@@ -4,7 +4,6 @@ import com.robolucha.shared.Const;
 
 public class Match {
 	private Long id;
-	private Game game;
 	private long timeStart = 0;
 	private long timeEnd = 0;
 	private String published = Const.NO;
@@ -13,27 +12,12 @@ public class Match {
 	private long gameServerOwnerPID = 0;
 	private Integer manual = 0;
 
-	@Override
-	public String toString() {
-		return "MatchRun [id=" + id + ", game=" + game + ", timeStart=" + timeStart + ", timeEnd=" + timeEnd
-				+ ", published=" + published + ", rankingCalculated=" + rankingCalculated + ", lastTimeAlive="
-				+ lastTimeAlive + ", gameServerOwnerPID=" + gameServerOwnerPID + ", manual=" + manual + "]";
-	}
-
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
 	}
 
 	public long getTimeStart() {

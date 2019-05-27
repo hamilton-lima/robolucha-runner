@@ -1,15 +1,19 @@
 package com.robolucha.runner.luchador.lua;
 
-import com.robolucha.runner.luchador.LuchadorRunner;
-import com.robolucha.runner.luchador.MethodDefinition;
-import com.robolucha.runner.luchador.MethodNames;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.runner.luchador.MethodDefinition;
+import com.robolucha.runner.luchador.MethodNames;
 
 public class LuaScriptDefinitionTest {
 

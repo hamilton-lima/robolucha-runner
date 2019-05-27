@@ -1,11 +1,11 @@
 package com.robolucha.models;
 
-import com.robolucha.models.Bullet;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockMatchRunner;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-import static org.junit.Assert.fail;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockMatchRunner;
 
 public class BulletTest {
 
@@ -33,7 +33,8 @@ public class BulletTest {
 
 		Bullet[] bullets = new Bullet[100];
 		for (int i = 0; i < bullets.length; i++) {
-			bullets[i] = new Bullet(match.getGameDefinition(), null, 20, 10, 10, 20);
+			bullets[i] = new Bullet(match.getGameDefinition().getBuletSpeed(),
+					(int) match.getGameDefinition().getBulletSize(), null, 20, 10, 10, 20);
 		}
 		return bullets;
 	}
@@ -92,8 +93,7 @@ public class BulletTest {
 				}
 			}
 			if (counter > 1) {
-				fail("foi encontrado ID duplicado : " + bullets[i].getId()
-						+ " counter = " + counter);
+				fail("foi encontrado ID duplicado : " + bullets[i].getId() + " counter = " + counter);
 			}
 		}
 

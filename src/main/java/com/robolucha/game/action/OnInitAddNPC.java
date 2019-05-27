@@ -5,13 +5,13 @@ import java.util.Iterator;
 import org.apache.log4j.Logger;
 
 import com.robolucha.game.vo.MatchInitVO;
-import com.robolucha.models.GameComponent;
-import com.robolucha.models.GameDefinition;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerListener;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.MainGameDefinition;
 
 public class OnInitAddNPC implements Consumer<MatchInitVO>, MatchRunnerListener {
 
@@ -35,11 +35,11 @@ public class OnInitAddNPC implements Consumer<MatchInitVO>, MatchRunnerListener 
 		logger.info("START add NPC to match: " + runner.getThreadName());
 		logger.info("Matchrunner = " + runner);
 
-		GameDefinition def = runner.getGameDefinition();
+		MainGameDefinition def = runner.getGameDefinition();
 
-		Iterator<GameComponent> iterator = def.getGameComponents().iterator();
+		Iterator<MainGameComponent> iterator = def.getGameComponents().iterator();
 		while (iterator.hasNext()) {
-			GameComponent npc = iterator.next();
+			MainGameComponent npc = iterator.next();
 
 			try {
 				runner.add(npc);

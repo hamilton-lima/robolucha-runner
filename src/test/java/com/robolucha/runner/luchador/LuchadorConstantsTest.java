@@ -1,14 +1,16 @@
 package com.robolucha.runner.luchador;
 
-import com.robolucha.models.Luchador;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockLuchador;
-import com.robolucha.test.MockMatchRunner;
+import static org.junit.Assert.assertEquals;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockLuchador;
+import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainGameComponent;
 
 public class LuchadorConstantsTest {
 
@@ -30,7 +32,7 @@ public class LuchadorConstantsTest {
                 " lw = LUCHADOR_WIDTH; " +
                 " lh = LUCHADOR_HEIGHT;";
 
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, script);
+        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, script);
 
         match.add(a);
         match.add(MockLuchador.build());

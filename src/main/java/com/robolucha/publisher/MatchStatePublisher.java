@@ -4,11 +4,9 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import com.robolucha.game.vo.BulletVO;
-import com.robolucha.game.vo.LuchadorPublicStateVO;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.game.vo.PunchVO;
 import com.robolucha.models.Bullet;
-import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.models.Match;
 import com.robolucha.runner.MatchRunner;
@@ -28,7 +26,7 @@ public class MatchStatePublisher {
 	public void update(MatchRunner matchRunner) throws Exception {
 		MatchRunStateVO vo = new MatchRunStateVO();
 
-		Iterator<Long> iterator = matchRunner.getRunners().keySet().iterator();
+		Iterator<Integer> iterator = matchRunner.getRunners().keySet().iterator();
 		while (iterator.hasNext()) {
 			Object key = (Object) iterator.next();
 			LuchadorRunner runner = matchRunner.getRunners().get(key);
@@ -42,17 +40,8 @@ public class MatchStatePublisher {
 					String name = runner.getGameComponent().getName();
 					LuchadorPublicState publicState = runner.getState().getPublicState();
 
-					// luchador owner data
-					Long ownerId = null;
-					if (runner.getGameComponent() instanceof Luchador) {
-						Luchador luchador = (Luchador) runner.getGameComponent();
-						if (luchador.getCoach() != null) {
-							ownerId = luchador.getCoach().getId();
-						}
-					}
-
 					// update luchador data
-					vo.luchadores.add(new LuchadorPublicStateVO(publicState, name, ownerId));
+					vo.luchadores.add(publicState);
 				}
 			}
 

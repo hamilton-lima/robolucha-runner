@@ -12,13 +12,13 @@ import com.robolucha.game.event.LuchadorEvent;
 import com.robolucha.game.event.LuchadorEventListener;
 import com.robolucha.game.event.OnFoundEvent;
 import com.robolucha.game.vo.LuchadorPublicStateVO;
-import com.robolucha.models.Luchador;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
+import io.swagger.client.model.MainGameComponent;
 
 public class BugRadarRadiusWrongNotFound {
 
@@ -42,8 +42,8 @@ public class BugRadarRadiusWrongNotFound {
 		logger.setLevel(Level.DEBUG);
 		MatchRunner match = MockMatchRunner.build(1000);
 		match.getGameDefinition().setMinParticipants(2);
-		Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "--turnGun(90)");
-		Luchador b = MockLuchador.build(-2L, MethodNames.ON_REPEAT, "--turnGun(90)");
+		MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "--turnGun(90)");
+		MainGameComponent b = MockLuchador.build(-2, MethodNames.ON_REPEAT, "--turnGun(90)");
 
 		match.add(a);
 		match.add(b);
@@ -57,13 +57,13 @@ public class BugRadarRadiusWrongNotFound {
 				runnerA.cleanUpStateAtTheEnd = false;
 				runnerB.cleanUpStateAtTheEnd = false;
 
-				defaultLife = runnerB.getGameComponent().getLife();
+				defaultLife = match.getGameDefinition().getLife();
 
 				runnerA.getState().setGunAngle(0);
 				runnerA.getState().setX(100);
 				runnerA.getState().setY(100);
 
-				int farAway = (int) (runnerA.getState().getX() + runnerB.getGameComponent().getRadarRadius() + 1);
+				int farAway = (int) (runnerA.getState().getX() + match.getGameDefinition().getRadarRadius() + 1);
 
 				runnerB.getState().setGunAngle(180);
 				runnerB.getState().setX(farAway);

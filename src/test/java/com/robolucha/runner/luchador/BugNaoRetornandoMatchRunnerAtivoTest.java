@@ -1,7 +1,13 @@
 package com.robolucha.runner.luchador;
 
-import com.robolucha.models.Luchador;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+
 import com.robolucha.models.Match;
+import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
@@ -10,11 +16,8 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.Server;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
-import org.apache.log4j.Logger;
-import org.junit.Test;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import io.swagger.client.model.MainGameComponent;
 
 public class BugNaoRetornandoMatchRunnerAtivoTest {
 
@@ -36,12 +39,14 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 	@Test
 	public void testRun() throws Exception {
 		RemoteQueue queue = new RemoteQueue(Config.getInstance());
+		ServerMonitor monitor = new ServerMonitor(queue);
+
 		MatchRunner match = MockMatchRunner.build();
 		match.getGameDefinition().setMinParticipants(1);
 		match.getGameDefinition().setDuration(500);
 
-		Luchador a = MockLuchador.build();
-		a.setId(1L);
+		MainGameComponent a = MockLuchador.build();
+		a.setId(1);
 
 		match.add(a);
 
@@ -51,7 +56,7 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 		}
 
 		// start the match
-		Thread t = Server.buildRunner(match, queue, ThreadMonitor.getInstance(), publisher);
+		Thread t = Server.buildRunner(match, queue, ThreadMonitor.getInstance(), publisher, monitor);
 		t.start();
 
 		MatchRunner runner = ThreadMonitor.getInstance().getMatch();
@@ -79,7 +84,7 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 		}
 
 		// start the match
-		t = Server.buildRunner(match, queue, ThreadMonitor.getInstance(), publisher);
+		t = Server.buildRunner(match, queue, ThreadMonitor.getInstance(), publisher, monitor);
 		t.start();
 
 		runner = ThreadMonitor.getInstance().getMatch();

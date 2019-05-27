@@ -1,15 +1,6 @@
 package com.robolucha.performance;
 
-import com.robolucha.models.Code;
-import com.robolucha.models.Luchador;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.runner.luchador.LuchadorRunner;
-import com.robolucha.runner.luchador.MethodNames;
-import com.robolucha.test.MockLuchador;
-import com.robolucha.test.MockMatchRunner;
-import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
@@ -18,7 +9,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.runner.luchador.MethodNames;
+import com.robolucha.test.MockLuchador;
+import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainGameComponent;
 
 /**
  * testes para suporte a investigacao de vazamento de memoria apos a execucao de
@@ -199,24 +201,20 @@ public class MemoryLeakChecks {
     protected void runMatch() throws Exception {
         MatchRunner match = MockMatchRunner.build();
 
-        Luchador a = MockLuchador.build();
-        a.setId(1L);
+        MainGameComponent a = MockLuchador.build();
+        a.setId(1);
 
-        Luchador b = MockLuchador.build();
-        b.setId(2L);
+        MainGameComponent b = MockLuchador.build();
+        b.setId(2);
 
-        Code c = new Code();
-        c.setEvent(MethodNames.ON_REPEAT);
-        c.setScript("turnGun(10);fire(1);turn(12);move(-10);");
-        List<Code> codes = new ArrayList<Code>();
+        MainCode c = MockLuchador.buildCode(MethodNames.ON_REPEAT, "turnGun(10);fire(1);turn(12);move(-10);");
+        List<MainCode> codes = new ArrayList<MainCode>();
         codes.add(c);
 
         a.getCodes().addAll(codes);
 
-        Code c1 = new Code();
-        c1.setEvent(MethodNames.ON_REPEAT);
-        c1.setScript("turnGun(-10);fire(2);turn(12);move(10);");
-        List<Code> codes1 = new ArrayList<Code>();
+        MainCode c1 = MockLuchador.buildCode(MethodNames.ON_REPEAT, "turnGun(-10);fire(2);turn(12);move(10);");
+        List<MainCode> codes1 = new ArrayList<MainCode>();
         codes1.add(c1);
 
         b.getCodes().addAll(codes1);

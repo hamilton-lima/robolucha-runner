@@ -22,8 +22,6 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.luaj.vm2.lib.jse.JseBaseLib;
 import org.luaj.vm2.lib.jse.JseMathLib;
 
-import com.robolucha.publisher.MatchEventPublisher;
-
 /**
  * Adapted from LuaJ sandboxed example
  * 

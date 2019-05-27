@@ -1,13 +1,14 @@
 package com.robolucha.runner.luchador;
 
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockLuchador;
-import com.robolucha.test.MockMatchRunner;
+import static org.junit.Assert.assertTrue;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockLuchador;
+import com.robolucha.test.MockMatchRunner;
 
 /**
  * quando adicionado move(1) e move(100) o primeiro move mais lentamente.
@@ -31,8 +32,8 @@ public class BugMoveComVelocidadesDiferentesTest {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        match.add(MockLuchador.build(1L, MethodNames.ON_REPEAT, "move(160);"));
-        match.add(MockLuchador.build(2L, MethodNames.ON_REPEAT, "move(80);"));
+        match.add(MockLuchador.build(1, MethodNames.ON_REPEAT, "move(160);"));
+        match.add(MockLuchador.build(2, MethodNames.ON_REPEAT, "move(80);"));
 
         MockMatchRunner.start(match);
 

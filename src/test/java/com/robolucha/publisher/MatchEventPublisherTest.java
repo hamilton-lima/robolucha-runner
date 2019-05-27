@@ -1,5 +1,12 @@
 package com.robolucha.publisher;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
+
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.robolucha.event.ConstEvents;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.models.Match;
@@ -8,12 +15,6 @@ import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
-import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
-
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 
 public class MatchEventPublisherTest {
 

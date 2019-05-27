@@ -10,7 +10,7 @@ public class TriggerEventsAction implements GameAction {
 
 	private static Logger logger = Logger.getLogger(TriggerEventsAction.class);
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners,
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners,
 			LuchadorRunner runner) throws Exception {
 		
 		logger.debug( getName() + ", luchador=" + runner.getGameComponent().getName() );

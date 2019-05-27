@@ -17,22 +17,23 @@ public class Bullet {
 	private double amount;
 	private double x;
 	private double y;
+	private double speed;
+	private int size;
 	private double angle;
 	private boolean active;
 
 	private double speedX;
 	private double speedY;
 
-	private GameDefinition gameDefinition;
+	public Bullet(double speed, int size, MatchStateProvider owner, double amount, double x, double y, double angle) {
 
-	public Bullet(GameDefinition gameDefinition, MatchStateProvider owner, double amount, double x, double y, double angle) {
-
-		this.gameDefinition = gameDefinition;
 		this.id = Bullet.getID();
 		this.owner = owner;
 		this.amount = amount;
 		this.x = x;
 		this.y = y;
+		this.speed = speed;
+		this.size = size;
 		this.angle = angle;
 		this.active = true;
 
@@ -45,12 +46,12 @@ public class Bullet {
 	}
 
 	private void calculateSpeed() {
-		this.speedX = Math.cos(Calc.toRadian(angle)) * gameDefinition.getBuletSpeed();
-		this.speedY = Math.sin(Calc.toRadian(angle)) * gameDefinition.getBuletSpeed();
+		this.speedX = Math.cos(Calc.toRadian(angle)) * speed;
+		this.speedY = Math.sin(Calc.toRadian(angle)) * speed;
 	}
 
 	public int getSize() {
-		return gameDefinition.getBulletSize();
+		return size;
 	}
 
 	public void setAmount(int amount) {
@@ -128,14 +129,6 @@ public class Bullet {
 
 	public void setSpeedY(double speedY) {
 		this.speedY = speedY;
-	}
-
-	public GameDefinition getGameDefinition() {
-		return gameDefinition;
-	}
-
-	public void setGameDefinition(GameDefinition gameDefinition) {
-		this.gameDefinition = gameDefinition;
 	}
 
 }

@@ -6,9 +6,9 @@ import java.util.LinkedHashMap;
 import org.apache.log4j.Logger;
 
 import com.robolucha.game.event.OnFoundEvent;
-import com.robolucha.runner.Calc;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.shared.Calc;
 
 public class CheckRadarAction implements GameAction {
 
@@ -19,7 +19,7 @@ public class CheckRadarAction implements GameAction {
 		this.matchRunner = matchRunner;
 	}
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners,
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners,
 			LuchadorRunner runner) {
 
 		if (logger.isDebugEnabled()) {
@@ -27,14 +27,14 @@ public class CheckRadarAction implements GameAction {
 					+ runner.getState() );
 		}
 
-		Long currentId = runner.getGameComponent().getId();
+		Integer currentId = runner.getGameComponent().getId();
 
 		double myPosX = runner.getState().getX();
 		double myPosY = runner.getState().getY();
 		double myRadarAngle = runner.getState().getGunAngle();
 		
-		double myRadarRangeAngle = runner.getGameComponent().getRadarAngle();
-		double myRadarRadius = runner.getGameComponent().getRadarRadius();
+		double myRadarRangeAngle = matchRunner.getGameDefinition().getRadarAngle();
+		double myRadarRadius = matchRunner.getGameDefinition().getRadarRadius();
 		
 		LuchadorRunner current = null;
 
@@ -58,7 +58,7 @@ public class CheckRadarAction implements GameAction {
 			// se NAO eh o atual
 			if (current.isActive()) {
 
-				Long innerId = current.getGameComponent().getId();
+				Integer innerId = current.getGameComponent().getId();
 
 				if (logger.isDebugEnabled()) {
 					logger.debug("check radar action : mesmo id = "

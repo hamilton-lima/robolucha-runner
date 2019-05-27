@@ -1,18 +1,20 @@
 package com.robolucha.game;
 
-import com.robolucha.models.Luchador;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.runner.luchador.LuchadorRunner;
-import com.robolucha.runner.luchador.MethodNames;
-import com.robolucha.test.MockLuchador;
-import com.robolucha.test.MockMatchRunner;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.runner.luchador.MethodNames;
+import com.robolucha.test.MockLuchador;
+import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainGameComponent;
 
 public class CheckTurnActionTest {
 
@@ -30,8 +32,8 @@ public class CheckTurnActionTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "turn(45);");
-        Luchador b = MockLuchador.build(2L, MethodNames.ON_REPEAT, "turn(-45);");
+        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "turn(45);");
+        MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "turn(-45);");
 
         match.add(a);
         match.add(b);

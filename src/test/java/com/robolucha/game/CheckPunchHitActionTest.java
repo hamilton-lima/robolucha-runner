@@ -1,19 +1,21 @@
 package com.robolucha.game;
 
+import static org.junit.Assert.assertEquals;
+
+import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.robolucha.game.event.LuchadorEvent;
 import com.robolucha.game.event.LuchadorEventListener;
 import com.robolucha.game.event.OnGotDamageEvent;
-import com.robolucha.models.Luchador;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
-import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import io.swagger.client.model.MainGameComponent;
 
 public class CheckPunchHitActionTest {
 
@@ -29,8 +31,8 @@ public class CheckPunchHitActionTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_REPEAT, "punch();");
-        Luchador b = MockLuchador.build(2L, MethodNames.ON_REPEAT, "punch();");
+        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "punch();");
+        MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "punch();");
 
         match.add(a);
         match.add(b);

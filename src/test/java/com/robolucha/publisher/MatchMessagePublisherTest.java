@@ -1,12 +1,13 @@
 package com.robolucha.publisher;
 
-import com.robolucha.game.vo.MessageVO;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockMatchRunner;
+import static junit.framework.TestCase.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import com.robolucha.game.vo.MessageVO;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockMatchRunner;
 
 public class MatchMessagePublisherTest {
     MockRemoteQueue queue = new MockRemoteQueue();
@@ -24,7 +25,7 @@ public class MatchMessagePublisherTest {
         String type = "type1";
         String event = "event1";
         String message = "message1";
-        runner.getOnMessage().onNext(new MessageVO(1L, type, event, message));
+        runner.getOnMessage().onNext(new MessageVO(1, type, event, message));
 
         MessageVO sentToQueue = (MessageVO) queue.lastPublished;
         assertEquals(type, sentToQueue.luchadorID);

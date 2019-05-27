@@ -1,21 +1,6 @@
 package com.robolucha.runner;
 
-import com.robolucha.event.ConstEvents;
-import com.robolucha.event.GeneralEventManager;
-import com.robolucha.models.Code;
-import com.robolucha.models.GameDefinition;
-import com.robolucha.models.Luchador;
-import com.robolucha.models.Match;
-import com.robolucha.runner.luchador.LuchadorRunner;
-import com.robolucha.test.MockLuchador;
-import com.robolucha.test.MockMatchRunner;
 import org.apache.log4j.Logger;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertFalse;
 
 
 public class GeneralEventManagerTest {

@@ -1,15 +1,17 @@
 package com.robolucha.runner.luchador;
 
-import com.robolucha.models.Code;
-import com.robolucha.models.Luchador;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.test.MockLuchador;
-import com.robolucha.test.MockMatchRunner;
+import static org.junit.Assert.assertTrue;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import com.robolucha.runner.MatchRunner;
+import com.robolucha.test.MockLuchador;
+import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainGameComponent;
 
 /**
  * onFound não está achando se estiver muito perto?
@@ -31,10 +33,10 @@ public class BugOnFoundPertoDemais {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_FOUND, "move(-10);");
+        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_FOUND, "move(-10);");
         match.add(a);
 
-        Luchador b = MockLuchador.build(2L);
+        MainGameComponent b = MockLuchador.build(2);
 
         MockMatchRunner.start(match);
         LuchadorRunner runnerA = match.getRunners().get(1L);
@@ -78,16 +80,14 @@ public class BugOnFoundPertoDemais {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        Luchador a = MockLuchador.build(1L, MethodNames.ON_START, "var found2 = 0;");
+        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_START, "var found2 = 0;");
 
-        Code c = new Code();
-        c.setEvent(MethodNames.ON_FOUND);
-        c.setScript("found2 = 1;");
+        MainCode c = MockLuchador.buildCode(MethodNames.ON_FOUND,"found2 = 1;");
         a.getCodes().add(c);
 
         match.add(a);
 
-        Luchador b = MockLuchador.build(2L);
+        MainGameComponent b = MockLuchador.build(2);
         match.add(b);
 
         MockMatchRunner.start(match);

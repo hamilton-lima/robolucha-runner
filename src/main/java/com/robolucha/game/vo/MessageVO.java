@@ -11,18 +11,18 @@ public class MessageVO {
 	public static final String SUCCESS = "success";
 	public static final String DANGER = "danger";
 
-	public Long luchadorID;
+	public Integer luchadorID;
 	public String type;
 	public String event;
 	public String message;
 
-	public MessageVO(Long luchadorID, String type, String message) {
+	public MessageVO(Integer luchadorID, String type, String message) {
 		this.luchadorID = luchadorID;
 		this.type = type;
 		this.message = message;
 	}
 
-	public MessageVO(Long luchadorID, String type, String event, String message) {
+	public MessageVO(Integer luchadorID, String type, String event, String message) {
 		this.luchadorID = luchadorID;
 		this.type = type;
 		this.event = event;

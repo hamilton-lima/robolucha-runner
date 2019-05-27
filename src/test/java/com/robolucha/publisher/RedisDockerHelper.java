@@ -1,10 +1,10 @@
 package com.robolucha.publisher;
 
-import org.apache.log4j.Logger;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import org.apache.log4j.Logger;
 
 public class RedisDockerHelper {
     private static final String DOCKER_REDIS_START = "docker run --name test-redis --rm -p 6379:6379 -d redis";

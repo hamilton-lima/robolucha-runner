@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainScoreList
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class MainScoreList {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T02:01:18.189Z[GMT]")public class MainScoreList {
 
   @SerializedName("scores")
   private List<MainMatchScore> scores = null;

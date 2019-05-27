@@ -6,9 +6,9 @@ import org.apache.log4j.Logger;
 
 import com.robolucha.game.event.OnGotDamageEvent;
 import com.robolucha.models.Bullet;
-import com.robolucha.runner.Calc;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.shared.Calc;
 
 public class CheckBulletHitAction implements GameAction {
 
@@ -23,7 +23,7 @@ public class CheckBulletHitAction implements GameAction {
 		this.matchRunner = matchRunner;
 	}
 
-	public void run(LinkedHashMap<Long, LuchadorRunner> runners, LuchadorRunner runner) {
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners, LuchadorRunner runner) {
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("checkbullethit, bullet=" + bullet);

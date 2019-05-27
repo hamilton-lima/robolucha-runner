@@ -6,12 +6,13 @@ import java.util.Queue;
 import org.apache.log4j.Logger;
 
 import com.robolucha.listener.LuchadorUpdateListener;
-import com.robolucha.models.GameComponent;
-import com.robolucha.models.Luchador;
 import com.robolucha.models.MatchParticipant;
+import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
+
+import io.swagger.client.model.MainGameComponent;
 
 /**
  * 
@@ -24,20 +25,22 @@ public class LutchadorRunnerCreator implements Runnable {
 	private static final long SLEEP = 5;
 
 	private MatchRunner owner;
-	private Queue<GameComponent> gameComponents;
+	private Queue<MainGameComponent> gameComponents;
 	private Thread thread;
 	private boolean alive;
 	private String name;
 	private RemoteQueue queue;
+	private ServerMonitor monitor;
 
 	// private GameComponent gameComponent;
 
-	public LutchadorRunnerCreator(MatchRunner owner, RemoteQueue queue) {
+	public LutchadorRunnerCreator(MatchRunner owner, RemoteQueue queue, ServerMonitor monitor) {
 		this.owner = owner;
 		this.queue = queue;
-		
+		this.monitor = monitor;
+
 		this.alive = true;
-		this.gameComponents = new LinkedList<GameComponent>();
+		this.gameComponents = new LinkedList<MainGameComponent>();
 		this.name = "LutchadorRunnerCreator-Thread-" + owner.getMatch().getId();
 
 		thread = new Thread(this);
@@ -48,9 +51,9 @@ public class LutchadorRunnerCreator implements Runnable {
 		this.alive = false;
 	}
 
-	public void add(GameComponent component) {
-		logger.info("gamecomponent added to creation queue: " + component);
-		gameComponents.add(component);
+	public void add(MainGameComponent npc) {
+		logger.info("gamecomponent added to creation queue: " + npc);
+		gameComponents.add(npc);
 	}
 
 	public void run() {
@@ -62,7 +65,7 @@ public class LutchadorRunnerCreator implements Runnable {
 
 		while (alive) {
 
-			GameComponent component = gameComponents.poll();
+			MainGameComponent component = gameComponents.poll();
 			if (component != null) {
 				try {
 					create(component);
@@ -77,7 +80,7 @@ public class LutchadorRunnerCreator implements Runnable {
 
 			if ((System.currentTimeMillis() - logStart) > logThreshold) {
 				logStart = System.currentTimeMillis();
-				logger.info(message);
+				monitor.heartBeat(message);
 			}
 
 			try {
@@ -92,38 +95,33 @@ public class LutchadorRunnerCreator implements Runnable {
 
 	}
 
-	private void create(GameComponent gameComponent) throws Exception {
+	private void create(MainGameComponent component) throws Exception {
 
-		logger.info("gamecomponent started (run): " + gameComponent);
+		logger.info("gamecomponent started (run): " + component);
 
-		if (gameComponent instanceof Luchador) {
-			MatchParticipant matchParticipant = new MatchParticipant();
-			matchParticipant.setTimeStart(System.currentTimeMillis());
-			matchParticipant.setLuchador((Luchador) gameComponent);
-			matchParticipant.setMatchRun(owner.getMatch());
+		MatchParticipant matchParticipant = new MatchParticipant();
+		matchParticipant.setTimeStart(System.currentTimeMillis());
+		matchParticipant.setLuchador(component);
+		matchParticipant.setMatchRun(owner.getMatch());
 
-			if (matchParticipant.getMatchRun().getId() != null) {
+		if (matchParticipant.getMatchRun().getId() != null) {
+			MatchRunnerAPI.getInstance().addMatchParticipant(matchParticipant);
+		} else {
+			logger.warn("!!! trying to save match participation with unsaved MatchRun, is it running a TEST?");
+		}
 
-				MatchRunnerAPI.getInstance().addMatchParticipant(matchParticipant);
-			} else {
-				logger.warn("!!! trying to save match participation with unsaved MatchRun, is it running a TEST?");
-			}
-
-		} 
-
-		LuchadorRunner runner = new LuchadorRunner(gameComponent, this.owner);
+		LuchadorRunner runner = new LuchadorRunner(component, this.owner);
 		LuchadorUpdateListener.listen(queue, runner);
-		
+
 		logger.info(">>>>>>>>> LUCHADOR runner created: " + runner.getGameComponent().getName());
 
 		if (logger.isDebugEnabled()) {
 			logger.info(" runner=" + runner);
 		}
-		
+
 		runner.run(MethodNames.ON_START);
 
 		owner.getRunners().put(runner.getGameComponent().getId(), runner);
 	}
 
-	
 }

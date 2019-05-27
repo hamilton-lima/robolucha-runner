@@ -20,16 +20,10 @@ import java.util.Objects;
  * MainMatchScore
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class MainMatchScore {
-
-  @SerializedName("createdAt")
-  private String createdAt = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-27T02:01:18.189Z[GMT]")public class MainMatchScore {
 
   @SerializedName("deaths")
   private Integer deaths = null;
-
-  @SerializedName("deletedAt")
-  private String deletedAt = null;
 
   @SerializedName("id")
   private Integer id = null;
@@ -45,27 +39,6 @@ import java.util.Objects;
 
   @SerializedName("score")
   private Integer score = null;
-
-  @SerializedName("updatedAt")
-  private String updatedAt = null;
-  public MainMatchScore createdAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get createdAt
-  * @return createdAt
-  **/
-  @Schema(description = "")
-  public String getCreatedAt() {
-    return createdAt;
-  }
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
   public MainMatchScore deaths(Integer deaths) {
     this.deaths = deaths;
     return this;
@@ -83,24 +56,6 @@ import java.util.Objects;
   }
   public void setDeaths(Integer deaths) {
     this.deaths = deaths;
-  }
-  public MainMatchScore deletedAt(String deletedAt) {
-    this.deletedAt = deletedAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get deletedAt
-  * @return deletedAt
-  **/
-  @Schema(description = "")
-  public String getDeletedAt() {
-    return deletedAt;
-  }
-  public void setDeletedAt(String deletedAt) {
-    this.deletedAt = deletedAt;
   }
   public MainMatchScore id(Integer id) {
     this.id = id;
@@ -192,24 +147,6 @@ import java.util.Objects;
   public void setScore(Integer score) {
     this.score = score;
   }
-  public MainMatchScore updatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-  
-
-  /**
-  * Get updatedAt
-  * @return updatedAt
-  **/
-  @Schema(description = "")
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-  public void setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -219,20 +156,17 @@ import java.util.Objects;
       return false;
     }
     MainMatchScore mainMatchScore = (MainMatchScore) o;
-    return Objects.equals(this.createdAt, mainMatchScore.createdAt) &&
-        Objects.equals(this.deaths, mainMatchScore.deaths) &&
-        Objects.equals(this.deletedAt, mainMatchScore.deletedAt) &&
+    return Objects.equals(this.deaths, mainMatchScore.deaths) &&
         Objects.equals(this.id, mainMatchScore.id) &&
         Objects.equals(this.kills, mainMatchScore.kills) &&
         Objects.equals(this.luchadorID, mainMatchScore.luchadorID) &&
         Objects.equals(this.matchID, mainMatchScore.matchID) &&
-        Objects.equals(this.score, mainMatchScore.score) &&
-        Objects.equals(this.updatedAt, mainMatchScore.updatedAt);
+        Objects.equals(this.score, mainMatchScore.score);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(createdAt, deaths, deletedAt, id, kills, luchadorID, matchID, score, updatedAt);
+    return java.util.Objects.hash(deaths, id, kills, luchadorID, matchID, score);
   }
 
   @Override
@@ -240,15 +174,12 @@ import java.util.Objects;
     StringBuilder sb = new StringBuilder();
     sb.append("class MainMatchScore {\n");
     
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    deaths: ").append(toIndentedString(deaths)).append("\n");
-    sb.append("    deletedAt: ").append(toIndentedString(deletedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    kills: ").append(toIndentedString(kills)).append("\n");
     sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
     sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");
     sb.append("    score: ").append(toIndentedString(score)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }
