@@ -14,6 +14,7 @@ package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.MainConfig;
+import io.swagger.client.model.MainFindLuchadorWithGamedefinition;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainJoinMatch;
@@ -120,9 +121,9 @@ public class DefaultApiTest {
      *          if the Api call fails
      */
     @Test
-    public void internalLuchadorGetTest() throws ApiException {
-        Integer luchadorID = null;
-        MainGameComponent response = api.internalLuchadorGet(luchadorID);
+    public void internalLuchadorPostTest() throws ApiException {
+        MainFindLuchadorWithGamedefinition body = null;
+        MainGameComponent response = api.internalLuchadorPost(body);
 
         // TODO: test validations
     }
@@ -167,6 +168,20 @@ public class DefaultApiTest {
     public void internalStartMatchNamePostTest() throws ApiException {
         String name = null;
         MainMatch response = api.internalStartMatchNamePost(name);
+
+        // TODO: test validations
+    }
+    /**
+     * find all game definitions
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateGameDefinitionAllGetTest() throws ApiException {
+        List<MainGameDefinition> response = api.privateGameDefinitionAllGet();
 
         // TODO: test validations
     }
@@ -298,6 +313,21 @@ public class DefaultApiTest {
     @Test
     public void privateMatchGetTest() throws ApiException {
         List<MainMatch> response = api.privateMatchGet();
+
+        // TODO: test validations
+    }
+    /**
+     * find one match
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMatchSingleGetTest() throws ApiException {
+        Integer matchID = null;
+        MainMatch response = api.privateMatchSingleGet(matchID);
 
         // TODO: test validations
     }

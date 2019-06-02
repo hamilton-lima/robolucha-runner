@@ -9,28 +9,32 @@ import com.robolucha.runner.MatchRunnerAPI;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainJoinMatch;
 
-public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable{
+public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable {
 
 	static Logger logger = Logger.getLogger(JoinMatchListener.class);
 	private Disposable disposable;
-	
+
 	@SuppressWarnings("unused")
 	private MatchRunner runner;
+	private MainGameDefinition gameDefinition;
+
+	public JoinMatchListener(MainGameDefinition gameDefinition) {
+		this.gameDefinition = gameDefinition;
+	}
 
 	@SuppressWarnings("unchecked")
 	public static void listen(RemoteQueue publisher, MatchRunner runner) {
-		JoinMatchListener listener = new JoinMatchListener();
+		JoinMatchListener listener = new JoinMatchListener(runner.getGameDefinition());
 		listener.runner = runner;
 		runner.setJoinListener(listener);
 
 		String channel = String.format("match.%s.join", runner.getMatch().getId());
-		logger.debug("listen " + channel );
+		logger.debug("listen " + channel);
 
-		listener.disposable = publisher
-				.subscribe(channel, MainJoinMatch.class)
-				.subscribe(listener, new ErrorHandler());
+		listener.disposable = publisher.subscribe(channel, MainJoinMatch.class).subscribe(listener, new ErrorHandler());
 	}
 
 	protected static class ErrorHandler implements Consumer<Throwable> {
@@ -43,7 +47,9 @@ public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable{
 	@Override
 	public void accept(MainJoinMatch joinMatch) throws Exception {
 		logger.info("Luchador wants to join a match " + joinMatch);
-		MainGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID());
+		MainGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
+				gameDefinition.getId());
+
 		logger.info(">>>>>>>> Luchador found by ID " + luchador);
 		runner.addLuchador(luchador);
 	}
@@ -57,6 +63,5 @@ public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable{
 	public boolean isDisposed() {
 		return this.disposable.isDisposed();
 	}
-
 
 }
