@@ -11,6 +11,7 @@ import com.robolucha.models.MatchScore;
 import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.api.DefaultApi;
+import io.swagger.client.model.MainFindLuchadorWithGamedefinition;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainMatch;
@@ -75,15 +76,20 @@ public class MatchRunnerAPI {
 		apiInstance.internalEndMatchPut(body);
 	}
 
-	public MainGameComponent findLuchadorById(Integer luchadorID) throws Exception {
-		MainGameComponent component = apiInstance.internalLuchadorGet(luchadorID);
+	public MainGameComponent findLuchadorById(Integer luchadorID, Integer gamedefinitionID) throws Exception {
+		
+		MainFindLuchadorWithGamedefinition body = new MainFindLuchadorWithGamedefinition();
+		body.luchadorID(luchadorID);
+		body.gameDefinitionID(gamedefinitionID);
+		
+		MainGameComponent component = apiInstance.internalLuchadorPost(body);
 		return component;
 	}
 
-	public MainGameDefinition  getGameDefinition(String gameDefinitionName) throws Exception {
+	public MainGameDefinition getGameDefinition(String gameDefinitionName) throws Exception {
 		MainGameDefinition gamedefinition = apiInstance.internalGameDefinitionNameGet(gameDefinitionName);
 		logger.info("getGameDefinition() API response" + gamedefinition);
 		return gamedefinition;
 	}
-	
+
 }
