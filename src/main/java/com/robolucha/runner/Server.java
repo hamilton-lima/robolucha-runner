@@ -1,7 +1,5 @@
 package com.robolucha.runner;
 
-import org.apache.log4j.Logger;
-
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.models.Match;
@@ -13,56 +11,36 @@ import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.score.ScoreUpdater;
 
-import io.swagger.client.ApiClient;
-import io.swagger.client.Configuration;
 import io.swagger.client.model.MainGameDefinition;
+import io.swagger.client.model.MainJoinMatch;
 
-/*
- * Runs a Match based on the input MatchDefinition ID
- */
 public class Server {
 
-	static Logger logger = Logger.getLogger(Server.class);
-	MatchMessagePublisher matchMessagePublisher;
+	private ServerMonitor monitor;
+	private RemoteQueue queue;
+	private ThreadMonitor threadMonitor;
 
-	public static void main(String[] args) throws Exception {
+	public Server(ThreadMonitor threadMonitor, RemoteQueue queue, ServerMonitor monitor) {
+		this.threadMonitor = threadMonitor;
+		this.queue = queue;
+		this.monitor = monitor;
+	}
 
-		if (args.length < 1) {
-			throw new RuntimeException("Invalid use, must provide GameDefinition name (1)");
-		}
-
-		addRunTimeHook();
-		configAPIClient();
-
-		String gameDefinitionName = args[0];
-		ThreadMonitor threadMonitor = ThreadMonitor.getInstance();
-
-		RemoteQueue queue = new RemoteQueue(Config.getInstance());
-		ServerMonitor monitor = new ServerMonitor(queue);
+	public void start(String gameDefinitionName) throws Exception {
 		Match match = MatchRunnerAPI.getInstance().createMatch(gameDefinitionName);
 		MainGameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(gameDefinitionName);
 
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
 		MatchStatePublisher publisher = new MatchStatePublisher(match, queue);
 
-		Thread thread = buildRunner(runner, queue, threadMonitor, publisher, monitor);
+		Thread thread = setupRunner(runner, publisher);
 		thread.start();
-
 	}
 
-	private static void addRunTimeHook() {
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			public void run() {
-				ThreadMonitor.getInstance().contextDestroyed();
-			}
-		});
-	}
+	public Thread setupRunner(MatchRunner runner, MatchStatePublisher publisher) {
 
-	public static Thread buildRunner(MatchRunner runner, RemoteQueue queue, ThreadMonitor threadMonitor,
-			MatchStatePublisher publisher, ServerMonitor monitor) {
-		
 		ThreadMonitor.getInstance().register(runner);
-		
+
 		// add NPC to the match
 		runner.addListener(new OnInitAddNPC());
 
@@ -86,12 +64,27 @@ public class Server {
 
 		return new Thread(runner);
 	}
-
-	public static void configAPIClient() {
-		ApiClient apiClient = new ApiClient();
-		apiClient.setBasePath(Config.getInstance().getBasePath());
-		apiClient.addDefaultHeader("Authorization", Config.getInstance().getInternalAPIKey());
-
-		Configuration.setDefaultApiClient(apiClient);
+	
+	public ServerMonitor getMonitor() {
+		return monitor;
 	}
+
+	public RemoteQueue getQueue() {
+		return queue;
+	}
+
+	public ThreadMonitor getThreadMonitor() {
+		return threadMonitor;
+	}
+
+	public void start(MainJoinMatch joinMatch) {
+//		MainMatch match = MatchRunnerAPI.getInstance().findMatch(joinMatch.getMatchID());
+//
+//		MainGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
+//				match.getGameDefinitionID());
+//
+//		logger.info(">>>>>>>> Luchador found by ID " + luchador);
+//		runner.addLuchador(luchador);
+	}
+
 }

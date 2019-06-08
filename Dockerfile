@@ -31,4 +31,4 @@ RUN find /usr/src/app
 CMD ["/usr/bin/java", "-jar", \
     "-Dlog4j.configuration=file:/usr/src/app/log4j.properties", \
     "/usr/src/app/robolucha-runner.jar", \
-    "ALL-AGAINST-ALL"]
+    "multiplayer","ALL-AGAINST-ALL"]
