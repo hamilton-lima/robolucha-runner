@@ -332,6 +332,21 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * create Match and publish
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateStartTutorialMatchNamePostTest() throws ApiException {
+        String name = null;
+        MainJoinMatch response = api.privateStartTutorialMatchNamePost(name);
+
+        // TODO: test validations
+    }
+    /**
      * find tutorial GameDefinition
      *
      * 

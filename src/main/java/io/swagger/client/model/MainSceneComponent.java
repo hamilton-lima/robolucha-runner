@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainSceneComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-02T00:29:17.029Z[GMT]")public class MainSceneComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-05T23:30:27.176Z[GMT]")public class MainSceneComponent {
 
   @SerializedName("blockMovement")
   private Boolean blockMovement = null;
