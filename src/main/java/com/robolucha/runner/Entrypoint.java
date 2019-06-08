@@ -4,21 +4,14 @@ import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 
-import com.robolucha.game.action.OnInitAddNPC;
-import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.listener.StartMatchListener;
-import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
-import com.robolucha.publisher.MatchEventPublisher;
 import com.robolucha.publisher.MatchMessagePublisher;
-import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
-import com.robolucha.score.ScoreUpdater;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.Configuration;
-import io.swagger.client.model.MainGameDefinition;
 
 public class Entrypoint {
 

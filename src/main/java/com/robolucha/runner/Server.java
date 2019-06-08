@@ -2,7 +2,6 @@ package com.robolucha.runner;
 
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.listener.JoinMatchListener;
-import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.publisher.MatchEventPublisher;
@@ -13,6 +12,7 @@ import com.robolucha.score.ScoreUpdater;
 
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainJoinMatch;
+import io.swagger.client.model.MainMatch;
 
 public class Server {
 
@@ -27,7 +27,7 @@ public class Server {
 	}
 
 	public void start(String gameDefinitionName) throws Exception {
-		Match match = MatchRunnerAPI.getInstance().createMatch(gameDefinitionName);
+		MainMatch match = MatchRunnerAPI.getInstance().createMatch(gameDefinitionName);
 		MainGameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(gameDefinitionName);
 
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
@@ -35,6 +35,16 @@ public class Server {
 
 		Thread thread = setupRunner(runner, publisher);
 		thread.start();
+	}
+	
+	public void start(MainJoinMatch joinMatch) {
+//		MainMatch match = MatchRunnerAPI.getInstance().findMatch(joinMatch.getMatchID());
+//
+//		MainGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
+//				match.getGameDefinitionID());
+//
+//		logger.info(">>>>>>>> Luchador found by ID " + luchador);
+//		runner.addLuchador(luchador);
 	}
 
 	public Thread setupRunner(MatchRunner runner, MatchStatePublisher publisher) {
@@ -75,16 +85,6 @@ public class Server {
 
 	public ThreadMonitor getThreadMonitor() {
 		return threadMonitor;
-	}
-
-	public void start(MainJoinMatch joinMatch) {
-//		MainMatch match = MatchRunnerAPI.getInstance().findMatch(joinMatch.getMatchID());
-//
-//		MainGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
-//				match.getGameDefinitionID());
-//
-//		logger.info(">>>>>>>> Luchador found by ID " + luchador);
-//		runner.addLuchador(luchador);
 	}
 
 }

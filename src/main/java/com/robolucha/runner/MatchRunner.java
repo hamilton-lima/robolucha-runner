@@ -31,7 +31,6 @@ import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.models.Bullet;
-import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.monitor.ThreadStatus;
@@ -44,6 +43,7 @@ import com.robolucha.shared.Calc;
 import io.reactivex.subjects.PublishSubject;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
+import io.swagger.client.model.MainMatch;
 
 /**
  * main match logic
@@ -94,14 +94,14 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private MatchEventHandler eventHandler;
 	private LutchadorRunnerCreator luchadorCreator;
-	private Match match;
+	private MainMatch match;
 	private ServerMonitor monitor;
 
 	public MatchEventHandler getEventHandler() {
 		return eventHandler;
 	}
 
-	public MatchRunner(MainGameDefinition gameDefinition, Match match, RemoteQueue queue, ServerMonitor monitor) {
+	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue, ServerMonitor monitor) {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
 		status = ThreadStatus.STARTING;
@@ -143,7 +143,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		logger.info("MatchRunner created:" + this);
 	}
 
-	public Match getMatch() {
+	public MainMatch getMatch() {
 		return match;
 	}
 

@@ -8,17 +8,18 @@ import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.game.vo.PunchVO;
 import com.robolucha.models.Bullet;
 import com.robolucha.models.LuchadorPublicState;
-import com.robolucha.models.Match;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.Punch;
 import com.robolucha.runner.luchador.LuchadorRunner;
+
+import io.swagger.client.model.MainMatch;
 
 public class MatchStatePublisher {
 
 	private final RemoteQueue publisher;
 	private String channel;
 
-	public MatchStatePublisher(Match match, RemoteQueue publisher) {
+	public MatchStatePublisher(MainMatch match, RemoteQueue publisher) {
 		channel = String.format("match.%s.state", match.getId());
 		this.publisher = publisher;
 	}

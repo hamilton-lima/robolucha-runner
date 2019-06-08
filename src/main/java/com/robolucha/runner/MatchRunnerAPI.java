@@ -2,10 +2,8 @@ package com.robolucha.runner;
 
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
-import com.robolucha.models.Match;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.models.MatchScore;
 import com.robolucha.shared.JSONFormat;
@@ -58,17 +56,13 @@ public class MatchRunnerAPI {
 		apiInstance.internalMatchParticipantPost(participant);
 	}
 
-	public Match createMatch(String gameDefinitionName) throws Exception {
+	public MainMatch createMatch(String gameDefinitionName) throws Exception {
 		MainMatch match = apiInstance.internalStartMatchNamePost(gameDefinitionName);
 		logger.info("createMatch() API response" + match);
-
-		Match result = new Match();
-		BeanUtils.copyProperties(result, match);
-		logger.info("createMatch()" + result);
-		return result;
+		return match;
 	}
 
-	public void endMatch(Match match) throws Exception {
+	public void endMatch(MainMatch match) throws Exception {
 		MainMatch body = new MainMatch();
 		body.setId(match.getId().intValue());
 		body.setTimeEnd(JSONFormat.now());
