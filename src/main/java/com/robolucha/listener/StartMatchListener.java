@@ -44,7 +44,7 @@ public class StartMatchListener implements Consumer<MainJoinMatch>, Disposable {
 	@Override
 	public void accept(MainJoinMatch joinMatch) throws Exception {
 		logger.info("Luchador wants to start a match " + joinMatch);
-		this.server.start(joinMatch);
+		server.start(joinMatch);
 	}
 
 	@Override
