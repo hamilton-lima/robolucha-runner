@@ -11,6 +11,7 @@ import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
+import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.model.MainGameComponent;
 
@@ -52,7 +53,7 @@ public class LutchadorRunnerCreator implements Runnable {
 	}
 
 	public void add(MainGameComponent npc) {
-		logger.info("gamecomponent added to creation queue: " + npc);
+		logger.info("gamecomponent added to creation queue: " + JSONFormat.clean(npc.toString()));
 		gameComponents.add(npc);
 	}
 
@@ -97,7 +98,7 @@ public class LutchadorRunnerCreator implements Runnable {
 
 	private void create(MainGameComponent component) throws Exception {
 
-		logger.info("gamecomponent started (run): " + component);
+		logger.info("gamecomponent started (run): " + JSONFormat.clean(component.toString()));
 
 		MatchParticipant matchParticipant = new MatchParticipant();
 		matchParticipant.setTimeStart(System.currentTimeMillis());

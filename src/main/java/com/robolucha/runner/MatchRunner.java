@@ -39,6 +39,7 @@ import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.LutchadorRunnerCreator;
 import com.robolucha.shared.Calc;
+import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.subjects.PublishSubject;
 import io.swagger.client.model.MainGameComponent;
@@ -163,7 +164,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			throw new Exception("trying to add luchador beyond the limit");
 		}
 
-		logger.info("new luchador added to the match: " + component);
+		logger.info("new luchador added to the match: " + JSONFormat.clean(component.toString()));
 		luchadorCreator.add(component);
 
 	}

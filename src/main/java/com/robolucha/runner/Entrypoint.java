@@ -24,6 +24,8 @@ public class Entrypoint {
 
 	public static void main(String[] args) throws Exception {
 
+		logger.info("Starting robolucha-runner, " + Arrays.toString(args));
+
 		if (args.length < 1) {
 			String message = "Invalid use, must provide: "
 					+ "server mode:[multiplayer,tutorial] and GameDefinition name if mode is multiplayer";

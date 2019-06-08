@@ -11,4 +11,11 @@ public class JSONFormat {
 		return sdf.format(new Date());
 	}
 
+	public static String clean(String json) {
+		json = json.replace("\n", "");
+		json = json.replace("\r", "");
+		json = json.replace("\t", "");
+		json = json.replace("    ", " ");
+		return json;
+	}
 }

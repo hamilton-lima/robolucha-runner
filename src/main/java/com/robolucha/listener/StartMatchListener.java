@@ -29,7 +29,7 @@ public class StartMatchListener implements Consumer<MainJoinMatch>, Disposable {
 		StartMatchListener listener = new StartMatchListener(server);
 
 		String channel = "start.match";
-		logger.debug("listen " + channel);
+		logger.info("Listening to channel: " + channel);
 
 		listener.disposable = server.getQueue().subscribe(channel, MainJoinMatch.class).subscribe(listener, new ErrorHandler());
 	}

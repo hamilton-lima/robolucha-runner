@@ -58,7 +58,7 @@ public class MatchRunnerAPI {
 
 	public MainMatch createMatch(String gameDefinitionName) throws Exception {
 		MainMatch match = api.internalStartMatchNamePost(gameDefinitionName);
-		logger.info("createMatch() API response" + match);
+		logger.info("createMatch() API response" + JSONFormat.clean(match.toString()));
 		return match;
 	}
 
@@ -82,7 +82,7 @@ public class MatchRunnerAPI {
 
 	public MainGameDefinition getGameDefinition(String gameDefinitionName) throws Exception {
 		MainGameDefinition gamedefinition = api.internalGameDefinitionNameGet(gameDefinitionName);
-		logger.info("getGameDefinition() API response" + gamedefinition);
+		logger.info("getGameDefinition() API response" + JSONFormat.clean(gamedefinition.toString()));
 		return gamedefinition;
 	}
 
