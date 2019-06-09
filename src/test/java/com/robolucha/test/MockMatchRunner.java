@@ -2,6 +2,7 @@ package com.robolucha.test;
 
 import java.util.ArrayList;
 
+import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MatchRunStateVO;
@@ -10,8 +11,10 @@ import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.MockRemoteQueue;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
+import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.score.ScoreUpdater;
 
+import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainCode;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
@@ -129,10 +132,15 @@ public class MockMatchRunner {
 		return gd;
 	}
 
-	public static void start(MatchRunner runner) {
+	public static Thread start(MatchRunner runner) {
 		Thread t = new Thread(runner);
 		t.start();
+		return t;
 		// runner.getOnMatchStart().blockingFirst();
+	}
+
+	public static LuchadorRunner add(MatchRunner match, MainGameComponent component) throws Exception {
+		return match.add(component).blockingFirst();
 	}
 
 }

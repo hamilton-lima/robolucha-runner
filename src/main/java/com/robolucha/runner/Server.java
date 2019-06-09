@@ -2,6 +2,7 @@ package com.robolucha.runner;
 
 import org.apache.log4j.Logger;
 
+import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.monitor.ServerMonitor;
@@ -12,6 +13,7 @@ import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.score.ScoreUpdater;
 
+import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainJoinMatch;
@@ -35,13 +37,21 @@ public class Server {
 		MainGameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(gameDefinitionName);
 
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
+
+		// stop the application when the match ends
+		runner.getOnMatchEnd().subscribe(new Consumer<MatchEventVO>() {
+			public void accept(MatchEventVO arg0) throws Exception {
+				System.exit(0);
+			}
+		});
+
 		MatchStatePublisher publisher = new MatchStatePublisher(match, queue);
 
 		Thread thread = setupRunner(runner, publisher);
 		thread.start();
 	}
 
-	public void start(MainJoinMatch joinMatch) throws Exception{
+	public void start(MainJoinMatch joinMatch) throws Exception {
 		logger.info("Start match " + joinMatch);
 
 		MainMatch match = MatchRunnerAPI.getInstance().findMatch(joinMatch.getMatchID());

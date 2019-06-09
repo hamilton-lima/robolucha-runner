@@ -153,20 +153,28 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		listener.subscribe(this);
 	}
 
-	public void add(final MainGameComponent component) throws Exception {
-
+	public PublishSubject<LuchadorRunner> add(final MainGameComponent component) throws Exception {
+		
 		if (runners.containsKey(component.getId())) {
-			logger.info("trying to add luchador that is already in the match, id: " + component.getId());
-			return;
+			String message = "trying to add luchador that is already in the match, id: " + component.getId();
+			logger.info(message);
+
+			PublishSubject<LuchadorRunner> result = PublishSubject.create();
+			result.onError(new Exception(message));
+			result.onComplete();
+			return result;
 		}
 
 		if (runners.size() >= gameDefinition.getMaxParticipants()) {
-			throw new Exception("trying to add luchador beyond the limit");
+			String message = "trying to add luchador beyond the limit";
+			PublishSubject<LuchadorRunner> result = PublishSubject.create();
+			result.onError(new Exception(message));
+			result.onComplete();
+			return result;
 		}
 
 		logger.info("new luchador added to the match: " + JSONFormat.clean(component.toString()));
-		luchadorCreator.add(component);
-
+		return luchadorCreator.add(component);
 	}
 
 	public void addLuchador(final MainGameComponent component) throws Exception {
@@ -322,8 +330,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		}
 
 		cleanup();
-
-		System.exit(1);
 	}
 
 	public void cleanup() {
