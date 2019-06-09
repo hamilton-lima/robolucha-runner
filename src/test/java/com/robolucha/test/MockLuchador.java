@@ -1,5 +1,6 @@
 package com.robolucha.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.github.javafaker.Faker;
@@ -15,7 +16,9 @@ public class MockLuchador {
 
 	public static MainGameComponent build() {
 		MainGameComponent a = new MainGameComponent();
-		a.setName(faker.name().username()); // TODO: should have 30 chars??
+		a.setId(faker.hashCode());
+		a.setName(faker.name().username()); 
+		a.setCodes(new ArrayList<MainCode>());
 		return a;
 	}
 
@@ -39,7 +42,6 @@ public class MockLuchador {
 	public static MainGameComponent createWithRepeatCode(String repeatCode) {
 
 		MainGameComponent a = MockLuchador.build();
-		a.setName(faker.name().username());
 
 		MainCode c = new MainCode();
 		c.setEvent(MethodNames.ON_REPEAT);

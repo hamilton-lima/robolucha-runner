@@ -1,5 +1,7 @@
 package com.robolucha.test;
 
+import java.util.ArrayList;
+
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MatchRunStateVO;
@@ -10,8 +12,11 @@ import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.score.ScoreUpdater;
 
+import io.swagger.client.model.MainCode;
+import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.MainSceneComponent;
 
 public class MockMatchRunner {
 	static MainMatch match = new MainMatch();
@@ -47,7 +52,7 @@ public class MockMatchRunner {
 
 	public static MatchRunner build(int duration, RemoteQueue queue, MatchStatePublisher publisher) {
 		// TODO: create method to populate with defautls
-		MainGameDefinition gameDefinition = new MainGameDefinition();
+		MainGameDefinition gameDefinition = buildGameDefinition();
 		gameDefinition.setDuration(duration);
 		ServerMonitor monitor = new ServerMonitor(queue);
 
@@ -57,14 +62,13 @@ public class MockMatchRunner {
 			publisher = new MatchStatePublisher(match, queue);
 		}
 
-        runner.addListener(new ScoreUpdater());
+		runner.addListener(new ScoreUpdater());
 		runner.setPublisher(publisher);
 		return runner;
 	}
 
 	public static MatchRunner buildWithDefaultLuchador() {
-		// TODO: create method to populate with defautls
-		MainGameDefinition gameDefinition = new MainGameDefinition();
+		MainGameDefinition gameDefinition = buildGameDefinition();
 		gameDefinition.setDuration(1000);
 
 		MainMatch match = new MainMatch();
@@ -77,6 +81,49 @@ public class MockMatchRunner {
 		runner.getOnInit().onComplete();
 
 		return runner;
+	}
+
+	public static MainGameDefinition buildGameDefinition() {
+		MainGameDefinition gd = new MainGameDefinition();
+
+		gd.setDuration(1200000);
+		gd.setMinParticipants(2);
+		gd.setMaxParticipants(20);
+		gd.setArenaWidth(2400);
+		gd.setArenaHeight(1200);
+		gd.setBulletSize(16);
+		gd.setLuchadorSize(60);
+		gd.setFps(30);
+		gd.setBuletSpeed(120);
+
+		gd.setRadarAngle(45);
+		gd.setRadarRadius(200);
+		gd.setPunchAngle(90);
+		gd.setLife(20);
+		gd.setEnergy(30);
+		gd.setPunchDamage(2);
+		gd.setPunchCoolDown(2);
+		gd.setMoveSpeed(50);
+		gd.setTurnSpeed(180);
+		gd.setTurnGunSpeed(60);
+		gd.setRespawnCooldown(10);
+		gd.setMaxFireCooldown(10);
+		gd.setMinFireDamage(1);
+		gd.setMaxFireDamage(10);
+		gd.setMinFireAmount(1);
+		gd.setMaxFireAmount(10);
+		gd.setRestoreEnergyperSecond(3);
+		gd.setRecycledLuchadorEnergyRestore(6);
+		gd.setIncreaseSpeedEnergyCost(10);
+		gd.setIncreaseSpeedPercentage(20);
+		gd.setFireEnergyCost(2);
+
+		gd.setGameComponents(new ArrayList<MainGameComponent>());
+		gd.setSceneComponents(new ArrayList<MainSceneComponent>());
+		gd.setCodes(new ArrayList<MainCode>());
+		gd.setSuggestedCodes(new ArrayList<MainCode>());
+
+		return gd;
 	}
 
 	public static void start(MatchRunner runner) {
