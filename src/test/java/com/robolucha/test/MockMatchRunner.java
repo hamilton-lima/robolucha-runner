@@ -117,6 +117,9 @@ public class MockMatchRunner {
 		gd.setIncreaseSpeedEnergyCost(10);
 		gd.setIncreaseSpeedPercentage(20);
 		gd.setFireEnergyCost(2);
+		
+		gd.setRespawnX(0);
+		gd.setRespawnY(0);
 
 		gd.setGameComponents(new ArrayList<MainGameComponent>());
 		gd.setSceneComponents(new ArrayList<MainSceneComponent>());

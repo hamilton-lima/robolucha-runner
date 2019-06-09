@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainGameDefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-08T18:52:08.780Z[GMT]")public class MainGameDefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-09T16:14:30.570Z[GMT]")public class MainGameDefinition {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
@@ -122,6 +122,12 @@ import java.util.Objects;
 
   @SerializedName("respawnCooldown")
   private Integer respawnCooldown = null;
+
+  @SerializedName("respawnX")
+  private Integer respawnX = null;
+
+  @SerializedName("respawnY")
+  private Integer respawnY = null;
 
   @SerializedName("restoreEnergyperSecond")
   private Integer restoreEnergyperSecond = null;
@@ -749,6 +755,42 @@ import java.util.Objects;
   public void setRespawnCooldown(Integer respawnCooldown) {
     this.respawnCooldown = respawnCooldown;
   }
+  public MainGameDefinition respawnX(Integer respawnX) {
+    this.respawnX = respawnX;
+    return this;
+  }
+
+  
+
+  /**
+  * Get respawnX
+  * @return respawnX
+  **/
+  @Schema(description = "")
+  public Integer getRespawnX() {
+    return respawnX;
+  }
+  public void setRespawnX(Integer respawnX) {
+    this.respawnX = respawnX;
+  }
+  public MainGameDefinition respawnY(Integer respawnY) {
+    this.respawnY = respawnY;
+    return this;
+  }
+
+  
+
+  /**
+  * Get respawnY
+  * @return respawnY
+  **/
+  @Schema(description = "")
+  public Integer getRespawnY() {
+    return respawnY;
+  }
+  public void setRespawnY(Integer respawnY) {
+    this.respawnY = respawnY;
+  }
   public MainGameDefinition restoreEnergyperSecond(Integer restoreEnergyperSecond) {
     this.restoreEnergyperSecond = restoreEnergyperSecond;
     return this;
@@ -929,6 +971,8 @@ import java.util.Objects;
         Objects.equals(this.radarRadius, mainGameDefinition.radarRadius) &&
         Objects.equals(this.recycledLuchadorEnergyRestore, mainGameDefinition.recycledLuchadorEnergyRestore) &&
         Objects.equals(this.respawnCooldown, mainGameDefinition.respawnCooldown) &&
+        Objects.equals(this.respawnX, mainGameDefinition.respawnX) &&
+        Objects.equals(this.respawnY, mainGameDefinition.respawnY) &&
         Objects.equals(this.restoreEnergyperSecond, mainGameDefinition.restoreEnergyperSecond) &&
         Objects.equals(this.sceneComponents, mainGameDefinition.sceneComponents) &&
         Objects.equals(this.sortOrder, mainGameDefinition.sortOrder) &&
@@ -940,7 +984,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxParticipants, minFireAmount, minFireDamage, minParticipants, moveSpeed, name, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnCooldown, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, turnGunSpeed, turnSpeed, type);
+    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxParticipants, minFireAmount, minFireDamage, minParticipants, moveSpeed, name, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnCooldown, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, turnGunSpeed, turnSpeed, type);
   }
 
   @Override
@@ -981,6 +1025,8 @@ import java.util.Objects;
     sb.append("    radarRadius: ").append(toIndentedString(radarRadius)).append("\n");
     sb.append("    recycledLuchadorEnergyRestore: ").append(toIndentedString(recycledLuchadorEnergyRestore)).append("\n");
     sb.append("    respawnCooldown: ").append(toIndentedString(respawnCooldown)).append("\n");
+    sb.append("    respawnX: ").append(toIndentedString(respawnX)).append("\n");
+    sb.append("    respawnY: ").append(toIndentedString(respawnY)).append("\n");
     sb.append("    restoreEnergyperSecond: ").append(toIndentedString(restoreEnergyperSecond)).append("\n");
     sb.append("    sceneComponents: ").append(toIndentedString(sceneComponents)).append("\n");
     sb.append("    sortOrder: ").append(toIndentedString(sortOrder)).append("\n");

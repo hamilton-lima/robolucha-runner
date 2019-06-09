@@ -12,11 +12,6 @@
 
 package io.swagger.client.api;
 
-import java.util.List;
-
-import org.junit.Ignore;
-import org.junit.Test;
-
 import io.swagger.client.ApiException;
 import io.swagger.client.model.MainConfig;
 import io.swagger.client.model.MainFindLuchadorWithGamedefinition;
@@ -30,6 +25,9 @@ import io.swagger.client.model.MainScoreList;
 import io.swagger.client.model.MainUpdateLuchadorResponse;
 import io.swagger.client.model.MainUser;
 import io.swagger.client.model.MainUserSetting;
+import java.util.List;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * API tests for DefaultApi
@@ -126,6 +124,21 @@ public class DefaultApiTest {
     public void internalGameDefinitionPostTest() throws ApiException {
         MainGameDefinition body = null;
         MainGameDefinition response = api.internalGameDefinitionPost(body);
+
+        // TODO: test validations
+    }
+    /**
+     * update Game definition
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalGameDefinitionPutTest() throws ApiException {
+        MainGameDefinition body = null;
+        MainGameDefinition response = api.internalGameDefinitionPut(body);
 
         // TODO: test validations
     }
