@@ -9,14 +9,16 @@ import org.junit.Test;
 
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.LuchadorPublicState;
-import com.robolucha.models.Match;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockMatchRunner;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+
+import io.swagger.client.model.MainMatch;
 
 public class MatchStatePublisherTest {
 
 	MockRemoteQueue queue = new MockRemoteQueue();
-	Match match = new Match();
+	Match match = new MainMatch();
 	MatchStatePublisher publisher;
 
 	@Before

@@ -6,18 +6,18 @@ import static org.junit.Assert.assertTrue;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.Config;
 import com.robolucha.runner.MatchRunner;
-import com.robolucha.runner.Entrypoint;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 
 import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.MainMatch;
 
 // @deprecated need to define proper way to simulate match
 public class BugNaoRetornandoMatchRunnerAtivoTest {
@@ -26,7 +26,7 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 			.getLogger(BugNaoRetornandoMatchRunnerAtivoTest.class);
 
 	RemoteQueue queue = new RemoteQueue(Config.getInstance());
-	Match match = new Match();
+	Match match = new MainMatch();
 
 	MatchStatePublisher publisher = new MatchStatePublisher(match, queue);
 

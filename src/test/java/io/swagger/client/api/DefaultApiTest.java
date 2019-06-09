@@ -12,6 +12,11 @@
 
 package io.swagger.client.api;
 
+import java.util.List;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
 import io.swagger.client.ApiException;
 import io.swagger.client.model.MainConfig;
 import io.swagger.client.model.MainFindLuchadorWithGamedefinition;
@@ -25,9 +30,6 @@ import io.swagger.client.model.MainScoreList;
 import io.swagger.client.model.MainUpdateLuchadorResponse;
 import io.swagger.client.model.MainUser;
 import io.swagger.client.model.MainUserSetting;
-import java.util.List;
-import org.junit.Ignore;
-import org.junit.Test;
 
 /**
  * API tests for DefaultApi

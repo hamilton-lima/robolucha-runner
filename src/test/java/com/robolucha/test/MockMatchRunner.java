@@ -3,18 +3,19 @@ package com.robolucha.test;
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MatchRunStateVO;
-import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.MockRemoteQueue;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.score.ScoreUpdater;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 
 import io.swagger.client.model.MainGameDefinition;
+import io.swagger.client.model.MainMatch;
 
 public class MockMatchRunner {
-	static Match match = new Match();
+	static Match match = new MainMatch();
 	static MockRemoteQueue remoteQueue = new MockRemoteQueue();
 	static ServerMonitor monitor = new ServerMonitor(remoteQueue);
 
@@ -51,7 +52,7 @@ public class MockMatchRunner {
 		gameDefinition.setDuration(duration);
 		ServerMonitor monitor = new ServerMonitor(queue);
 
-		Match match = new Match();
+		Match match = new MainMatch();
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
 		if (publisher == null) {
 			publisher = new MatchStatePublisher(match, queue);
@@ -67,7 +68,7 @@ public class MockMatchRunner {
 		MainGameDefinition gameDefinition = new MainGameDefinition();
 		gameDefinition.setDuration(1000);
 
-		Match match = new Match();
+		Match match = new MainMatch();
 		MatchRunner runner = new MatchRunner(gameDefinition, match, remoteQueue, monitor);
 
 		runner.setPublisher(new MatchStatePublisherSilent());
