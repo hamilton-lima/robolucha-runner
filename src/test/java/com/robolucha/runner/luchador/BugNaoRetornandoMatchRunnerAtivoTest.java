@@ -14,7 +14,6 @@ import com.robolucha.runner.Config;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainMatch;
@@ -26,7 +25,7 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 			.getLogger(BugNaoRetornandoMatchRunnerAtivoTest.class);
 
 	RemoteQueue queue = new RemoteQueue(Config.getInstance());
-	Match match = new MainMatch();
+	MainMatch match = new MainMatch();
 
 	MatchStatePublisher publisher = new MatchStatePublisher(match, queue);
 
