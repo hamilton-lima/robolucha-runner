@@ -1,5 +1,7 @@
 package com.robolucha.runner;
 
+import java.util.HashMap;
+
 import org.apache.log4j.Logger;
 
 import com.robolucha.event.match.MatchEventVO;
@@ -12,6 +14,7 @@ import com.robolucha.publisher.MatchMessagePublisher;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.score.ScoreUpdater;
+import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainGameComponent;
@@ -27,11 +30,15 @@ public class Server {
 	private ThreadMonitor threadMonitor;
 	private String serverID;
 
+	// stores the match indexed by gamedefinitionID and luchadorID
+	private HashMap<Integer, HashMap<Integer, Long>> matches;
+
 	public Server(String serverID, ThreadMonitor threadMonitor, RemoteQueue queue, ServerMonitor monitor) {
 		this.serverID = serverID;
 		this.threadMonitor = threadMonitor;
 		this.queue = queue;
 		this.monitor = monitor;
+		this.matches = new HashMap<Integer, HashMap<Integer, Long>>();
 	}
 
 	public void start(String gameDefinitionName) throws Exception {
@@ -53,28 +60,65 @@ public class Server {
 		thread.start();
 	}
 
-	public void start(MainJoinMatch joinMatch) throws Exception {
+	public synchronized void start(MainJoinMatch joinMatch) throws Exception {
 		logger.info("Start match " + joinMatch);
 
 		MainMatch match = MatchRunnerAPI.getInstance().findMatch(joinMatch.getMatchID());
-		logger.info("found match " + match);
+		logger.info("found match " + JSONFormat.clean(match.toString()));
 
 		MainGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
 				match.getGameDefinitionID());
+		logger.info("found luchador " + JSONFormat.clean(luchador.toString()));
 
-		logger.info("found luchador " + luchador);
+		// check if the combination is already running in the server
+		if (!isRunning(match.getGameDefinitionID(), luchador.getId())) {
+			
+			// save to the list of running matches
+			add2Matches(match.getGameDefinitionID(), luchador.getId());
 
-		MainGameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(match.getGameDefinitionID());
-		logger.info("found gamedefinition " + gameDefinition);
+			MainGameDefinition gameDefinition = MatchRunnerAPI.getInstance()
+					.getGameDefinition(match.getGameDefinitionID());
+			logger.info("found gamedefinition " + JSONFormat.clean(gameDefinition.toString()));
 
-		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
-		runner.addLuchador(luchador);
+			MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
+			runner.addLuchador(luchador);
 
-		MatchStatePublisher publisher = new MatchStatePublisher(serverID, match, queue);
+			MatchStatePublisher publisher = new MatchStatePublisher(serverID, match, queue);
 
-		Thread thread = setupRunner(runner, publisher);
-		thread.start();
+			Thread thread = setupRunner(runner, publisher);
+			thread.start();
+		} else {
+			logger.info("Is already running: " + joinMatch);
+		}
 
+	}
+
+	public void add2Matches(Integer gameDefinitionID, Integer luchadorID) {
+		HashMap<Integer, Long> luchadorHash = this.matches.get(gameDefinitionID);
+		if (luchadorHash == null) {
+			luchadorHash = new HashMap<Integer, Long>();
+			luchadorHash.put(luchadorID, System.currentTimeMillis());
+			this.matches.put(gameDefinitionID, luchadorHash);
+		} else {
+			Long timestamp = luchadorHash.get(luchadorID);
+			if (timestamp == null) {
+				luchadorHash.put(luchadorID, System.currentTimeMillis());
+			}
+		}
+	}
+
+	public boolean isRunning(Integer gameDefinitionID, Integer luchadorID) {
+		HashMap<Integer, Long> luchadorHash = this.matches.get(gameDefinitionID);
+		if (luchadorHash == null) {
+			return false;
+		}
+
+		Long timestamp = luchadorHash.get(luchadorID);
+		if (timestamp == null) {
+			return false;
+		}
+
+		return true;
 	}
 
 	public Thread setupRunner(MatchRunner runner, MatchStatePublisher publisher) {
