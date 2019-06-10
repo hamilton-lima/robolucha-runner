@@ -22,7 +22,7 @@ public class MatchStatePublisherTest {
 
 	@Before
 	public void setup() {
-		publisher = new MatchStatePublisher(match, queue);
+		publisher = new MatchStatePublisher("", match, queue);
 	}
 
 	@Test

@@ -28,7 +28,7 @@ public class MockMatchRunner {
 
 	static class MatchStatePublisherSilent extends MatchStatePublisher {
 		public MatchStatePublisherSilent() {
-			super(match, remoteQueue);
+			super("mock-test", match, remoteQueue);
 		}
 
 		@Override
@@ -62,7 +62,7 @@ public class MockMatchRunner {
 		MainMatch match = new MainMatch();
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
 		if (publisher == null) {
-			publisher = new MatchStatePublisher(match, queue);
+			publisher = new MatchStatePublisher("mock-test", match, queue);
 		}
 
 		runner.addListener(new ScoreUpdater());

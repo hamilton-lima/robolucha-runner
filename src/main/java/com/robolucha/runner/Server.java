@@ -25,8 +25,10 @@ public class Server {
 	private ServerMonitor monitor;
 	private RemoteQueue queue;
 	private ThreadMonitor threadMonitor;
+	private String serverID;
 
-	public Server(ThreadMonitor threadMonitor, RemoteQueue queue, ServerMonitor monitor) {
+	public Server(String serverID, ThreadMonitor threadMonitor, RemoteQueue queue, ServerMonitor monitor) {
+		this.serverID = serverID;
 		this.threadMonitor = threadMonitor;
 		this.queue = queue;
 		this.monitor = monitor;
@@ -45,7 +47,7 @@ public class Server {
 			}
 		});
 
-		MatchStatePublisher publisher = new MatchStatePublisher(match, queue);
+		MatchStatePublisher publisher = new MatchStatePublisher(serverID, match, queue);
 
 		Thread thread = setupRunner(runner, publisher);
 		thread.start();
@@ -68,7 +70,7 @@ public class Server {
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
 		runner.addLuchador(luchador);
 
-		MatchStatePublisher publisher = new MatchStatePublisher(match, queue);
+		MatchStatePublisher publisher = new MatchStatePublisher(serverID, match, queue);
 
 		Thread thread = setupRunner(runner, publisher);
 		thread.start();

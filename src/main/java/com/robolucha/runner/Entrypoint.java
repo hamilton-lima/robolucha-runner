@@ -26,13 +26,14 @@ public class Entrypoint {
 
 		logger.info("Starting robolucha-runner, " + Arrays.toString(args));
 
-		if (args.length < 1) {
+		if (args.length < 2) {
 			String message = "Invalid use, must provide: "
-					+ "server mode:[multiplayer,tutorial] and GameDefinition name if mode is multiplayer";
+					+ "server id, server mode:[multiplayer,tutorial] and GameDefinition name if mode is multiplayer";
 			throw new RuntimeException(message);
 		}
 
-		String gameMode = args[0];
+		String serverID = args[0];
+		String gameMode = args[1];
 
 		if (!Arrays.asList(gameModes).contains(gameMode)) {
 			throw new RuntimeException("Invalid game mode" + gameMode);
@@ -45,15 +46,15 @@ public class Entrypoint {
 		RemoteQueue queue = new RemoteQueue(Config.getInstance());
 		ServerMonitor monitor = new ServerMonitor(queue);
 
-		Server server = new Server(threadMonitor, queue, monitor);
+		Server server = new Server(serverID, threadMonitor, queue, monitor);
 
 		if (gameMode.contentEquals(GAME_MODE_MULTIPLAYER)) {
 
-			if (args.length < 2) {
+			if (args.length < 3) {
 				throw new RuntimeException("Missing Gamedefinition name for game mode: " + gameMode);
 			}
 
-			String gameDefinitionName = args[1];
+			String gameDefinitionName = args[2];
 			server.start(gameDefinitionName);
 		}
 

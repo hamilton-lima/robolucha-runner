@@ -28,9 +28,6 @@ RUN mkdir -pv /usr/src/app
 COPY --from=builder /usr/src/app/deploy /usr/src/app
 RUN find /usr/src/app
 
-    #  - SERVER_MODE=multiplayer
-    #  - GAMEDEFINITION=ALL-AGAINST-ALL
-
 ENTRYPOINT /usr/bin/java -jar \ 
     -Dlog4j.configuration=file:/usr/src/app/log4j.properties \
-    /usr/src/app/robolucha-runner.jar "${SERVER_MODE}" "${GAMEDEFINITION}"
+    /usr/src/app/robolucha-runner.jar "${SERVER_ID}" "${SERVER_MODE}" "${GAMEDEFINITION}"

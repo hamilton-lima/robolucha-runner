@@ -27,7 +27,7 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 	RemoteQueue queue = new RemoteQueue(Config.getInstance());
 	MainMatch match = new MainMatch();
 
-	MatchStatePublisher publisher = new MatchStatePublisher(match, queue);
+	MatchStatePublisher publisher = new MatchStatePublisher("test", match, queue);
 
 	/**
 	 * inicia uma partida e le do ThreadMonitor qual a partida atual, conclui a

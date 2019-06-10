@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -196,7 +197,16 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		try {
 			this.gameComponent = luchador;
 			this.messages.clear();
-			updateCodeEngine(luchador.getCodes());
+			
+			List<MainCode> codes4CurrentGameDefinition = luchador.getCodes()
+					.stream() 
+	                .filter(line -> 
+	                	matchRunner.getGameDefinition().getId()
+	                	.equals(line.getGameDefinition()))
+	                .collect(Collectors.toList());  
+
+			logger.info("new code" + codes4CurrentGameDefinition);
+			updateCodeEngine(codes4CurrentGameDefinition);
 
 		} catch (Exception e) {
 			this.active = false;

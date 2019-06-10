@@ -5,10 +5,12 @@ public class MessageEnvelope {
 	public static final String MATCH_STATE = "match-state";
 	public static final String MESSAGE = "message";
 
+	public String sender;
 	public String type;
 	public Object message;
 
 	private MessageEnvelope(String type, Object message) {
+		this.sender = "";
 		this.type = type;
 		this.message = message;
 	}
@@ -23,5 +25,9 @@ public class MessageEnvelope {
 
 	public static MessageEnvelope buildMessage(Object message) {
 		return new MessageEnvelope(MessageEnvelope.MESSAGE, message);
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 }
