@@ -25,8 +25,10 @@ import com.robolucha.game.event.LuchadorEventListener;
 import com.robolucha.game.event.MatchEventListener;
 import com.robolucha.game.event.OnHitOtherEvent;
 import com.robolucha.game.processor.BulletsProcessor;
+import com.robolucha.game.processor.IRespawnProcessor;
 import com.robolucha.game.processor.PunchesProcessor;
 import com.robolucha.game.processor.RespawnProcessor;
+import com.robolucha.game.processor.RespawnProcessorFactory;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.JoinMatchListener;
@@ -84,7 +86,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	LinkedHashMap<Integer, LuchadorRunner> runners;
 	boolean alive;
-	private RespawnProcessor respawnProcessor;
+	private IRespawnProcessor respawnProcessor;
 
 	private String status;
 	private String threadName;
@@ -122,7 +124,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		runners = new LinkedHashMap<Integer, LuchadorRunner>();
 
-		respawnProcessor = new RespawnProcessor(this);
+		respawnProcessor = RespawnProcessorFactory.get(this);
 
 		bullets = new SafeList(new LinkedList<Bullet>());
 		punches = new SafeList(new LinkedList<Punch>());
@@ -260,23 +262,18 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			}
 
 			timeElapsed = System.currentTimeMillis() - timeStart;
-			if (timeElapsed > gameDefinition.getDuration()) {
-				logger.info("end of match time elapsed time:" + timeElapsed + " max:" + gameDefinition.getDuration());
-				break;
+
+			// only controls match duration if gamedefinition.duration > 0
+			if (gameDefinition.getDuration() > 0 ) {
+				if (timeElapsed > gameDefinition.getDuration()) {
+					logger.info("end of match time elapsed time:" + timeElapsed + " max:" + gameDefinition.getDuration());
+					break;
+				}
 			}
-
-			// TODO: add scheduled end time for a match
-			/*
-			 * if (match.getGame() != null) { Date endTime = match.getGame().getEndTime();
-			 * if (endTime != null) { Date now = DateUtil.nowSaoPaulo(); if
-			 * (endTime.before(now)) { logger.info("chegou a hora de terminar a partida");
-			 * break; } } }
-			 */
-
+			
 			if ((System.currentTimeMillis() - logStart) > logThreshold) {
 				logStart = System.currentTimeMillis();
 				logger.info("MatchRunner active: " + gameDefinition.getName() + " FPS: " + gameDefinition.getFps());
-
 				// getEventHandler().alive();
 			}
 

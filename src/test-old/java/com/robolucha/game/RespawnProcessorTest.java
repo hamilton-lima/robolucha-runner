@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.robolucha.game.processor.IRespawnProcessor;
 import com.robolucha.game.processor.RespawnProcessor;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
@@ -34,7 +35,7 @@ public class RespawnProcessorTest {
 
         MockMatchRunner.start(match);
         LuchadorRunner runnerA = match.getRunners().get(1L);
-        RespawnProcessor p = new RespawnProcessor(match);
+        IRespawnProcessor p = new RespawnProcessor(match);
 
         int size = runnerA.getSize();
         int w = match.getGameDefinition().getArenaWidth();
