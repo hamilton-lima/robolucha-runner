@@ -14,6 +14,7 @@ public class MatchRunStateVO {
 	public List<BulletVO> bullets;
 	public List<PunchVO> punches;
 	public List<LuchadorPublicState> luchadores;
+	public List<SceneComponentVO> sceneComponents;
 	public List<ScoreVO> scores;
 	public long clock;
 
@@ -23,6 +24,7 @@ public class MatchRunStateVO {
 		punches = new ArrayList<PunchVO>();
 		events = new ArrayList<EventVO>();
 		scores = new ArrayList<ScoreVO>();
+		sceneComponents = new ArrayList<SceneComponentVO>();
 	}
 
 }

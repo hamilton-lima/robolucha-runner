@@ -6,6 +6,7 @@ import java.util.Iterator;
 import com.robolucha.game.vo.BulletVO;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.game.vo.PunchVO;
+import com.robolucha.game.vo.SceneComponentVO;
 import com.robolucha.models.Bullet;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
@@ -13,6 +14,7 @@ import com.robolucha.runner.Punch;
 import com.robolucha.runner.luchador.LuchadorRunner;
 
 import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.MainSceneComponent;
 
 public class MatchStatePublisher {
 
@@ -50,6 +52,21 @@ public class MatchStatePublisher {
 
 		}
 
+		Iterator<MainSceneComponent> iteratorComponent = matchRunner.getSceneComponents().iterator();
+		while (iteratorComponent.hasNext()) {
+			MainSceneComponent component = iteratorComponent.next();
+			SceneComponentVO send = new SceneComponentVO();
+			
+			send.id = component.getId().intValue();
+			send.x = component.getX().intValue();
+			send.y = component.getY().intValue();
+			send.width = component.getWidth().intValue();
+			send.height = component.getHeight().intValue();
+			send.rotation = component.getRotation().intValue();
+			send.type = component.getType();
+			vo.sceneComponents.add(send);
+		}
+
 		Collections.sort(vo.scores);
 
 		// bullets
@@ -63,8 +80,8 @@ public class MatchStatePublisher {
 			BulletVO foo = new BulletVO();
 			foo.id = bullet.getId();
 			foo.owner = bullet.getOwner().getId();
-			foo.x = (int)bullet.getX();
-			foo.y = (int)bullet.getY();
+			foo.x = (int) bullet.getX();
+			foo.y = (int) bullet.getY();
 			foo.amount = bullet.getAmount();
 
 			vo.bullets.add(foo);
