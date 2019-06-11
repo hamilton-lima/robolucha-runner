@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -37,7 +38,7 @@ public class LuchadorUpdateListener implements Consumer<MainGameComponent>, Disp
 
 	@Override
 	public void accept(MainGameComponent component) throws Exception {
-		logger.info("Luchador updated " + component);
+		logger.info("Luchador updated " + JSONFormat.clean(component.toString()));
 		runner.update(component);
 	}
 

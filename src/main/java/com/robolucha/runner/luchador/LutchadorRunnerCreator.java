@@ -5,13 +5,16 @@ import java.util.Queue;
 
 import org.apache.log4j.Logger;
 
+import com.robolucha.event.match.MatchEventVOStart;
 import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
+import com.robolucha.shared.JSONFormat;
 
+import io.reactivex.subjects.PublishSubject;
 import io.swagger.client.model.MainGameComponent;
 
 /**
@@ -21,11 +24,16 @@ import io.swagger.client.model.MainGameComponent;
  */
 public class LutchadorRunnerCreator implements Runnable {
 
+	private class ToBeCreated {
+		PublishSubject<LuchadorRunner> subject;
+		MainGameComponent component;
+	}
+	
 	static Logger logger = Logger.getLogger(LutchadorRunnerCreator.class);
 	private static final long SLEEP = 5;
 
 	private MatchRunner owner;
-	private Queue<MainGameComponent> gameComponents;
+	private Queue<ToBeCreated> gameComponents;
 	private Thread thread;
 	private boolean alive;
 	private String name;
@@ -40,7 +48,7 @@ public class LutchadorRunnerCreator implements Runnable {
 		this.monitor = monitor;
 
 		this.alive = true;
-		this.gameComponents = new LinkedList<MainGameComponent>();
+		this.gameComponents = new LinkedList<ToBeCreated>();
 		this.name = "LutchadorRunnerCreator-Thread-" + owner.getMatch().getId();
 
 		thread = new Thread(this);
@@ -51,9 +59,15 @@ public class LutchadorRunnerCreator implements Runnable {
 		this.alive = false;
 	}
 
-	public void add(MainGameComponent npc) {
-		logger.info("gamecomponent added to creation queue: " + npc);
-		gameComponents.add(npc);
+	public PublishSubject<LuchadorRunner> add(MainGameComponent component) {
+		logger.info("gamecomponent added to creation queue: " + JSONFormat.clean(component.toString()));
+		
+		ToBeCreated toCreate = new ToBeCreated();
+		toCreate.component = component;
+		toCreate.subject = PublishSubject.create();
+
+		gameComponents.add(toCreate);
+		return toCreate.subject;
 	}
 
 	public void run() {
@@ -65,10 +79,12 @@ public class LutchadorRunnerCreator implements Runnable {
 
 		while (alive) {
 
-			MainGameComponent component = gameComponents.poll();
-			if (component != null) {
+			ToBeCreated toCreate = gameComponents.poll(); 
+			if (toCreate != null && toCreate.component != null) {
 				try {
-					create(component);
+					LuchadorRunner runner = create(toCreate.component);
+					toCreate.subject.onNext(runner);
+					toCreate.subject.onComplete();
 				} catch (Exception e) {
 					logger.error("Error creating component", e);
 				}
@@ -95,9 +111,9 @@ public class LutchadorRunnerCreator implements Runnable {
 
 	}
 
-	private void create(MainGameComponent component) throws Exception {
+	private LuchadorRunner create(MainGameComponent component) throws Exception {
 
-		logger.info("gamecomponent started (run): " + component);
+		logger.info("gamecomponent started (run): " + JSONFormat.clean(component.toString()));
 
 		MatchParticipant matchParticipant = new MatchParticipant();
 		matchParticipant.setTimeStart(System.currentTimeMillis());
@@ -122,6 +138,7 @@ public class LutchadorRunnerCreator implements Runnable {
 		runner.run(MethodNames.ON_START);
 
 		owner.getRunners().put(runner.getGameComponent().getId(), runner);
+		return runner;
 	}
 
 }

@@ -25,13 +25,14 @@ import com.robolucha.game.event.LuchadorEventListener;
 import com.robolucha.game.event.MatchEventListener;
 import com.robolucha.game.event.OnHitOtherEvent;
 import com.robolucha.game.processor.BulletsProcessor;
+import com.robolucha.game.processor.IRespawnProcessor;
 import com.robolucha.game.processor.PunchesProcessor;
 import com.robolucha.game.processor.RespawnProcessor;
+import com.robolucha.game.processor.RespawnProcessorFactory;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.models.Bullet;
-import com.robolucha.models.Match;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.monitor.ThreadStatus;
@@ -40,10 +41,12 @@ import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.LutchadorRunnerCreator;
 import com.robolucha.shared.Calc;
+import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.subjects.PublishSubject;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
+import io.swagger.client.model.MainMatch;
 
 /**
  * main match logic
@@ -83,7 +86,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	LinkedHashMap<Integer, LuchadorRunner> runners;
 	boolean alive;
-	private RespawnProcessor respawnProcessor;
+	private IRespawnProcessor respawnProcessor;
 
 	private String status;
 	private String threadName;
@@ -94,14 +97,14 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private MatchEventHandler eventHandler;
 	private LutchadorRunnerCreator luchadorCreator;
-	private Match match;
+	private MainMatch match;
 	private ServerMonitor monitor;
 
 	public MatchEventHandler getEventHandler() {
 		return eventHandler;
 	}
 
-	public MatchRunner(MainGameDefinition gameDefinition, Match match, RemoteQueue queue, ServerMonitor monitor) {
+	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue, ServerMonitor monitor) {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
 		status = ThreadStatus.STARTING;
@@ -121,7 +124,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		runners = new LinkedHashMap<Integer, LuchadorRunner>();
 
-		respawnProcessor = new RespawnProcessor(this);
+		respawnProcessor = RespawnProcessorFactory.get(this);
 
 		bullets = new SafeList(new LinkedList<Bullet>());
 		punches = new SafeList(new LinkedList<Punch>());
@@ -143,7 +146,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		logger.info("MatchRunner created:" + this);
 	}
 
-	public Match getMatch() {
+	public MainMatch getMatch() {
 		return match;
 	}
 
@@ -152,20 +155,28 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		listener.subscribe(this);
 	}
 
-	public void add(final MainGameComponent component) throws Exception {
-
+	public PublishSubject<LuchadorRunner> add(final MainGameComponent component) throws Exception {
+		
 		if (runners.containsKey(component.getId())) {
-			logger.info("trying to add luchador that is already in the match, id: " + component.getId());
-			return;
+			String message = "trying to add luchador that is already in the match, id: " + component.getId();
+			logger.info(message);
+
+			PublishSubject<LuchadorRunner> result = PublishSubject.create();
+			result.onError(new Exception(message));
+			result.onComplete();
+			return result;
 		}
 
 		if (runners.size() >= gameDefinition.getMaxParticipants()) {
-			throw new Exception("trying to add luchador beyond the limit");
+			String message = "trying to add luchador beyond the limit";
+			PublishSubject<LuchadorRunner> result = PublishSubject.create();
+			result.onError(new Exception(message));
+			result.onComplete();
+			return result;
 		}
 
-		logger.info("new luchador added to the match: " + component);
-		luchadorCreator.add(component);
-
+		logger.info("new luchador added to the match: " + JSONFormat.clean(component.toString()));
+		return luchadorCreator.add(component);
 	}
 
 	public void addLuchador(final MainGameComponent component) throws Exception {
@@ -251,23 +262,18 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			}
 
 			timeElapsed = System.currentTimeMillis() - timeStart;
-			if (timeElapsed > gameDefinition.getDuration()) {
-				logger.info("end of match time elapsed time:" + timeElapsed + " max:" + gameDefinition.getDuration());
-				break;
+
+			// only controls match duration if gamedefinition.duration > 0
+			if (gameDefinition.getDuration() > 0 ) {
+				if (timeElapsed > gameDefinition.getDuration()) {
+					logger.info("end of match time elapsed time:" + timeElapsed + " max:" + gameDefinition.getDuration());
+					break;
+				}
 			}
-
-			// TODO: add scheduled end time for a match
-			/*
-			 * if (match.getGame() != null) { Date endTime = match.getGame().getEndTime();
-			 * if (endTime != null) { Date now = DateUtil.nowSaoPaulo(); if
-			 * (endTime.before(now)) { logger.info("chegou a hora de terminar a partida");
-			 * break; } } }
-			 */
-
+			
 			if ((System.currentTimeMillis() - logStart) > logThreshold) {
 				logStart = System.currentTimeMillis();
 				logger.info("MatchRunner active: " + gameDefinition.getName() + " FPS: " + gameDefinition.getFps());
-
 				// getEventHandler().alive();
 			}
 
@@ -321,8 +327,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		}
 
 		cleanup();
-
-		System.exit(1);
 	}
 
 	public void cleanup() {

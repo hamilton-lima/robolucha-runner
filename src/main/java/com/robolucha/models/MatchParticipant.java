@@ -1,10 +1,11 @@
 package com.robolucha.models;
 
 import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.MainMatch;
 
 public class MatchParticipant {
 	private long id;
-	private Match matchRun;
+	private MainMatch matchRun;
 	private MainGameComponent luchador;
 	private long timeStart;
 
@@ -16,11 +17,11 @@ public class MatchParticipant {
 		this.id = id;
 	}
 
-	public Match getMatchRun() {
+	public MainMatch getMatchRun() {
 		return matchRun;
 	}
 
-	public void setMatchRun(Match matchRun) {
+	public void setMatchRun(MainMatch matchRun) {
 		this.matchRun = matchRun;
 	}
 

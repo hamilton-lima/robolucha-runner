@@ -2,10 +2,8 @@ package com.robolucha.runner;
 
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
-import com.robolucha.models.Match;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.models.MatchScore;
 import com.robolucha.shared.JSONFormat;
@@ -22,10 +20,10 @@ import io.swagger.client.model.MainScoreList;
 public class MatchRunnerAPI {
 
 	private Logger logger = Logger.getLogger(MatchRunnerAPI.class);
-	private DefaultApi apiInstance;
+	private DefaultApi api;
 
 	private MatchRunnerAPI() {
-		apiInstance = new DefaultApi();
+		api = new DefaultApi();
 	}
 
 	private static MatchRunnerAPI instance = new MatchRunnerAPI();
@@ -48,48 +46,54 @@ public class MatchRunnerAPI {
 			requestBody.addScoresItem(mainScore);
 		}
 
-		apiInstance.internalAddMatchScoresPost(requestBody);
+		api.internalAddMatchScoresPost(requestBody);
 	}
 
 	public void addMatchParticipant(MatchParticipant matchParticipant) throws Exception {
 		MainMatchParticipant participant = new MainMatchParticipant();
 		participant.setMatchID(matchParticipant.getMatchRun().getId().intValue());
 		participant.setLuchadorID(Long.valueOf(matchParticipant.getLuchador().getId()).intValue());
-		apiInstance.internalMatchParticipantPost(participant);
+		api.internalMatchParticipantPost(participant);
 	}
 
-	public Match createMatch(String gameDefinitionName) throws Exception {
-		MainMatch match = apiInstance.internalStartMatchNamePost(gameDefinitionName);
-		logger.info("createMatch() API response" + match);
-
-		Match result = new Match();
-		BeanUtils.copyProperties(result, match);
-		logger.info("createMatch()" + result);
-		return result;
+	public MainMatch createMatch(String gameDefinitionName) throws Exception {
+		MainMatch match = api.internalStartMatchNamePost(gameDefinitionName);
+		logger.info("createMatch() API response" + JSONFormat.clean(match.toString()));
+		return match;
 	}
 
-	public void endMatch(Match match) throws Exception {
+	public void endMatch(MainMatch match) throws Exception {
 		MainMatch body = new MainMatch();
 		body.setId(match.getId().intValue());
 		body.setTimeEnd(JSONFormat.now());
 
-		apiInstance.internalEndMatchPut(body);
+		api.internalEndMatchPut(body);
 	}
 
 	public MainGameComponent findLuchadorById(Integer luchadorID, Integer gamedefinitionID) throws Exception {
-		
+
 		MainFindLuchadorWithGamedefinition body = new MainFindLuchadorWithGamedefinition();
 		body.luchadorID(luchadorID);
 		body.gameDefinitionID(gamedefinitionID);
-		
-		MainGameComponent component = apiInstance.internalLuchadorPost(body);
+
+		MainGameComponent component = api.internalLuchadorPost(body);
 		return component;
 	}
 
 	public MainGameDefinition getGameDefinition(String gameDefinitionName) throws Exception {
-		MainGameDefinition gamedefinition = apiInstance.internalGameDefinitionNameGet(gameDefinitionName);
-		logger.info("getGameDefinition() API response" + gamedefinition);
+		MainGameDefinition gamedefinition = api.internalGameDefinitionNameGet(gameDefinitionName);
+		logger.info("getGameDefinition() API response" + JSONFormat.clean(gamedefinition.toString()));
 		return gamedefinition;
+	}
+
+	public MainMatch findMatch(Integer matchID) throws Exception {
+		MainMatch result = api.internalMatchSingleGet(matchID);
+		return result;
+	}
+
+	public MainGameDefinition getGameDefinition(Integer gameDefinitionID) throws Exception {
+		MainGameDefinition result = api.internalGameDefinitionIdIdGet(gameDefinitionID);
+		return result;
 	}
 
 }

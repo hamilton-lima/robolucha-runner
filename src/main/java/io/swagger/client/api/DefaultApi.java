@@ -432,6 +432,131 @@ public class DefaultApi {
         return call;
     }
     /**
+     * Build call for internalGameDefinitionIdIdGet
+     * @param id GameDefinition id (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call internalGameDefinitionIdIdGetCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/internal/game-definition-id/{id}"
+            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "ApiKeyAuth" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call internalGameDefinitionIdIdGetValidateBeforeCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling internalGameDefinitionIdIdGet(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = internalGameDefinitionIdIdGetCall(id, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * find a game definition
+     * 
+     * @param id GameDefinition id (required)
+     * @return MainGameDefinition
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public MainGameDefinition internalGameDefinitionIdIdGet(Integer id) throws ApiException {
+        ApiResponse<MainGameDefinition> resp = internalGameDefinitionIdIdGetWithHttpInfo(id);
+        return resp.getData();
+    }
+
+    /**
+     * find a game definition
+     * 
+     * @param id GameDefinition id (required)
+     * @return ApiResponse&lt;MainGameDefinition&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<MainGameDefinition> internalGameDefinitionIdIdGetWithHttpInfo(Integer id) throws ApiException {
+        com.squareup.okhttp.Call call = internalGameDefinitionIdIdGetValidateBeforeCall(id, null, null);
+        Type localVarReturnType = new TypeToken<MainGameDefinition>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * find a game definition (asynchronously)
+     * 
+     * @param id GameDefinition id (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call internalGameDefinitionIdIdGetAsync(Integer id, final ApiCallback<MainGameDefinition> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = internalGameDefinitionIdIdGetValidateBeforeCall(id, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<MainGameDefinition>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for internalGameDefinitionNameGet
      * @param name GameDefinition name (required)
      * @param progressListener Progress listener
@@ -681,6 +806,130 @@ public class DefaultApi {
         return call;
     }
     /**
+     * Build call for internalGameDefinitionPut
+     * @param body GameDefinition (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call internalGameDefinitionPutCall(MainGameDefinition body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
+        
+        // create path and map variables
+        String localVarPath = "/internal/game-definition";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "ApiKeyAuth" };
+        return apiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call internalGameDefinitionPutValidateBeforeCall(MainGameDefinition body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling internalGameDefinitionPut(Async)");
+        }
+        
+        com.squareup.okhttp.Call call = internalGameDefinitionPutCall(body, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * update Game definition
+     * 
+     * @param body GameDefinition (required)
+     * @return MainGameDefinition
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public MainGameDefinition internalGameDefinitionPut(MainGameDefinition body) throws ApiException {
+        ApiResponse<MainGameDefinition> resp = internalGameDefinitionPutWithHttpInfo(body);
+        return resp.getData();
+    }
+
+    /**
+     * update Game definition
+     * 
+     * @param body GameDefinition (required)
+     * @return ApiResponse&lt;MainGameDefinition&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<MainGameDefinition> internalGameDefinitionPutWithHttpInfo(MainGameDefinition body) throws ApiException {
+        com.squareup.okhttp.Call call = internalGameDefinitionPutValidateBeforeCall(body, null, null);
+        Type localVarReturnType = new TypeToken<MainGameDefinition>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * update Game definition (asynchronously)
+     * 
+     * @param body GameDefinition (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call internalGameDefinitionPutAsync(MainGameDefinition body, final ApiCallback<MainGameDefinition> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = internalGameDefinitionPutValidateBeforeCall(body, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<MainGameDefinition>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for internalLuchadorPost
      * @param body FindLuchadorWithGamedefinition (required)
      * @param progressListener Progress listener
@@ -925,6 +1174,128 @@ public class DefaultApi {
 
         com.squareup.okhttp.Call call = internalMatchParticipantPostValidateBeforeCall(body, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<MainMatchParticipant>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for internalMatchSingleGet
+     * @param matchID int valid (optional)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call internalMatchSingleGetCall(Integer matchID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = null;
+        
+        // create path and map variables
+        String localVarPath = "/internal/match-single";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (matchID != null)
+        localVarQueryParams.addAll(apiClient.parameterToPair("matchID", matchID));
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if(progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] { "ApiKeyAuth" };
+        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call internalMatchSingleGetValidateBeforeCall(Integer matchID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        com.squareup.okhttp.Call call = internalMatchSingleGetCall(matchID, progressListener, progressRequestListener);
+        return call;
+
+        
+        
+        
+        
+    }
+
+    /**
+     * find one match
+     * 
+     * @param matchID int valid (optional)
+     * @return MainMatch
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public MainMatch internalMatchSingleGet(Integer matchID) throws ApiException {
+        ApiResponse<MainMatch> resp = internalMatchSingleGetWithHttpInfo(matchID);
+        return resp.getData();
+    }
+
+    /**
+     * find one match
+     * 
+     * @param matchID int valid (optional)
+     * @return ApiResponse&lt;MainMatch&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<MainMatch> internalMatchSingleGetWithHttpInfo(Integer matchID) throws ApiException {
+        com.squareup.okhttp.Call call = internalMatchSingleGetValidateBeforeCall(matchID, null, null);
+        Type localVarReturnType = new TypeToken<MainMatch>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * find one match (asynchronously)
+     * 
+     * @param matchID int valid (optional)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call internalMatchSingleGetAsync(Integer matchID, final ApiCallback<MainMatch> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = internalMatchSingleGetValidateBeforeCall(matchID, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<MainMatch>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -1278,131 +1649,6 @@ public class DefaultApi {
 
         com.squareup.okhttp.Call call = privateGameDefinitionAllGetValidateBeforeCall(progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<List<MainGameDefinition>>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
-        return call;
-    }
-    /**
-     * Build call for privateGameDefinitionIdIdGet
-     * @param id GameDefinition id (required)
-     * @param progressListener Progress listener
-     * @param progressRequestListener Progress request listener
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     */
-    public com.squareup.okhttp.Call privateGameDefinitionIdIdGetCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
-        
-        // create path and map variables
-        String localVarPath = "/private/game-definition-id/{id}"
-            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        if(progressListener != null) {
-            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
-                    .build();
-                }
-            });
-        }
-
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth" };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
-    }
-    
-    @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call privateGameDefinitionIdIdGetValidateBeforeCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException("Missing the required parameter 'id' when calling privateGameDefinitionIdIdGet(Async)");
-        }
-        
-        com.squareup.okhttp.Call call = privateGameDefinitionIdIdGetCall(id, progressListener, progressRequestListener);
-        return call;
-
-        
-        
-        
-        
-    }
-
-    /**
-     * find a game definition
-     * 
-     * @param id GameDefinition id (required)
-     * @return MainGameDefinition
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public MainGameDefinition privateGameDefinitionIdIdGet(Integer id) throws ApiException {
-        ApiResponse<MainGameDefinition> resp = privateGameDefinitionIdIdGetWithHttpInfo(id);
-        return resp.getData();
-    }
-
-    /**
-     * find a game definition
-     * 
-     * @param id GameDefinition id (required)
-     * @return ApiResponse&lt;MainGameDefinition&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public ApiResponse<MainGameDefinition> privateGameDefinitionIdIdGetWithHttpInfo(Integer id) throws ApiException {
-        com.squareup.okhttp.Call call = privateGameDefinitionIdIdGetValidateBeforeCall(id, null, null);
-        Type localVarReturnType = new TypeToken<MainGameDefinition>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
-    }
-
-    /**
-     * find a game definition (asynchronously)
-     * 
-     * @param id GameDefinition id (required)
-     * @param callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     */
-    public com.squareup.okhttp.Call privateGameDefinitionIdIdGetAsync(Integer id, final ApiCallback<MainGameDefinition> callback) throws ApiException {
-
-        ProgressResponseBody.ProgressListener progressListener = null;
-        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
-
-        if (callback != null) {
-            progressListener = new ProgressResponseBody.ProgressListener() {
-                @Override
-                public void update(long bytesRead, long contentLength, boolean done) {
-                    callback.onDownloadProgress(bytesRead, contentLength, done);
-                }
-            };
-
-            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
-                @Override
-                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
-                    callback.onUploadProgress(bytesWritten, contentLength, done);
-                }
-            };
-        }
-
-        com.squareup.okhttp.Call call = privateGameDefinitionIdIdGetValidateBeforeCall(id, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<MainGameDefinition>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -2362,128 +2608,6 @@ public class DefaultApi {
 
         com.squareup.okhttp.Call call = privateMatchGetValidateBeforeCall(progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<List<MainMatch>>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
-        return call;
-    }
-    /**
-     * Build call for privateMatchSingleGet
-     * @param matchID int valid (optional)
-     * @param progressListener Progress listener
-     * @param progressRequestListener Progress request listener
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     */
-    public com.squareup.okhttp.Call privateMatchSingleGetCall(Integer matchID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
-        
-        // create path and map variables
-        String localVarPath = "/private/match-single";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (matchID != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("matchID", matchID));
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        if(progressListener != null) {
-            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
-                    .build();
-                }
-            });
-        }
-
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth" };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
-    }
-    
-    @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call privateMatchSingleGetValidateBeforeCall(Integer matchID, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        com.squareup.okhttp.Call call = privateMatchSingleGetCall(matchID, progressListener, progressRequestListener);
-        return call;
-
-        
-        
-        
-        
-    }
-
-    /**
-     * find one match
-     * 
-     * @param matchID int valid (optional)
-     * @return MainMatch
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public MainMatch privateMatchSingleGet(Integer matchID) throws ApiException {
-        ApiResponse<MainMatch> resp = privateMatchSingleGetWithHttpInfo(matchID);
-        return resp.getData();
-    }
-
-    /**
-     * find one match
-     * 
-     * @param matchID int valid (optional)
-     * @return ApiResponse&lt;MainMatch&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public ApiResponse<MainMatch> privateMatchSingleGetWithHttpInfo(Integer matchID) throws ApiException {
-        com.squareup.okhttp.Call call = privateMatchSingleGetValidateBeforeCall(matchID, null, null);
-        Type localVarReturnType = new TypeToken<MainMatch>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
-    }
-
-    /**
-     * find one match (asynchronously)
-     * 
-     * @param matchID int valid (optional)
-     * @param callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     */
-    public com.squareup.okhttp.Call privateMatchSingleGetAsync(Integer matchID, final ApiCallback<MainMatch> callback) throws ApiException {
-
-        ProgressResponseBody.ProgressListener progressListener = null;
-        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
-
-        if (callback != null) {
-            progressListener = new ProgressResponseBody.ProgressListener() {
-                @Override
-                public void update(long bytesRead, long contentLength, boolean done) {
-                    callback.onDownloadProgress(bytesRead, contentLength, done);
-                }
-            };
-
-            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
-                @Override
-                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
-                    callback.onUploadProgress(bytesWritten, contentLength, done);
-                }
-            };
-        }
-
-        com.squareup.okhttp.Call call = privateMatchSingleGetValidateBeforeCall(matchID, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<MainMatch>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

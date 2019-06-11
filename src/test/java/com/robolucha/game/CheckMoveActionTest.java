@@ -6,68 +6,70 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
+import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainGameComponent;
 
 public class CheckMoveActionTest {
 
-    private static Logger logger = Logger.getLogger(CheckMoveActionTest.class);
-    private static int counter = 0;
+	private static Logger logger = Logger.getLogger(CheckMoveActionTest.class);
 
-    @Before
-    public void setUp() throws Exception {
-        counter = 0;
-    }
+	@Before
+	public void setUp() throws Exception {
+	}
 
-    @Test
-    public void testRun() throws Exception {
+	static double aX1;
+	static double bX1;
 
-        MatchRunner match = MockMatchRunner.build();
+	@Test
+	public void testRun() throws Exception {
 
-        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10);");
-        MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "move(-10);");
+		MatchRunner match = MockMatchRunner.build();
+		match.getGameDefinition().setDuration(1000);
 
-        match.add(a);
-        match.add(b);
+		MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10);");
+		MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "move(-10);");
 
-        MockMatchRunner.start(match);
+		LuchadorRunner runnerA = match.add(a).blockingFirst();
+		LuchadorRunner runnerB = match.add(b).blockingFirst();
 
-        LuchadorRunner runnerA = match.getRunners().get(1L);
-        LuchadorRunner runnerB = match.getRunners().get(2L);
+		match.getOnMatchStart().subscribe(new Consumer<MatchEventVO>() {
+			public void accept(MatchEventVO arg0) throws Exception {
 
-        runnerA.getState().setX(100);
-        runnerA.getState().setY(100);
+				runnerA.getState().setX(100);
+				runnerA.getState().setY(100);
 
-        runnerB.getState().setX(100);
-        runnerB.getState().setY(250);
+				runnerB.getState().setX(100);
+				runnerB.getState().setY(250);
 
-        double aX1 = runnerA.getState().getPublicState().x;
-        double bX1 = runnerB.getState().getPublicState().x;
+				aX1 = runnerA.getState().getPublicState().x;
+				bX1 = runnerB.getState().getPublicState().x;
 
-        logger.debug("--- A : " + runnerA.getState().getPublicState());
-        logger.debug("--- B : " + runnerB.getState().getPublicState());
+				logger.debug("--- A : " + runnerA.getState().getPublicState());
+				logger.debug("--- B : " + runnerB.getState().getPublicState());
+			}
+		});
 
-        // stop the match
-        Thread.sleep(1500);
-        match.kill();
-        Thread.sleep(500);
+		MockMatchRunner.start(match);
 
-        logger.debug("--- A depois : " + runnerA.getState().getPublicState());
-        logger.debug("--- B depois : " + runnerB.getState().getPublicState());
+		match.getOnMatchEnd().blockingSubscribe();
+		
+		logger.debug("--- A depois : " + runnerA);
+		logger.debug("--- B depois : " + runnerB.getState());
 
-        double aX2 = runnerA.getState().getPublicState().x;
-        double bX2 = runnerB.getState().getPublicState().x;
+		double aX2 = runnerA.getState().getPublicState().x;
+		double bX2 = runnerB.getState().getPublicState().x;
 
-        logger.debug(String.format("*** resultados : a[%s, %s], b[%s, %s]",
-                aX1, aX2, bX1, bX2));
+		logger.debug(String.format("*** resultados : a[%s, %s], b[%s, %s]", aX1, aX2, bX1, bX2));
 
-        assertTrue("verifica se lutchador moveu A", aX2 > aX1);
-        assertTrue("verifica se lutchador moveu B", bX2 < bX1);
+		assertTrue("verifica se lutchador moveu A", aX2 > aX1);
+		assertTrue("verifica se lutchador moveu B", bX2 < bX1);
 
-    }
+	}
 }

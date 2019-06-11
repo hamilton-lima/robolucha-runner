@@ -11,7 +11,7 @@ import com.robolucha.runner.RespawnPoint;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.shared.Calc;
 
-public class RespawnProcessor {
+public class RespawnProcessor implements IRespawnProcessor {
 	
 	RespawnPoint[] locations;
 	
@@ -23,6 +23,10 @@ public class RespawnProcessor {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.robolucha.game.processor.IRespawnPoint#cleanup()
+	 */
+	@Override
 	public void cleanup(){
 		for (int i = 0; i < locations.length; i++) {
 			locations[i] = null;
@@ -31,6 +35,10 @@ public class RespawnProcessor {
 		locations = null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.robolucha.game.processor.IRespawnPoint#getRespawnPoint(com.robolucha.runner.luchador.LuchadorRunner, java.util.LinkedHashMap)
+	 */
+	@Override
 	public RespawnPoint getRespawnPoint(LuchadorRunner runner,
 			LinkedHashMap<Integer, LuchadorRunner> runners) {
 
@@ -122,6 +130,10 @@ public class RespawnProcessor {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.robolucha.game.processor.IRespawnPoint#getLocations()
+	 */
+	@Override
 	public RespawnPoint[] getLocations() {
 		return locations;
 	}

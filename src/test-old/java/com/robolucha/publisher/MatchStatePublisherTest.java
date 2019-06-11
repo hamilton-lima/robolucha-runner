@@ -9,19 +9,20 @@ import org.junit.Test;
 
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.LuchadorPublicState;
-import com.robolucha.models.Match;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockMatchRunner;
+
+import io.swagger.client.model.MainMatch;
 
 public class MatchStatePublisherTest {
 
 	MockRemoteQueue queue = new MockRemoteQueue();
-	Match match = new Match();
+	MainMatch match = new MainMatch();
 	MatchStatePublisher publisher;
 
 	@Before
 	public void setup() {
-		publisher = new MatchStatePublisher(match, queue);
+		publisher = new MatchStatePublisher("", match, queue);
 	}
 
 	@Test

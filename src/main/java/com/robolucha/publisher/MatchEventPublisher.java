@@ -9,13 +9,15 @@ import org.apache.log4j.Logger;
 import com.robolucha.event.ConstEvents;
 import com.robolucha.game.event.MatchEventListener;
 import com.robolucha.models.LuchadorMatchState;
-import com.robolucha.models.Match;
 import com.robolucha.models.MatchEvent;
 import com.robolucha.models.MatchScore;
 import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
 import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.shared.JSONFormat;
+
+import io.swagger.client.model.MainMatch;
 
 public class MatchEventPublisher implements MatchEventListener {
 	private final RemoteQueue publisher;
@@ -23,9 +25,9 @@ public class MatchEventPublisher implements MatchEventListener {
 	private final String channel;
 
 	private Logger logger = Logger.getLogger(MatchEventPublisher.class);
-	private Match match;
+	private MainMatch match;
 
-	public MatchEventPublisher(Match match, RemoteQueue publisher, ThreadMonitor threadMonitor) {
+	public MatchEventPublisher(MainMatch match, RemoteQueue publisher, ThreadMonitor threadMonitor) {
 		this.match = match;
 		this.publisher = publisher;
 		this.threadMonitor = threadMonitor;
@@ -39,9 +41,8 @@ public class MatchEventPublisher implements MatchEventListener {
 
 	public void onStart(MatchRunner runner) {
 		logger.debug("match START : " + runner.getThreadName());
-		long timestamp = System.currentTimeMillis();
-		match.setTimeStart(timestamp);
-		match.setLastTimeAlive(timestamp);
+		match.setTimeStart(JSONFormat.now());
+		match.setLastTimeAlive(JSONFormat.now());
 
 		try {
 			addEvent(runner, ConstEvents.START);
@@ -63,7 +64,7 @@ public class MatchEventPublisher implements MatchEventListener {
 		try {
 			logger.info("Match END saving score");
 			List<MatchScore> scores = new ArrayList<MatchScore>();
-			
+
 			Iterator<Integer> iterator = runner.getRunners().keySet().iterator();
 			while (iterator.hasNext()) {
 				Object key = (Object) iterator.next();
@@ -101,8 +102,7 @@ public class MatchEventPublisher implements MatchEventListener {
 	}
 
 	public void onAlive(MatchRunner runner) {
-		Match match = runner.getMatch();
-		match.setLastTimeAlive(System.currentTimeMillis());
+		runner.getMatch().setLastTimeAlive(JSONFormat.now());
 
 		try {
 			threadMonitor.alive(runner.getThreadName());

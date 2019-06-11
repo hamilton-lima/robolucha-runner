@@ -91,6 +91,21 @@ public class DefaultApiTest {
      *          if the Api call fails
      */
     @Test
+    public void internalGameDefinitionIdIdGetTest() throws ApiException {
+        Integer id = null;
+        MainGameDefinition response = api.internalGameDefinitionIdIdGet(id);
+
+        // TODO: test validations
+    }
+    /**
+     * find a game definition
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
     public void internalGameDefinitionNameGetTest() throws ApiException {
         String name = null;
         MainGameDefinition response = api.internalGameDefinitionNameGet(name);
@@ -109,6 +124,21 @@ public class DefaultApiTest {
     public void internalGameDefinitionPostTest() throws ApiException {
         MainGameDefinition body = null;
         MainGameDefinition response = api.internalGameDefinitionPost(body);
+
+        // TODO: test validations
+    }
+    /**
+     * update Game definition
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalGameDefinitionPutTest() throws ApiException {
+        MainGameDefinition body = null;
+        MainGameDefinition response = api.internalGameDefinitionPut(body);
 
         // TODO: test validations
     }
@@ -139,6 +169,21 @@ public class DefaultApiTest {
     public void internalMatchParticipantPostTest() throws ApiException {
         MainMatchParticipant body = null;
         MainMatchParticipant response = api.internalMatchParticipantPost(body);
+
+        // TODO: test validations
+    }
+    /**
+     * find one match
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalMatchSingleGetTest() throws ApiException {
+        Integer matchID = null;
+        MainMatch response = api.internalMatchSingleGet(matchID);
 
         // TODO: test validations
     }
@@ -182,21 +227,6 @@ public class DefaultApiTest {
     @Test
     public void privateGameDefinitionAllGetTest() throws ApiException {
         List<MainGameDefinition> response = api.privateGameDefinitionAllGet();
-
-        // TODO: test validations
-    }
-    /**
-     * find a game definition
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void privateGameDefinitionIdIdGetTest() throws ApiException {
-        Integer id = null;
-        MainGameDefinition response = api.privateGameDefinitionIdIdGet(id);
 
         // TODO: test validations
     }
@@ -313,21 +343,6 @@ public class DefaultApiTest {
     @Test
     public void privateMatchGetTest() throws ApiException {
         List<MainMatch> response = api.privateMatchGet();
-
-        // TODO: test validations
-    }
-    /**
-     * find one match
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void privateMatchSingleGetTest() throws ApiException {
-        Integer matchID = null;
-        MainMatch response = api.privateMatchSingleGet(matchID);
 
         // TODO: test validations
     }

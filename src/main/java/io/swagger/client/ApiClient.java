@@ -49,7 +49,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 public class ApiClient {
 
-    private String basePath = "//localhost:8080/";
+    private String basePath = "//http://local.robolucha.com:5000/";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;
@@ -103,7 +103,7 @@ public class ApiClient {
     /**
      * Set base path
      *
-     * @param basePath Base path of the URL (e.g //localhost:8080/
+     * @param basePath Base path of the URL (e.g //http://local.robolucha.com:5000/
      * @return An instance of OkHttpClient
      */
     public ApiClient setBasePath(String basePath) {

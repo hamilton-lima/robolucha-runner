@@ -8,19 +8,22 @@ import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.game.vo.PunchVO;
 import com.robolucha.models.Bullet;
 import com.robolucha.models.LuchadorPublicState;
-import com.robolucha.models.Match;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.Punch;
 import com.robolucha.runner.luchador.LuchadorRunner;
+
+import io.swagger.client.model.MainMatch;
 
 public class MatchStatePublisher {
 
 	private final RemoteQueue publisher;
 	private String channel;
+	private String serverID;
 
-	public MatchStatePublisher(Match match, RemoteQueue publisher) {
+	public MatchStatePublisher(String serverID, MainMatch match, RemoteQueue publisher) {
 		channel = String.format("match.%s.state", match.getId());
 		this.publisher = publisher;
+		this.serverID = serverID;
 	}
 
 	public void update(MatchRunner matchRunner) throws Exception {
@@ -89,6 +92,7 @@ public class MatchStatePublisher {
 
 	public void publish(MatchRunStateVO state) {
 		MessageEnvelope envelope = MessageEnvelope.buildMatchState(state);
+		envelope.setSender(serverID);
 		publisher.publish(channel, envelope);
 	}
 
