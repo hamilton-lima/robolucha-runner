@@ -8,4 +8,5 @@ public class SceneComponentVO {
 	public int height;
 	public int rotation;
 	public String type;
+	public String color;
 }

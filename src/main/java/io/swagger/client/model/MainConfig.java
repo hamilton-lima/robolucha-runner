@@ -20,7 +20,7 @@ import java.util.Objects;
  * MainConfig
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-11T01:49:26.007Z[GMT]")public class MainConfig {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-11T04:58:57.195Z[GMT]")public class MainConfig {
 
   @SerializedName("id")
   private Integer id = null;

@@ -64,6 +64,7 @@ public class MatchStatePublisher {
 			send.height = component.getHeight().intValue();
 			send.rotation = component.getRotation().intValue();
 			send.type = component.getType();
+			send.color = component.getColor();
 			vo.sceneComponents.add(send);
 		}
 

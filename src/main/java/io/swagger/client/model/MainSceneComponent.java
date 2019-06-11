@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainSceneComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-11T01:49:26.007Z[GMT]")public class MainSceneComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-11T04:58:57.195Z[GMT]")public class MainSceneComponent {
 
   @SerializedName("blockMovement")
   private Boolean blockMovement = null;
@@ -32,6 +32,9 @@ import java.util.Objects;
 
   @SerializedName("colider")
   private Boolean colider = null;
+
+  @SerializedName("color")
+  private String color = null;
 
   @SerializedName("gameDefinition")
   private Integer gameDefinition = null;
@@ -121,6 +124,24 @@ import java.util.Objects;
   }
   public void setColider(Boolean colider) {
     this.colider = colider;
+  }
+  public MainSceneComponent color(String color) {
+    this.color = color;
+    return this;
+  }
+
+  
+
+  /**
+  * Get color
+  * @return color
+  **/
+  @Schema(description = "")
+  public String getColor() {
+    return color;
+  }
+  public void setColor(String color) {
+    this.color = color;
   }
   public MainSceneComponent gameDefinition(Integer gameDefinition) {
     this.gameDefinition = gameDefinition;
@@ -314,6 +335,7 @@ import java.util.Objects;
     return Objects.equals(this.blockMovement, mainSceneComponent.blockMovement) &&
         Objects.equals(this.codes, mainSceneComponent.codes) &&
         Objects.equals(this.colider, mainSceneComponent.colider) &&
+        Objects.equals(this.color, mainSceneComponent.color) &&
         Objects.equals(this.gameDefinition, mainSceneComponent.gameDefinition) &&
         Objects.equals(this.height, mainSceneComponent.height) &&
         Objects.equals(this.id, mainSceneComponent.id) &&
@@ -328,7 +350,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(blockMovement, codes, colider, gameDefinition, height, id, respawn, rotation, showInRadar, type, width, x, y);
+    return java.util.Objects.hash(blockMovement, codes, colider, color, gameDefinition, height, id, respawn, rotation, showInRadar, type, width, x, y);
   }
 
   @Override
@@ -339,6 +361,7 @@ import java.util.Objects;
     sb.append("    blockMovement: ").append(toIndentedString(blockMovement)).append("\n");
     sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
     sb.append("    colider: ").append(toIndentedString(colider)).append("\n");
+    sb.append("    color: ").append(toIndentedString(color)).append("\n");
     sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
     sb.append("    height: ").append(toIndentedString(height)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
