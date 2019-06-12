@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainSceneComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-09T21:00:30.254Z[GMT]")public class MainSceneComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-11T04:58:57.195Z[GMT]")public class MainSceneComponent {
 
   @SerializedName("blockMovement")
   private Boolean blockMovement = null;
@@ -33,6 +33,9 @@ import java.util.Objects;
   @SerializedName("colider")
   private Boolean colider = null;
 
+  @SerializedName("color")
+  private String color = null;
+
   @SerializedName("gameDefinition")
   private Integer gameDefinition = null;
 
@@ -42,9 +45,6 @@ import java.util.Objects;
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("name")
-  private String name = null;
-
   @SerializedName("respawn")
   private Boolean respawn = null;
 
@@ -53,6 +53,9 @@ import java.util.Objects;
 
   @SerializedName("showInRadar")
   private Boolean showInRadar = null;
+
+  @SerializedName("type")
+  private String type = null;
 
   @SerializedName("width")
   private Integer width = null;
@@ -122,6 +125,24 @@ import java.util.Objects;
   public void setColider(Boolean colider) {
     this.colider = colider;
   }
+  public MainSceneComponent color(String color) {
+    this.color = color;
+    return this;
+  }
+
+  
+
+  /**
+  * Get color
+  * @return color
+  **/
+  @Schema(description = "")
+  public String getColor() {
+    return color;
+  }
+  public void setColor(String color) {
+    this.color = color;
+  }
   public MainSceneComponent gameDefinition(Integer gameDefinition) {
     this.gameDefinition = gameDefinition;
     return this;
@@ -176,24 +197,6 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainSceneComponent name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  
-
-  /**
-  * Get name
-  * @return name
-  **/
-  @Schema(description = "")
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
   public MainSceneComponent respawn(Boolean respawn) {
     this.respawn = respawn;
     return this;
@@ -247,6 +250,24 @@ import java.util.Objects;
   }
   public void setShowInRadar(Boolean showInRadar) {
     this.showInRadar = showInRadar;
+  }
+  public MainSceneComponent type(String type) {
+    this.type = type;
+    return this;
+  }
+
+  
+
+  /**
+  * Get type
+  * @return type
+  **/
+  @Schema(description = "")
+  public String getType() {
+    return type;
+  }
+  public void setType(String type) {
+    this.type = type;
   }
   public MainSceneComponent width(Integer width) {
     this.width = width;
@@ -314,13 +335,14 @@ import java.util.Objects;
     return Objects.equals(this.blockMovement, mainSceneComponent.blockMovement) &&
         Objects.equals(this.codes, mainSceneComponent.codes) &&
         Objects.equals(this.colider, mainSceneComponent.colider) &&
+        Objects.equals(this.color, mainSceneComponent.color) &&
         Objects.equals(this.gameDefinition, mainSceneComponent.gameDefinition) &&
         Objects.equals(this.height, mainSceneComponent.height) &&
         Objects.equals(this.id, mainSceneComponent.id) &&
-        Objects.equals(this.name, mainSceneComponent.name) &&
         Objects.equals(this.respawn, mainSceneComponent.respawn) &&
         Objects.equals(this.rotation, mainSceneComponent.rotation) &&
         Objects.equals(this.showInRadar, mainSceneComponent.showInRadar) &&
+        Objects.equals(this.type, mainSceneComponent.type) &&
         Objects.equals(this.width, mainSceneComponent.width) &&
         Objects.equals(this.x, mainSceneComponent.x) &&
         Objects.equals(this.y, mainSceneComponent.y);
@@ -328,7 +350,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(blockMovement, codes, colider, gameDefinition, height, id, name, respawn, rotation, showInRadar, width, x, y);
+    return java.util.Objects.hash(blockMovement, codes, colider, color, gameDefinition, height, id, respawn, rotation, showInRadar, type, width, x, y);
   }
 
   @Override
@@ -339,13 +361,14 @@ import java.util.Objects;
     sb.append("    blockMovement: ").append(toIndentedString(blockMovement)).append("\n");
     sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
     sb.append("    colider: ").append(toIndentedString(colider)).append("\n");
+    sb.append("    color: ").append(toIndentedString(color)).append("\n");
     sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
     sb.append("    height: ").append(toIndentedString(height)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    respawn: ").append(toIndentedString(respawn)).append("\n");
     sb.append("    rotation: ").append(toIndentedString(rotation)).append("\n");
     sb.append("    showInRadar: ").append(toIndentedString(showInRadar)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    width: ").append(toIndentedString(width)).append("\n");
     sb.append("    x: ").append(toIndentedString(x)).append("\n");
     sb.append("    y: ").append(toIndentedString(y)).append("\n");

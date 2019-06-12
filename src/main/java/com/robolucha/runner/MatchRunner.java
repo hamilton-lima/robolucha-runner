@@ -27,7 +27,6 @@ import com.robolucha.game.event.OnHitOtherEvent;
 import com.robolucha.game.processor.BulletsProcessor;
 import com.robolucha.game.processor.IRespawnProcessor;
 import com.robolucha.game.processor.PunchesProcessor;
-import com.robolucha.game.processor.RespawnProcessor;
 import com.robolucha.game.processor.RespawnProcessorFactory;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MessageVO;
@@ -47,6 +46,7 @@ import io.reactivex.subjects.PublishSubject;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.MainSceneComponent;
 
 /**
  * main match logic
@@ -85,6 +85,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	static Logger logger = Logger.getLogger(MatchRunner.class);
 
 	LinkedHashMap<Integer, LuchadorRunner> runners;
+	List<MainSceneComponent> sceneComponents;
+
 	boolean alive;
 	private IRespawnProcessor respawnProcessor;
 
@@ -123,6 +125,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		runOnActive.add(new ChangeStateAction());
 
 		runners = new LinkedHashMap<Integer, LuchadorRunner>();
+		sceneComponents = new LinkedList<MainSceneComponent>();
+		addSceneComponents();
 
 		respawnProcessor = RespawnProcessorFactory.get(this);
 
@@ -144,6 +148,14 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		onInit = PublishSubject.create();
 
 		logger.info("MatchRunner created:" + this);
+	}
+
+	private void addSceneComponents() {
+		sceneComponents.addAll(gameDefinition.getSceneComponents());
+	}
+
+	public List<MainSceneComponent> getSceneComponents() {
+		return sceneComponents;
 	}
 
 	public MainMatch getMatch() {
