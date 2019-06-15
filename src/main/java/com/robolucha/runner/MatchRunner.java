@@ -501,9 +501,20 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		boolean result = true;
 
-		Iterator iterator = runners.keySet().iterator();
+		Iterator<MainSceneComponent> sceneIterator = sceneComponents.iterator();
+		while (sceneIterator.hasNext()) {
+			MainSceneComponent current = sceneIterator.next();
+			if( current.isColider() && Calc.intersectSceneComponentWithLuchador(current, source) ) {
+				if( current.isBlockMovement() ) {
+					result = false;
+					break;
+				}
+			}
+		}
+
+		Iterator<Integer> iterator = runners.keySet().iterator();
 		while (iterator.hasNext()) {
-			Object key = (Object) iterator.next();
+			Integer key = iterator.next();
 			LuchadorRunner target = runners.get(key);
 
 			if (logger.isDebugEnabled()) {
