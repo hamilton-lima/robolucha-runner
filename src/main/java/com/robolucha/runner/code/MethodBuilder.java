@@ -30,8 +30,8 @@ public class MethodBuilder {
 		String script = "";
 		Integer codeId = 0;
 		String key = null;
-		
-		HashMap<String, MethodDefinition> methods = ScriptDefinitionFactory.getInstance().getDefault()
+
+		HashMap<String, MethodDefinition> methods = ScriptDefinitionFactory.getInstance().getLuchadorScript()
 				.getDefaultMethods();
 
 		Iterator<String> iterator = methods.keySet().iterator();
@@ -52,9 +52,9 @@ public class MethodBuilder {
 
 			logger.debug("defining code: key=" + key + ", script=" + script);
 			MethodDefinition definition = methods.get(key);
-            logger.debug("Using method definition: " + definition);
+			logger.debug("Using method definition: " + definition);
 
-            buffer.append(definition.getStart());
+			buffer.append(definition.getStart());
 			buffer.append(script);
 			buffer.append(definition.getEnd());
 
@@ -114,8 +114,8 @@ public class MethodBuilder {
 		String script = code.getScript();
 		Integer codeId = code.getId();
 		String key = code.getEvent();
-		
-		ScriptDefinition scriptDef = ScriptDefinitionFactory.getInstance().getDefault();
+
+		ScriptDefinition scriptDef = ScriptDefinitionFactory.getInstance().getLuchadorScript();
 		HashMap<String, MethodDefinition> methods = scriptDef.getDefaultMethods();
 
 		MethodDefinition definition = methods.get(key);

@@ -242,7 +242,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			}
 		}
 
-		logger.info("[Bruce Buffer voice] It's TIME, starting game: " + gameDefinition);
+		logger.info("[Bruce Buffer voice] It's TIME, starting game: " + JSONFormat.clean(gameDefinition.toString()));
 
 		// TODO: reduce to one single event
 		onMatchStart.onNext(new MatchEventVOStart());

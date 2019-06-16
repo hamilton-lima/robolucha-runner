@@ -68,10 +68,10 @@ public class LuchadorRunnerTest {
         LuchadorRunner one = new LuchadorRunner(l1, runner);
         one.run("start");
 
-        while (one.getCurrentRunner() != null) {
-            // wait for the runner to complete
-            Thread.sleep(50);
-        }
+//        while (one.getCurrentRunner() != null) {
+//            // wait for the runner to complete
+//            Thread.sleep(50);
+//        }
 
         // assertTrue(!one.isActive());
         assertTrue("verificar se codigo com erro fica com excecao apos tentar atualizar codigo com defeito",

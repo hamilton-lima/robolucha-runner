@@ -20,12 +20,12 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 
 public class LuaScriptDefinitionTest {
 
-	LuaScriptDefinition definition;
+	LuchadorLuaScriptDefinition definition;
 	LuchadorScriptFacade facade;
 
 	@Before
 	public void setup() {
-		definition = new LuaScriptDefinition();
+		definition = new LuchadorLuaScriptDefinition();
 		facade = definition.buildFacade(null, "test");
 	}
 

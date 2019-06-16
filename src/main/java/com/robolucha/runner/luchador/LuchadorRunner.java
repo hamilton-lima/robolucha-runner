@@ -26,11 +26,10 @@ import com.robolucha.models.MatchStateProvider;
 import com.robolucha.models.ScoreVO;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.RespawnPoint;
+import com.robolucha.runner.code.LuchadorScriptDefinition;
 import com.robolucha.runner.code.MethodBuilder;
 import com.robolucha.runner.code.MethodNames;
-import com.robolucha.runner.code.ScriptDefinition;
 import com.robolucha.runner.code.ScriptDefinitionFactory;
-import com.robolucha.runner.code.ScriptRunner;
 import com.robolucha.shared.Calc;
 
 import io.swagger.client.model.MainCode;
@@ -75,7 +74,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private int size;
 	private int halfSize;
 
-	private ScriptDefinition scriptDefinition;
+	private LuchadorScriptDefinition scriptDefinition;
 	private int exceptionCounter;
 
 	private LuchadorMatchState state;
@@ -86,7 +85,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private double fireCoolDown;
 	private double punchCoolDown;
 	private double respawnCoolDown;
-	ScriptRunner currentRunner;
+	LuchadorScriptRunner currentRunner;
 
 	private LuchadorUpdateListener luchadorUpdatelistener;
 
@@ -103,7 +102,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.events = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorEvent>());
 		this.messages = new LinkedList<MessageVO>();
 
-		scriptDefinition = ScriptDefinitionFactory.getInstance().getDefault();
+		scriptDefinition = ScriptDefinitionFactory.getInstance().getLuchadorScript();
 		
 		state = new LuchadorMatchState();
 		state.setId(component.getId());
@@ -392,7 +391,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			}
 
 			if (canRunCode) {
-				currentRunner = new ScriptRunner(this, codeName, parameter);
+				currentRunner = new LuchadorScriptRunner(this, codeName, parameter);
 				Thread thread = new Thread(currentRunner);
 				thread.start();
 			}
@@ -851,21 +850,12 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		return exceptionCounter;
 	}
 
-	@Override
 	public long getId() {
 		return gameComponent.getId();
 	}
 
-	public ScriptDefinition getScriptDefinition() {
+	public LuchadorScriptDefinition getScriptDefinition() {
 		return scriptDefinition;
-	}
-
-	public void setScriptDefinition(ScriptDefinition scriptDefinition) {
-		this.scriptDefinition = scriptDefinition;
-	}
-
-	public ScriptRunner getCurrentRunner() {
-		return currentRunner;
 	}
 
 	public void setUpdateListener(LuchadorUpdateListener luchadorUpdatelistener) {

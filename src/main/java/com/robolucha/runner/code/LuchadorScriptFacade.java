@@ -1,6 +1,6 @@
 package com.robolucha.runner.code;
 
-public interface LuchadorScriptFacade {
+public interface LuchadorScriptFacade extends ScriptFacade{
 
 	void move(int amount);
 

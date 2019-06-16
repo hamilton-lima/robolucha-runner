@@ -6,46 +6,28 @@ import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 import com.robolucha.runner.code.MethodDefinition;
-import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.code.ScriptDefinition;
-import com.robolucha.runner.code.LuchadorScriptFacade;
-import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.runner.code.ScriptFacade;
 
-public class LuaScriptDefinition implements ScriptDefinition {
+public abstract class LuaScriptDefinition implements ScriptDefinition {
 
-	private HashMap<String, MethodDefinition> methods;
-	private LuaVM lua;
+	protected HashMap<String, MethodDefinition> methods;
+	protected LuaVM lua;
 
-	@Override
 	public HashMap<String, MethodDefinition> getDefaultMethods() {
 		return methods;
 	}
 
 	public LuaScriptDefinition() {
 		methods = new HashMap<String, MethodDefinition>();
-
-		addMethod(MethodNames.ON_START, "function onStart()\n", "\nend");
-		addMethod(MethodNames.ON_REPEAT, "function onRepeat()\n", "\nend");
-		addMethod(MethodNames.ON_HIT_WALL, "function onHitWall()\n", "\nend");
-		addMethod(MethodNames.ON_HIT_OTHER, "function onHitOther(other)\n", "\nend");
-		addMethod(MethodNames.ON_FOUND, "function onFound(other,chance)\n", "\nend");
-		addMethod(MethodNames.ON_GOT_DAMAGE, "function onGotDamage(other,amount)\n", "\nend");
-		addMethod(MethodNames.ON_LISTEN, "function onListen(other,message)\n", "\nend");
-
 		lua = new LuaVM();
 	}
 
-	private void addMethod(String name, String start, String end) {
-		methods.put(name, new MethodDefinition(name, start, end));
-	}
-
-	@Override
 	public void afterCompile() {
 
 	}
 
-	@Override
-	public void run(LuchadorScriptFacade facade, String name, Object... parameter) {
+	public void run(ScriptFacade facade, String name, Object... parameter) {
 
 		lua.put("__internal", facade);
 
@@ -88,25 +70,10 @@ public class LuaScriptDefinition implements ScriptDefinition {
 		return lua.getDouble(script);
 	}
 
-	@Override
 	public void set(String name, Object value) throws Exception {
 		lua.put(name, value);
 	}
 
-	@Override
-	public void loadDefaultLibraries() throws Exception {
-		ScriptReader reader = new ScriptReader();
-		
-		String defaultMethods = reader.readDefinitions(this.getClass(), "default-methods.lua");
-		String nmsColors = reader.readDefinitions(this.getClass(), "nmscolor.lua");
-
-		lua.eval(defaultMethods);
-		lua.eval(nmsColors);
-	}
-
-	@Override
-	public LuchadorScriptFacade buildFacade(LuchadorRunner luchadorRunner, String codeName) {
-		return new LuaLuchadorFacade(luchadorRunner, codeName);
-	}
+	public abstract void loadDefaultLibraries() throws Exception;
 
 }
