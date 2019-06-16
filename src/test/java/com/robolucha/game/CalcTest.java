@@ -67,32 +67,22 @@ public class CalcTest {
 	@Test
 	public void testIntersectSceneComponentWithLuchadorINSIDE() throws Exception {
 
-		MatchRunner match = MockMatchRunner.build();
-		match.getGameDefinition().setLuchadorSize(60);
-
-		MainGameComponent a = MockLuchador.build(1);
-		LuchadorRunner runnerA = match.add(a).blockingFirst();
-
-		runnerA.getState().setX(50);
-		runnerA.getState().setY(50);
-
+		MainGameDefinition gd = MockMatchRunner.buildGameDefinition();
+		double radius = gd.getLuchadorSize() / 2;
 		MainSceneComponent sc = new MainSceneComponent();
 		sc.setX(50);
 		sc.setY(50);
 		sc.setWidth(200);
 		sc.setHeight(300);
 
-		assertTrue(Calc.intersectSceneComponentWithLuchador(sc, runnerA));
+		assertTrue(Calc.intersectCirclewithSceneComponent(50, 50, radius, sc));
 	}
 
 	@Test
 	public void testIntersectSceneComponentWithLuchadorOUTSIDE() throws Exception {
 
-		MatchRunner match = MockMatchRunner.build();
-		match.getGameDefinition().setLuchadorSize(60);
-
-		MainGameComponent a = MockLuchador.build(1);
-		LuchadorRunner runnerA = match.add(a).blockingFirst();
+		MainGameDefinition gd = MockMatchRunner.buildGameDefinition();
+		double radius = gd.getLuchadorSize() / 2;
 
 		MainSceneComponent sc = new MainSceneComponent();
 		sc.setX(50);
@@ -100,22 +90,15 @@ public class CalcTest {
 		sc.setWidth(200);
 		sc.setHeight(100);
 
-		double radius = match.getGameDefinition().getLuchadorSize() / 2;
-		int x = (int) (sc.getX() + sc.getWidth() + radius +1);
-		runnerA.getState().setX(x);
-		runnerA.getState().setY(50);
-
-		assertFalse(Calc.intersectSceneComponentWithLuchador(sc, runnerA));
+		int x = (int) (sc.getX() + sc.getWidth() + radius + 1);
+		assertFalse(Calc.intersectCirclewithSceneComponent(x, 50, radius, sc));
 	}
 
 	@Test
 	public void testIntersectSceneComponentWithLuchadorTOUCHING() throws Exception {
 
-		MatchRunner match = MockMatchRunner.build();
-		match.getGameDefinition().setLuchadorSize(60);
-
-		MainGameComponent a = MockLuchador.build(1);
-		LuchadorRunner runnerA = match.add(a).blockingFirst();
+		MainGameDefinition gd = MockMatchRunner.buildGameDefinition();
+		double radius = gd.getLuchadorSize() / 2;
 
 		MainSceneComponent sc = new MainSceneComponent();
 		sc.setX(50);
@@ -123,12 +106,8 @@ public class CalcTest {
 		sc.setWidth(200);
 		sc.setHeight(100);
 
-		double radius = match.getGameDefinition().getLuchadorSize() / 2;
-		int x = (int) (sc.getX() + sc.getWidth() + radius -1);
-		runnerA.getState().setX(x);
-		runnerA.getState().setY(50);
-
-		assertTrue(Calc.intersectSceneComponentWithLuchador(sc, runnerA));
+		int x = (int) (sc.getX() + sc.getWidth() + radius );
+		assertFalse(Calc.intersectCirclewithSceneComponent(x, 50, radius, sc));
 	}
 
 }

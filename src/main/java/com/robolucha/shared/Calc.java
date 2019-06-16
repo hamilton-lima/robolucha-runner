@@ -119,16 +119,14 @@ public class Calc {
 		return (dist < (radiusA + radiusB));
 	}
 
-	public static boolean intersectSceneComponentWithLuchador(MainSceneComponent component, LuchadorRunner luchador) {
-
-		double radius = luchador.getSize() / 2.0;
+	public static boolean intersectCirclewithSceneComponent(double x, double y, double radius, MainSceneComponent component) {
 
 		// Finds the closest point from the rectangle to the center of the luchador
-		double minX = Math.min(luchador.getState().x, component.getX() + component.getWidth());
-		double DeltaX = luchador.getState().x - Math.max(component.getX(), minX);
+		double minX = Math.min(x, component.getX() + component.getWidth());
+		double DeltaX = x - Math.max(component.getX(), minX);
 
-		double minY = Math.min(luchador.getState().y, component.getY() + component.getHeight());
-		double DeltaY = luchador.getState().y - Math.max(component.getY(), minY);
+		double minY = Math.min(y, component.getY() + component.getHeight());
+		double DeltaY = y - Math.max(component.getY(), minY);
 
 		// calculate the distance from the closest point and the luchador center
 		double dist = Math.sqrt(Math.pow(DeltaX, 2) + Math.pow(DeltaY, 2));

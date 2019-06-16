@@ -57,7 +57,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private static final long SMALL_SLEEP = 5;
 	private static final String WALL_TYPE = "wall";
-	
+
 	private SafeList bullets;
 	private SafeList punches;
 
@@ -174,7 +174,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	}
 
 	public PublishSubject<LuchadorRunner> add(final MainGameComponent component) throws Exception {
-		
+
 		if (runners.containsKey(component.getId())) {
 			String message = "trying to add luchador that is already in the match, id: " + component.getId();
 			logger.info(message);
@@ -282,13 +282,14 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			timeElapsed = System.currentTimeMillis() - timeStart;
 
 			// only controls match duration if gamedefinition.duration > 0
-			if (gameDefinition.getDuration() > 0 ) {
+			if (gameDefinition.getDuration() > 0) {
 				if (timeElapsed > gameDefinition.getDuration()) {
-					logger.info("end of match time elapsed time:" + timeElapsed + " max:" + gameDefinition.getDuration());
+					logger.info(
+							"end of match time elapsed time:" + timeElapsed + " max:" + gameDefinition.getDuration());
 					break;
 				}
 			}
-			
+
 			if ((System.currentTimeMillis() - logStart) > logThreshold) {
 				logStart = System.currentTimeMillis();
 				logger.info("MatchRunner active: " + gameDefinition.getName() + " FPS: " + gameDefinition.getFps());
@@ -506,19 +507,20 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		}
 
 		boolean result = true;
+		double radius = source.getSize() / 2;
 
-		// needs to go over the entire list to check for collision 
+		// needs to go over the entire list to check for collision
 		Iterator<MainSceneComponent> sceneIterator = sceneComponents.iterator();
 		while (sceneIterator.hasNext()) {
 			MainSceneComponent current = sceneIterator.next();
-			if( current.isColider() && Calc.intersectSceneComponentWithLuchador(current, source) ) {
-				eventsRunner.onEvent( EventType.ON_HIT, current, source);
+			if (current.isColider() && Calc.intersectCirclewithSceneComponent(x, y, radius, current)) {
+				eventsRunner.onEvent(EventType.ON_HIT, current, source);
 
-				if( WALL_TYPE.equals(current.getType())){
+				if (WALL_TYPE.equals(current.getType())) {
 					source.addEvent(new OnHitWallEvent(source.getState().getPublicState()));
 				}
 
-				if( current.isBlockMovement() ) {
+				if (current.isBlockMovement()) {
 					result = false;
 				}
 			}
