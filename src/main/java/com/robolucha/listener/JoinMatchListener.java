@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.MatchRunnerAPI;
+import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -46,11 +47,11 @@ public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable {
 
 	@Override
 	public void accept(MainJoinMatch joinMatch) throws Exception {
-		logger.info("Luchador wants to join a match " + joinMatch);
+		logger.info("Luchador wants to join a match " + JSONFormat.clean(joinMatch.toString()));
 		MainGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
 				gameDefinition.getId());
 
-		logger.info(">>>>>>>> Luchador found by ID " + luchador);
+		logger.info(">>>>>>>> Luchador found by ID " + JSONFormat.clean(luchador.toString()));
 		runner.addLuchador(luchador);
 	}
 

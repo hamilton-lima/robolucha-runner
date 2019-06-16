@@ -232,7 +232,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		CheckRespawnAction respawnAction = new CheckRespawnAction(this);
 		RemoveDeadAction removeDeadAction = new RemoveDeadAction(this);
 
-		logger.info("waiting for the minimum participants:" + gameDefinition.getMinParticipants());
+		logger.info("Waiting for the minimum participants: " + gameDefinition.getMinParticipants());
 
 		while (alive && runners.size() < gameDefinition.getMinParticipants()) {
 			try {
@@ -241,6 +241,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 				logger.error("Interrupted while waiting for participants", e);
 			}
 		}
+
+		logger.info("[Bruce Buffer voice] It's TIME, starting game: " + gameDefinition);
 
 		// TODO: reduce to one single event
 		onMatchStart.onNext(new MatchEventVOStart());
