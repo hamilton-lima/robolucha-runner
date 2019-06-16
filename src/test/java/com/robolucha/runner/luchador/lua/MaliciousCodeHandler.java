@@ -21,7 +21,7 @@ public class MaliciousCodeHandler {
 	@Test
 	@SuppressWarnings("unused")
 	public void testJavaThreads() throws Exception {
-		String script = "lua/java-threads.lua";
+		String script = "lua-test/java-threads.lua";
 		LuajEngineWithoutRestrictions noRestriction = new LuajEngineWithoutRestrictions();
 		noRestriction.runFromFile(script);
 
@@ -37,7 +37,7 @@ public class MaliciousCodeHandler {
 	@SuppressWarnings("unused")
 	@Test
 	public void testJavaFileReader() throws Exception {
-		String script = "lua/filereader.lua";
+		String script = "lua-test/filereader.lua";
 		LuajEngineWithoutRestrictions noRestriction = new LuajEngineWithoutRestrictions();
 		String text = (String) noRestriction.runFromFile(script);
 		assertEquals("foo.bar", text);
@@ -54,7 +54,7 @@ public class MaliciousCodeHandler {
 	@Test
 	@SuppressWarnings("unused")
 	public void testForever() throws Exception {
-		String script = "lua/forever.lua";
+		String script = "lua-test/forever.lua";
 		LuajEngineWithoutRestrictions noRestriction = new LuajEngineWithoutRestrictions();
 		Chunk chunk = noRestriction.compileFromFile(script);
 		assertNotNull(chunk);
