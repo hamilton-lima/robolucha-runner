@@ -1,4 +1,4 @@
-package com.robolucha.runner.luchador.lua;
+package com.robolucha.runner.code.lua;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

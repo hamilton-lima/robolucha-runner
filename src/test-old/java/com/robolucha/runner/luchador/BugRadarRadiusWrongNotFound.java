@@ -14,6 +14,7 @@ import com.robolucha.game.event.OnFoundEvent;
 import com.robolucha.game.vo.LuchadorPublicStateVO;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
+import com.robolucha.runner.code.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 

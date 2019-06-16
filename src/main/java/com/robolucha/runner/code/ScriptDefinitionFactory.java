@@ -1,6 +1,6 @@
-package com.robolucha.runner.luchador;
+package com.robolucha.runner.code;
 
-import com.robolucha.runner.luchador.lua.LuaScriptDefinition;
+import com.robolucha.runner.code.lua.LuaScriptDefinition;
 
 public class ScriptDefinitionFactory {
 	private static ScriptDefinitionFactory instance = new ScriptDefinitionFactory();
@@ -13,7 +13,7 @@ public class ScriptDefinitionFactory {
 		return instance;
 	}
 
-	ScriptDefinition getDefault() {
+	public ScriptDefinition getDefault() {
 		return new LuaScriptDefinition();
 	}
 }

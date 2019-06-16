@@ -1,9 +1,11 @@
-package com.robolucha.runner.luchador.lua;
+package com.robolucha.runner.code.lua;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.robolucha.runner.code.lua.LuaVM;
 
 public class KeepIndependentStates {
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.github.javafaker.Faker;
 import com.robolucha.models.LuchadorMatchState;
-import com.robolucha.runner.luchador.MethodNames;
+import com.robolucha.runner.code.MethodNames;
 
 import io.swagger.client.model.MainCode;
 import io.swagger.client.model.MainGameComponent;

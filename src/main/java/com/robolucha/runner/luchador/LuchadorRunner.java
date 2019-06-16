@@ -26,6 +26,11 @@ import com.robolucha.models.MatchStateProvider;
 import com.robolucha.models.ScoreVO;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.RespawnPoint;
+import com.robolucha.runner.code.MethodBuilder;
+import com.robolucha.runner.code.MethodNames;
+import com.robolucha.runner.code.ScriptDefinition;
+import com.robolucha.runner.code.ScriptDefinitionFactory;
+import com.robolucha.runner.code.ScriptRunner;
 import com.robolucha.shared.Calc;
 
 import io.swagger.client.model.MainCode;
@@ -71,7 +76,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private int halfSize;
 
 	private ScriptDefinition scriptDefinition;
-	int exceptionCounter;
+	private int exceptionCounter;
 
 	private LuchadorMatchState state;
 
@@ -88,7 +93,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	public LuchadorRunner(MainGameComponent component, MatchRunner matchRunner) {
 		this.gameComponent = component;
 		this.matchRunner = matchRunner;
-		this.exceptionCounter = 0;
+		this.setExceptionCounter(0);
 
 		this.size = matchRunner.getGameDefinition().getLuchadorSize();
 		this.halfSize = this.size / 2;
@@ -286,7 +291,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		state.score = new ScoreVO(gameComponent.getId(), gameComponent.getName());
 	}
 
-	void eval(String name, String script) throws Exception {
+	public void eval(String name, String script) throws Exception {
 		logger.debug(">> eval name=" + name + " script=" + script);
 		scriptDefinition.eval(script);
 	}
@@ -865,6 +870,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public void setUpdateListener(LuchadorUpdateListener luchadorUpdatelistener) {
 		this.luchadorUpdatelistener = luchadorUpdatelistener;
+	}
+
+	public void setExceptionCounter(int exceptionCounter) {
+		this.exceptionCounter = exceptionCounter;
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.robolucha.runner.luchador.lua;
+package com.robolucha.runner.code.lua;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.luaj.vm2.Varargs;
 import org.luaj.vm2.ast.Chunk;
+
+import com.robolucha.runner.code.lua.LuaVM;
 
 public class MaliciousCodeHandler {
 

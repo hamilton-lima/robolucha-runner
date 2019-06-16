@@ -1,8 +1,8 @@
-package com.robolucha.runner.luchador;
+package com.robolucha.runner.code;
 
 import java.util.HashMap;
 
-import com.robolucha.runner.luchador.lua.ScriptFacade;
+import com.robolucha.runner.luchador.LuchadorRunner;
 
 public interface ScriptDefinition {
 
@@ -10,7 +10,7 @@ public interface ScriptDefinition {
 
 	void afterCompile();
 
-	void run(ScriptFacade facade, String name, Object... parameter);
+	void run(LuchadorScriptFacade facade, String name, Object... parameter);
 
 	void eval(String script) throws Exception;
 
@@ -24,6 +24,6 @@ public interface ScriptDefinition {
 
 	void loadDefaultLibraries() throws Exception;
 
-	ScriptFacade buildFacade(LuchadorRunner luchadorRunner, String codeName);
+	LuchadorScriptFacade buildFacade(LuchadorRunner luchadorRunner, String codeName);
 
 }

@@ -1,8 +1,9 @@
-package com.robolucha.runner.luchador.lua;
+package com.robolucha.runner.code.lua;
 
 import org.apache.log4j.Logger;
 
 import com.robolucha.game.vo.MessageVO;
+import com.robolucha.runner.code.LuchadorScriptFacade;
 import com.robolucha.runner.luchador.LuchadorRunner;
 
 /**
@@ -10,14 +11,14 @@ import com.robolucha.runner.luchador.LuchadorRunner;
  * @author hamiltonlima
  *
  */
-public class LuaFacade implements ScriptFacade {
+public class LuaLuchadorFacade implements LuchadorScriptFacade {
 
-	private static Logger logger = Logger.getLogger(LuaFacade.class);
+	private static Logger logger = Logger.getLogger(LuaLuchadorFacade.class);
 	private LuchadorRunner owner;
 	private String lastCall = null;
 	private String codeName;
 
-	public LuaFacade(LuchadorRunner owner, String codeName) {
+	public LuaLuchadorFacade(LuchadorRunner owner, String codeName) {
 		this.owner = owner;
 		this.codeName = codeName;
 	}

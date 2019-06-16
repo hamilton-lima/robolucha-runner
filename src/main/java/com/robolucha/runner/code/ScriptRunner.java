@@ -1,11 +1,11 @@
-package com.robolucha.runner.luchador;
+package com.robolucha.runner.code;
 
 import java.util.Arrays;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import com.robolucha.runner.luchador.lua.ScriptFacade;
+import com.robolucha.runner.luchador.LuchadorRunner;
 
 public class ScriptRunner implements Runnable {
 
@@ -16,7 +16,7 @@ public class ScriptRunner implements Runnable {
 	private LuchadorRunner runner;
 	private boolean finished;
 
-	ScriptRunner(LuchadorRunner runner, String codeName, Object... parameter) {
+	public ScriptRunner(LuchadorRunner runner, String codeName, Object... parameter) {
 		this.codeName = codeName;
 		this.parameter = parameter;
 		this.runner = runner;
@@ -45,7 +45,7 @@ public class ScriptRunner implements Runnable {
 				logger.debug("== running code " + codeName + "()");
 			}
 
-			ScriptFacade facade = runner.getScriptDefinition().buildFacade(runner, codeName);
+			LuchadorScriptFacade facade = runner.getScriptDefinition().buildFacade(runner, codeName);
 			runner.getScriptDefinition().run(facade, codeName, parameter);
 
 		} catch (Exception e) {
@@ -56,7 +56,7 @@ public class ScriptRunner implements Runnable {
 				logger.error(message);
 			}
 
-			runner.exceptionCounter++;
+			runner.setExceptionCounter(runner.getExceptionCounter() + 1);
 			runner.saveExceptionToCode(codeName, e.getMessage());
 
 		} finally {

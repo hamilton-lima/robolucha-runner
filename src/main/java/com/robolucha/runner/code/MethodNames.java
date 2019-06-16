@@ -1,4 +1,4 @@
-package com.robolucha.runner.luchador;
+package com.robolucha.runner.code;
 
 public interface MethodNames {
 

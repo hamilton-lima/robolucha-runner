@@ -1,4 +1,4 @@
-package com.robolucha.runner.luchador.lua;
+package com.robolucha.runner.code.lua;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -11,14 +11,17 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.robolucha.runner.code.MethodDefinition;
+import com.robolucha.runner.code.MethodNames;
+import com.robolucha.runner.code.LuchadorScriptFacade;
+import com.robolucha.runner.code.lua.LuaLuchadorFacade;
+import com.robolucha.runner.code.lua.LuaScriptDefinition;
 import com.robolucha.runner.luchador.LuchadorRunner;
-import com.robolucha.runner.luchador.MethodDefinition;
-import com.robolucha.runner.luchador.MethodNames;
 
 public class LuaScriptDefinitionTest {
 
 	LuaScriptDefinition definition;
-	ScriptFacade facade;
+	LuchadorScriptFacade facade;
 
 	@Before
 	public void setup() {
@@ -147,7 +150,7 @@ public class LuaScriptDefinitionTest {
 		assertTrue(definition != null);
 	}
 
-	private class LuaFacadeLocal extends LuaFacade {
+	private class LuaFacadeLocal extends LuaLuchadorFacade {
 
 		public LuaFacadeLocal(LuchadorRunner owner, String codeName) {
 			super(owner, codeName);
