@@ -24,6 +24,7 @@ import com.robolucha.game.event.LuchadorEvent;
 import com.robolucha.game.event.LuchadorEventListener;
 import com.robolucha.game.event.MatchEventListener;
 import com.robolucha.game.event.OnHitOtherEvent;
+import com.robolucha.game.event.OnHitWallEvent;
 import com.robolucha.game.processor.BulletsProcessor;
 import com.robolucha.game.processor.IRespawnProcessor;
 import com.robolucha.game.processor.PunchesProcessor;
@@ -37,6 +38,7 @@ import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.monitor.ThreadStatus;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
+import com.robolucha.runner.SceneComponentEventsRunner.EventType;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.LutchadorRunnerCreator;
 import com.robolucha.shared.Calc;
@@ -54,6 +56,8 @@ import io.swagger.client.model.MainSceneComponent;
 public class MatchRunner implements Runnable, ThreadStatus {
 
 	private static final long SMALL_SLEEP = 5;
+	private static final String WALL_TYPE = "wall";
+	
 	private SafeList bullets;
 	private SafeList punches;
 
@@ -99,6 +103,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private MatchEventHandler eventHandler;
 	private LutchadorRunnerCreator luchadorCreator;
+	private SceneComponentEventsRunner eventsRunner;
 	private MainMatch match;
 	private ServerMonitor monitor;
 
@@ -127,6 +132,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		runners = new LinkedHashMap<Integer, LuchadorRunner>();
 		sceneComponents = new LinkedList<MainSceneComponent>();
 		addSceneComponents();
+		eventsRunner = new SceneComponentEventsRunner();
 
 		respawnProcessor = RespawnProcessorFactory.get(this);
 
@@ -501,13 +507,19 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		boolean result = true;
 
+		// needs to go over the entire list to check for collision 
 		Iterator<MainSceneComponent> sceneIterator = sceneComponents.iterator();
 		while (sceneIterator.hasNext()) {
 			MainSceneComponent current = sceneIterator.next();
 			if( current.isColider() && Calc.intersectSceneComponentWithLuchador(current, source) ) {
+				eventsRunner.onEvent( EventType.ON_HIT, current, source);
+
+				if( WALL_TYPE.equals(current.getType())){
+					source.addEvent(new OnHitWallEvent(source.getState().getPublicState()));
+				}
+
 				if( current.isBlockMovement() ) {
 					result = false;
-					break;
 				}
 			}
 		}
