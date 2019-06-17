@@ -132,7 +132,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		runners = new LinkedHashMap<Integer, LuchadorRunner>();
 		sceneComponents = new LinkedList<MainSceneComponent>();
 		addSceneComponents();
-		eventsRunner = new SceneComponentEventsRunner();
+		
+		eventsRunner = new SceneComponentEventsRunner(this);
 
 		respawnProcessor = RespawnProcessorFactory.get(this);
 

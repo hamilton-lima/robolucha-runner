@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.robolucha.runner.luchador.LuchadorRunner;
-
 import io.swagger.client.model.MainCode;
 
 /**
@@ -24,15 +22,14 @@ public class MethodBuilder {
 		return instance;
 	}
 
-	public void buildAll(LuchadorRunner runner, List<MainCode> codes) {
+	public void buildAll(ScriptDefinition scriptDef, List<MainCode> codes) {
 
 		HashMap<String, MainCode> local = populateLocalHash(codes);
 		String script = "";
 		Integer codeId = 0;
 		String key = null;
 
-		HashMap<String, MethodDefinition> methods = ScriptDefinitionFactory.getInstance().getLuchadorScript()
-				.getDefaultMethods();
+		HashMap<String, MethodDefinition> methods = scriptDef.getDefaultMethods();
 
 		Iterator<String> iterator = methods.keySet().iterator();
 		while (iterator.hasNext()) {
@@ -64,25 +61,9 @@ public class MethodBuilder {
 			}
 
 			try {
-				runner.eval(key, createdSourceMainCode);
+				scriptDef.eval(createdSourceMainCode);
 			} catch (Exception e) {
-				String message = "Error compiling code code.id=" + codeId + " gamecomponent.id="
-						+ runner.getGameComponent().getId();
-
-				if (logger.isDebugEnabled()) {
-					logger.debug(">>>> code=" + code);
-					logger.debug(">>>> error=" + e.getMessage());
-				}
-
-				if (code != null) {
-					runner.saveExceptionToCode(code.getEvent(), e.getMessage());
-				}
-
-				if (logger.isDebugEnabled()) {
-					logger.error(message, e);
-				} else {
-					logger.error(message);
-				}
+				logger.warn("Error compiling code: " + codeId);
 
 				if (key != null) {
 					local.get(key).setException(e.getMessage());
@@ -104,7 +85,7 @@ public class MethodBuilder {
 		return result;
 	}
 
-	public void build(LuchadorRunner runner, MainCode code) {
+	public void build(ScriptDefinition scriptDef, MainCode code) {
 
 		logger.debug("building code: " + code);
 		if (code == null) {
@@ -115,7 +96,6 @@ public class MethodBuilder {
 		Integer codeId = code.getId();
 		String key = code.getEvent();
 
-		ScriptDefinition scriptDef = ScriptDefinitionFactory.getInstance().getLuchadorScript();
 		HashMap<String, MethodDefinition> methods = scriptDef.getDefaultMethods();
 
 		MethodDefinition definition = methods.get(key);
@@ -130,7 +110,7 @@ public class MethodBuilder {
 		logger.debug(createdSourceMainCode);
 
 		try {
-			runner.eval(key, createdSourceMainCode);
+			scriptDef.eval(createdSourceMainCode);
 		} catch (Exception e) {
 			logger.error("error compiling code: " + codeId);
 			if (key != null) {

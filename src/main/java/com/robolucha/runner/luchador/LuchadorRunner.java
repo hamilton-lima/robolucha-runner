@@ -240,7 +240,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 			scriptDefinition.loadDefaultLibraries();
 
-			MethodBuilder.getInstance().buildAll(this, list);
+			MethodBuilder.getInstance().buildAll(scriptDefinition, list);
 			updateInvalidCodes(list);
 
 		} catch (Exception e) {
@@ -290,10 +290,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		state.score = new ScoreVO(gameComponent.getId(), gameComponent.getName());
 	}
 
-	public void eval(String name, String script) throws Exception {
-		logger.debug(">> eval name=" + name + " script=" + script);
-		scriptDefinition.eval(script);
-	}
+//	public void eval(String name, String script) throws Exception {
+//		logger.debug(">> eval name=" + name + " script=" + script);
+//		scriptDefinition.eval(script);
+//	}
 
 	String getString(String script) throws Exception {
 		return scriptDefinition.getString(script);
@@ -310,44 +310,32 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		while (iterator.hasNext()) {
 			MainCode code = iterator.next();
 			if (code.getException() != null && code.getException().trim().length() > 0) {
-
 				onDangerMessage(MessageVO.DANGER, code.getEvent(), code.getException());
-
-				// TODO: add call to save the code errors< or trigger events?
-				/*
-				 * Response response = CodeCrudService.getInstance().doSaramagoUpdate(code, new
-				 * Response());
-				 *
-				 * // se houve falha ao atualizar Code if (response.getErrors().size() > 0) {
-				 * logger.error("erro atualizando CODE no banco de dados : " +
-				 * response.getErrors().toString()); throw new
-				 * Exception(response.getErrors().toString()); }
-				 */
 			}
 
 		}
 
 	}
 
-	public void saveExceptionToCode(String name, String exception) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("save exception to " + name + " exception=" + exception);
-		}
-
-		onDangerMessage(MessageVO.DANGER, name, exception);
-
-		for (MainCode code : getGameComponent().getCodes()) {
-			if (code.getEvent().equals(name)) {
-				code.setException(exception);
-
-				if (logger.isDebugEnabled()) {
-					logger.debug("code atualizado " + code);
-				}
-
-				break;
-			}
-		}
-	}
+//	public void saveExceptionToCode(String name, String exception) {
+//		if (logger.isDebugEnabled()) {
+//			logger.debug("save exception to " + name + " exception=" + exception);
+//		}
+//
+//		onDangerMessage(MessageVO.DANGER, name, exception);
+//
+//		for (MainCode code : getGameComponent().getCodes()) {
+//			if (code.getEvent().equals(name)) {
+//				code.setException(exception);
+//
+//				if (logger.isDebugEnabled()) {
+//					logger.debug("code atualizado " + code);
+//				}
+//
+//				break;
+//			}
+//		}
+//	}
 
 	/**
 	 * Run the code in a separated thread
@@ -784,7 +772,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		setDefaultState(point);
 
 		// make sure start is runned when respawn
-		MethodBuilder.getInstance().build(this, getStartCode());
+		MethodBuilder.getInstance().build(scriptDefinition, getStartCode());
 
 		this.lastRunningError = "";
 		this.active = true;
