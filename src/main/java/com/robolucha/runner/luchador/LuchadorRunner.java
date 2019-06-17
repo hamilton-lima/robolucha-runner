@@ -229,7 +229,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		start = System.currentTimeMillis();
 		try {
 
-			// TODO: REMOVE SCORE FROM STATE
 			updateScriptState(state.getPublicState());
 			scriptDefinition.set("ARENA_WIDTH", matchRunner.getGameDefinition().getArenaWidth());
 			scriptDefinition.set("ARENA_HEIGHT", matchRunner.getGameDefinition().getArenaHeight());
@@ -290,11 +289,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		state.score = new ScoreVO(gameComponent.getId(), gameComponent.getName());
 	}
 
-//	public void eval(String name, String script) throws Exception {
-//		logger.debug(">> eval name=" + name + " script=" + script);
-//		scriptDefinition.eval(script);
-//	}
-
 	String getString(String script) throws Exception {
 		return scriptDefinition.getString(script);
 	}
@@ -317,25 +311,25 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	}
 
-//	public void saveExceptionToCode(String name, String exception) {
-//		if (logger.isDebugEnabled()) {
-//			logger.debug("save exception to " + name + " exception=" + exception);
-//		}
-//
-//		onDangerMessage(MessageVO.DANGER, name, exception);
-//
-//		for (MainCode code : getGameComponent().getCodes()) {
-//			if (code.getEvent().equals(name)) {
-//				code.setException(exception);
-//
-//				if (logger.isDebugEnabled()) {
-//					logger.debug("code atualizado " + code);
-//				}
-//
-//				break;
-//			}
-//		}
-//	}
+	public void saveExceptionToCode(String name, String exception) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("save exception to " + name + " exception=" + exception);
+		}
+
+		onDangerMessage(MessageVO.DANGER, name, exception);
+
+		for (MainCode code : getGameComponent().getCodes()) {
+			if (code.getEvent().equals(name)) {
+				code.setException(exception);
+
+				if (logger.isDebugEnabled()) {
+					logger.debug("code atualizado " + code);
+				}
+
+				break;
+			}
+		}
+	}
 
 	/**
 	 * Run the code in a separated thread

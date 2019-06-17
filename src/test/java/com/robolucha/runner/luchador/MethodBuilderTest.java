@@ -3,11 +3,15 @@ package com.robolucha.runner.luchador;
 import static org.junit.Assert.assertEquals;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.robolucha.runner.MatchRunner;
+import com.robolucha.runner.code.LuchadorScriptDefinition;
 import com.robolucha.runner.code.MethodBuilder;
 import com.robolucha.runner.code.MethodNames;
+import com.robolucha.runner.code.ScriptDefinition;
+import com.robolucha.runner.code.ScriptDefinitionFactory;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
@@ -17,12 +21,16 @@ public class MethodBuilderTest {
 
     private static Logger logger = Logger.getLogger(MethodBuilderTest.class);
 
+	@Before
+	public void setUp() throws Exception {
+		
+	}
+    
     @Test
     public void buildAllWithLuaFunctionInCode() {
-        MatchRunner match = MockMatchRunner.build();
         MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "print('1');");
-        LuchadorRunner runner = new LuchadorRunner(luchador, match);
-        MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
+        LuchadorScriptDefinition def = ScriptDefinitionFactory.getInstance().getLuchadorScript();
+        MethodBuilder.getInstance().buildAll(def, luchador.getCodes());
 
         long errors = luchador.getCodes().stream().filter(code -> code.getException() != null).map(
                 code -> {
@@ -35,10 +43,9 @@ public class MethodBuilderTest {
 
     @Test
     public void buildAllWithLuaVariables() {
-        MatchRunner match = MockMatchRunner.build();
         MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "a = 1;b = 2 \n if a >= b then \n b = a \n end");
-        LuchadorRunner runner = new LuchadorRunner(luchador, match);
-        MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
+        LuchadorScriptDefinition def = ScriptDefinitionFactory.getInstance().getLuchadorScript();
+        MethodBuilder.getInstance().buildAll(def, luchador.getCodes());
 
         long errors = luchador.getCodes().stream().filter(code -> code.getException() != null).map(
                 code -> {
@@ -51,10 +58,9 @@ public class MethodBuilderTest {
 
     @Test
     public void buildAllCheckMoveMethod() {
-        MatchRunner match = MockMatchRunner.build();
         MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
-        LuchadorRunner runner = new LuchadorRunner(luchador, match);
-        MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
+        LuchadorScriptDefinition def = ScriptDefinitionFactory.getInstance().getLuchadorScript();
+        MethodBuilder.getInstance().buildAll(def, luchador.getCodes());
 
         long errors = luchador.getCodes().stream().filter(code -> code.getException() != null).map(
                 code -> {
@@ -67,10 +73,9 @@ public class MethodBuilderTest {
 
     @Test
     public void buildAll() {
-        MatchRunner match = MockMatchRunner.build();
         MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1)");
-        LuchadorRunner runner = new LuchadorRunner(luchador, match);
-        MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
+        LuchadorScriptDefinition def = ScriptDefinitionFactory.getInstance().getLuchadorScript();
+        MethodBuilder.getInstance().buildAll(def, luchador.getCodes());
 
         long errors = luchador.getCodes().stream().filter(code -> code.getException() != null).map(
                 code -> {
@@ -83,10 +88,9 @@ public class MethodBuilderTest {
 
     @Test
     public void buildAllWithError() {
-        MatchRunner match = MockMatchRunner.build();
         MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1); nheco");
-        LuchadorRunner runner = new LuchadorRunner(luchador, match);
-        MethodBuilder.getInstance().buildAll(runner, luchador.getCodes());
+        LuchadorScriptDefinition def = ScriptDefinitionFactory.getInstance().getLuchadorScript();
+        MethodBuilder.getInstance().buildAll(def, luchador.getCodes());
 
         long errors = luchador.getCodes().stream().filter(code -> code.getException() != null).map(
                 code -> {

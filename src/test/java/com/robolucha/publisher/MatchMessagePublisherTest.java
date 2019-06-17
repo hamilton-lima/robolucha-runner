@@ -22,13 +22,14 @@ public class MatchMessagePublisherTest {
     public void subscribeAndAccept() {
         MatchRunner runner = MockMatchRunner.build();
         runner.addListener(publisher);
+        Integer id = 1;
         String type = "type1";
         String event = "event1";
         String message = "message1";
         runner.getOnMessage().onNext(new MessageVO(1, type, event, message));
 
-        MessageVO sentToQueue = (MessageVO) queue.lastPublished;
-        assertEquals(type, sentToQueue.luchadorID);
+        MessageVO sentToQueue = (MessageVO) ((MessageEnvelope) queue.lastPublished).message;
+        assertEquals(id, sentToQueue.luchadorID);
         assertEquals(type, sentToQueue.type);
                assertEquals(event, sentToQueue.event);
         assertEquals(message, sentToQueue.message);

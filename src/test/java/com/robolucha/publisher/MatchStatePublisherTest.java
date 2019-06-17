@@ -4,9 +4,11 @@ import static junit.framework.TestCase.assertEquals;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.robolucha.game.CheckMoveActionTest;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
@@ -15,7 +17,7 @@ import com.robolucha.test.MockMatchRunner;
 import io.swagger.client.model.MainMatch;
 
 public class MatchStatePublisherTest {
-
+	private static Logger logger = Logger.getLogger(MatchStatePublisherTest.class);
 	MockRemoteQueue queue = new MockRemoteQueue();
 	MainMatch match = new MainMatch();
 	MatchStatePublisher publisher;
@@ -58,9 +60,11 @@ public class MatchStatePublisherTest {
 
 		LuchadorPublicState publicState1 = new LuchadorPublicState();
 		publicState1.k = 1;
+		publicState1.name = "one";
 
 		LuchadorPublicState publicState2 = new LuchadorPublicState();
 		publicState2.d = 1;
+		publicState2.name = "two";
 
 		ArrayList<LuchadorPublicState> states = new ArrayList<LuchadorPublicState>();
 		states.add(publicState1);
@@ -74,6 +78,7 @@ public class MatchStatePublisherTest {
 
 		int found = 0;
 		for (LuchadorPublicState state : sentToQueue.luchadores) {
+
 			if (state.name.equals("one")) {
 				found++;
 				assertEquals(1, state.k);
