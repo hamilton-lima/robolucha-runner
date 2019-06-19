@@ -24,6 +24,7 @@ import com.robolucha.game.event.LuchadorEvent;
 import com.robolucha.game.event.LuchadorEventListener;
 import com.robolucha.game.event.MatchEventListener;
 import com.robolucha.game.event.OnHitOtherEvent;
+import com.robolucha.game.event.OnHitWallEvent;
 import com.robolucha.game.processor.BulletsProcessor;
 import com.robolucha.game.processor.IRespawnProcessor;
 import com.robolucha.game.processor.PunchesProcessor;
@@ -54,6 +55,8 @@ import io.swagger.client.model.MainSceneComponent;
 public class MatchRunner implements Runnable, ThreadStatus {
 
 	private static final long SMALL_SLEEP = 5;
+	private static final String WALL_TYPE = "wall";
+
 	private SafeList bullets;
 	private SafeList punches;
 
@@ -62,16 +65,13 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private BulletsProcessor bulletsProcessor;
 	private double delta;
 
-	// TODO: replace all the listeners by Subjects
 	private PublishSubject<MatchEventVO> onMatchStart;
 	private PublishSubject<MatchEventVO> onMatchEnd;
 	private PublishSubject<MessageVO> onMessage;
 	private PublishSubject<MatchInitVO> onInit;
 
 	private List<MatchRunnerListener> listeners;
-
 	private MainGameDefinition gameDefinition;
-
 	private MatchStatePublisher publisher;
 	private JoinMatchListener joinListener;
 
@@ -79,13 +79,13 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		this.joinListener = joinListener;
 	}
 
+	// TODO: replace all the listeners by Subjects
 	private List<LuchadorEventListener> eventListeners;
 	private List<MatchEventListener> matchEventListeners;
 
 	static Logger logger = Logger.getLogger(MatchRunner.class);
 
 	LinkedHashMap<Integer, LuchadorRunner> runners;
-	List<MainSceneComponent> sceneComponents;
 
 	boolean alive;
 	private IRespawnProcessor respawnProcessor;
@@ -93,12 +93,12 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private String status;
 	private String threadName;
 	private Long startTime;
-	// private MatchRun match;
 	private long timeElapsed;
 	private boolean cleanupActive = true;
 
 	private MatchEventHandler eventHandler;
 	private LutchadorRunnerCreator luchadorCreator;
+	SceneComponentEventsRunner eventsRunner;
 	private MainMatch match;
 	private ServerMonitor monitor;
 
@@ -106,7 +106,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return eventHandler;
 	}
 
-	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue, ServerMonitor monitor) {
+	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue, ServerMonitor monitor) throws Exception {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
 		status = ThreadStatus.STARTING;
@@ -125,9 +125,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		runOnActive.add(new ChangeStateAction());
 
 		runners = new LinkedHashMap<Integer, LuchadorRunner>();
-		sceneComponents = new LinkedList<MainSceneComponent>();
-		addSceneComponents();
-
+		
+		eventsRunner = new SceneComponentEventsRunner(this);
 		respawnProcessor = RespawnProcessorFactory.get(this);
 
 		bullets = new SafeList(new LinkedList<Bullet>());
@@ -150,12 +149,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		logger.info("MatchRunner created:" + this);
 	}
 
-	private void addSceneComponents() {
-		sceneComponents.addAll(gameDefinition.getSceneComponents());
-	}
-
 	public List<MainSceneComponent> getSceneComponents() {
-		return sceneComponents;
+		return gameDefinition.getSceneComponents();
 	}
 
 	public MainMatch getMatch() {
@@ -168,7 +163,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	}
 
 	public PublishSubject<LuchadorRunner> add(final MainGameComponent component) throws Exception {
-		
+
 		if (runners.containsKey(component.getId())) {
 			String message = "trying to add luchador that is already in the match, id: " + component.getId();
 			logger.info(message);
@@ -226,7 +221,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		CheckRespawnAction respawnAction = new CheckRespawnAction(this);
 		RemoveDeadAction removeDeadAction = new RemoveDeadAction(this);
 
-		logger.info("waiting for the minimum participants:" + gameDefinition.getMinParticipants());
+		logger.info("Waiting for the minimum participants: " + gameDefinition.getMinParticipants());
 
 		while (alive && runners.size() < gameDefinition.getMinParticipants()) {
 			try {
@@ -235,6 +230,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 				logger.error("Interrupted while waiting for participants", e);
 			}
 		}
+
+		logger.info("[Bruce Buffer voice] It's TIME, starting game: " + JSONFormat.clean(gameDefinition.toString()));
 
 		// TODO: reduce to one single event
 		onMatchStart.onNext(new MatchEventVOStart());
@@ -276,13 +273,14 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			timeElapsed = System.currentTimeMillis() - timeStart;
 
 			// only controls match duration if gamedefinition.duration > 0
-			if (gameDefinition.getDuration() > 0 ) {
+			if (gameDefinition.getDuration() > 0) {
 				if (timeElapsed > gameDefinition.getDuration()) {
-					logger.info("end of match time elapsed time:" + timeElapsed + " max:" + gameDefinition.getDuration());
+					logger.info(
+							"end of match time elapsed time:" + timeElapsed + " max:" + gameDefinition.getDuration());
 					break;
 				}
 			}
-			
+
 			if ((System.currentTimeMillis() - logStart) > logThreshold) {
 				logStart = System.currentTimeMillis();
 				logger.info("MatchRunner active: " + gameDefinition.getName() + " FPS: " + gameDefinition.getFps());
@@ -309,9 +307,16 @@ public class MatchRunner implements Runnable, ThreadStatus {
 				publisher.update(this);
 
 			} catch (Throwable e) {
-				logger.error("*** ERRO NO LOOP DO MATCHRUN", e);
+				logger.error("*** ERROR AT MATCHRUN MAINLOOP", e);
 			}
 
+		}
+
+		alive = false;
+		try {
+			publisher.update(this);
+		} catch (Exception e) {
+			logger.error("*** ERROR last publisher update", e);
 		}
 
 		onMatchEnd.onNext(new MatchEventVOEnd());
@@ -500,10 +505,34 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		}
 
 		boolean result = true;
+		double radius = source.getSize() / 2;
 
-		Iterator iterator = runners.keySet().iterator();
+		// needs to go over the entire list to check for collision
+		Iterator<MainSceneComponent> sceneIterator = getSceneComponents().iterator();
+		while (sceneIterator.hasNext()) {
+			MainSceneComponent current = sceneIterator.next();
+
+			if (logger.isDebugEnabled()) {
+				logger.debug(">> (1) checking collision from :" + source.getGameComponent().getId() + " at x,y=" + x + ","
+						+ y + " to scenecomponent : " + JSONFormat.clean(current.toString()) );
+			}
+
+			if (current.isColider() && Calc.intersectCirclewithSceneComponent(x, y, radius, current)) {
+				eventsRunner.onHit(current, source);
+
+				if (WALL_TYPE.equals(current.getType())) {
+					source.addEvent(new OnHitWallEvent(source.getState().getPublicState()));
+				}
+
+				if (current.isBlockMovement()) {
+					result = false;
+				}
+			}
+		}
+
+		Iterator<Integer> iterator = runners.keySet().iterator();
 		while (iterator.hasNext()) {
-			Object key = (Object) iterator.next();
+			Integer key = iterator.next();
 			LuchadorRunner target = runners.get(key);
 
 			if (logger.isDebugEnabled()) {

@@ -26,6 +26,10 @@ import com.robolucha.models.MatchStateProvider;
 import com.robolucha.models.ScoreVO;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.RespawnPoint;
+import com.robolucha.runner.code.LuchadorScriptDefinition;
+import com.robolucha.runner.code.MethodBuilder;
+import com.robolucha.runner.code.MethodNames;
+import com.robolucha.runner.code.ScriptDefinitionFactory;
 import com.robolucha.shared.Calc;
 
 import io.swagger.client.model.MainCode;
@@ -70,8 +74,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private int size;
 	private int halfSize;
 
-	private ScriptDefinition scriptDefinition;
-	int exceptionCounter;
+	private LuchadorScriptDefinition scriptDefinition;
+	private int exceptionCounter;
 
 	private LuchadorMatchState state;
 
@@ -81,14 +85,14 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private double fireCoolDown;
 	private double punchCoolDown;
 	private double respawnCoolDown;
-	ScriptRunner currentRunner;
+	LuchadorScriptRunner currentRunner;
 
 	private LuchadorUpdateListener luchadorUpdatelistener;
 
 	public LuchadorRunner(MainGameComponent component, MatchRunner matchRunner) {
 		this.gameComponent = component;
 		this.matchRunner = matchRunner;
-		this.exceptionCounter = 0;
+		this.setExceptionCounter(0);
 
 		this.size = matchRunner.getGameDefinition().getLuchadorSize();
 		this.halfSize = this.size / 2;
@@ -98,12 +102,12 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.events = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorEvent>());
 		this.messages = new LinkedList<MessageVO>();
 
-		scriptDefinition = ScriptDefinitionFactory.getInstance().getDefault();
-		
+		scriptDefinition = ScriptDefinitionFactory.getInstance().getLuchadorScript();
+
 		state = new LuchadorMatchState();
 		state.setId(component.getId());
 		state.setName(component.getName());
-		
+
 		try {
 			setDefaultState(matchRunner.getRespawnPoint(this));
 			setDefaultScore();
@@ -197,13 +201,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		try {
 			this.gameComponent = luchador;
 			this.messages.clear();
-			
-			List<MainCode> codes4CurrentGameDefinition = luchador.getCodes()
-					.stream() 
-	                .filter(line -> 
-	                	matchRunner.getGameDefinition().getId()
-	                	.equals(line.getGameDefinition()))
-	                .collect(Collectors.toList());  
+
+			List<MainCode> codes4CurrentGameDefinition = luchador.getCodes().stream()
+					.filter(line -> matchRunner.getGameDefinition().getId().equals(line.getGameDefinition()))
+					.collect(Collectors.toList());
 
 			logger.info("new code" + codes4CurrentGameDefinition);
 			updateCodeEngine(codes4CurrentGameDefinition);
@@ -225,7 +226,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		start = System.currentTimeMillis();
 		try {
 
-			// TODO: REMOVE SCORE FROM STATE
 			updateScriptState(state.getPublicState());
 			scriptDefinition.set("ARENA_WIDTH", matchRunner.getGameDefinition().getArenaWidth());
 			scriptDefinition.set("ARENA_HEIGHT", matchRunner.getGameDefinition().getArenaHeight());
@@ -236,7 +236,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 			scriptDefinition.loadDefaultLibraries();
 
-			MethodBuilder.getInstance().buildAll(this, list);
+			MethodBuilder.getInstance().buildAll(scriptDefinition, list);
 			updateInvalidCodes(list);
 
 		} catch (Exception e) {
@@ -286,11 +286,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		state.score = new ScoreVO(gameComponent.getId(), gameComponent.getName());
 	}
 
-	void eval(String name, String script) throws Exception {
-		logger.debug(">> eval name=" + name + " script=" + script);
-		scriptDefinition.eval(script);
-	}
-
 	String getString(String script) throws Exception {
 		return scriptDefinition.getString(script);
 	}
@@ -306,19 +301,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		while (iterator.hasNext()) {
 			MainCode code = iterator.next();
 			if (code.getException() != null && code.getException().trim().length() > 0) {
-
 				onDangerMessage(MessageVO.DANGER, code.getEvent(), code.getException());
-
-				// TODO: add call to save the code errors< or trigger events?
-				/*
-				 * Response response = CodeCrudService.getInstance().doSaramagoUpdate(code, new
-				 * Response());
-				 *
-				 * // se houve falha ao atualizar Code if (response.getErrors().size() > 0) {
-				 * logger.error("erro atualizando CODE no banco de dados : " +
-				 * response.getErrors().toString()); throw new
-				 * Exception(response.getErrors().toString()); }
-				 */
 			}
 
 		}
@@ -387,7 +370,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			}
 
 			if (canRunCode) {
-				currentRunner = new ScriptRunner(this, codeName, parameter);
+				currentRunner = new LuchadorScriptRunner(this, codeName, parameter);
 				Thread thread = new Thread(currentRunner);
 				thread.start();
 			}
@@ -594,6 +577,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 				consumeCommand(commandIterator, command);
 			}
 		} catch (Exception e) {
+			logger.error("Error reading first", e);
 			logger.warn("Error reading the first LuchadorCodeExecution, try again.");
 			return;
 		}
@@ -751,7 +735,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	// TODO: use codeName when punch is implemented
 	public void punch(String codeName) {
 		if (punchCoolDown <= 0) {
-			matchRunner.punch(this, matchRunner.getGameDefinition().getPunchDamage(), state.getX(), state.getY(), state.getAngle());
+			matchRunner.punch(this, matchRunner.getGameDefinition().getPunchDamage(), state.getX(), state.getY(),
+					state.getAngle());
 			punchCoolDown = matchRunner.getGameDefinition().getPunchCoolDown();
 		}
 	}
@@ -780,7 +765,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		setDefaultState(point);
 
 		// make sure start is runned when respawn
-		MethodBuilder.getInstance().build(this, getStartCode());
+		MethodBuilder.getInstance().build(scriptDefinition, getStartCode());
 
 		this.lastRunningError = "";
 		this.active = true;
@@ -822,17 +807,20 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public void addFire(String codeName, int amount) {
 		amount = cleanUpAmount(amount);
-		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_FIRE, amount, matchRunner.getGameDefinition().getBuletSpeed());
+		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_FIRE, amount,
+				matchRunner.getGameDefinition().getBuletSpeed());
 		addCommand(command);
 	}
 
 	public void addMove(String codeName, int amount) {
-		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_MOVE, amount, matchRunner.getGameDefinition().getMoveSpeed());
+		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_MOVE, amount,
+				matchRunner.getGameDefinition().getMoveSpeed());
 		addCommand(command);
 	}
 
 	public void addTurn(String codeName, int amount) {
-		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_TURN, amount, matchRunner.getGameDefinition().getTurnSpeed());
+		LuchadorCommand command = new LuchadorCommand(codeName, COMMAND_TURN, amount,
+				matchRunner.getGameDefinition().getTurnSpeed());
 		addCommand(command);
 	}
 
@@ -846,25 +834,20 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		return exceptionCounter;
 	}
 
-	@Override
 	public long getId() {
 		return gameComponent.getId();
 	}
 
-	public ScriptDefinition getScriptDefinition() {
+	public LuchadorScriptDefinition getScriptDefinition() {
 		return scriptDefinition;
-	}
-
-	public void setScriptDefinition(ScriptDefinition scriptDefinition) {
-		this.scriptDefinition = scriptDefinition;
-	}
-
-	public ScriptRunner getCurrentRunner() {
-		return currentRunner;
 	}
 
 	public void setUpdateListener(LuchadorUpdateListener luchadorUpdatelistener) {
 		this.luchadorUpdatelistener = luchadorUpdatelistener;
+	}
+
+	public void setExceptionCounter(int exceptionCounter) {
+		this.exceptionCounter = exceptionCounter;
 	}
 
 }

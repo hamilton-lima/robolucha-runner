@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import com.robolucha.runner.MatchRunner;
+import com.robolucha.runner.code.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
@@ -67,10 +68,10 @@ public class LuchadorRunnerTest {
         LuchadorRunner one = new LuchadorRunner(l1, runner);
         one.run("start");
 
-        while (one.getCurrentRunner() != null) {
-            // wait for the runner to complete
-            Thread.sleep(50);
-        }
+//        while (one.getCurrentRunner() != null) {
+//            // wait for the runner to complete
+//            Thread.sleep(50);
+//        }
 
         // assertTrue(!one.isActive());
         assertTrue("verificar se codigo com erro fica com excecao apos tentar atualizar codigo com defeito",

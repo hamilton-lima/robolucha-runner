@@ -14,8 +14,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.robolucha.runner.MatchRunner;
+import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.luchador.LuchadorRunner;
-import com.robolucha.runner.luchador.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 

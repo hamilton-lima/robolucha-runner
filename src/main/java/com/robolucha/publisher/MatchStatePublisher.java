@@ -103,7 +103,17 @@ public class MatchStatePublisher {
 			vo.punches.add(foo);
 		}
 
-		vo.clock = matchRunner.getGameDefinition().getDuration() - matchRunner.getTimeElapsed();
+		if( matchRunner.isAlive() ) {
+			if( matchRunner.getGameDefinition().getDuration() > 0 ) {
+				vo.clock = matchRunner.getGameDefinition().getDuration() - matchRunner.getTimeElapsed();
+			} else {
+				// if no limit is set the clock counts the elapsed time
+				vo.clock = matchRunner.getTimeElapsed();
+			}
+		} else {
+			vo.clock = -1;
+		}
+		
 		publish(vo);
 
 	}

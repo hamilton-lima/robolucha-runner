@@ -32,13 +32,13 @@
 		</copy>
 
 		<copy verbose="yes" overwrite="yes" todir="deploy">
-			<fileset file="default-gamedefinition.json" />
 			<fileset file="log4j.properties" />
 		</copy>
 
-		<copy verbose="yes" overwrite="yes" todir="target/com/robolucha/runner/luchador/lua/">
-			<fileset file="src/main/java/com/robolucha/runner/luchador/lua/default-methods.lua" />
-			<fileset file="src/main/java/com/robolucha/runner/luchador/lua/nmscolor.lua" />
+		<copy verbose="yes" overwrite="yes" todir="target/com/robolucha/runner/code/lua/">
+			<fileset file="src/main/java/com/robolucha/runner/code/lua/match-methods.lua" />
+			<fileset file="src/main/java/com/robolucha/runner/code/lua/default-methods.lua" />
+			<fileset file="src/main/java/com/robolucha/runner/code/lua/nmscolor.lua" />
 		</copy>
 
 		<manifestclasspath property="manifest.classpath" jarfile="${dist.jar}">

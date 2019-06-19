@@ -6,6 +6,8 @@ import com.robolucha.models.Bullet;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.runner.luchador.LuchadorRunner;
 
+import io.swagger.client.model.MainSceneComponent;
+
 public class Calc {
 
 	private static Logger logger = Logger.getLogger(Calc.class);
@@ -100,9 +102,6 @@ public class Calc {
 	 */
 	public static boolean intersectRobot(double x, double y, LuchadorRunner source, LuchadorRunner target) {
 
-		// double radiusA = Math.sqrt(2) * (source.getSize() / 2.0);
-		// double radiusB = Math.sqrt(2) * (target.getSize() / 2.0);
-
 		double radiusA = source.getSize() / 2.0;
 		double radiusB = target.getSize() / 2.0;
 
@@ -118,6 +117,20 @@ public class Calc {
 		}
 
 		return (dist < (radiusA + radiusB));
+	}
+
+	public static boolean intersectCirclewithSceneComponent(double x, double y, double radius, MainSceneComponent component) {
+
+		// Finds the closest point from the rectangle to the center of the luchador
+		double minX = Math.min(x, component.getX() + component.getWidth());
+		double DeltaX = x - Math.max(component.getX(), minX);
+
+		double minY = Math.min(y, component.getY() + component.getHeight());
+		double DeltaY = y - Math.max(component.getY(), minY);
+
+		// calculate the distance from the closest point and the luchador center
+		double dist = Math.sqrt(Math.pow(DeltaX, 2) + Math.pow(DeltaY, 2));
+		return dist < radius;
 	}
 
 	/**
