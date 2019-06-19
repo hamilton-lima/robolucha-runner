@@ -32,13 +32,14 @@ public class SceneComponentEventsRunner {
 	private Map<Integer, SceneComponentRunner> runners;
 	MatchFacade facade;
 
-	public SceneComponentEventsRunner(MatchRunner runner) {
+	public SceneComponentEventsRunner(MatchRunner runner) throws Exception {
 		runners = new HashMap<Integer, SceneComponentEventsRunner.SceneComponentRunner>();
 		facade = new MatchFacade(runner);
 
 		for (MainSceneComponent component : runner.getGameDefinition().getSceneComponents()) {
 			MatchScriptDefinition scriptDefinition = ScriptDefinitionFactory.getInstance().getMatchScript();
-
+			scriptDefinition.loadDefaultLibraries();
+			
 			logger.info("Builds gamedefinition codes: " + JSONFormat.clean(component.getCodes().toString()));
 			MethodBuilder.getInstance().buildAll(scriptDefinition, component.getCodes());
 

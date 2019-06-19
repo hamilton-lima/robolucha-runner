@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.robolucha.event.match.MatchEventVO;
-import com.robolucha.runner.SceneComponentEventsRunnerTest.MockFacade;
 import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
@@ -68,6 +67,7 @@ public class SceneComponentEventsRunnerTest {
 		result.getCodes().add(code);
 
 		result.setColider(true);
+		result.setBlockMovement(false);
 
 		return result;
 	}
@@ -76,7 +76,7 @@ public class SceneComponentEventsRunnerTest {
 	public void testRun() throws Exception {
 
 		MainGameDefinition gameDefinition = MockMatchRunner.buildGameDefinition();
-		gameDefinition.setDuration(2000);
+		gameDefinition.setDuration(1000);
 		gameDefinition.setMinParticipants(1);
 		gameDefinition.getSceneComponents().add(buildSceneComponent());
 

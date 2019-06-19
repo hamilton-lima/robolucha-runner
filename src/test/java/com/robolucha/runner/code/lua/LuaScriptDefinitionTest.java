@@ -21,12 +21,13 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 public class LuaScriptDefinitionTest {
 
 	LuchadorLuaScriptDefinition definition;
-	LuchadorScriptFacade facade;
+	LuaFacadeLocal facade;
 
 	@Before
-	public void setup() {
+	public void setup() throws Exception {
 		definition = new LuchadorLuaScriptDefinition();
-		facade = definition.buildFacade(null, "test");
+		definition.loadDefaultLibraries();
+		facade = new LuaFacadeLocal(null,"test");
 	}
 
 	@Test
@@ -139,6 +140,15 @@ public class LuaScriptDefinitionTest {
 		}
 
 	}
+	
+	@Test
+	public void testCallMoveUsingFacade() throws Exception {
+		String maybe = "function maybe(amount) move(amount) end";
+		definition.eval(maybe);
+		definition.run(facade, "maybe", 42);
+		assertEquals(42, facade.amount);
+
+	}
 
 	@Test
 	public void testAfterCompile() {
@@ -156,7 +166,7 @@ public class LuaScriptDefinitionTest {
 			super(owner, codeName);
 		}
 
-		private int amount;
+		public int amount;
 
 		@Override
 		public void move(int amount) {

@@ -66,7 +66,12 @@ public class MockMatchRunner {
 		ServerMonitor monitor = new ServerMonitor(queue);
 
 		MainMatch match = new MainMatch();
-		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
+		MatchRunner runner = null;
+		try {
+			runner = new MatchRunner(gameDefinition, match, queue, monitor);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if (publisher == null) {
 			publisher = new MatchStatePublisher("mock-test", match, queue);
 		}
@@ -81,7 +86,12 @@ public class MockMatchRunner {
 		gameDefinition.setDuration(1000);
 
 		MainMatch match = new MainMatch();
-		MatchRunner runner = new MatchRunner(gameDefinition, match, remoteQueue, monitor);
+		MatchRunner runner = null;
+		try {
+			runner = new MatchRunner(gameDefinition, match, remoteQueue, monitor);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		runner.setPublisher(new MatchStatePublisherSilent());
 
