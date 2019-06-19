@@ -38,7 +38,6 @@ import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.monitor.ThreadStatus;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
-import com.robolucha.runner.SceneComponentEventsRunner.EventType;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.runner.luchador.LutchadorRunnerCreator;
 import com.robolucha.shared.Calc;
@@ -66,16 +65,13 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private BulletsProcessor bulletsProcessor;
 	private double delta;
 
-	// TODO: replace all the listeners by Subjects
 	private PublishSubject<MatchEventVO> onMatchStart;
 	private PublishSubject<MatchEventVO> onMatchEnd;
 	private PublishSubject<MessageVO> onMessage;
 	private PublishSubject<MatchInitVO> onInit;
 
 	private List<MatchRunnerListener> listeners;
-
 	private MainGameDefinition gameDefinition;
-
 	private MatchStatePublisher publisher;
 	private JoinMatchListener joinListener;
 
@@ -83,13 +79,13 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		this.joinListener = joinListener;
 	}
 
+	// TODO: replace all the listeners by Subjects
 	private List<LuchadorEventListener> eventListeners;
 	private List<MatchEventListener> matchEventListeners;
 
 	static Logger logger = Logger.getLogger(MatchRunner.class);
 
 	LinkedHashMap<Integer, LuchadorRunner> runners;
-	List<MainSceneComponent> sceneComponents;
 
 	boolean alive;
 	private IRespawnProcessor respawnProcessor;
@@ -97,13 +93,12 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private String status;
 	private String threadName;
 	private Long startTime;
-	// private MatchRun match;
 	private long timeElapsed;
 	private boolean cleanupActive = true;
 
 	private MatchEventHandler eventHandler;
 	private LutchadorRunnerCreator luchadorCreator;
-	private SceneComponentEventsRunner eventsRunner;
+	SceneComponentEventsRunner eventsRunner;
 	private MainMatch match;
 	private ServerMonitor monitor;
 
@@ -130,11 +125,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		runOnActive.add(new ChangeStateAction());
 
 		runners = new LinkedHashMap<Integer, LuchadorRunner>();
-		sceneComponents = new LinkedList<MainSceneComponent>();
-		addSceneComponents();
 		
 		eventsRunner = new SceneComponentEventsRunner(this);
-
 		respawnProcessor = RespawnProcessorFactory.get(this);
 
 		bullets = new SafeList(new LinkedList<Bullet>());
@@ -157,12 +149,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		logger.info("MatchRunner created:" + this);
 	}
 
-	private void addSceneComponents() {
-		sceneComponents.addAll(gameDefinition.getSceneComponents());
-	}
-
 	public List<MainSceneComponent> getSceneComponents() {
-		return sceneComponents;
+		return gameDefinition.getSceneComponents();
 	}
 
 	public MainMatch getMatch() {
@@ -513,11 +501,17 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		double radius = source.getSize() / 2;
 
 		// needs to go over the entire list to check for collision
-		Iterator<MainSceneComponent> sceneIterator = sceneComponents.iterator();
+		Iterator<MainSceneComponent> sceneIterator = getSceneComponents().iterator();
 		while (sceneIterator.hasNext()) {
 			MainSceneComponent current = sceneIterator.next();
+
+			if (logger.isDebugEnabled()) {
+				logger.debug(">> (1) checking collision from :" + source.getGameComponent().getId() + " at x,y=" + x + ","
+						+ y + " to scenecomponent : " + JSONFormat.clean(current.toString()) );
+			}
+
 			if (current.isColider() && Calc.intersectCirclewithSceneComponent(x, y, radius, current)) {
-				eventsRunner.onEvent(EventType.ON_HIT, current, source);
+				eventsRunner.onHit(current, source);
 
 				if (WALL_TYPE.equals(current.getType())) {
 					source.addEvent(new OnHitWallEvent(source.getState().getPublicState()));

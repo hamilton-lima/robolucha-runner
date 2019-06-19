@@ -14,8 +14,8 @@ import org.junit.Test;
 import com.robolucha.runner.code.MethodDefinition;
 import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.code.LuchadorScriptFacade;
-import com.robolucha.runner.code.lua.LuaLuchadorFacade;
 import com.robolucha.runner.code.lua.LuaScriptDefinition;
+import com.robolucha.runner.luchador.LuchadorFacade;
 import com.robolucha.runner.luchador.LuchadorRunner;
 
 public class LuaScriptDefinitionTest {
@@ -150,7 +150,7 @@ public class LuaScriptDefinitionTest {
 		assertTrue(definition != null);
 	}
 
-	private class LuaFacadeLocal extends LuaLuchadorFacade {
+	private class LuaFacadeLocal extends LuchadorFacade {
 
 		public LuaFacadeLocal(LuchadorRunner owner, String codeName) {
 			super(owner, codeName);

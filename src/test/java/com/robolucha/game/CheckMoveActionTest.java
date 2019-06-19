@@ -33,8 +33,8 @@ public class CheckMoveActionTest {
 		MatchRunner match = MockMatchRunner.build();
 		match.getGameDefinition().setDuration(1000);
 
-		MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10);");
-		MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "move(-10);");
+		MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
+		MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "move(-10)");
 
 		LuchadorRunner runnerA = match.add(a).blockingFirst();
 		LuchadorRunner runnerB = match.add(b).blockingFirst();

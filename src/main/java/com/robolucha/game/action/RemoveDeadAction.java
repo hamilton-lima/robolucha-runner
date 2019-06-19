@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.shared.JSONFormat;
 
 public class RemoveDeadAction implements GameAction {
 
@@ -19,7 +20,7 @@ public class RemoveDeadAction implements GameAction {
 	public void run(LinkedHashMap<Integer, LuchadorRunner> runners,
 			LuchadorRunner runner) {
 
-		logger.debug("RemoveDeadAction, lutchador=" + runner.getGameComponent());
+		logger.debug("RemoveDeadAction, lutchador=" + JSONFormat.clean(runner.getGameComponent().toString()));
 
 		if (runner.isActive()) {
 			if (runner.getState().getLife() <= 0) {

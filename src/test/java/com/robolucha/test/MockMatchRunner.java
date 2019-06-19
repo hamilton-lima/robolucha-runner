@@ -2,7 +2,6 @@ package com.robolucha.test;
 
 import java.util.ArrayList;
 
-import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.game.vo.MatchInitVO;
 import com.robolucha.game.vo.MatchRunStateVO;
@@ -14,7 +13,6 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.score.ScoreUpdater;
 
-import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainCode;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
@@ -53,10 +51,18 @@ public class MockMatchRunner {
 		return build(duration, queue, null);
 	}
 
+	public static MatchRunner build(MainGameDefinition gameDefinition) {
+		return build(remoteQueue, new MatchStatePublisherSilent(), gameDefinition);
+	}
+
 	public static MatchRunner build(int duration, RemoteQueue queue, MatchStatePublisher publisher) {
-		// TODO: create method to populate with defautls
 		MainGameDefinition gameDefinition = buildGameDefinition();
 		gameDefinition.setDuration(duration);
+		return build(queue, publisher, gameDefinition);
+	}
+
+	public static MatchRunner build(RemoteQueue queue, MatchStatePublisher publisher,
+			MainGameDefinition gameDefinition) {
 		ServerMonitor monitor = new ServerMonitor(queue);
 
 		MainMatch match = new MainMatch();
@@ -120,7 +126,7 @@ public class MockMatchRunner {
 		gd.setIncreaseSpeedEnergyCost(10);
 		gd.setIncreaseSpeedPercentage(20);
 		gd.setFireEnergyCost(2);
-		
+
 		gd.setRespawnX(0);
 		gd.setRespawnY(0);
 

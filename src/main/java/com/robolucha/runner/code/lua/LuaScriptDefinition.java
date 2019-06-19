@@ -1,15 +1,22 @@
 package com.robolucha.runner.code.lua;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
+import com.robolucha.runner.MatchFacade;
+import com.robolucha.runner.SceneComponentEventsRunner;
 import com.robolucha.runner.code.MethodDefinition;
 import com.robolucha.runner.code.ScriptDefinition;
 import com.robolucha.runner.code.ScriptFacade;
+import com.robolucha.runner.luchador.LuchadorFacade;
 
 public abstract class LuaScriptDefinition implements ScriptDefinition {
+
+	static Logger logger = Logger.getLogger(LuaScriptDefinition.class);
 
 	protected HashMap<String, MethodDefinition> methods;
 	protected LuaVM lua;
@@ -29,9 +36,22 @@ public abstract class LuaScriptDefinition implements ScriptDefinition {
 
 	public void run(ScriptFacade facade, String name, Object... parameter) {
 
-		lua.put("__internal", facade);
+		try {
+			MatchFacade localFacade = (MatchFacade) facade;
+			lua.put("__internal", localFacade);
+			logger.debug("__internal assigned with matchfacade");
+
+		} catch (Exception e) {
+			logger.error("cant convert to matchfacade retry with luchador facade", e);
+			LuchadorFacade localFacade = (LuchadorFacade) facade;
+			lua.put("__internal", localFacade);
+			logger.debug("__internal assigned with luchadorfacade");
+		}
 
 		LuaFunction function = lua.getFunction(name);
+		logger.info("lua function found by name:" + name + " function: " + function + " parameters: "
+				+ Arrays.toString(parameter));
+
 		if (parameter.length == 0) {
 			function.call();
 		} else {

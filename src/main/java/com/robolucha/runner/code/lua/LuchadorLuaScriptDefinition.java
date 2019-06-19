@@ -4,11 +4,13 @@ import com.robolucha.runner.code.LuchadorScriptDefinition;
 import com.robolucha.runner.code.LuchadorScriptFacade;
 import com.robolucha.runner.code.MethodDefinition;
 import com.robolucha.runner.code.MethodNames;
+import com.robolucha.runner.luchador.LuchadorFacade;
 import com.robolucha.runner.luchador.LuchadorRunner;
 
 public class LuchadorLuaScriptDefinition extends LuaScriptDefinition implements LuchadorScriptDefinition {
 
 	public LuchadorLuaScriptDefinition() {
+		super();
 		addMethod(MethodNames.ON_START, "function onStart()\n", "\nend");
 		addMethod(MethodNames.ON_REPEAT, "function onRepeat()\n", "\nend");
 		addMethod(MethodNames.ON_HIT_WALL, "function onHitWall()\n", "\nend");
@@ -35,7 +37,7 @@ public class LuchadorLuaScriptDefinition extends LuaScriptDefinition implements 
 
 	@Override
 	public LuchadorScriptFacade buildFacade(LuchadorRunner luchadorRunner, String codeName) {
-		return new LuaLuchadorFacade(luchadorRunner, codeName);
+		return new LuchadorFacade(luchadorRunner, codeName);
 	}
 
 }
