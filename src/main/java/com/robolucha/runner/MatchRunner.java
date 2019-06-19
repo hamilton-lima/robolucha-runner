@@ -307,9 +307,16 @@ public class MatchRunner implements Runnable, ThreadStatus {
 				publisher.update(this);
 
 			} catch (Throwable e) {
-				logger.error("*** ERRO NO LOOP DO MATCHRUN", e);
+				logger.error("*** ERROR AT MATCHRUN MAINLOOP", e);
 			}
 
+		}
+
+		alive = false;
+		try {
+			publisher.update(this);
+		} catch (Exception e) {
+			logger.error("*** ERROR last publisher update", e);
 		}
 
 		onMatchEnd.onNext(new MatchEventVOEnd());

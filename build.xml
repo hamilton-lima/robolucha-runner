@@ -36,6 +36,7 @@
 		</copy>
 
 		<copy verbose="yes" overwrite="yes" todir="target/com/robolucha/runner/code/lua/">
+			<fileset file="src/main/java/com/robolucha/runner/code/lua/match-methods.lua" />
 			<fileset file="src/main/java/com/robolucha/runner/code/lua/default-methods.lua" />
 			<fileset file="src/main/java/com/robolucha/runner/code/lua/nmscolor.lua" />
 		</copy>
