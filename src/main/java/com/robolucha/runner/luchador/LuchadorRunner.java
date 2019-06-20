@@ -273,8 +273,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		state.setX(point.x);
 		state.setY(point.y);
 		state.setLife(matchRunner.getGameDefinition().getLife());
-		state.setAngle(0);
-		state.setGunAngle(0);
+		state.setAngle(point.angle);
+		state.setGunAngle(point.gunAngle);
 		state.setFireCoolDown(0);
 
 		respawnCoolDown = 0.0;

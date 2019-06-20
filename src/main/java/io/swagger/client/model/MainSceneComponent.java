@@ -14,6 +14,7 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +23,10 @@ import java.util.Objects;
  * MainSceneComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-11T04:58:57.195Z[GMT]")public class MainSceneComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-20T00:13:44.630Z[GMT]")public class MainSceneComponent {
+
+  @SerializedName("alpha")
+  private BigDecimal alpha = null;
 
   @SerializedName("blockMovement")
   private Boolean blockMovement = null;
@@ -65,6 +69,24 @@ import java.util.Objects;
 
   @SerializedName("y")
   private Integer y = null;
+  public MainSceneComponent alpha(BigDecimal alpha) {
+    this.alpha = alpha;
+    return this;
+  }
+
+  
+
+  /**
+  * Get alpha
+  * @return alpha
+  **/
+  @Schema(description = "")
+  public BigDecimal getAlpha() {
+    return alpha;
+  }
+  public void setAlpha(BigDecimal alpha) {
+    this.alpha = alpha;
+  }
   public MainSceneComponent blockMovement(Boolean blockMovement) {
     this.blockMovement = blockMovement;
     return this;
@@ -332,7 +354,8 @@ import java.util.Objects;
       return false;
     }
     MainSceneComponent mainSceneComponent = (MainSceneComponent) o;
-    return Objects.equals(this.blockMovement, mainSceneComponent.blockMovement) &&
+    return Objects.equals(this.alpha, mainSceneComponent.alpha) &&
+        Objects.equals(this.blockMovement, mainSceneComponent.blockMovement) &&
         Objects.equals(this.codes, mainSceneComponent.codes) &&
         Objects.equals(this.colider, mainSceneComponent.colider) &&
         Objects.equals(this.color, mainSceneComponent.color) &&
@@ -350,7 +373,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(blockMovement, codes, colider, color, gameDefinition, height, id, respawn, rotation, showInRadar, type, width, x, y);
+    return java.util.Objects.hash(alpha, blockMovement, codes, colider, color, gameDefinition, height, id, respawn, rotation, showInRadar, type, width, x, y);
   }
 
   @Override
@@ -358,6 +381,7 @@ import java.util.Objects;
     StringBuilder sb = new StringBuilder();
     sb.append("class MainSceneComponent {\n");
     
+    sb.append("    alpha: ").append(toIndentedString(alpha)).append("\n");
     sb.append("    blockMovement: ").append(toIndentedString(blockMovement)).append("\n");
     sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
     sb.append("    colider: ").append(toIndentedString(colider)).append("\n");

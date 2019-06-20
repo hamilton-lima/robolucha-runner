@@ -22,7 +22,7 @@ import java.util.Objects;
  * MainGameDefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-11T04:58:57.195Z[GMT]")public class MainGameDefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-20T00:13:44.630Z[GMT]")public class MainGameDefinition {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
@@ -120,8 +120,14 @@ import java.util.Objects;
   @SerializedName("recycledLuchadorEnergyRestore")
   private Integer recycledLuchadorEnergyRestore = null;
 
+  @SerializedName("respawnAngle")
+  private Integer respawnAngle = null;
+
   @SerializedName("respawnCooldown")
   private Integer respawnCooldown = null;
+
+  @SerializedName("respawnGunAngle")
+  private Integer respawnGunAngle = null;
 
   @SerializedName("respawnX")
   private Integer respawnX = null;
@@ -737,6 +743,24 @@ import java.util.Objects;
   public void setRecycledLuchadorEnergyRestore(Integer recycledLuchadorEnergyRestore) {
     this.recycledLuchadorEnergyRestore = recycledLuchadorEnergyRestore;
   }
+  public MainGameDefinition respawnAngle(Integer respawnAngle) {
+    this.respawnAngle = respawnAngle;
+    return this;
+  }
+
+  
+
+  /**
+  * Get respawnAngle
+  * @return respawnAngle
+  **/
+  @Schema(description = "")
+  public Integer getRespawnAngle() {
+    return respawnAngle;
+  }
+  public void setRespawnAngle(Integer respawnAngle) {
+    this.respawnAngle = respawnAngle;
+  }
   public MainGameDefinition respawnCooldown(Integer respawnCooldown) {
     this.respawnCooldown = respawnCooldown;
     return this;
@@ -754,6 +778,24 @@ import java.util.Objects;
   }
   public void setRespawnCooldown(Integer respawnCooldown) {
     this.respawnCooldown = respawnCooldown;
+  }
+  public MainGameDefinition respawnGunAngle(Integer respawnGunAngle) {
+    this.respawnGunAngle = respawnGunAngle;
+    return this;
+  }
+
+  
+
+  /**
+  * Get respawnGunAngle
+  * @return respawnGunAngle
+  **/
+  @Schema(description = "")
+  public Integer getRespawnGunAngle() {
+    return respawnGunAngle;
+  }
+  public void setRespawnGunAngle(Integer respawnGunAngle) {
+    this.respawnGunAngle = respawnGunAngle;
   }
   public MainGameDefinition respawnX(Integer respawnX) {
     this.respawnX = respawnX;
@@ -970,7 +1012,9 @@ import java.util.Objects;
         Objects.equals(this.radarAngle, mainGameDefinition.radarAngle) &&
         Objects.equals(this.radarRadius, mainGameDefinition.radarRadius) &&
         Objects.equals(this.recycledLuchadorEnergyRestore, mainGameDefinition.recycledLuchadorEnergyRestore) &&
+        Objects.equals(this.respawnAngle, mainGameDefinition.respawnAngle) &&
         Objects.equals(this.respawnCooldown, mainGameDefinition.respawnCooldown) &&
+        Objects.equals(this.respawnGunAngle, mainGameDefinition.respawnGunAngle) &&
         Objects.equals(this.respawnX, mainGameDefinition.respawnX) &&
         Objects.equals(this.respawnY, mainGameDefinition.respawnY) &&
         Objects.equals(this.restoreEnergyperSecond, mainGameDefinition.restoreEnergyperSecond) &&
@@ -984,7 +1028,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxParticipants, minFireAmount, minFireDamage, minParticipants, moveSpeed, name, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnCooldown, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, turnGunSpeed, turnSpeed, type);
+    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxParticipants, minFireAmount, minFireDamage, minParticipants, moveSpeed, name, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnAngle, respawnCooldown, respawnGunAngle, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, turnGunSpeed, turnSpeed, type);
   }
 
   @Override
@@ -1024,7 +1068,9 @@ import java.util.Objects;
     sb.append("    radarAngle: ").append(toIndentedString(radarAngle)).append("\n");
     sb.append("    radarRadius: ").append(toIndentedString(radarRadius)).append("\n");
     sb.append("    recycledLuchadorEnergyRestore: ").append(toIndentedString(recycledLuchadorEnergyRestore)).append("\n");
+    sb.append("    respawnAngle: ").append(toIndentedString(respawnAngle)).append("\n");
     sb.append("    respawnCooldown: ").append(toIndentedString(respawnCooldown)).append("\n");
+    sb.append("    respawnGunAngle: ").append(toIndentedString(respawnGunAngle)).append("\n");
     sb.append("    respawnX: ").append(toIndentedString(respawnX)).append("\n");
     sb.append("    respawnY: ").append(toIndentedString(respawnY)).append("\n");
     sb.append("    restoreEnergyperSecond: ").append(toIndentedString(restoreEnergyperSecond)).append("\n");

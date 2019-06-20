@@ -12,35 +12,40 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.shared.Calc;
 
 public class RespawnProcessor implements IRespawnProcessor {
-	
+
 	RespawnPoint[] locations;
-	
+
 	private static Logger logger = Logger.getLogger(RespawnProcessor.class);
-	
+
 	public RespawnProcessor(MatchRunner matchRunner) {
-		calculateLocations(matchRunner.getGameDefinition().getLuchadorSize(), matchRunner.getGameDefinition()
-				.getArenaWidth(), matchRunner.getGameDefinition().getArenaHeight());
+		calculateLocations(matchRunner.getGameDefinition().getLuchadorSize(),
+				matchRunner.getGameDefinition().getArenaWidth(), matchRunner.getGameDefinition().getArenaHeight());
 
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.robolucha.game.processor.IRespawnPoint#cleanup()
 	 */
 	@Override
-	public void cleanup(){
+	public void cleanup() {
 		for (int i = 0; i < locations.length; i++) {
 			locations[i] = null;
 		}
-		
+
 		locations = null;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.robolucha.game.processor.IRespawnPoint#getRespawnPoint(com.robolucha.runner.luchador.LuchadorRunner, java.util.LinkedHashMap)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.robolucha.game.processor.IRespawnPoint#getRespawnPoint(com.robolucha.
+	 * runner.luchador.LuchadorRunner, java.util.LinkedHashMap)
 	 */
 	@Override
-	public RespawnPoint getRespawnPoint(LuchadorRunner runner,
-			LinkedHashMap<Integer, LuchadorRunner> runners) {
+	public RespawnPoint getRespawnPoint(LuchadorRunner runner, LinkedHashMap<Integer, LuchadorRunner> runners) {
 
 		int pos = -1;
 		boolean lookForPlaceToRespawn = true;
@@ -64,10 +69,9 @@ public class RespawnProcessor implements IRespawnProcessor {
 	 * @param runners
 	 * @return
 	 */
-	boolean canRespawnHere(RespawnPoint point, LuchadorRunner current,
-			LinkedHashMap<Integer, LuchadorRunner> runners) {
+	boolean canRespawnHere(RespawnPoint point, LuchadorRunner current, LinkedHashMap<Integer, LuchadorRunner> runners) {
 
-		if( logger.isDebugEnabled() ){
+		if (logger.isDebugEnabled()) {
 			logger.debug("canRespawnHere : point = " + point);
 			logger.debug("canRespawnHere : current = " + current);
 		}
@@ -81,9 +85,9 @@ public class RespawnProcessor implements IRespawnProcessor {
 				logger.debug(">canRespawnHere : runner = " + runner);
 			}
 
-			// nao precisa conferir o ID do current porque o luchador origem 
+			// nao precisa conferir o ID do current porque o luchador origem
 			// nao esta ativo ...esta usando o respawn ora bolas !! :)
-			// 
+			//
 			if (runner != null && runner.isActive()) {
 
 				if (Calc.intersectRobot(point.x, point.y, current, runner)) {
@@ -110,7 +114,7 @@ public class RespawnProcessor implements IRespawnProcessor {
 
 		int lines = ((width - (2 * border)) / size) - 1;
 		int columns = ((height - (2 * border)) / size) - 1;
-		
+
 		logger.debug("calculateLocations().lines=" + lines);
 		logger.debug("calculateLocations().columns=" + columns);
 
@@ -121,7 +125,7 @@ public class RespawnProcessor implements IRespawnProcessor {
 
 		for (int i = 0; i < lines; i++) {
 			for (int j = 0; j < columns; j++) {
-				locations[pos++] = new RespawnPoint(line, column);
+				locations[pos++] = new RespawnPoint(line, column, 0, 0);
 				column = column + size;
 			}
 			line = line + size;
@@ -130,7 +134,9 @@ public class RespawnProcessor implements IRespawnProcessor {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.robolucha.game.processor.IRespawnPoint#getLocations()
 	 */
 	@Override

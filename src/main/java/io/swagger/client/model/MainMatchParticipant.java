@@ -20,7 +20,7 @@ import java.util.Objects;
  * MainMatchParticipant
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-11T04:58:57.195Z[GMT]")public class MainMatchParticipant {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-20T00:13:44.630Z[GMT]")public class MainMatchParticipant {
 
   @SerializedName("luchadorID")
   private Integer luchadorID = null;

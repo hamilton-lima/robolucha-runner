@@ -12,7 +12,9 @@ public class FixedRespawnProcess implements IRespawnProcessor {
 
 	public FixedRespawnProcess(MatchRunner runner) {
 		this.point = new RespawnPoint(runner.getGameDefinition().getRespawnX(),
-				runner.getGameDefinition().getRespawnY());
+				runner.getGameDefinition().getRespawnY(), 
+				runner.getGameDefinition().getRespawnAngle(),
+				runner.getGameDefinition().getRespawnGunAngle());
 	}
 
 	@Override
