@@ -50,6 +50,7 @@ public class Server {
 			public void accept(MainMatch match) throws Exception {
 				logger.info("Match ended, stopping the application, see you next time.");
 				MatchRunnerAPI.getInstance().endMatch(match);
+				System.exit(0);
 			}
 		});
 
