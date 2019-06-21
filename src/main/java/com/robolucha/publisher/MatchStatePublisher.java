@@ -12,6 +12,7 @@ import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.Punch;
 import com.robolucha.runner.luchador.LuchadorRunner;
+import com.robolucha.shared.Calc;
 
 import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainSceneComponent;
@@ -65,6 +66,7 @@ public class MatchStatePublisher {
 			send.rotation = component.getRotation().intValue();
 			send.type = component.getType();
 			send.color = component.getColor();
+			send.alpha = Calc.roundTo4Decimals(component.getAlpha().doubleValue());
 			vo.sceneComponents.add(send);
 		}
 

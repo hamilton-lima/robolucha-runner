@@ -39,7 +39,7 @@ public class SceneComponentEventsRunner {
 		for (MainSceneComponent component : runner.getGameDefinition().getSceneComponents()) {
 			MatchScriptDefinition scriptDefinition = ScriptDefinitionFactory.getInstance().getMatchScript();
 			scriptDefinition.loadDefaultLibraries();
-			
+
 			logger.info("Builds gamedefinition codes: " + JSONFormat.clean(component.getCodes().toString()));
 			MethodBuilder.getInstance().buildAll(scriptDefinition, component.getCodes());
 
@@ -55,7 +55,7 @@ public class SceneComponentEventsRunner {
 	}
 
 	boolean hasException(MainCode code) {
-		return code.getException() != null && code.getException().trim().length() > 0;
+		return code != null && code.getException() != null && code.getException().trim().length() > 0;
 	}
 
 	public void onHit(MainSceneComponent component, LuchadorRunner luchador) {
@@ -65,18 +65,19 @@ public class SceneComponentEventsRunner {
 		MainCode code = runner.component.getCodes().stream()
 				.filter((c) -> c.getEvent().equals(MethodNames.ON_HIT_OTHER)).findAny().orElse(null);
 
-		if (hasException(code)) {
-			logger.warn("onHit triggered, but code has Exception and won't be executed: "
-					+ JSONFormat.clean(code.toString()));
-		} else {
-			Object[] parameter = new Object[] { luchador.getState().getPublicState() };
+		if (code != null) {
+			if (hasException(code)) {
+				logger.warn("onHit triggered, but code has Exception and won't be executed: "
+						+ JSONFormat.clean(code.toString()));
+			} else {
+				Object[] parameter = new Object[] { luchador.getState().getPublicState() };
 
-			logger.info("onHit Calling the scriptDefinition run() : " + JSONFormat.clean(component.toString())
-					+ " parameter: " + Arrays.toString(parameter));
+				logger.info("onHit Calling the scriptDefinition run() : " + JSONFormat.clean(component.toString())
+						+ " parameter: " + Arrays.toString(parameter));
 
-			runner.scriptDefinition.run(facade, MethodNames.ON_HIT_OTHER, parameter);
+				runner.scriptDefinition.run(facade, MethodNames.ON_HIT_OTHER, parameter);
+			}
 		}
-
 	}
 
 }

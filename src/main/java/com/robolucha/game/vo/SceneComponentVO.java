@@ -9,4 +9,5 @@ public class SceneComponentVO {
 	public int rotation;
 	public String type;
 	public String color;
+	public double alpha;
 }
