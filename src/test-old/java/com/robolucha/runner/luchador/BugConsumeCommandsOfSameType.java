@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.code.MethodNames;
@@ -15,6 +14,7 @@ import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.MainMatch;
 
 /**
  * This bug happens when command execute queue dont retrict the execution of
@@ -44,8 +44,8 @@ public class BugConsumeCommandsOfSameType {
 		match.add(a);
 
 		// set initial position for luchador
-		match.getOnMatchStart().subscribe(new Consumer<MatchEventVO>() {
-			public void accept(MatchEventVO arg0) throws Exception {
+		match.getOnMatchStart().subscribe(new Consumer<MainMatch>() {
+			public void accept(MainMatch arg0) throws Exception {
 
 				LuchadorRunner runner = match.getRunners().get(1L);
 				runner.cleanUpStateAtTheEnd = false;
@@ -63,8 +63,8 @@ public class BugConsumeCommandsOfSameType {
 		MockMatchRunner.start(match);
 
 		// get final state
-		match.getOnMatchEnd().blockingSubscribe(new Consumer<MatchEventVO>() {
-			public void accept(MatchEventVO arg0) throws Exception {
+		match.getOnMatchEnd().blockingSubscribe(new Consumer<MainMatch>() {
+			public void accept(MainMatch arg0) throws Exception {
 				LuchadorRunner runner = match.getRunners().get(1L);
 				finalState = runner.getState().getPublicState();
 			}

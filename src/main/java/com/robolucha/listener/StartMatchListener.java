@@ -2,17 +2,11 @@ package com.robolucha.listener;
 
 import org.apache.log4j.Logger;
 
-import com.robolucha.publisher.RemoteQueue;
-import com.robolucha.runner.MatchRunner;
-import com.robolucha.runner.MatchRunnerAPI;
 import com.robolucha.runner.Server;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainJoinMatch;
-import io.swagger.client.model.MainMatch;
 
 public class StartMatchListener implements Consumer<MainJoinMatch>, Disposable {
 

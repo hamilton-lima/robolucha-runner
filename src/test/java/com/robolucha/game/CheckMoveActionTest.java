@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.luchador.LuchadorRunner;
@@ -15,6 +14,7 @@ import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.MainMatch;
 
 public class CheckMoveActionTest {
 
@@ -39,8 +39,8 @@ public class CheckMoveActionTest {
 		LuchadorRunner runnerA = match.add(a).blockingFirst();
 		LuchadorRunner runnerB = match.add(b).blockingFirst();
 
-		match.getOnMatchStart().subscribe(new Consumer<MatchEventVO>() {
-			public void accept(MatchEventVO arg0) throws Exception {
+		match.getOnMatchStart().subscribe(new Consumer<MainMatch>() {
+			public void accept(MainMatch arg0) throws Exception {
 
 				runnerA.getState().setX(100);
 				runnerA.getState().setY(100);

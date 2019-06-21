@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.game.event.LuchadorEvent;
 import com.robolucha.game.event.LuchadorEventListener;
 import com.robolucha.game.event.OnFoundEvent;
@@ -20,6 +19,7 @@ import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.MainMatch;
 
 public class BugRadarRadiusWrong {
 
@@ -50,8 +50,8 @@ public class BugRadarRadiusWrong {
 		match.add(b);
 
 		// set initial position for luchador
-		match.getOnMatchStart().subscribe(new Consumer<MatchEventVO>() {
-			public void accept(MatchEventVO arg0) throws Exception {
+		match.getOnMatchStart().subscribe(new Consumer<MainMatch>() {
+			public void accept(MainMatch arg0) throws Exception {
 
 				LuchadorRunner runnerA = match.getRunners().get(1L);
 				LuchadorRunner runnerB = match.getRunners().get(-2L);
@@ -88,8 +88,8 @@ public class BugRadarRadiusWrong {
 
 		MockMatchRunner.start(match);
 
-		match.getOnMatchEnd().blockingSubscribe(new Consumer<MatchEventVO>() {
-			public void accept(MatchEventVO arg0) throws Exception {
+		match.getOnMatchEnd().blockingSubscribe(new Consumer<MainMatch>() {
+			public void accept(MainMatch arg0) throws Exception {
 				logger.debug("END! foundCount = " + foundCount);
 				assertTrue("onFound event was triggered " + foundCount, foundCount > 0);
 			}

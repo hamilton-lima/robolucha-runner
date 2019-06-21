@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
@@ -18,6 +17,7 @@ import io.reactivex.functions.Consumer;
 import io.swagger.client.model.MainCode;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
+import io.swagger.client.model.MainMatch;
 import io.swagger.client.model.MainSceneComponent;
 
 public class SceneComponentEventsRunnerTest {
@@ -86,8 +86,8 @@ public class SceneComponentEventsRunnerTest {
 		facade = new MockFacade(match);
 		match.eventsRunner.facade = facade;
 
-		match.getOnMatchStart().subscribe(new Consumer<MatchEventVO>() {
-			public void accept(MatchEventVO arg0) throws Exception {
+		match.getOnMatchStart().subscribe(new Consumer<MainMatch>() {
+			public void accept(MainMatch arg0) throws Exception {
 
 				int shift = match.getGameDefinition().getLuchadorSize() / 2;
 				aX1 = 100 - shift - 2;

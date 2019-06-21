@@ -59,6 +59,7 @@ public class Entrypoint {
 		}
 
 		if (gameMode.contentEquals(GAME_MODE_TUTORIAL)) {
+			// wait for the command to start matches
 			StartMatchListener.listen(server);
 		}
 

@@ -8,9 +8,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.robolucha.event.match.MatchEventVO;
-import com.robolucha.event.match.MatchEventVOEnd;
-import com.robolucha.event.match.MatchEventVOStart;
 import com.robolucha.game.action.AddOnListenEventAction;
 import com.robolucha.game.action.ChangeStateAction;
 import com.robolucha.game.action.CheckRadarAction;
@@ -65,8 +62,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private BulletsProcessor bulletsProcessor;
 	private double delta;
 
-	private PublishSubject<MatchEventVO> onMatchStart;
-	private PublishSubject<MatchEventVO> onMatchEnd;
+	private PublishSubject<MainMatch> onMatchStart;
+	private PublishSubject<MainMatch> onMatchEnd;
 	private PublishSubject<MessageVO> onMessage;
 	private PublishSubject<MatchInitVO> onInit;
 
@@ -234,7 +231,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		logger.info("[Bruce Buffer voice] It's TIME, starting game: " + JSONFormat.clean(gameDefinition.toString()));
 
 		// TODO: reduce to one single event
-		onMatchStart.onNext(new MatchEventVOStart());
+		onMatchStart.onNext(match);
 		onMatchStart.onComplete();
 
 		getEventHandler().start();
@@ -319,17 +316,17 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			logger.error("*** ERROR last publisher update", e);
 		}
 
-		onMatchEnd.onNext(new MatchEventVOEnd());
-		onMatchEnd.onComplete();
-
 		logger.info("matchrun shutdown (1)");
-		// desliga tratador de eventos
-		getEventHandler().end(new RunAfterThisTask(this) {
-			public void run() {
-				logger.info("matchrun shutdown (2)");
-				((MatchRunner) data).shutDownServices();
-			}
-		});
+		onMatchEnd.onNext(match);
+		onMatchEnd.onComplete();
+		
+		// send end event and shut down event handler
+//		getEventHandler().end(new RunAfterThisTask(this) {
+//			public void run() {
+//				logger.info("matchrun shutdown (2)");
+//				((MatchRunner) data).shutDownServices();
+//			}
+//		});
 
 	}
 
@@ -663,11 +660,11 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		this.publisher = publisher;
 	}
 
-	public PublishSubject<MatchEventVO> getOnMatchStart() {
+	public PublishSubject<MainMatch> getOnMatchStart() {
 		return onMatchStart;
 	}
 
-	public PublishSubject<MatchEventVO> getOnMatchEnd() {
+	public PublishSubject<MainMatch> getOnMatchEnd() {
 		return onMatchEnd;
 	}
 
