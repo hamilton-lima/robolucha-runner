@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
-import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.game.action.OnInitAddNPC;
 import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.monitor.ServerMonitor;
@@ -47,9 +46,10 @@ public class Server {
 
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
 
-		// stop the application when the match ends
-		runner.getOnMatchEnd().subscribe(new Consumer<MatchEventVO>() {
-			public void accept(MatchEventVO arg0) throws Exception {
+		runner.getOnMatchEnd().subscribe(new Consumer<MainMatch>() {
+			public void accept(MainMatch match) throws Exception {
+				logger.info("Match ended, stopping the application, see you next time.");
+				MatchRunnerAPI.getInstance().endMatch(match);
 				System.exit(0);
 			}
 		});

@@ -34,11 +34,9 @@ public class BugAcessoVariavelMeTest {
         match.getGameDefinition().setMinParticipants(1);
 
         MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "me.x = 200;");
-        match.add(a);
+        LuchadorRunner runnerA = match.add(a).blockingFirst();
 
         MockMatchRunner.start(match);
-
-        LuchadorRunner runnerA = match.getRunners().get(1L);
 
         runnerA.getState().setX(100);
         runnerA.getState().setY(100);
@@ -47,7 +45,7 @@ public class BugAcessoVariavelMeTest {
         logger.debug("--- A : " + runnerA.getState());
 
         // stop the match
-        Thread.sleep(2500);
+        Thread.sleep(500);
         match.kill();
         Thread.sleep(500);
 

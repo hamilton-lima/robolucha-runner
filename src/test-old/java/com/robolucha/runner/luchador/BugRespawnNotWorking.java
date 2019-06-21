@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.event.match.MatchEventVO;
 import com.robolucha.game.event.MatchEventListener;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.LuchadorMatchState;
@@ -21,6 +20,7 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.BehaviorSubject;
 import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.MainMatch;
 
 /**
  * This test creates 2 luchadores A and B - A need to be a the left of B with
@@ -89,8 +89,8 @@ public class BugRespawnNotWorking {
 		match.add(b);
 
 		// set initial position for luchador
-		match.getOnMatchStart().subscribe(new Consumer<MatchEventVO>() {
-			public void accept(MatchEventVO arg0) throws Exception {
+		match.getOnMatchStart().subscribe(new Consumer<MainMatch>() {
+			public void accept(MainMatch arg0) throws Exception {
 
 				LuchadorRunner runnerA = match.getRunners().get(1L);
 				LuchadorRunner runnerB = match.getRunners().get(-2L);
@@ -143,8 +143,8 @@ public class BugRespawnNotWorking {
 		// subscribe to event when KILL happens
 
 		// get final state
-		match.getOnMatchEnd().blockingSubscribe(new Consumer<MatchEventVO>() {
-			public void accept(MatchEventVO arg0) throws Exception {
+		match.getOnMatchEnd().blockingSubscribe(new Consumer<MainMatch>() {
+			public void accept(MainMatch arg0) throws Exception {
 				LuchadorRunner runner = match.getRunners().get(-2L);
 				finalState = runner.getState().getPublicState();
 			}

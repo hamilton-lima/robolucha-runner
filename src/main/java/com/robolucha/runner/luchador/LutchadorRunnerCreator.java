@@ -5,7 +5,6 @@ import java.util.Queue;
 
 import org.apache.log4j.Logger;
 
-import com.robolucha.event.match.MatchEventVOStart;
 import com.robolucha.listener.LuchadorUpdateListener;
 import com.robolucha.models.MatchParticipant;
 import com.robolucha.monitor.ServerMonitor;
