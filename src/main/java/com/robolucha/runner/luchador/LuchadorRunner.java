@@ -425,6 +425,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		this.active = false;
 		this.lastRunningError = reason;
+
+		this.codeExecutionQueue.clear();
+		this.events.clear();
+		this.messages.clear();
 	}
 
 	public void executeMove(double amount) {

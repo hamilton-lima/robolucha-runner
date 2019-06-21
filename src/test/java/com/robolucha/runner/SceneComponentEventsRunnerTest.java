@@ -109,5 +109,5 @@ public class SceneComponentEventsRunnerTest {
 		assertTrue("check if luchador moved", aX2 > aX1);
 		assertTrue("check if endGame code was called", facade.endGameCalled);
 	}
-
+	
 }
