@@ -6,28 +6,27 @@ import io.swagger.client.model.MainMatchMetric;
 
 public class MatchRunnerMonitor {
 
-	private static final int MONITOR_INTERVAL = 10000;
 	private ServerMonitor serverMonitor;
 	private MainMatchMetric metric;
 	private int players;
 	private int frames;
 	private long monitorLastTime;
 	private int seconds;
+	private int interval;
 
-	public MatchRunnerMonitor(ServerMonitor serverMonitor, MainMatchMetric metric) {
+	public MatchRunnerMonitor(ServerMonitor serverMonitor, MainMatchMetric metric, int interval) {
 		this.serverMonitor = serverMonitor;
 		this.metric = metric;
+		this.interval = interval;
 
-		seconds = MONITOR_INTERVAL / 1000;
-		players = 0;
-		frames = 0;
-		monitorLastTime = 0;
+		seconds = interval / 1000;
+		resetCounters();
 	}
 
 	public void tick() {
 		frames++;
 
-		if ((System.currentTimeMillis() - monitorLastTime) > MONITOR_INTERVAL) {
+		if ((System.currentTimeMillis() - monitorLastTime) > interval) {
 			updateMetric();
 			sendMetric();
 			resetCounters();

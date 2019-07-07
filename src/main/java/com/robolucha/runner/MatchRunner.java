@@ -54,6 +54,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private static final long SMALL_SLEEP = 5;
 	private static final String WALL_TYPE = "wall";
+	private static final int MONITOR_INTERVAL = 10000;
 
 	private SafeList bullets;
 	private SafeList punches;
@@ -117,7 +118,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		MainMatchMetric metric = new MainMatchMetric();
 		metric.setGameDefinitionID(gameDefinition.getId());
 		metric.setMatchID(match.getId());
-		monitor = new MatchRunnerMonitor(serverMonitor, metric);
+		monitor = new MatchRunnerMonitor(serverMonitor, metric, MONITOR_INTERVAL);
 
 		listeners = new LinkedList<MatchRunnerListener>();
 
