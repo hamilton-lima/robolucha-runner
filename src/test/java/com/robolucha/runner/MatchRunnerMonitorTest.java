@@ -30,7 +30,7 @@ public class MatchRunnerMonitorTest {
 		int interval = 1000;
 		MockServerMonitor serverMonitor = new MockServerMonitor();
 		MainMatchMetric metric = new MainMatchMetric();
-		
+
 		metric.setGameDefinitionID(42);
 		MatchRunnerMonitor monitor = new MatchRunnerMonitor(serverMonitor, metric, interval);
 		monitor.tick();
@@ -38,7 +38,7 @@ public class MatchRunnerMonitorTest {
 		monitor.addPlayer();
 		monitor.addPlayer();
 
-		Thread.sleep(interval +1);
+		Thread.sleep(interval + 1);
 		monitor.tick();
 
 		assertEquals(42, serverMonitor.lastMetric.getGameDefinitionID().intValue());
@@ -51,7 +51,7 @@ public class MatchRunnerMonitorTest {
 		int interval = 200;
 		MockServerMonitor serverMonitor = new MockServerMonitor();
 		MainMatchMetric metric = new MainMatchMetric();
-		
+
 		metric.setGameDefinitionID(42);
 		MatchRunnerMonitor monitor = new MatchRunnerMonitor(serverMonitor, metric, interval);
 		monitor.tick();
@@ -59,13 +59,30 @@ public class MatchRunnerMonitorTest {
 		monitor.addPlayer();
 		monitor.addPlayer();
 
-		Thread.sleep(interval +1);
+		Thread.sleep(interval + 1);
 		monitor.tick();
 		assertEquals(2, serverMonitor.lastMetric.getPlayers().intValue());
 
-		Thread.sleep(interval +1);
+		Thread.sleep(interval + 1);
 		monitor.tick();
 		assertEquals(2, serverMonitor.lastMetric.getPlayers().intValue());
+	}
+
+	@Test
+	public void testFPSCalculation() throws InterruptedException {
+		int interval = 2000;
+		MockServerMonitor serverMonitor = new MockServerMonitor();
+		MainMatchMetric metric = new MainMatchMetric();
+
+		MatchRunnerMonitor monitor = new MatchRunnerMonitor(serverMonitor, metric, interval);
+		int max = 100;
+		for (int n = 0; n < max; n++) {
+			monitor.tick();
+		}
+
+		Thread.sleep(interval + 1);
+		monitor.tick();
+		assertEquals(max / 2, serverMonitor.lastMetric.getFps().intValue());
 	}
 
 }
