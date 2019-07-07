@@ -9,17 +9,24 @@ public class MatchRunnerMonitor {
 	private static final int MONITOR_INTERVAL = 10000;
 	private ServerMonitor serverMonitor;
 	private MainMatchMetric metric;
-	private int playerCount = 0;
-	private int frameCount = 0;
-	private int publisherCount = 0;
-	private long monitorLastTime = 0;
-	
+	private int players;
+	private int frames;
+	private long monitorLastTime;
+	private int seconds;
+
 	public MatchRunnerMonitor(ServerMonitor serverMonitor, MainMatchMetric metric) {
 		this.serverMonitor = serverMonitor;
 		this.metric = metric;
+
+		seconds = MONITOR_INTERVAL / 1000;
+		players = 0;
+		frames = 0;
+		monitorLastTime = 0;
 	}
 
 	public void tick() {
+		frames++;
+
 		if ((System.currentTimeMillis() - monitorLastTime) > MONITOR_INTERVAL) {
 			updateMetric();
 			sendMetric();
@@ -29,23 +36,20 @@ public class MatchRunnerMonitor {
 
 	private void resetCounters() {
 		monitorLastTime = System.currentTimeMillis();
-		playerCount = 0;
-		frameCount = 0;
-		publisherCount = 0;
-	}
-
-	private void sendMetric() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void updateMetric() {
-		// TODO Auto-generated method stub
-		
+		players = 0;
+		frames = 0;
 	}
 
 	public void addPlayer() {
-		playerCount ++;
+		players++;
 	}
-		
+
+	private void updateMetric() {
+		metric.setFps(frames / seconds);
+		metric.setPlayers(players);
+	}
+
+	private void sendMetric() {
+		serverMonitor.matchMetric(metric);
+	}
 }
