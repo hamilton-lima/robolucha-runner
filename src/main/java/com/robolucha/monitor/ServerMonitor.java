@@ -1,12 +1,17 @@
 package com.robolucha.monitor;
 
+import org.apache.log4j.Logger;
+
 import com.robolucha.publisher.RemoteQueue;
+import com.robolucha.runner.MatchRunnerAPI;
+
+import io.swagger.client.model.MainMatchMetric;
 
 public class ServerMonitor {
 
 	private RemoteQueue queue;
 	private String heatBeatPreffix = "monitor.heartbeat.";
-	private String metricPreffix = "monitor.metric.";
+	static Logger logger = Logger.getLogger(ServerMonitor.class);
 
 	public ServerMonitor(RemoteQueue queue) {
 		this.queue = queue;
@@ -16,7 +21,13 @@ public class ServerMonitor {
 		queue.publish(heatBeatPreffix + name, 1);
 	}
 
-	public void metric(String name, int value) {
-		queue.publish(metricPreffix + name, value);
+	public void matchMetric(MainMatchMetric metric) {
+		new Thread(() -> {
+			try {
+				MatchRunnerAPI.getInstance().addMatchMetric(metric);
+			} catch (Exception e) {
+				logger.error("Error saving match metric", e);
+			}
+		}).start();
 	}
 }

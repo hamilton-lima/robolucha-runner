@@ -8,11 +8,13 @@ import com.robolucha.models.MatchParticipant;
 import com.robolucha.models.MatchScore;
 import com.robolucha.shared.JSONFormat;
 
+import io.swagger.client.ApiException;
 import io.swagger.client.api.DefaultApi;
 import io.swagger.client.model.MainFindLuchadorWithGamedefinition;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.MainMatchMetric;
 import io.swagger.client.model.MainMatchParticipant;
 import io.swagger.client.model.MainMatchScore;
 import io.swagger.client.model.MainScoreList;
@@ -94,6 +96,10 @@ public class MatchRunnerAPI {
 	public MainGameDefinition getGameDefinition(Integer gameDefinitionID) throws Exception {
 		MainGameDefinition result = api.internalGameDefinitionIdIdGet(gameDefinitionID);
 		return result;
+	}
+
+	public void addMatchMetric(MainMatchMetric body) throws Exception {
+		api.internalMatchMetricPost(body);
 	}
 
 }

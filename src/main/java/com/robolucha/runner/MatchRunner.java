@@ -44,6 +44,7 @@ import io.reactivex.subjects.PublishSubject;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.MainMatchMetric;
 import io.swagger.client.model.MainSceneComponent;
 
 /**
@@ -53,6 +54,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private static final long SMALL_SLEEP = 5;
 	private static final String WALL_TYPE = "wall";
+	private static final int MONITOR_INTERVAL = 10000;
 
 	private SafeList bullets;
 	private SafeList punches;
@@ -97,21 +99,26 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private LutchadorRunnerCreator luchadorCreator;
 	SceneComponentEventsRunner eventsRunner;
 	private MainMatch match;
-	private ServerMonitor monitor;
+	private MatchRunnerMonitor monitor;
 
 	public MatchEventHandler getEventHandler() {
 		return eventHandler;
 	}
 
-	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue, ServerMonitor monitor) throws Exception {
+	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue,
+			ServerMonitor serverMonitor) throws Exception {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
 		status = ThreadStatus.STARTING;
 		alive = true;
 		delta = 0.0;
 		this.gameDefinition = gameDefinition;
-
 		this.match = match;
+
+		MainMatchMetric metric = new MainMatchMetric();
+		metric.setGameDefinitionID(gameDefinition.getId());
+		metric.setMatchID(match.getId());
+		monitor = new MatchRunnerMonitor(serverMonitor, metric, MONITOR_INTERVAL);
 
 		listeners = new LinkedList<MatchRunnerListener>();
 
@@ -122,7 +129,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		runOnActive.add(new ChangeStateAction());
 
 		runners = new LinkedHashMap<Integer, LuchadorRunner>();
-		
+
 		eventsRunner = new SceneComponentEventsRunner(this);
 		respawnProcessor = RespawnProcessorFactory.get(this);
 
@@ -135,8 +142,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		punchesProcessor = new PunchesProcessor(this, punches);
 		bulletsProcessor = new BulletsProcessor(this, bullets);
 
-		eventHandler = new MatchEventHandler(this, threadName, monitor);
-		luchadorCreator = new LutchadorRunnerCreator(this, queue, monitor);
+		eventHandler = new MatchEventHandler(this, threadName, serverMonitor);
+		luchadorCreator = new LutchadorRunnerCreator(this, queue, serverMonitor);
 
 		onMatchStart = PublishSubject.create();
 		onMatchEnd = PublishSubject.create();
@@ -184,6 +191,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	}
 
 	public void addLuchador(final MainGameComponent component) throws Exception {
+		monitor.addPlayer();
 		add(component);
 	}
 
@@ -230,7 +238,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		logger.info("[Bruce Buffer voice] It's TIME, starting game: " + JSONFormat.clean(gameDefinition.toString()));
 
-		// TODO: reduce to one single event
 		onMatchStart.onNext(match);
 		onMatchStart.onComplete();
 
@@ -242,31 +249,16 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		long logStart = 0;
 		long logThreshold = 30000;
 
-		long start = System.currentTimeMillis();
-		long current = 0;
+		long start = 0;
 		long elapsed = 0;
-		int expectedElapsed = 0;
+		long expectedElapsed = 0;
+		int expectedFrameProcessingTime = 1000 / gameDefinition.getFps().intValue();
+		delta = expectedFrameProcessingTime / 1000.0;
 
-		logger.info("starting");
+		logger.info("Starting Match mainLoop()");
 
 		while (alive) {
-			current = System.currentTimeMillis();
-			elapsed = current - start;
-			start = current;
-			delta = elapsed / 1000.0;
-			expectedElapsed = (int) ((1000 / gameDefinition.getFps()) - elapsed);
-
-			try {
-				// adjust the FPS
-
-				// TODO: allow inspection of this value
-				if (expectedElapsed > 0) {
-					Thread.sleep(expectedElapsed);
-				}
-			} catch (InterruptedException e) {
-				logger.error("Main loop interrupted", e);
-			}
-
+			start = System.currentTimeMillis();
 			timeElapsed = System.currentTimeMillis() - timeStart;
 
 			// only controls match duration if gamedefinition.duration > 0
@@ -278,35 +270,45 @@ public class MatchRunner implements Runnable, ThreadStatus {
 				}
 			}
 
-			if ((System.currentTimeMillis() - logStart) > logThreshold) {
-				logStart = System.currentTimeMillis();
-				logger.info("MatchRunner active: " + gameDefinition.getName() + " FPS: " + gameDefinition.getFps());
-				// getEventHandler().alive();
+			if (logger.isInfoEnabled()) {
+				if ((System.currentTimeMillis() - logStart) > logThreshold) {
+					logStart = System.currentTimeMillis();
+					logger.info("MatchRunner active: " + gameDefinition.getName() + " FPS: " + gameDefinition.getFps());
+				}
 			}
 
 			try {
 				if (logger.isDebugEnabled()) {
 					logger.debug("**** TICK ****");
 				}
-
 				runOnActive.stream().sequential().forEach(action -> runAllActive(action));
 
 				bulletsProcessor.process();
 				punchesProcessor.process();
 
-				// trata os mortinhos da silva
+				// handle the dead guys
 				runAll(removeDeadAction);
 				runAll(respawnAction);
-
-				// atualiza tempos de cooldown
 				runAll(ReduceCoolDownAction.getInstance());
 
 				publisher.update(this);
+				monitor.tick();
 
 			} catch (Throwable e) {
 				logger.error("*** ERROR AT MATCHRUN MAINLOOP", e);
 			}
 
+			elapsed = System.currentTimeMillis() - start;
+			expectedElapsed = expectedFrameProcessingTime - elapsed;
+
+			// adjust the FPS
+			try {
+				if (expectedElapsed > 0) {
+					Thread.sleep(expectedElapsed);
+				}
+			} catch (InterruptedException e) {
+				logger.error("Main loop interrupted", e);
+			}
 		}
 
 		alive = false;
@@ -319,7 +321,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		logger.info("matchrun shutdown (1)");
 		onMatchEnd.onNext(match);
 		onMatchEnd.onComplete();
-		
+
 		// send end event and shut down event handler
 //		getEventHandler().end(new RunAfterThisTask(this) {
 //			public void run() {
@@ -510,8 +512,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			MainSceneComponent current = sceneIterator.next();
 
 			if (logger.isDebugEnabled()) {
-				logger.debug(">> (1) checking collision from :" + source.getGameComponent().getId() + " at x,y=" + x + ","
-						+ y + " to scenecomponent : " + JSONFormat.clean(current.toString()) );
+				logger.debug(">> (1) checking collision from :" + source.getGameComponent().getId() + " at x,y=" + x
+						+ "," + y + " to scenecomponent : " + JSONFormat.clean(current.toString()));
 			}
 
 			if (current.isColider() && Calc.intersectCirclewithSceneComponent(x, y, radius, current)) {

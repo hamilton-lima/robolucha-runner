@@ -20,7 +20,7 @@ import java.util.Objects;
  * MainFindLuchadorWithGamedefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-20T00:13:44.630Z[GMT]")public class MainFindLuchadorWithGamedefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainFindLuchadorWithGamedefinition {
 
   @SerializedName("gameDefinitionID")
   private Integer gameDefinitionID = null;
