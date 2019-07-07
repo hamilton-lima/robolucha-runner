@@ -238,7 +238,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		logger.info("[Bruce Buffer voice] It's TIME, starting game: " + JSONFormat.clean(gameDefinition.toString()));
 
-		// TODO: reduce to one single event
 		onMatchStart.onNext(match);
 		onMatchStart.onComplete();
 
@@ -250,31 +249,16 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		long logStart = 0;
 		long logThreshold = 30000;
 
-		long start = System.currentTimeMillis();
-		long current = 0;
+		long start = 0;
 		long elapsed = 0;
-		int expectedElapsed = 0;
+		long expectedElapsed = 0;
+		int expectedFrameProcessingTime = 1000 / gameDefinition.getFps().intValue();
+		delta = expectedFrameProcessingTime / 1000.0;
 
-		logger.info("starting");
+		logger.info("Starting Match mainLoop()");
 
 		while (alive) {
-			current = System.currentTimeMillis();
-			elapsed = current - start;
-			start = current;
-			delta = elapsed / 1000.0;
-			expectedElapsed = (int) ((1000 / gameDefinition.getFps()) - elapsed);
-
-			try {
-				// adjust the FPS
-
-				// TODO: allow inspection of this value
-				if (expectedElapsed > 0) {
-					Thread.sleep(expectedElapsed);
-				}
-			} catch (InterruptedException e) {
-				logger.error("Main loop interrupted", e);
-			}
-
+			start = System.currentTimeMillis();
 			timeElapsed = System.currentTimeMillis() - timeStart;
 
 			// only controls match duration if gamedefinition.duration > 0
@@ -302,11 +286,9 @@ public class MatchRunner implements Runnable, ThreadStatus {
 				bulletsProcessor.process();
 				punchesProcessor.process();
 
-				// trata os mortinhos da silva
+				// handle the dead guys
 				runAll(removeDeadAction);
 				runAll(respawnAction);
-
-				// atualiza tempos de cooldown
 				runAll(ReduceCoolDownAction.getInstance());
 
 				publisher.update(this);
@@ -316,6 +298,17 @@ public class MatchRunner implements Runnable, ThreadStatus {
 				logger.error("*** ERROR AT MATCHRUN MAINLOOP", e);
 			}
 
+			elapsed = System.currentTimeMillis() - start;
+			expectedElapsed = expectedFrameProcessingTime - elapsed;
+
+			// adjust the FPS
+			try {
+				if (expectedElapsed > 0) {
+					Thread.sleep(expectedElapsed);
+				}
+			} catch (InterruptedException e) {
+				logger.error("Main loop interrupted", e);
+			}
 		}
 
 		alive = false;

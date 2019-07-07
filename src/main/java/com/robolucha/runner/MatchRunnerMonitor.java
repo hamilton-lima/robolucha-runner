@@ -5,7 +5,6 @@ import com.robolucha.monitor.ServerMonitor;
 import io.swagger.client.model.MainMatchMetric;
 
 public class MatchRunnerMonitor {
-
 	private ServerMonitor serverMonitor;
 	private MainMatchMetric metric;
 	private int players;
@@ -23,7 +22,7 @@ public class MatchRunnerMonitor {
 		if (seconds <= 0) {
 			seconds = 1;
 		}
-		
+
 		players = 0;
 		resetCounters();
 	}
