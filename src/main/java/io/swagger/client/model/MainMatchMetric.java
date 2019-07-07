@@ -20,13 +20,10 @@ import java.util.Objects;
  * MainMatchMetric
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-29T23:52:21.322Z[GMT]")public class MainMatchMetric {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainMatchMetric {
 
   @SerializedName("fps")
   private Integer fps = null;
-
-  @SerializedName("fpsSentToPublisher")
-  private Integer fpsSentToPublisher = null;
 
   @SerializedName("gameDefinitionID")
   private Integer gameDefinitionID = null;
@@ -56,24 +53,6 @@ import java.util.Objects;
   }
   public void setFps(Integer fps) {
     this.fps = fps;
-  }
-  public MainMatchMetric fpsSentToPublisher(Integer fpsSentToPublisher) {
-    this.fpsSentToPublisher = fpsSentToPublisher;
-    return this;
-  }
-
-  
-
-  /**
-  * Get fpsSentToPublisher
-  * @return fpsSentToPublisher
-  **/
-  @Schema(description = "")
-  public Integer getFpsSentToPublisher() {
-    return fpsSentToPublisher;
-  }
-  public void setFpsSentToPublisher(Integer fpsSentToPublisher) {
-    this.fpsSentToPublisher = fpsSentToPublisher;
   }
   public MainMatchMetric gameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
@@ -157,7 +136,6 @@ import java.util.Objects;
     }
     MainMatchMetric mainMatchMetric = (MainMatchMetric) o;
     return Objects.equals(this.fps, mainMatchMetric.fps) &&
-        Objects.equals(this.fpsSentToPublisher, mainMatchMetric.fpsSentToPublisher) &&
         Objects.equals(this.gameDefinitionID, mainMatchMetric.gameDefinitionID) &&
         Objects.equals(this.id, mainMatchMetric.id) &&
         Objects.equals(this.matchID, mainMatchMetric.matchID) &&
@@ -166,7 +144,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(fps, fpsSentToPublisher, gameDefinitionID, id, matchID, players);
+    return java.util.Objects.hash(fps, gameDefinitionID, id, matchID, players);
   }
 
   @Override
@@ -175,7 +153,6 @@ import java.util.Objects;
     sb.append("class MainMatchMetric {\n");
     
     sb.append("    fps: ").append(toIndentedString(fps)).append("\n");
-    sb.append("    fpsSentToPublisher: ").append(toIndentedString(fpsSentToPublisher)).append("\n");
     sb.append("    gameDefinitionID: ").append(toIndentedString(gameDefinitionID)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");

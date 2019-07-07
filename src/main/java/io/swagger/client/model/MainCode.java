@@ -20,7 +20,7 @@ import java.util.Objects;
  * MainCode
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-06-29T23:52:21.322Z[GMT]")public class MainCode {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainCode {
 
   @SerializedName("event")
   private String event = null;
