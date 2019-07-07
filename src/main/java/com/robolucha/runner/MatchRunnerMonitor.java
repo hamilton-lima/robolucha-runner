@@ -20,6 +20,11 @@ public class MatchRunnerMonitor {
 		this.interval = interval;
 
 		seconds = interval / 1000;
+		if (seconds <= 0) {
+			seconds = 1;
+		}
+		
+		players = 0;
 		resetCounters();
 	}
 
@@ -35,7 +40,6 @@ public class MatchRunnerMonitor {
 
 	private void resetCounters() {
 		monitorLastTime = System.currentTimeMillis();
-		players = 0;
 		frames = 0;
 	}
 

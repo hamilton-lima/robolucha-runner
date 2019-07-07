@@ -46,4 +46,26 @@ public class MatchRunnerMonitorTest {
 		assertEquals(2, serverMonitor.lastMetric.getPlayers().intValue());
 	}
 
+	@Test
+	public void testKeepNumberOfPlayersAfterTick() throws InterruptedException {
+		int interval = 200;
+		MockServerMonitor serverMonitor = new MockServerMonitor();
+		MainMatchMetric metric = new MainMatchMetric();
+		
+		metric.setGameDefinitionID(42);
+		MatchRunnerMonitor monitor = new MatchRunnerMonitor(serverMonitor, metric, interval);
+		monitor.tick();
+		monitor.tick();
+		monitor.addPlayer();
+		monitor.addPlayer();
+
+		Thread.sleep(interval +1);
+		monitor.tick();
+		assertEquals(2, serverMonitor.lastMetric.getPlayers().intValue());
+
+		Thread.sleep(interval +1);
+		monitor.tick();
+		assertEquals(2, serverMonitor.lastMetric.getPlayers().intValue());
+	}
+
 }
