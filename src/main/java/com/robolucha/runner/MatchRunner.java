@@ -99,13 +99,13 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	SceneComponentEventsRunner eventsRunner;
 	private MainMatch match;
 	private MatchRunnerMonitor monitor;
-	
+
 	public MatchEventHandler getEventHandler() {
 		return eventHandler;
 	}
 
-	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue, ServerMonitor serverMonitor)
-			throws Exception {
+	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue,
+			ServerMonitor serverMonitor) throws Exception {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
 		status = ThreadStatus.STARTING;
@@ -113,7 +113,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		delta = 0.0;
 		this.gameDefinition = gameDefinition;
 		this.match = match;
-		
+
 		MainMatchMetric metric = new MainMatchMetric();
 		metric.setGameDefinitionID(gameDefinition.getId());
 		metric.setMatchID(match.getId());
@@ -285,10 +285,11 @@ public class MatchRunner implements Runnable, ThreadStatus {
 				}
 			}
 
-			if ((System.currentTimeMillis() - logStart) > logThreshold) {
-				logStart = System.currentTimeMillis();
-				logger.info("MatchRunner active: " + gameDefinition.getName() + " FPS: " + gameDefinition.getFps());
-				// getEventHandler().alive();
+			if (logger.isInfoEnabled()) {
+				if ((System.currentTimeMillis() - logStart) > logThreshold) {
+					logStart = System.currentTimeMillis();
+					logger.info("MatchRunner active: " + gameDefinition.getName() + " FPS: " + gameDefinition.getFps());
+				}
 			}
 
 			try {
