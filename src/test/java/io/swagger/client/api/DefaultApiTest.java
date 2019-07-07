@@ -13,12 +13,14 @@
 package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
+import io.swagger.client.model.MainActiveMatch;
 import io.swagger.client.model.MainConfig;
 import io.swagger.client.model.MainFindLuchadorWithGamedefinition;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainJoinMatch;
 import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.MainMatchMetric;
 import io.swagger.client.model.MainMatchParticipant;
 import io.swagger.client.model.MainMatchScore;
 import io.swagger.client.model.MainScoreList;
@@ -154,6 +156,21 @@ public class DefaultApiTest {
     public void internalLuchadorPostTest() throws ApiException {
         MainFindLuchadorWithGamedefinition body = null;
         MainGameComponent response = api.internalLuchadorPost(body);
+
+        // TODO: test validations
+    }
+    /**
+     * saves a match metric
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalMatchMetricPostTest() throws ApiException {
+        MainMatchMetric body = null;
+        String response = api.internalMatchMetricPost(body);
 
         // TODO: test validations
     }
@@ -357,7 +374,7 @@ public class DefaultApiTest {
      */
     @Test
     public void privateMatchGetTest() throws ApiException {
-        List<MainMatch> response = api.privateMatchGet();
+        List<MainActiveMatch> response = api.privateMatchGet();
 
         // TODO: test validations
     }

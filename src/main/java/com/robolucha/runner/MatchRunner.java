@@ -44,6 +44,7 @@ import io.reactivex.subjects.PublishSubject;
 import io.swagger.client.model.MainGameComponent;
 import io.swagger.client.model.MainGameDefinition;
 import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.MainMatchMetric;
 import io.swagger.client.model.MainSceneComponent;
 
 /**
@@ -97,21 +98,26 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private LutchadorRunnerCreator luchadorCreator;
 	SceneComponentEventsRunner eventsRunner;
 	private MainMatch match;
-	private ServerMonitor monitor;
-
+	private MatchRunnerMonitor monitor;
+	
 	public MatchEventHandler getEventHandler() {
 		return eventHandler;
 	}
 
-	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue, ServerMonitor monitor) throws Exception {
+	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue, ServerMonitor serverMonitor)
+			throws Exception {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
 		status = ThreadStatus.STARTING;
 		alive = true;
 		delta = 0.0;
 		this.gameDefinition = gameDefinition;
-
 		this.match = match;
+		
+		MainMatchMetric metric = new MainMatchMetric();
+		metric.setGameDefinitionID(gameDefinition.getId());
+		metric.setMatchID(match.getId());
+		monitor = new MatchRunnerMonitor(serverMonitor, metric);
 
 		listeners = new LinkedList<MatchRunnerListener>();
 
@@ -122,7 +128,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		runOnActive.add(new ChangeStateAction());
 
 		runners = new LinkedHashMap<Integer, LuchadorRunner>();
-		
+
 		eventsRunner = new SceneComponentEventsRunner(this);
 		respawnProcessor = RespawnProcessorFactory.get(this);
 
@@ -135,8 +141,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		punchesProcessor = new PunchesProcessor(this, punches);
 		bulletsProcessor = new BulletsProcessor(this, bullets);
 
-		eventHandler = new MatchEventHandler(this, threadName, monitor);
-		luchadorCreator = new LutchadorRunnerCreator(this, queue, monitor);
+		eventHandler = new MatchEventHandler(this, threadName, serverMonitor);
+		luchadorCreator = new LutchadorRunnerCreator(this, queue, serverMonitor);
 
 		onMatchStart = PublishSubject.create();
 		onMatchEnd = PublishSubject.create();
@@ -184,6 +190,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	}
 
 	public void addLuchador(final MainGameComponent component) throws Exception {
+		monitor.addPlayer();
 		add(component);
 	}
 
@@ -288,7 +295,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 				if (logger.isDebugEnabled()) {
 					logger.debug("**** TICK ****");
 				}
-
 				runOnActive.stream().sequential().forEach(action -> runAllActive(action));
 
 				bulletsProcessor.process();
@@ -302,6 +308,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 				runAll(ReduceCoolDownAction.getInstance());
 
 				publisher.update(this);
+				monitor.tick();
 
 			} catch (Throwable e) {
 				logger.error("*** ERROR AT MATCHRUN MAINLOOP", e);
@@ -319,7 +326,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		logger.info("matchrun shutdown (1)");
 		onMatchEnd.onNext(match);
 		onMatchEnd.onComplete();
-		
+
 		// send end event and shut down event handler
 //		getEventHandler().end(new RunAfterThisTask(this) {
 //			public void run() {
@@ -510,8 +517,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			MainSceneComponent current = sceneIterator.next();
 
 			if (logger.isDebugEnabled()) {
-				logger.debug(">> (1) checking collision from :" + source.getGameComponent().getId() + " at x,y=" + x + ","
-						+ y + " to scenecomponent : " + JSONFormat.clean(current.toString()) );
+				logger.debug(">> (1) checking collision from :" + source.getGameComponent().getId() + " at x,y=" + x
+						+ "," + y + " to scenecomponent : " + JSONFormat.clean(current.toString()));
 			}
 
 			if (current.isColider() && Calc.intersectCirclewithSceneComponent(x, y, radius, current)) {
