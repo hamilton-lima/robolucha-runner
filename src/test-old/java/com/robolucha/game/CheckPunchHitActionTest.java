@@ -15,7 +15,7 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
 public class CheckPunchHitActionTest {
 
@@ -31,8 +31,8 @@ public class CheckPunchHitActionTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "punch();");
-        MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "punch();");
+        ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "punch();");
+        ModelGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "punch();");
 
         match.add(a);
         match.add(b);

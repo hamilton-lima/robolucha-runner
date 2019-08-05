@@ -6,7 +6,7 @@ import com.robolucha.models.Bullet;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.runner.luchador.LuchadorRunner;
 
-import io.swagger.client.model.MainSceneComponent;
+import io.swagger.client.model.ModelSceneComponent;
 
 public class Calc {
 
@@ -119,7 +119,7 @@ public class Calc {
 		return (dist < (radiusA + radiusB));
 	}
 
-	public static boolean intersectCirclewithSceneComponent(double x, double y, double radius, MainSceneComponent component) {
+	public static boolean intersectCirclewithSceneComponent(double x, double y, double radius, ModelSceneComponent component) {
 
 		// Finds the closest point from the rectangle to the center of the luchador
 		double minX = Math.min(x, component.getX() + component.getWidth());

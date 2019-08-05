@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * MainGameDefinition
+ * ModelGameDefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainGameDefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelGameDefinition {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
@@ -37,7 +37,7 @@ import java.util.Objects;
   private Integer bulletSize = null;
 
   @SerializedName("codes")
-  private List<MainCode> codes = null;
+  private List<ModelCode> codes = null;
 
   @SerializedName("description")
   private String description = null;
@@ -55,7 +55,7 @@ import java.util.Objects;
   private Integer fps = null;
 
   @SerializedName("gameComponents")
-  private List<MainGameComponent> gameComponents = null;
+  private List<ModelGameComponent> gameComponents = null;
 
   @SerializedName("id")
   private Integer id = null;
@@ -139,13 +139,13 @@ import java.util.Objects;
   private Integer restoreEnergyperSecond = null;
 
   @SerializedName("sceneComponents")
-  private List<MainSceneComponent> sceneComponents = null;
+  private List<ModelSceneComponent> sceneComponents = null;
 
   @SerializedName("sortOrder")
   private Integer sortOrder = null;
 
   @SerializedName("suggestedCodes")
-  private List<MainCode> suggestedCodes = null;
+  private List<ModelCode> suggestedCodes = null;
 
   @SerializedName("turnGunSpeed")
   private Integer turnGunSpeed = null;
@@ -155,7 +155,7 @@ import java.util.Objects;
 
   @SerializedName("type")
   private String type = null;
-  public MainGameDefinition arenaHeight(Integer arenaHeight) {
+  public ModelGameDefinition arenaHeight(Integer arenaHeight) {
     this.arenaHeight = arenaHeight;
     return this;
   }
@@ -173,7 +173,7 @@ import java.util.Objects;
   public void setArenaHeight(Integer arenaHeight) {
     this.arenaHeight = arenaHeight;
   }
-  public MainGameDefinition arenaWidth(Integer arenaWidth) {
+  public ModelGameDefinition arenaWidth(Integer arenaWidth) {
     this.arenaWidth = arenaWidth;
     return this;
   }
@@ -191,7 +191,7 @@ import java.util.Objects;
   public void setArenaWidth(Integer arenaWidth) {
     this.arenaWidth = arenaWidth;
   }
-  public MainGameDefinition buletSpeed(Integer buletSpeed) {
+  public ModelGameDefinition buletSpeed(Integer buletSpeed) {
     this.buletSpeed = buletSpeed;
     return this;
   }
@@ -209,7 +209,7 @@ import java.util.Objects;
   public void setBuletSpeed(Integer buletSpeed) {
     this.buletSpeed = buletSpeed;
   }
-  public MainGameDefinition bulletSize(Integer bulletSize) {
+  public ModelGameDefinition bulletSize(Integer bulletSize) {
     this.bulletSize = bulletSize;
     return this;
   }
@@ -227,14 +227,14 @@ import java.util.Objects;
   public void setBulletSize(Integer bulletSize) {
     this.bulletSize = bulletSize;
   }
-  public MainGameDefinition codes(List<MainCode> codes) {
+  public ModelGameDefinition codes(List<ModelCode> codes) {
     this.codes = codes;
     return this;
   }
 
-  public MainGameDefinition addCodesItem(MainCode codesItem) {
+  public ModelGameDefinition addCodesItem(ModelCode codesItem) {
     if (this.codes == null) {
-      this.codes = new ArrayList<MainCode>();
+      this.codes = new ArrayList<ModelCode>();
     }
     this.codes.add(codesItem);
     return this;
@@ -245,13 +245,13 @@ import java.util.Objects;
   * @return codes
   **/
   @Schema(description = "")
-  public List<MainCode> getCodes() {
+  public List<ModelCode> getCodes() {
     return codes;
   }
-  public void setCodes(List<MainCode> codes) {
+  public void setCodes(List<ModelCode> codes) {
     this.codes = codes;
   }
-  public MainGameDefinition description(String description) {
+  public ModelGameDefinition description(String description) {
     this.description = description;
     return this;
   }
@@ -269,7 +269,7 @@ import java.util.Objects;
   public void setDescription(String description) {
     this.description = description;
   }
-  public MainGameDefinition duration(Integer duration) {
+  public ModelGameDefinition duration(Integer duration) {
     this.duration = duration;
     return this;
   }
@@ -287,7 +287,7 @@ import java.util.Objects;
   public void setDuration(Integer duration) {
     this.duration = duration;
   }
-  public MainGameDefinition energy(Integer energy) {
+  public ModelGameDefinition energy(Integer energy) {
     this.energy = energy;
     return this;
   }
@@ -305,7 +305,7 @@ import java.util.Objects;
   public void setEnergy(Integer energy) {
     this.energy = energy;
   }
-  public MainGameDefinition fireEnergyCost(Integer fireEnergyCost) {
+  public ModelGameDefinition fireEnergyCost(Integer fireEnergyCost) {
     this.fireEnergyCost = fireEnergyCost;
     return this;
   }
@@ -323,7 +323,7 @@ import java.util.Objects;
   public void setFireEnergyCost(Integer fireEnergyCost) {
     this.fireEnergyCost = fireEnergyCost;
   }
-  public MainGameDefinition fps(Integer fps) {
+  public ModelGameDefinition fps(Integer fps) {
     this.fps = fps;
     return this;
   }
@@ -341,14 +341,14 @@ import java.util.Objects;
   public void setFps(Integer fps) {
     this.fps = fps;
   }
-  public MainGameDefinition gameComponents(List<MainGameComponent> gameComponents) {
+  public ModelGameDefinition gameComponents(List<ModelGameComponent> gameComponents) {
     this.gameComponents = gameComponents;
     return this;
   }
 
-  public MainGameDefinition addGameComponentsItem(MainGameComponent gameComponentsItem) {
+  public ModelGameDefinition addGameComponentsItem(ModelGameComponent gameComponentsItem) {
     if (this.gameComponents == null) {
-      this.gameComponents = new ArrayList<MainGameComponent>();
+      this.gameComponents = new ArrayList<ModelGameComponent>();
     }
     this.gameComponents.add(gameComponentsItem);
     return this;
@@ -359,13 +359,13 @@ import java.util.Objects;
   * @return gameComponents
   **/
   @Schema(description = "")
-  public List<MainGameComponent> getGameComponents() {
+  public List<ModelGameComponent> getGameComponents() {
     return gameComponents;
   }
-  public void setGameComponents(List<MainGameComponent> gameComponents) {
+  public void setGameComponents(List<ModelGameComponent> gameComponents) {
     this.gameComponents = gameComponents;
   }
-  public MainGameDefinition id(Integer id) {
+  public ModelGameDefinition id(Integer id) {
     this.id = id;
     return this;
   }
@@ -383,7 +383,7 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainGameDefinition increaseSpeedEnergyCost(Integer increaseSpeedEnergyCost) {
+  public ModelGameDefinition increaseSpeedEnergyCost(Integer increaseSpeedEnergyCost) {
     this.increaseSpeedEnergyCost = increaseSpeedEnergyCost;
     return this;
   }
@@ -401,7 +401,7 @@ import java.util.Objects;
   public void setIncreaseSpeedEnergyCost(Integer increaseSpeedEnergyCost) {
     this.increaseSpeedEnergyCost = increaseSpeedEnergyCost;
   }
-  public MainGameDefinition increaseSpeedPercentage(Integer increaseSpeedPercentage) {
+  public ModelGameDefinition increaseSpeedPercentage(Integer increaseSpeedPercentage) {
     this.increaseSpeedPercentage = increaseSpeedPercentage;
     return this;
   }
@@ -419,7 +419,7 @@ import java.util.Objects;
   public void setIncreaseSpeedPercentage(Integer increaseSpeedPercentage) {
     this.increaseSpeedPercentage = increaseSpeedPercentage;
   }
-  public MainGameDefinition label(String label) {
+  public ModelGameDefinition label(String label) {
     this.label = label;
     return this;
   }
@@ -437,7 +437,7 @@ import java.util.Objects;
   public void setLabel(String label) {
     this.label = label;
   }
-  public MainGameDefinition life(Integer life) {
+  public ModelGameDefinition life(Integer life) {
     this.life = life;
     return this;
   }
@@ -455,7 +455,7 @@ import java.util.Objects;
   public void setLife(Integer life) {
     this.life = life;
   }
-  public MainGameDefinition luchadorSize(Integer luchadorSize) {
+  public ModelGameDefinition luchadorSize(Integer luchadorSize) {
     this.luchadorSize = luchadorSize;
     return this;
   }
@@ -473,7 +473,7 @@ import java.util.Objects;
   public void setLuchadorSize(Integer luchadorSize) {
     this.luchadorSize = luchadorSize;
   }
-  public MainGameDefinition maxFireAmount(Integer maxFireAmount) {
+  public ModelGameDefinition maxFireAmount(Integer maxFireAmount) {
     this.maxFireAmount = maxFireAmount;
     return this;
   }
@@ -491,7 +491,7 @@ import java.util.Objects;
   public void setMaxFireAmount(Integer maxFireAmount) {
     this.maxFireAmount = maxFireAmount;
   }
-  public MainGameDefinition maxFireCooldown(Integer maxFireCooldown) {
+  public ModelGameDefinition maxFireCooldown(Integer maxFireCooldown) {
     this.maxFireCooldown = maxFireCooldown;
     return this;
   }
@@ -509,7 +509,7 @@ import java.util.Objects;
   public void setMaxFireCooldown(Integer maxFireCooldown) {
     this.maxFireCooldown = maxFireCooldown;
   }
-  public MainGameDefinition maxFireDamage(Integer maxFireDamage) {
+  public ModelGameDefinition maxFireDamage(Integer maxFireDamage) {
     this.maxFireDamage = maxFireDamage;
     return this;
   }
@@ -527,7 +527,7 @@ import java.util.Objects;
   public void setMaxFireDamage(Integer maxFireDamage) {
     this.maxFireDamage = maxFireDamage;
   }
-  public MainGameDefinition maxParticipants(Integer maxParticipants) {
+  public ModelGameDefinition maxParticipants(Integer maxParticipants) {
     this.maxParticipants = maxParticipants;
     return this;
   }
@@ -545,7 +545,7 @@ import java.util.Objects;
   public void setMaxParticipants(Integer maxParticipants) {
     this.maxParticipants = maxParticipants;
   }
-  public MainGameDefinition minFireAmount(Integer minFireAmount) {
+  public ModelGameDefinition minFireAmount(Integer minFireAmount) {
     this.minFireAmount = minFireAmount;
     return this;
   }
@@ -563,7 +563,7 @@ import java.util.Objects;
   public void setMinFireAmount(Integer minFireAmount) {
     this.minFireAmount = minFireAmount;
   }
-  public MainGameDefinition minFireDamage(Integer minFireDamage) {
+  public ModelGameDefinition minFireDamage(Integer minFireDamage) {
     this.minFireDamage = minFireDamage;
     return this;
   }
@@ -581,7 +581,7 @@ import java.util.Objects;
   public void setMinFireDamage(Integer minFireDamage) {
     this.minFireDamage = minFireDamage;
   }
-  public MainGameDefinition minParticipants(Integer minParticipants) {
+  public ModelGameDefinition minParticipants(Integer minParticipants) {
     this.minParticipants = minParticipants;
     return this;
   }
@@ -599,7 +599,7 @@ import java.util.Objects;
   public void setMinParticipants(Integer minParticipants) {
     this.minParticipants = minParticipants;
   }
-  public MainGameDefinition moveSpeed(Integer moveSpeed) {
+  public ModelGameDefinition moveSpeed(Integer moveSpeed) {
     this.moveSpeed = moveSpeed;
     return this;
   }
@@ -617,7 +617,7 @@ import java.util.Objects;
   public void setMoveSpeed(Integer moveSpeed) {
     this.moveSpeed = moveSpeed;
   }
-  public MainGameDefinition name(String name) {
+  public ModelGameDefinition name(String name) {
     this.name = name;
     return this;
   }
@@ -635,7 +635,7 @@ import java.util.Objects;
   public void setName(String name) {
     this.name = name;
   }
-  public MainGameDefinition punchAngle(Integer punchAngle) {
+  public ModelGameDefinition punchAngle(Integer punchAngle) {
     this.punchAngle = punchAngle;
     return this;
   }
@@ -653,7 +653,7 @@ import java.util.Objects;
   public void setPunchAngle(Integer punchAngle) {
     this.punchAngle = punchAngle;
   }
-  public MainGameDefinition punchCoolDown(Integer punchCoolDown) {
+  public ModelGameDefinition punchCoolDown(Integer punchCoolDown) {
     this.punchCoolDown = punchCoolDown;
     return this;
   }
@@ -671,7 +671,7 @@ import java.util.Objects;
   public void setPunchCoolDown(Integer punchCoolDown) {
     this.punchCoolDown = punchCoolDown;
   }
-  public MainGameDefinition punchDamage(Integer punchDamage) {
+  public ModelGameDefinition punchDamage(Integer punchDamage) {
     this.punchDamage = punchDamage;
     return this;
   }
@@ -689,7 +689,7 @@ import java.util.Objects;
   public void setPunchDamage(Integer punchDamage) {
     this.punchDamage = punchDamage;
   }
-  public MainGameDefinition radarAngle(Integer radarAngle) {
+  public ModelGameDefinition radarAngle(Integer radarAngle) {
     this.radarAngle = radarAngle;
     return this;
   }
@@ -707,7 +707,7 @@ import java.util.Objects;
   public void setRadarAngle(Integer radarAngle) {
     this.radarAngle = radarAngle;
   }
-  public MainGameDefinition radarRadius(Integer radarRadius) {
+  public ModelGameDefinition radarRadius(Integer radarRadius) {
     this.radarRadius = radarRadius;
     return this;
   }
@@ -725,7 +725,7 @@ import java.util.Objects;
   public void setRadarRadius(Integer radarRadius) {
     this.radarRadius = radarRadius;
   }
-  public MainGameDefinition recycledLuchadorEnergyRestore(Integer recycledLuchadorEnergyRestore) {
+  public ModelGameDefinition recycledLuchadorEnergyRestore(Integer recycledLuchadorEnergyRestore) {
     this.recycledLuchadorEnergyRestore = recycledLuchadorEnergyRestore;
     return this;
   }
@@ -743,7 +743,7 @@ import java.util.Objects;
   public void setRecycledLuchadorEnergyRestore(Integer recycledLuchadorEnergyRestore) {
     this.recycledLuchadorEnergyRestore = recycledLuchadorEnergyRestore;
   }
-  public MainGameDefinition respawnAngle(Integer respawnAngle) {
+  public ModelGameDefinition respawnAngle(Integer respawnAngle) {
     this.respawnAngle = respawnAngle;
     return this;
   }
@@ -761,7 +761,7 @@ import java.util.Objects;
   public void setRespawnAngle(Integer respawnAngle) {
     this.respawnAngle = respawnAngle;
   }
-  public MainGameDefinition respawnCooldown(Integer respawnCooldown) {
+  public ModelGameDefinition respawnCooldown(Integer respawnCooldown) {
     this.respawnCooldown = respawnCooldown;
     return this;
   }
@@ -779,7 +779,7 @@ import java.util.Objects;
   public void setRespawnCooldown(Integer respawnCooldown) {
     this.respawnCooldown = respawnCooldown;
   }
-  public MainGameDefinition respawnGunAngle(Integer respawnGunAngle) {
+  public ModelGameDefinition respawnGunAngle(Integer respawnGunAngle) {
     this.respawnGunAngle = respawnGunAngle;
     return this;
   }
@@ -797,7 +797,7 @@ import java.util.Objects;
   public void setRespawnGunAngle(Integer respawnGunAngle) {
     this.respawnGunAngle = respawnGunAngle;
   }
-  public MainGameDefinition respawnX(Integer respawnX) {
+  public ModelGameDefinition respawnX(Integer respawnX) {
     this.respawnX = respawnX;
     return this;
   }
@@ -815,7 +815,7 @@ import java.util.Objects;
   public void setRespawnX(Integer respawnX) {
     this.respawnX = respawnX;
   }
-  public MainGameDefinition respawnY(Integer respawnY) {
+  public ModelGameDefinition respawnY(Integer respawnY) {
     this.respawnY = respawnY;
     return this;
   }
@@ -833,7 +833,7 @@ import java.util.Objects;
   public void setRespawnY(Integer respawnY) {
     this.respawnY = respawnY;
   }
-  public MainGameDefinition restoreEnergyperSecond(Integer restoreEnergyperSecond) {
+  public ModelGameDefinition restoreEnergyperSecond(Integer restoreEnergyperSecond) {
     this.restoreEnergyperSecond = restoreEnergyperSecond;
     return this;
   }
@@ -851,14 +851,14 @@ import java.util.Objects;
   public void setRestoreEnergyperSecond(Integer restoreEnergyperSecond) {
     this.restoreEnergyperSecond = restoreEnergyperSecond;
   }
-  public MainGameDefinition sceneComponents(List<MainSceneComponent> sceneComponents) {
+  public ModelGameDefinition sceneComponents(List<ModelSceneComponent> sceneComponents) {
     this.sceneComponents = sceneComponents;
     return this;
   }
 
-  public MainGameDefinition addSceneComponentsItem(MainSceneComponent sceneComponentsItem) {
+  public ModelGameDefinition addSceneComponentsItem(ModelSceneComponent sceneComponentsItem) {
     if (this.sceneComponents == null) {
-      this.sceneComponents = new ArrayList<MainSceneComponent>();
+      this.sceneComponents = new ArrayList<ModelSceneComponent>();
     }
     this.sceneComponents.add(sceneComponentsItem);
     return this;
@@ -869,13 +869,13 @@ import java.util.Objects;
   * @return sceneComponents
   **/
   @Schema(description = "")
-  public List<MainSceneComponent> getSceneComponents() {
+  public List<ModelSceneComponent> getSceneComponents() {
     return sceneComponents;
   }
-  public void setSceneComponents(List<MainSceneComponent> sceneComponents) {
+  public void setSceneComponents(List<ModelSceneComponent> sceneComponents) {
     this.sceneComponents = sceneComponents;
   }
-  public MainGameDefinition sortOrder(Integer sortOrder) {
+  public ModelGameDefinition sortOrder(Integer sortOrder) {
     this.sortOrder = sortOrder;
     return this;
   }
@@ -893,14 +893,14 @@ import java.util.Objects;
   public void setSortOrder(Integer sortOrder) {
     this.sortOrder = sortOrder;
   }
-  public MainGameDefinition suggestedCodes(List<MainCode> suggestedCodes) {
+  public ModelGameDefinition suggestedCodes(List<ModelCode> suggestedCodes) {
     this.suggestedCodes = suggestedCodes;
     return this;
   }
 
-  public MainGameDefinition addSuggestedCodesItem(MainCode suggestedCodesItem) {
+  public ModelGameDefinition addSuggestedCodesItem(ModelCode suggestedCodesItem) {
     if (this.suggestedCodes == null) {
-      this.suggestedCodes = new ArrayList<MainCode>();
+      this.suggestedCodes = new ArrayList<ModelCode>();
     }
     this.suggestedCodes.add(suggestedCodesItem);
     return this;
@@ -911,13 +911,13 @@ import java.util.Objects;
   * @return suggestedCodes
   **/
   @Schema(description = "")
-  public List<MainCode> getSuggestedCodes() {
+  public List<ModelCode> getSuggestedCodes() {
     return suggestedCodes;
   }
-  public void setSuggestedCodes(List<MainCode> suggestedCodes) {
+  public void setSuggestedCodes(List<ModelCode> suggestedCodes) {
     this.suggestedCodes = suggestedCodes;
   }
-  public MainGameDefinition turnGunSpeed(Integer turnGunSpeed) {
+  public ModelGameDefinition turnGunSpeed(Integer turnGunSpeed) {
     this.turnGunSpeed = turnGunSpeed;
     return this;
   }
@@ -935,7 +935,7 @@ import java.util.Objects;
   public void setTurnGunSpeed(Integer turnGunSpeed) {
     this.turnGunSpeed = turnGunSpeed;
   }
-  public MainGameDefinition turnSpeed(Integer turnSpeed) {
+  public ModelGameDefinition turnSpeed(Integer turnSpeed) {
     this.turnSpeed = turnSpeed;
     return this;
   }
@@ -953,7 +953,7 @@ import java.util.Objects;
   public void setTurnSpeed(Integer turnSpeed) {
     this.turnSpeed = turnSpeed;
   }
-  public MainGameDefinition type(String type) {
+  public ModelGameDefinition type(String type) {
     this.type = type;
     return this;
   }
@@ -979,51 +979,51 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainGameDefinition mainGameDefinition = (MainGameDefinition) o;
-    return Objects.equals(this.arenaHeight, mainGameDefinition.arenaHeight) &&
-        Objects.equals(this.arenaWidth, mainGameDefinition.arenaWidth) &&
-        Objects.equals(this.buletSpeed, mainGameDefinition.buletSpeed) &&
-        Objects.equals(this.bulletSize, mainGameDefinition.bulletSize) &&
-        Objects.equals(this.codes, mainGameDefinition.codes) &&
-        Objects.equals(this.description, mainGameDefinition.description) &&
-        Objects.equals(this.duration, mainGameDefinition.duration) &&
-        Objects.equals(this.energy, mainGameDefinition.energy) &&
-        Objects.equals(this.fireEnergyCost, mainGameDefinition.fireEnergyCost) &&
-        Objects.equals(this.fps, mainGameDefinition.fps) &&
-        Objects.equals(this.gameComponents, mainGameDefinition.gameComponents) &&
-        Objects.equals(this.id, mainGameDefinition.id) &&
-        Objects.equals(this.increaseSpeedEnergyCost, mainGameDefinition.increaseSpeedEnergyCost) &&
-        Objects.equals(this.increaseSpeedPercentage, mainGameDefinition.increaseSpeedPercentage) &&
-        Objects.equals(this.label, mainGameDefinition.label) &&
-        Objects.equals(this.life, mainGameDefinition.life) &&
-        Objects.equals(this.luchadorSize, mainGameDefinition.luchadorSize) &&
-        Objects.equals(this.maxFireAmount, mainGameDefinition.maxFireAmount) &&
-        Objects.equals(this.maxFireCooldown, mainGameDefinition.maxFireCooldown) &&
-        Objects.equals(this.maxFireDamage, mainGameDefinition.maxFireDamage) &&
-        Objects.equals(this.maxParticipants, mainGameDefinition.maxParticipants) &&
-        Objects.equals(this.minFireAmount, mainGameDefinition.minFireAmount) &&
-        Objects.equals(this.minFireDamage, mainGameDefinition.minFireDamage) &&
-        Objects.equals(this.minParticipants, mainGameDefinition.minParticipants) &&
-        Objects.equals(this.moveSpeed, mainGameDefinition.moveSpeed) &&
-        Objects.equals(this.name, mainGameDefinition.name) &&
-        Objects.equals(this.punchAngle, mainGameDefinition.punchAngle) &&
-        Objects.equals(this.punchCoolDown, mainGameDefinition.punchCoolDown) &&
-        Objects.equals(this.punchDamage, mainGameDefinition.punchDamage) &&
-        Objects.equals(this.radarAngle, mainGameDefinition.radarAngle) &&
-        Objects.equals(this.radarRadius, mainGameDefinition.radarRadius) &&
-        Objects.equals(this.recycledLuchadorEnergyRestore, mainGameDefinition.recycledLuchadorEnergyRestore) &&
-        Objects.equals(this.respawnAngle, mainGameDefinition.respawnAngle) &&
-        Objects.equals(this.respawnCooldown, mainGameDefinition.respawnCooldown) &&
-        Objects.equals(this.respawnGunAngle, mainGameDefinition.respawnGunAngle) &&
-        Objects.equals(this.respawnX, mainGameDefinition.respawnX) &&
-        Objects.equals(this.respawnY, mainGameDefinition.respawnY) &&
-        Objects.equals(this.restoreEnergyperSecond, mainGameDefinition.restoreEnergyperSecond) &&
-        Objects.equals(this.sceneComponents, mainGameDefinition.sceneComponents) &&
-        Objects.equals(this.sortOrder, mainGameDefinition.sortOrder) &&
-        Objects.equals(this.suggestedCodes, mainGameDefinition.suggestedCodes) &&
-        Objects.equals(this.turnGunSpeed, mainGameDefinition.turnGunSpeed) &&
-        Objects.equals(this.turnSpeed, mainGameDefinition.turnSpeed) &&
-        Objects.equals(this.type, mainGameDefinition.type);
+    ModelGameDefinition modelGameDefinition = (ModelGameDefinition) o;
+    return Objects.equals(this.arenaHeight, modelGameDefinition.arenaHeight) &&
+        Objects.equals(this.arenaWidth, modelGameDefinition.arenaWidth) &&
+        Objects.equals(this.buletSpeed, modelGameDefinition.buletSpeed) &&
+        Objects.equals(this.bulletSize, modelGameDefinition.bulletSize) &&
+        Objects.equals(this.codes, modelGameDefinition.codes) &&
+        Objects.equals(this.description, modelGameDefinition.description) &&
+        Objects.equals(this.duration, modelGameDefinition.duration) &&
+        Objects.equals(this.energy, modelGameDefinition.energy) &&
+        Objects.equals(this.fireEnergyCost, modelGameDefinition.fireEnergyCost) &&
+        Objects.equals(this.fps, modelGameDefinition.fps) &&
+        Objects.equals(this.gameComponents, modelGameDefinition.gameComponents) &&
+        Objects.equals(this.id, modelGameDefinition.id) &&
+        Objects.equals(this.increaseSpeedEnergyCost, modelGameDefinition.increaseSpeedEnergyCost) &&
+        Objects.equals(this.increaseSpeedPercentage, modelGameDefinition.increaseSpeedPercentage) &&
+        Objects.equals(this.label, modelGameDefinition.label) &&
+        Objects.equals(this.life, modelGameDefinition.life) &&
+        Objects.equals(this.luchadorSize, modelGameDefinition.luchadorSize) &&
+        Objects.equals(this.maxFireAmount, modelGameDefinition.maxFireAmount) &&
+        Objects.equals(this.maxFireCooldown, modelGameDefinition.maxFireCooldown) &&
+        Objects.equals(this.maxFireDamage, modelGameDefinition.maxFireDamage) &&
+        Objects.equals(this.maxParticipants, modelGameDefinition.maxParticipants) &&
+        Objects.equals(this.minFireAmount, modelGameDefinition.minFireAmount) &&
+        Objects.equals(this.minFireDamage, modelGameDefinition.minFireDamage) &&
+        Objects.equals(this.minParticipants, modelGameDefinition.minParticipants) &&
+        Objects.equals(this.moveSpeed, modelGameDefinition.moveSpeed) &&
+        Objects.equals(this.name, modelGameDefinition.name) &&
+        Objects.equals(this.punchAngle, modelGameDefinition.punchAngle) &&
+        Objects.equals(this.punchCoolDown, modelGameDefinition.punchCoolDown) &&
+        Objects.equals(this.punchDamage, modelGameDefinition.punchDamage) &&
+        Objects.equals(this.radarAngle, modelGameDefinition.radarAngle) &&
+        Objects.equals(this.radarRadius, modelGameDefinition.radarRadius) &&
+        Objects.equals(this.recycledLuchadorEnergyRestore, modelGameDefinition.recycledLuchadorEnergyRestore) &&
+        Objects.equals(this.respawnAngle, modelGameDefinition.respawnAngle) &&
+        Objects.equals(this.respawnCooldown, modelGameDefinition.respawnCooldown) &&
+        Objects.equals(this.respawnGunAngle, modelGameDefinition.respawnGunAngle) &&
+        Objects.equals(this.respawnX, modelGameDefinition.respawnX) &&
+        Objects.equals(this.respawnY, modelGameDefinition.respawnY) &&
+        Objects.equals(this.restoreEnergyperSecond, modelGameDefinition.restoreEnergyperSecond) &&
+        Objects.equals(this.sceneComponents, modelGameDefinition.sceneComponents) &&
+        Objects.equals(this.sortOrder, modelGameDefinition.sortOrder) &&
+        Objects.equals(this.suggestedCodes, modelGameDefinition.suggestedCodes) &&
+        Objects.equals(this.turnGunSpeed, modelGameDefinition.turnGunSpeed) &&
+        Objects.equals(this.turnSpeed, modelGameDefinition.turnSpeed) &&
+        Objects.equals(this.type, modelGameDefinition.type);
   }
 
   @Override
@@ -1034,7 +1034,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainGameDefinition {\n");
+    sb.append("class ModelGameDefinition {\n");
     
     sb.append("    arenaHeight: ").append(toIndentedString(arenaHeight)).append("\n");
     sb.append("    arenaWidth: ").append(toIndentedString(arenaWidth)).append("\n");

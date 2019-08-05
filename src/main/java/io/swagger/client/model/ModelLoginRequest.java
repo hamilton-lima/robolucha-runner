@@ -22,14 +22,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * MainLoginRequest
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class MainLoginRequest {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class ModelLoginRequest {
 
   @SerializedName("email")
   private String email = null;
 
   @SerializedName("password")
   private String password = null;
-  public MainLoginRequest email(String email) {
+  public ModelLoginRequest email(String email) {
     this.email = email;
     return this;
   }
@@ -47,7 +47,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   public void setEmail(String email) {
     this.email = email;
   }
-  public MainLoginRequest password(String password) {
+  public ModelLoginRequest password(String password) {
     this.password = password;
     return this;
   }
@@ -73,7 +73,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainLoginRequest mainLoginRequest = (MainLoginRequest) o;
+    ModelLoginRequest mainLoginRequest = (ModelLoginRequest) o;
     return Objects.equals(this.email, mainLoginRequest.email) &&
         Objects.equals(this.password, mainLoginRequest.password);
   }

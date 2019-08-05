@@ -13,14 +13,14 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.score.ScoreUpdater;
 
-import io.swagger.client.model.MainCode;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainGameDefinition;
-import io.swagger.client.model.MainMatch;
-import io.swagger.client.model.MainSceneComponent;
+import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelGameDefinition;
+import io.swagger.client.model.ModelMatch;
+import io.swagger.client.model.ModelSceneComponent;
 
 public class MockMatchRunner {
-	static MainMatch match = new MainMatch();
+	static ModelMatch match = new ModelMatch();
 	static MockRemoteQueue remoteQueue = new MockRemoteQueue();
 	static ServerMonitor monitor = new ServerMonitor(remoteQueue);
 
@@ -51,21 +51,21 @@ public class MockMatchRunner {
 		return build(duration, queue, null);
 	}
 
-	public static MatchRunner build(MainGameDefinition gameDefinition) {
+	public static MatchRunner build(ModelGameDefinition gameDefinition) {
 		return build(remoteQueue, new MatchStatePublisherSilent(), gameDefinition);
 	}
 
 	public static MatchRunner build(int duration, RemoteQueue queue, MatchStatePublisher publisher) {
-		MainGameDefinition gameDefinition = buildGameDefinition();
+		ModelGameDefinition gameDefinition = buildGameDefinition();
 		gameDefinition.setDuration(duration);
 		return build(queue, publisher, gameDefinition);
 	}
 
 	public static MatchRunner build(RemoteQueue queue, MatchStatePublisher publisher,
-			MainGameDefinition gameDefinition) {
+			ModelGameDefinition gameDefinition) {
 		ServerMonitor monitor = new ServerMonitor(queue);
 
-		MainMatch match = new MainMatch();
+		ModelMatch match = new ModelMatch();
 		MatchRunner runner = null;
 		try {
 			runner = new MatchRunner(gameDefinition, match, queue, monitor);
@@ -82,10 +82,10 @@ public class MockMatchRunner {
 	}
 
 	public static MatchRunner buildWithDefaultLuchador() {
-		MainGameDefinition gameDefinition = buildGameDefinition();
+		ModelGameDefinition gameDefinition = buildGameDefinition();
 		gameDefinition.setDuration(1000);
 
-		MainMatch match = new MainMatch();
+		ModelMatch match = new ModelMatch();
 		MatchRunner runner = null;
 		try {
 			runner = new MatchRunner(gameDefinition, match, remoteQueue, monitor);
@@ -102,8 +102,8 @@ public class MockMatchRunner {
 		return runner;
 	}
 
-	public static MainGameDefinition buildGameDefinition() {
-		MainGameDefinition gd = new MainGameDefinition();
+	public static ModelGameDefinition buildGameDefinition() {
+		ModelGameDefinition gd = new ModelGameDefinition();
 
 		gd.setDuration(1200000);
 		gd.setMinParticipants(2);
@@ -140,10 +140,10 @@ public class MockMatchRunner {
 		gd.setRespawnX(0);
 		gd.setRespawnY(0);
 
-		gd.setGameComponents(new ArrayList<MainGameComponent>());
-		gd.setSceneComponents(new ArrayList<MainSceneComponent>());
-		gd.setCodes(new ArrayList<MainCode>());
-		gd.setSuggestedCodes(new ArrayList<MainCode>());
+		gd.setGameComponents(new ArrayList<ModelGameComponent>());
+		gd.setSceneComponents(new ArrayList<ModelSceneComponent>());
+		gd.setCodes(new ArrayList<ModelCode>());
+		gd.setSuggestedCodes(new ArrayList<ModelCode>());
 
 		return gd;
 	}
@@ -155,7 +155,7 @@ public class MockMatchRunner {
 		// runner.getOnMatchStart().blockingFirst();
 	}
 
-	public static LuchadorRunner add(MatchRunner match, MainGameComponent component) throws Exception {
+	public static LuchadorRunner add(MatchRunner match, ModelGameComponent component) throws Exception {
 		return match.add(component).blockingFirst();
 	}
 

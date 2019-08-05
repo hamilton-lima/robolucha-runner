@@ -11,8 +11,8 @@ import com.robolucha.runner.code.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainCode;
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelGameComponent;
 
 /**
  * onFound não está achando se estiver muito perto?
@@ -34,10 +34,10 @@ public class BugOnFoundPertoDemais {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_FOUND, "move(-10);");
+        ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_FOUND, "move(-10);");
         match.add(a);
 
-        MainGameComponent b = MockLuchador.build(2);
+        ModelGameComponent b = MockLuchador.build(2);
 
         MockMatchRunner.start(match);
         LuchadorRunner runnerA = match.getRunners().get(1L);
@@ -81,14 +81,14 @@ public class BugOnFoundPertoDemais {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_START, "var found2 = 0;");
+        ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_START, "var found2 = 0;");
 
-        MainCode c = MockLuchador.buildCode(MethodNames.ON_FOUND,"found2 = 1;");
+        ModelCode c = MockLuchador.buildCode(MethodNames.ON_FOUND,"found2 = 1;");
         a.getCodes().add(c);
 
         match.add(a);
 
-        MainGameComponent b = MockLuchador.build(2);
+        ModelGameComponent b = MockLuchador.build(2);
         match.add(b);
 
         MockMatchRunner.start(match);

@@ -15,7 +15,7 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
 
 public class CheckBulletHitActionTest {
@@ -34,8 +34,8 @@ public class CheckBulletHitActionTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1)");
-        MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "fire(10)");
+        ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1)");
+        ModelGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "fire(10)");
 
         match.add(a);
         match.add(b);

@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * MainServerCode
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainServerCode {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class ModelServerCode {
 
   @SerializedName("event")
   private String event = null;
@@ -35,7 +35,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
   @SerializedName("script")
   private String script = null;
-  public MainServerCode event(String event) {
+  public ModelServerCode event(String event) {
     this.event = event;
     return this;
   }
@@ -53,7 +53,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   public void setEvent(String event) {
     this.event = event;
   }
-  public MainServerCode exception(String exception) {
+  public ModelServerCode exception(String exception) {
     this.exception = exception;
     return this;
   }
@@ -71,7 +71,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   public void setException(String exception) {
     this.exception = exception;
   }
-  public MainServerCode id(Integer id) {
+  public ModelServerCode id(Integer id) {
     this.id = id;
     return this;
   }
@@ -89,7 +89,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainServerCode script(String script) {
+  public ModelServerCode script(String script) {
     this.script = script;
     return this;
   }
@@ -115,7 +115,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainServerCode mainServerCode = (MainServerCode) o;
+    ModelServerCode mainServerCode = (ModelServerCode) o;
     return Objects.equals(this.event, mainServerCode.event) &&
         Objects.equals(this.exception, mainServerCode.exception) &&
         Objects.equals(this.id, mainServerCode.id) &&

@@ -7,14 +7,14 @@ import org.junit.Test;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
 public class FireAmountTest {
 
 	@Test
 	public void testFireAmount() {
 
-		LuchadorRunner runner = new LuchadorRunner(new MainGameComponent(), MockMatchRunner.build());
+		LuchadorRunner runner = new LuchadorRunner(new ModelGameComponent(), MockMatchRunner.build());
 
 		assertEquals(1, runner.cleanUpAmount(-1));
 		assertEquals(1, runner.cleanUpAmount(0));

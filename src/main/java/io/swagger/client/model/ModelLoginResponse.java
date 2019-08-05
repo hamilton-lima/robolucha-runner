@@ -22,14 +22,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * MainLoginResponse
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class MainLoginResponse {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-04-26T04:24:26.533Z[GMT]")public class ModelLoginResponse {
 
   @SerializedName("error")
   private Boolean error = null;
 
   @SerializedName("uuid")
   private String uuid = null;
-  public MainLoginResponse error(Boolean error) {
+  public ModelLoginResponse error(Boolean error) {
     this.error = error;
     return this;
   }
@@ -47,7 +47,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   public void setError(Boolean error) {
     this.error = error;
   }
-  public MainLoginResponse uuid(String uuid) {
+  public ModelLoginResponse uuid(String uuid) {
     this.uuid = uuid;
     return this;
   }
@@ -73,7 +73,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainLoginResponse mainLoginResponse = (MainLoginResponse) o;
+    ModelLoginResponse mainLoginResponse = (ModelLoginResponse) o;
     return Objects.equals(this.error, mainLoginResponse.error) &&
         Objects.equals(this.uuid, mainLoginResponse.uuid);
   }

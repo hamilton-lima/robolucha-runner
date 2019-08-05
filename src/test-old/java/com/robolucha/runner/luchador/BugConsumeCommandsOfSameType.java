@@ -13,8 +13,8 @@ import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelMatch;
 
 /**
  * This bug happens when command execute queue dont retrict the execution of
@@ -39,13 +39,13 @@ public class BugConsumeCommandsOfSameType {
 
 		MatchRunner match = MockMatchRunner.build(300);
 		match.getGameDefinition().setMinParticipants(1);
-		MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10) \n move(30) \n move(30)");
+		ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10) \n move(30) \n move(30)");
 
 		match.add(a);
 
 		// set initial position for luchador
-		match.getOnMatchStart().subscribe(new Consumer<MainMatch>() {
-			public void accept(MainMatch arg0) throws Exception {
+		match.getOnMatchStart().subscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch arg0) throws Exception {
 
 				LuchadorRunner runner = match.getRunners().get(1L);
 				runner.cleanUpStateAtTheEnd = false;
@@ -63,8 +63,8 @@ public class BugConsumeCommandsOfSameType {
 		MockMatchRunner.start(match);
 
 		// get final state
-		match.getOnMatchEnd().blockingSubscribe(new Consumer<MainMatch>() {
-			public void accept(MainMatch arg0) throws Exception {
+		match.getOnMatchEnd().blockingSubscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch arg0) throws Exception {
 				LuchadorRunner runner = match.getRunners().get(1L);
 				finalState = runner.getState().getPublicState();
 			}

@@ -13,20 +13,21 @@
 package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
-import io.swagger.client.model.MainActiveMatch;
-import io.swagger.client.model.MainConfig;
-import io.swagger.client.model.MainFindLuchadorWithGamedefinition;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainGameDefinition;
-import io.swagger.client.model.MainJoinMatch;
-import io.swagger.client.model.MainMatch;
-import io.swagger.client.model.MainMatchMetric;
-import io.swagger.client.model.MainMatchParticipant;
-import io.swagger.client.model.MainMatchScore;
-import io.swagger.client.model.MainScoreList;
-import io.swagger.client.model.MainUpdateLuchadorResponse;
-import io.swagger.client.model.MainUser;
-import io.swagger.client.model.MainUserSetting;
+import io.swagger.client.model.ModelActiveMatch;
+import io.swagger.client.model.ModelClassroom;
+import io.swagger.client.model.ModelConfig;
+import io.swagger.client.model.ModelFindLuchadorWithGamedefinition;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelGameDefinition;
+import io.swagger.client.model.ModelJoinMatch;
+import io.swagger.client.model.ModelMatch;
+import io.swagger.client.model.ModelMatchMetric;
+import io.swagger.client.model.ModelMatchParticipant;
+import io.swagger.client.model.ModelMatchScore;
+import io.swagger.client.model.ModelScoreList;
+import io.swagger.client.model.ModelUpdateLuchadorResponse;
+import io.swagger.client.model.ModelUser;
+import io.swagger.client.model.ModelUserSetting;
 import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -49,8 +50,8 @@ public class DefaultApiTest {
      */
     @Test
     public void internalAddMatchScoresPostTest() throws ApiException {
-        MainScoreList body = null;
-        MainMatchScore response = api.internalAddMatchScoresPost(body);
+        ModelScoreList body = null;
+        ModelMatchScore response = api.internalAddMatchScoresPost(body);
 
         // TODO: test validations
     }
@@ -64,8 +65,8 @@ public class DefaultApiTest {
      */
     @Test
     public void internalEndMatchPutTest() throws ApiException {
-        MainMatch body = null;
-        MainMatch response = api.internalEndMatchPut(body);
+        ModelMatch body = null;
+        ModelMatch response = api.internalEndMatchPut(body);
 
         // TODO: test validations
     }
@@ -79,8 +80,8 @@ public class DefaultApiTest {
      */
     @Test
     public void internalGameComponentPostTest() throws ApiException {
-        MainGameComponent body = null;
-        MainGameComponent response = api.internalGameComponentPost(body);
+        ModelGameComponent body = null;
+        ModelGameComponent response = api.internalGameComponentPost(body);
 
         // TODO: test validations
     }
@@ -95,7 +96,7 @@ public class DefaultApiTest {
     @Test
     public void internalGameDefinitionIdIdGetTest() throws ApiException {
         Integer id = null;
-        MainGameDefinition response = api.internalGameDefinitionIdIdGet(id);
+        ModelGameDefinition response = api.internalGameDefinitionIdIdGet(id);
 
         // TODO: test validations
     }
@@ -110,7 +111,7 @@ public class DefaultApiTest {
     @Test
     public void internalGameDefinitionNameGetTest() throws ApiException {
         String name = null;
-        MainGameDefinition response = api.internalGameDefinitionNameGet(name);
+        ModelGameDefinition response = api.internalGameDefinitionNameGet(name);
 
         // TODO: test validations
     }
@@ -124,8 +125,8 @@ public class DefaultApiTest {
      */
     @Test
     public void internalGameDefinitionPostTest() throws ApiException {
-        MainGameDefinition body = null;
-        MainGameDefinition response = api.internalGameDefinitionPost(body);
+        ModelGameDefinition body = null;
+        ModelGameDefinition response = api.internalGameDefinitionPost(body);
 
         // TODO: test validations
     }
@@ -139,8 +140,23 @@ public class DefaultApiTest {
      */
     @Test
     public void internalGameDefinitionPutTest() throws ApiException {
-        MainGameDefinition body = null;
-        MainGameDefinition response = api.internalGameDefinitionPut(body);
+        ModelGameDefinition body = null;
+        ModelGameDefinition response = api.internalGameDefinitionPut(body);
+
+        // TODO: test validations
+    }
+    /**
+     * join a classroom
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalJoinClassroomAccessCodePostTest() throws ApiException {
+        String accessCode = null;
+        ModelClassroom response = api.internalJoinClassroomAccessCodePost(accessCode);
 
         // TODO: test validations
     }
@@ -154,8 +170,8 @@ public class DefaultApiTest {
      */
     @Test
     public void internalLuchadorPostTest() throws ApiException {
-        MainFindLuchadorWithGamedefinition body = null;
-        MainGameComponent response = api.internalLuchadorPost(body);
+        ModelFindLuchadorWithGamedefinition body = null;
+        ModelGameComponent response = api.internalLuchadorPost(body);
 
         // TODO: test validations
     }
@@ -169,7 +185,7 @@ public class DefaultApiTest {
      */
     @Test
     public void internalMatchMetricPostTest() throws ApiException {
-        MainMatchMetric body = null;
+        ModelMatchMetric body = null;
         String response = api.internalMatchMetricPost(body);
 
         // TODO: test validations
@@ -184,8 +200,8 @@ public class DefaultApiTest {
      */
     @Test
     public void internalMatchParticipantPostTest() throws ApiException {
-        MainMatchParticipant body = null;
-        MainMatchParticipant response = api.internalMatchParticipantPost(body);
+        ModelMatchParticipant body = null;
+        ModelMatchParticipant response = api.internalMatchParticipantPost(body);
 
         // TODO: test validations
     }
@@ -200,7 +216,7 @@ public class DefaultApiTest {
     @Test
     public void internalMatchSingleGetTest() throws ApiException {
         Integer matchID = null;
-        MainMatch response = api.internalMatchSingleGet(matchID);
+        ModelMatch response = api.internalMatchSingleGet(matchID);
 
         // TODO: test validations
     }
@@ -229,7 +245,36 @@ public class DefaultApiTest {
     @Test
     public void internalStartMatchNamePostTest() throws ApiException {
         String name = null;
-        MainMatch response = api.internalStartMatchNamePost(name);
+        ModelMatch response = api.internalStartMatchNamePost(name);
+
+        // TODO: test validations
+    }
+    /**
+     * find all Classroom
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateClassroomGetTest() throws ApiException {
+        List<ModelClassroom> response = api.privateClassroomGet();
+
+        // TODO: test validations
+    }
+    /**
+     * add a Classroom
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateClassroomPostTest() throws ApiException {
+        ModelClassroom body = null;
+        ModelClassroom response = api.privateClassroomPost(body);
 
         // TODO: test validations
     }
@@ -243,7 +288,7 @@ public class DefaultApiTest {
      */
     @Test
     public void privateGameDefinitionAllGetTest() throws ApiException {
-        List<MainGameDefinition> response = api.privateGameDefinitionAllGet();
+        List<ModelGameDefinition> response = api.privateGameDefinitionAllGet();
 
         // TODO: test validations
     }
@@ -258,7 +303,7 @@ public class DefaultApiTest {
     @Test
     public void privateGameDefinitionIdIdGetTest() throws ApiException {
         Integer id = null;
-        MainGameDefinition response = api.privateGameDefinitionIdIdGet(id);
+        ModelGameDefinition response = api.privateGameDefinitionIdIdGet(id);
 
         // TODO: test validations
     }
@@ -272,7 +317,7 @@ public class DefaultApiTest {
      */
     @Test
     public void privateGetUserGetTest() throws ApiException {
-        MainUser response = api.privateGetUserGet();
+        ModelUser response = api.privateGetUserGet();
 
         // TODO: test validations
     }
@@ -286,8 +331,8 @@ public class DefaultApiTest {
      */
     @Test
     public void privateJoinMatchPostTest() throws ApiException {
-        MainJoinMatch body = null;
-        MainMatch response = api.privateJoinMatchPost(body);
+        ModelJoinMatch body = null;
+        ModelMatch response = api.privateJoinMatchPost(body);
 
         // TODO: test validations
     }
@@ -301,7 +346,7 @@ public class DefaultApiTest {
      */
     @Test
     public void privateLuchadorGetTest() throws ApiException {
-        MainGameComponent response = api.privateLuchadorGet();
+        ModelGameComponent response = api.privateLuchadorGet();
 
         // TODO: test validations
     }
@@ -315,8 +360,8 @@ public class DefaultApiTest {
      */
     @Test
     public void privateLuchadorPutTest() throws ApiException {
-        MainGameComponent body = null;
-        MainUpdateLuchadorResponse response = api.privateLuchadorPut(body);
+        ModelGameComponent body = null;
+        ModelUpdateLuchadorResponse response = api.privateLuchadorPut(body);
 
         // TODO: test validations
     }
@@ -331,7 +376,7 @@ public class DefaultApiTest {
     @Test
     public void privateMaskConfigIdGetTest() throws ApiException {
         Integer id = null;
-        List<MainConfig> response = api.privateMaskConfigIdGet(id);
+        List<ModelConfig> response = api.privateMaskConfigIdGet(id);
 
         // TODO: test validations
     }
@@ -345,7 +390,7 @@ public class DefaultApiTest {
      */
     @Test
     public void privateMaskRandomGetTest() throws ApiException {
-        List<MainConfig> response = api.privateMaskRandomGet();
+        List<ModelConfig> response = api.privateMaskRandomGet();
 
         // TODO: test validations
     }
@@ -360,7 +405,7 @@ public class DefaultApiTest {
     @Test
     public void privateMatchConfigGetTest() throws ApiException {
         Integer matchID = null;
-        List<MainGameComponent> response = api.privateMatchConfigGet(matchID);
+        List<ModelGameComponent> response = api.privateMatchConfigGet(matchID);
 
         // TODO: test validations
     }
@@ -374,7 +419,7 @@ public class DefaultApiTest {
      */
     @Test
     public void privateMatchGetTest() throws ApiException {
-        List<MainActiveMatch> response = api.privateMatchGet();
+        List<ModelActiveMatch> response = api.privateMatchGet();
 
         // TODO: test validations
     }
@@ -389,7 +434,7 @@ public class DefaultApiTest {
     @Test
     public void privateMatchSingleGetTest() throws ApiException {
         Integer matchID = null;
-        MainMatch response = api.privateMatchSingleGet(matchID);
+        ModelMatch response = api.privateMatchSingleGet(matchID);
 
         // TODO: test validations
     }
@@ -404,7 +449,7 @@ public class DefaultApiTest {
     @Test
     public void privateStartTutorialMatchNamePostTest() throws ApiException {
         String name = null;
-        MainJoinMatch response = api.privateStartTutorialMatchNamePost(name);
+        ModelJoinMatch response = api.privateStartTutorialMatchNamePost(name);
 
         // TODO: test validations
     }
@@ -418,7 +463,7 @@ public class DefaultApiTest {
      */
     @Test
     public void privateTutorialGetTest() throws ApiException {
-        List<MainGameDefinition> response = api.privateTutorialGet();
+        List<ModelGameDefinition> response = api.privateTutorialGet();
 
         // TODO: test validations
     }
@@ -432,7 +477,7 @@ public class DefaultApiTest {
      */
     @Test
     public void privateUserSettingGetTest() throws ApiException {
-        MainUserSetting response = api.privateUserSettingGet();
+        ModelUserSetting response = api.privateUserSettingGet();
 
         // TODO: test validations
     }
@@ -446,8 +491,8 @@ public class DefaultApiTest {
      */
     @Test
     public void privateUserSettingPutTest() throws ApiException {
-        MainUserSetting body = null;
-        MainUserSetting response = api.privateUserSettingPut(body);
+        ModelUserSetting body = null;
+        ModelUserSetting response = api.privateUserSettingPut(body);
 
         // TODO: test validations
     }

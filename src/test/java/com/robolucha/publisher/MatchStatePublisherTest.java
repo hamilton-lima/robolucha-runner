@@ -14,12 +14,12 @@ import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.ModelMatch;
 
 public class MatchStatePublisherTest {
 	private static Logger logger = Logger.getLogger(MatchStatePublisherTest.class);
 	MockRemoteQueue queue = new MockRemoteQueue();
-	MainMatch match = new MainMatch();
+	ModelMatch match = new ModelMatch();
 	MatchStatePublisher publisher;
 
 	@Before

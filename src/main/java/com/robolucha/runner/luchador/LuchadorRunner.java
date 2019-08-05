@@ -32,8 +32,8 @@ import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.code.ScriptDefinitionFactory;
 import com.robolucha.shared.Calc;
 
-import io.swagger.client.model.MainCode;
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelGameComponent;
 
 /**
  * Represents one play thread during the match
@@ -60,7 +60,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private static Logger logger = Logger.getLogger(LuchadorRunner.class);
 
 	// test classes can update this.
-	MainGameComponent gameComponent;
+	ModelGameComponent gameComponent;
 
 	private boolean active;
 	private long start;
@@ -89,7 +89,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	private LuchadorUpdateListener luchadorUpdatelistener;
 
-	public LuchadorRunner(MainGameComponent component, MatchRunner matchRunner) {
+	public LuchadorRunner(ModelGameComponent component, MatchRunner matchRunner) {
 		this.gameComponent = component;
 		this.matchRunner = matchRunner;
 		this.setExceptionCounter(0);
@@ -170,7 +170,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		if (ConstEvents.LUCHADOR_NAME_CHANGE.equals(event)) {
 
 			if (data != null && this.gameComponent != null) {
-				MainGameComponent changed = (MainGameComponent) data;
+				ModelGameComponent changed = (ModelGameComponent) data;
 				if (changed.getId() == this.gameComponent.getId()) {
 					if (logger.isDebugEnabled()) {
 						logger.debug("*** same id, change ScoreVO");
@@ -195,14 +195,14 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 *
 	 * @param luchador
 	 */
-	public void update(MainGameComponent luchador) {
+	public void update(ModelGameComponent luchador) {
 		logger.info("*** luchador UPDATE " + luchador.getId());
 
 		try {
 			this.gameComponent = luchador;
 			this.messages.clear();
 
-			List<MainCode> codes4CurrentGameDefinition = luchador.getCodes().stream()
+			List<ModelCode> codes4CurrentGameDefinition = luchador.getCodes().stream()
 					.filter(line -> matchRunner.getGameDefinition().getId().equals(line.getGameDefinition()))
 					.collect(Collectors.toList());
 
@@ -220,7 +220,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		scriptDefinition.set("me", state);
 	}
 
-	private void createCodeEngine(List<MainCode> list) throws Exception {
+	private void createCodeEngine(List<ModelCode> list) throws Exception {
 
 		logger.debug("START createCodeEngine()");
 		start = System.currentTimeMillis();
@@ -251,7 +251,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		logger.debug("END createCodeEngine()");
 	}
 
-	public void updateCodeEngine(List<MainCode> list) throws Exception {
+	public void updateCodeEngine(List<ModelCode> list) throws Exception {
 
 		logger.debug("START updateCodeEngine()");
 		this.active = false;
@@ -290,16 +290,16 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		return scriptDefinition.getString(script);
 	}
 
-	private void updateInvalidCodes(List<MainCode> list) throws Exception {
+	private void updateInvalidCodes(List<ModelCode> list) throws Exception {
 
 		if (list == null) {
 			logger.warn("list of codes is empty.");
 			return;
 		}
 
-		Iterator<MainCode> iterator = list.iterator();
+		Iterator<ModelCode> iterator = list.iterator();
 		while (iterator.hasNext()) {
-			MainCode code = iterator.next();
+			ModelCode code = iterator.next();
 			if (code.getException() != null && code.getException().trim().length() > 0) {
 				onDangerMessage(MessageVO.DANGER, code.getEvent(), code.getException());
 			}
@@ -315,7 +315,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		onDangerMessage(MessageVO.DANGER, name, exception);
 
-		for (MainCode code : getGameComponent().getCodes()) {
+		for (ModelCode code : getGameComponent().getCodes()) {
 			if (code.getEvent().equals(name)) {
 				code.setException(exception);
 
@@ -346,7 +346,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 			// check if the code has exception to avoid running defective code
 			boolean canRunCode = true;
-			for (MainCode code : getGameComponent().getCodes()) {
+			for (ModelCode code : getGameComponent().getCodes()) {
 				if (code.getEvent().equals(codeName)) {
 					if (code.getException() != null && code.getException().trim().length() > 0) {
 						canRunCode = false;
@@ -387,7 +387,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		run(name, EMPTY);
 	}
 
-	public MainGameComponent getGameComponent() {
+	public ModelGameComponent getGameComponent() {
 		return gameComponent;
 	}
 
@@ -779,12 +779,12 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 * @return
 	 * @todo check
 	 */
-	private MainCode getStartCode() {
+	private ModelCode getStartCode() {
 
 		if (this.gameComponent.getCodes() != null) {
-			Iterator<MainCode> iterator = this.gameComponent.getCodes().iterator();
+			Iterator<ModelCode> iterator = this.gameComponent.getCodes().iterator();
 			while (iterator.hasNext()) {
-				MainCode code = iterator.next();
+				ModelCode code = iterator.next();
 				if (code.getEvent().equals(MethodNames.ON_START)) {
 					return code;
 				}

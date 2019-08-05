@@ -10,14 +10,14 @@ import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.DefaultApi;
-import io.swagger.client.model.MainFindLuchadorWithGamedefinition;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainGameDefinition;
-import io.swagger.client.model.MainMatch;
-import io.swagger.client.model.MainMatchMetric;
-import io.swagger.client.model.MainMatchParticipant;
-import io.swagger.client.model.MainMatchScore;
-import io.swagger.client.model.MainScoreList;
+import io.swagger.client.model.ModelFindLuchadorWithGamedefinition;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelGameDefinition;
+import io.swagger.client.model.ModelMatch;
+import io.swagger.client.model.ModelMatchMetric;
+import io.swagger.client.model.ModelMatchParticipant;
+import io.swagger.client.model.ModelMatchScore;
+import io.swagger.client.model.ModelScoreList;
 
 public class MatchRunnerAPI {
 
@@ -36,10 +36,10 @@ public class MatchRunnerAPI {
 
 	public void addScores(List<MatchScore> scores) throws Exception {
 
-		MainScoreList requestBody = new MainScoreList();
+		ModelScoreList requestBody = new ModelScoreList();
 
 		for (MatchScore score : scores) {
-			MainMatchScore mainScore = new MainMatchScore();
+			ModelMatchScore mainScore = new ModelMatchScore();
 			mainScore.setMatchID(score.getMatchRun().getId().intValue());
 			mainScore.luchadorID(Long.valueOf(score.getGameComponent().getId()).intValue());
 			mainScore.setKills(score.getKills());
@@ -52,53 +52,53 @@ public class MatchRunnerAPI {
 	}
 
 	public void addMatchParticipant(MatchParticipant matchParticipant) throws Exception {
-		MainMatchParticipant participant = new MainMatchParticipant();
+		ModelMatchParticipant participant = new ModelMatchParticipant();
 		participant.setMatchID(matchParticipant.getMatchRun().getId().intValue());
 		participant.setLuchadorID(Long.valueOf(matchParticipant.getLuchador().getId()).intValue());
 		api.internalMatchParticipantPost(participant);
 	}
 
-	public MainMatch createMatch(String gameDefinitionName) throws Exception {
-		MainMatch match = api.internalStartMatchNamePost(gameDefinitionName);
+	public ModelMatch createMatch(String gameDefinitionName) throws Exception {
+		ModelMatch match = api.internalStartMatchNamePost(gameDefinitionName);
 		logger.info("createMatch() API response" + JSONFormat.clean(match.toString()));
 		return match;
 	}
 
-	public void endMatch(MainMatch match) throws Exception {
-		MainMatch body = new MainMatch();
+	public void endMatch(ModelMatch match) throws Exception {
+		ModelMatch body = new ModelMatch();
 		body.setId(match.getId().intValue());
 		body.setTimeEnd(JSONFormat.now());
 
 		api.internalEndMatchPut(body);
 	}
 
-	public MainGameComponent findLuchadorById(Integer luchadorID, Integer gamedefinitionID) throws Exception {
+	public ModelGameComponent findLuchadorById(Integer luchadorID, Integer gamedefinitionID) throws Exception {
 
-		MainFindLuchadorWithGamedefinition body = new MainFindLuchadorWithGamedefinition();
+		ModelFindLuchadorWithGamedefinition body = new ModelFindLuchadorWithGamedefinition();
 		body.luchadorID(luchadorID);
 		body.gameDefinitionID(gamedefinitionID);
 
-		MainGameComponent component = api.internalLuchadorPost(body);
+		ModelGameComponent component = api.internalLuchadorPost(body);
 		return component;
 	}
 
-	public MainGameDefinition getGameDefinition(String gameDefinitionName) throws Exception {
-		MainGameDefinition gamedefinition = api.internalGameDefinitionNameGet(gameDefinitionName);
+	public ModelGameDefinition getGameDefinition(String gameDefinitionName) throws Exception {
+		ModelGameDefinition gamedefinition = api.internalGameDefinitionNameGet(gameDefinitionName);
 		logger.info("getGameDefinition() API response" + JSONFormat.clean(gamedefinition.toString()));
 		return gamedefinition;
 	}
 
-	public MainMatch findMatch(Integer matchID) throws Exception {
-		MainMatch result = api.internalMatchSingleGet(matchID);
+	public ModelMatch findMatch(Integer matchID) throws Exception {
+		ModelMatch result = api.internalMatchSingleGet(matchID);
 		return result;
 	}
 
-	public MainGameDefinition getGameDefinition(Integer gameDefinitionID) throws Exception {
-		MainGameDefinition result = api.internalGameDefinitionIdIdGet(gameDefinitionID);
+	public ModelGameDefinition getGameDefinition(Integer gameDefinitionID) throws Exception {
+		ModelGameDefinition result = api.internalGameDefinitionIdIdGet(gameDefinitionID);
 		return result;
 	}
 
-	public void addMatchMetric(MainMatchMetric body) throws Exception {
+	public void addMatchMetric(ModelMatchMetric body) throws Exception {
 		api.internalMatchMetricPost(body);
 	}
 

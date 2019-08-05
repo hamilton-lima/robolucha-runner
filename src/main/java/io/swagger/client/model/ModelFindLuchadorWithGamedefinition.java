@@ -17,17 +17,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainFindLuchadorWithGamedefinition
+ * ModelFindLuchadorWithGamedefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainFindLuchadorWithGamedefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelFindLuchadorWithGamedefinition {
 
   @SerializedName("gameDefinitionID")
   private Integer gameDefinitionID = null;
 
   @SerializedName("luchadorID")
   private Integer luchadorID = null;
-  public MainFindLuchadorWithGamedefinition gameDefinitionID(Integer gameDefinitionID) {
+  public ModelFindLuchadorWithGamedefinition gameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
     return this;
   }
@@ -45,7 +45,7 @@ import java.util.Objects;
   public void setGameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
   }
-  public MainFindLuchadorWithGamedefinition luchadorID(Integer luchadorID) {
+  public ModelFindLuchadorWithGamedefinition luchadorID(Integer luchadorID) {
     this.luchadorID = luchadorID;
     return this;
   }
@@ -71,9 +71,9 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainFindLuchadorWithGamedefinition mainFindLuchadorWithGamedefinition = (MainFindLuchadorWithGamedefinition) o;
-    return Objects.equals(this.gameDefinitionID, mainFindLuchadorWithGamedefinition.gameDefinitionID) &&
-        Objects.equals(this.luchadorID, mainFindLuchadorWithGamedefinition.luchadorID);
+    ModelFindLuchadorWithGamedefinition modelFindLuchadorWithGamedefinition = (ModelFindLuchadorWithGamedefinition) o;
+    return Objects.equals(this.gameDefinitionID, modelFindLuchadorWithGamedefinition.gameDefinitionID) &&
+        Objects.equals(this.luchadorID, modelFindLuchadorWithGamedefinition.luchadorID);
   }
 
   @Override
@@ -84,7 +84,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainFindLuchadorWithGamedefinition {\n");
+    sb.append("class ModelFindLuchadorWithGamedefinition {\n");
     
     sb.append("    gameDefinitionID: ").append(toIndentedString(gameDefinitionID)).append("\n");
     sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");

@@ -10,8 +10,8 @@ import com.robolucha.runner.MatchRunnerListener;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainGameDefinition;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelGameDefinition;
 
 public class OnInitAddNPC implements Consumer<MatchInitVO>, MatchRunnerListener {
 
@@ -35,11 +35,11 @@ public class OnInitAddNPC implements Consumer<MatchInitVO>, MatchRunnerListener 
 		logger.info("START add NPC to match: " + runner.getThreadName());
 		logger.info("Matchrunner = " + runner);
 
-		MainGameDefinition def = runner.getGameDefinition();
+		ModelGameDefinition def = runner.getGameDefinition();
 
-		Iterator<MainGameComponent> iterator = def.getGameComponents().iterator();
+		Iterator<ModelGameComponent> iterator = def.getGameComponents().iterator();
 		while (iterator.hasNext()) {
-			MainGameComponent npc = iterator.next();
+			ModelGameComponent npc = iterator.next();
 
 			try {
 				runner.add(npc);

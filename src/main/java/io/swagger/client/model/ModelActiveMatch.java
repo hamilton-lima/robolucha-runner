@@ -17,10 +17,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainActiveMatch
+ * ModelActiveMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainActiveMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelActiveMatch {
 
   @SerializedName("description")
   private String description = null;
@@ -45,7 +45,7 @@ import java.util.Objects;
 
   @SerializedName("type")
   private String type = null;
-  public MainActiveMatch description(String description) {
+  public ModelActiveMatch description(String description) {
     this.description = description;
     return this;
   }
@@ -63,7 +63,7 @@ import java.util.Objects;
   public void setDescription(String description) {
     this.description = description;
   }
-  public MainActiveMatch duration(Integer duration) {
+  public ModelActiveMatch duration(Integer duration) {
     this.duration = duration;
     return this;
   }
@@ -81,7 +81,7 @@ import java.util.Objects;
   public void setDuration(Integer duration) {
     this.duration = duration;
   }
-  public MainActiveMatch label(String label) {
+  public ModelActiveMatch label(String label) {
     this.label = label;
     return this;
   }
@@ -99,7 +99,7 @@ import java.util.Objects;
   public void setLabel(String label) {
     this.label = label;
   }
-  public MainActiveMatch matchID(Integer matchID) {
+  public ModelActiveMatch matchID(Integer matchID) {
     this.matchID = matchID;
     return this;
   }
@@ -117,7 +117,7 @@ import java.util.Objects;
   public void setMatchID(Integer matchID) {
     this.matchID = matchID;
   }
-  public MainActiveMatch name(String name) {
+  public ModelActiveMatch name(String name) {
     this.name = name;
     return this;
   }
@@ -135,7 +135,7 @@ import java.util.Objects;
   public void setName(String name) {
     this.name = name;
   }
-  public MainActiveMatch sortOrder(Integer sortOrder) {
+  public ModelActiveMatch sortOrder(Integer sortOrder) {
     this.sortOrder = sortOrder;
     return this;
   }
@@ -153,7 +153,7 @@ import java.util.Objects;
   public void setSortOrder(Integer sortOrder) {
     this.sortOrder = sortOrder;
   }
-  public MainActiveMatch timeStart(String timeStart) {
+  public ModelActiveMatch timeStart(String timeStart) {
     this.timeStart = timeStart;
     return this;
   }
@@ -171,7 +171,7 @@ import java.util.Objects;
   public void setTimeStart(String timeStart) {
     this.timeStart = timeStart;
   }
-  public MainActiveMatch type(String type) {
+  public ModelActiveMatch type(String type) {
     this.type = type;
     return this;
   }
@@ -197,15 +197,15 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainActiveMatch mainActiveMatch = (MainActiveMatch) o;
-    return Objects.equals(this.description, mainActiveMatch.description) &&
-        Objects.equals(this.duration, mainActiveMatch.duration) &&
-        Objects.equals(this.label, mainActiveMatch.label) &&
-        Objects.equals(this.matchID, mainActiveMatch.matchID) &&
-        Objects.equals(this.name, mainActiveMatch.name) &&
-        Objects.equals(this.sortOrder, mainActiveMatch.sortOrder) &&
-        Objects.equals(this.timeStart, mainActiveMatch.timeStart) &&
-        Objects.equals(this.type, mainActiveMatch.type);
+    ModelActiveMatch modelActiveMatch = (ModelActiveMatch) o;
+    return Objects.equals(this.description, modelActiveMatch.description) &&
+        Objects.equals(this.duration, modelActiveMatch.duration) &&
+        Objects.equals(this.label, modelActiveMatch.label) &&
+        Objects.equals(this.matchID, modelActiveMatch.matchID) &&
+        Objects.equals(this.name, modelActiveMatch.name) &&
+        Objects.equals(this.sortOrder, modelActiveMatch.sortOrder) &&
+        Objects.equals(this.timeStart, modelActiveMatch.timeStart) &&
+        Objects.equals(this.type, modelActiveMatch.type);
   }
 
   @Override
@@ -216,7 +216,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainActiveMatch {\n");
+    sb.append("class ModelActiveMatch {\n");
     
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    duration: ").append(toIndentedString(duration)).append("\n");

@@ -15,7 +15,7 @@ import com.robolucha.runner.code.ScriptDefinitionFactory;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
 public class MethodBuilderTest {
 
@@ -28,7 +28,7 @@ public class MethodBuilderTest {
     
     @Test
     public void buildAllWithLuaFunctionInCode() {
-        MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "print('1');");
+        ModelGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "print('1');");
         LuchadorScriptDefinition def = ScriptDefinitionFactory.getInstance().getLuchadorScript();
         MethodBuilder.getInstance().buildAll(def, luchador.getCodes());
 
@@ -43,7 +43,7 @@ public class MethodBuilderTest {
 
     @Test
     public void buildAllWithLuaVariables() {
-        MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "a = 1;b = 2 \n if a >= b then \n b = a \n end");
+        ModelGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "a = 1;b = 2 \n if a >= b then \n b = a \n end");
         LuchadorScriptDefinition def = ScriptDefinitionFactory.getInstance().getLuchadorScript();
         MethodBuilder.getInstance().buildAll(def, luchador.getCodes());
 
@@ -58,7 +58,7 @@ public class MethodBuilderTest {
 
     @Test
     public void buildAllCheckMoveMethod() {
-        MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
+        ModelGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
         LuchadorScriptDefinition def = ScriptDefinitionFactory.getInstance().getLuchadorScript();
         MethodBuilder.getInstance().buildAll(def, luchador.getCodes());
 
@@ -73,7 +73,7 @@ public class MethodBuilderTest {
 
     @Test
     public void buildAll() {
-        MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1)");
+        ModelGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1)");
         LuchadorScriptDefinition def = ScriptDefinitionFactory.getInstance().getLuchadorScript();
         MethodBuilder.getInstance().buildAll(def, luchador.getCodes());
 
@@ -88,7 +88,7 @@ public class MethodBuilderTest {
 
     @Test
     public void buildAllWithError() {
-        MainGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1); nheco");
+        ModelGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1); nheco");
         LuchadorScriptDefinition def = ScriptDefinitionFactory.getInstance().getLuchadorScript();
         MethodBuilder.getInstance().buildAll(def, luchador.getCodes());
 

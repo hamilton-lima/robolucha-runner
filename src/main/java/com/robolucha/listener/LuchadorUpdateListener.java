@@ -8,9 +8,9 @@ import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
-public class LuchadorUpdateListener implements Consumer<MainGameComponent>, Disposable {
+public class LuchadorUpdateListener implements Consumer<ModelGameComponent>, Disposable {
 
 	static Logger logger = Logger.getLogger(LuchadorUpdateListener.class);
 	private Disposable disposable;
@@ -26,7 +26,7 @@ public class LuchadorUpdateListener implements Consumer<MainGameComponent>, Disp
 		String channel = String.format("luchador.%s.update", runner.getGameComponent().getId());
 		logger.debug("listen " + channel);
 
-		listener.disposable = publisher.subscribe(channel, MainGameComponent.class).subscribe(listener, new ErrorHandler());
+		listener.disposable = publisher.subscribe(channel, ModelGameComponent.class).subscribe(listener, new ErrorHandler());
 	}
 
 	protected static class ErrorHandler implements Consumer<Throwable> {
@@ -37,7 +37,7 @@ public class LuchadorUpdateListener implements Consumer<MainGameComponent>, Disp
 	}
 
 	@Override
-	public void accept(MainGameComponent component) throws Exception {
+	public void accept(ModelGameComponent component) throws Exception {
 		logger.info("Luchador updated " + JSONFormat.clean(component.toString()));
 		runner.update(component);
 	}

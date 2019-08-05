@@ -14,8 +14,8 @@ import com.robolucha.runner.Punch;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.shared.Calc;
 
-import io.swagger.client.model.MainMatch;
-import io.swagger.client.model.MainSceneComponent;
+import io.swagger.client.model.ModelMatch;
+import io.swagger.client.model.ModelSceneComponent;
 
 public class MatchStatePublisher {
 
@@ -23,7 +23,7 @@ public class MatchStatePublisher {
 	private String channel;
 	private String serverID;
 
-	public MatchStatePublisher(String serverID, MainMatch match, RemoteQueue publisher) {
+	public MatchStatePublisher(String serverID, ModelMatch match, RemoteQueue publisher) {
 		channel = String.format("match.%s.state", match.getId());
 		this.publisher = publisher;
 		this.serverID = serverID;
@@ -53,9 +53,9 @@ public class MatchStatePublisher {
 
 		}
 
-		Iterator<MainSceneComponent> iteratorComponent = matchRunner.getSceneComponents().iterator();
+		Iterator<ModelSceneComponent> iteratorComponent = matchRunner.getSceneComponents().iterator();
 		while (iteratorComponent.hasNext()) {
-			MainSceneComponent component = iteratorComponent.next();
+			ModelSceneComponent component = iteratorComponent.next();
 			SceneComponentVO send = new SceneComponentVO();
 			
 			send.id = component.getId().intValue();

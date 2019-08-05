@@ -19,8 +19,8 @@ import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelMatch;
 
 /**
  * This test creates 2 luchadores A and B - A need to be a the left of B with
@@ -53,15 +53,15 @@ public class BugOpponentDeathNotCounting {
 		MatchRunner match = MockMatchRunner.build(3000, queue);
 		match.getGameDefinition().setMinParticipants(2);
 
-		MainGameComponent a = MockLuchador.build(1, MethodNames.ON_START, "fire(5)");
-		MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "turn(90)");
+		ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_START, "fire(5)");
+		ModelGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "turn(90)");
 
 		match.add(a);
 		match.add(b);
 
 		// set initial position for luchador
-		match.getOnMatchStart().subscribe(new Consumer<MainMatch>() {
-			public void accept(MainMatch arg0) throws Exception {
+		match.getOnMatchStart().subscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch arg0) throws Exception {
 
 				LuchadorRunner runnerA = match.getRunners().get(1L);
 				LuchadorRunner runnerB = match.getRunners().get(2L);
@@ -111,8 +111,8 @@ public class BugOpponentDeathNotCounting {
 		MockMatchRunner.start(match);
 
 		// get final state
-		match.getOnMatchEnd().blockingSubscribe(new Consumer<MainMatch>() {
-			public void accept(MainMatch arg0) throws Exception {
+		match.getOnMatchEnd().blockingSubscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch arg0) throws Exception {
 				LuchadorRunner runner = match.getRunners().get(1L);
 				finalStateA = runner.getState().getPublicState();
 				logger.debug(">> final state A: " + finalStateA);

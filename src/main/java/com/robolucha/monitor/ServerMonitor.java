@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunnerAPI;
 
-import io.swagger.client.model.MainMatchMetric;
+import io.swagger.client.model.ModelMatchMetric;
 
 public class ServerMonitor {
 
@@ -21,7 +21,7 @@ public class ServerMonitor {
 		queue.publish(heatBeatPreffix + name, 1);
 	}
 
-	public void matchMetric(MainMatchMetric metric) {
+	public void matchMetric(ModelMatchMetric metric) {
 		new Thread(() -> {
 			try {
 				MatchRunnerAPI.getInstance().addMatchMetric(metric);

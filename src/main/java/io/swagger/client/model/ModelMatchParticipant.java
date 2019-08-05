@@ -17,17 +17,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainJoinMatch
+ * ModelMatchParticipant
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainJoinMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelMatchParticipant {
 
   @SerializedName("luchadorID")
   private Integer luchadorID = null;
 
   @SerializedName("matchID")
   private Integer matchID = null;
-  public MainJoinMatch luchadorID(Integer luchadorID) {
+  public ModelMatchParticipant luchadorID(Integer luchadorID) {
     this.luchadorID = luchadorID;
     return this;
   }
@@ -45,7 +45,7 @@ import java.util.Objects;
   public void setLuchadorID(Integer luchadorID) {
     this.luchadorID = luchadorID;
   }
-  public MainJoinMatch matchID(Integer matchID) {
+  public ModelMatchParticipant matchID(Integer matchID) {
     this.matchID = matchID;
     return this;
   }
@@ -71,9 +71,9 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainJoinMatch mainJoinMatch = (MainJoinMatch) o;
-    return Objects.equals(this.luchadorID, mainJoinMatch.luchadorID) &&
-        Objects.equals(this.matchID, mainJoinMatch.matchID);
+    ModelMatchParticipant modelMatchParticipant = (ModelMatchParticipant) o;
+    return Objects.equals(this.luchadorID, modelMatchParticipant.luchadorID) &&
+        Objects.equals(this.matchID, modelMatchParticipant.matchID);
   }
 
   @Override
@@ -84,7 +84,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainJoinMatch {\n");
+    sb.append("class ModelMatchParticipant {\n");
     
     sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
     sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");

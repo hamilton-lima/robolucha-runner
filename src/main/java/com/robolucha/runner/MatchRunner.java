@@ -41,11 +41,11 @@ import com.robolucha.shared.Calc;
 import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.subjects.PublishSubject;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainGameDefinition;
-import io.swagger.client.model.MainMatch;
-import io.swagger.client.model.MainMatchMetric;
-import io.swagger.client.model.MainSceneComponent;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelGameDefinition;
+import io.swagger.client.model.ModelMatch;
+import io.swagger.client.model.ModelMatchMetric;
+import io.swagger.client.model.ModelSceneComponent;
 
 /**
  * main match logic
@@ -64,13 +64,13 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private BulletsProcessor bulletsProcessor;
 	private double delta;
 
-	private PublishSubject<MainMatch> onMatchStart;
-	private PublishSubject<MainMatch> onMatchEnd;
+	private PublishSubject<ModelMatch> onMatchStart;
+	private PublishSubject<ModelMatch> onMatchEnd;
 	private PublishSubject<MessageVO> onMessage;
 	private PublishSubject<MatchInitVO> onInit;
 
 	private List<MatchRunnerListener> listeners;
-	private MainGameDefinition gameDefinition;
+	private ModelGameDefinition gameDefinition;
 	private MatchStatePublisher publisher;
 	private JoinMatchListener joinListener;
 
@@ -98,14 +98,14 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private MatchEventHandler eventHandler;
 	private LutchadorRunnerCreator luchadorCreator;
 	SceneComponentEventsRunner eventsRunner;
-	private MainMatch match;
+	private ModelMatch match;
 	private MatchRunnerMonitor monitor;
 
 	public MatchEventHandler getEventHandler() {
 		return eventHandler;
 	}
 
-	public MatchRunner(MainGameDefinition gameDefinition, MainMatch match, RemoteQueue queue,
+	public MatchRunner(ModelGameDefinition gameDefinition, ModelMatch match, RemoteQueue queue,
 			ServerMonitor serverMonitor) throws Exception {
 		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
 
@@ -115,7 +115,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		this.gameDefinition = gameDefinition;
 		this.match = match;
 
-		MainMatchMetric metric = new MainMatchMetric();
+		ModelMatchMetric metric = new ModelMatchMetric();
 		metric.setGameDefinitionID(gameDefinition.getId());
 		metric.setMatchID(match.getId());
 		monitor = new MatchRunnerMonitor(serverMonitor, metric, MONITOR_INTERVAL);
@@ -153,11 +153,11 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		logger.info("MatchRunner created:" + this);
 	}
 
-	public List<MainSceneComponent> getSceneComponents() {
+	public List<ModelSceneComponent> getSceneComponents() {
 		return gameDefinition.getSceneComponents();
 	}
 
-	public MainMatch getMatch() {
+	public ModelMatch getMatch() {
 		return match;
 	}
 
@@ -166,7 +166,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		listener.subscribe(this);
 	}
 
-	public PublishSubject<LuchadorRunner> add(final MainGameComponent component) throws Exception {
+	public PublishSubject<LuchadorRunner> add(final ModelGameComponent component) throws Exception {
 
 		if (runners.containsKey(component.getId())) {
 			String message = "trying to add luchador that is already in the match, id: " + component.getId();
@@ -190,7 +190,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return luchadorCreator.add(component);
 	}
 
-	public void addLuchador(final MainGameComponent component) throws Exception {
+	public void addLuchador(final ModelGameComponent component) throws Exception {
 		monitor.addPlayer();
 		add(component);
 	}
@@ -484,7 +484,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return delta;
 	}
 
-	public MainGameDefinition getGameDefinition() {
+	public ModelGameDefinition getGameDefinition() {
 		return gameDefinition;
 	}
 
@@ -507,9 +507,9 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		double radius = source.getSize() / 2;
 
 		// needs to go over the entire list to check for collision
-		Iterator<MainSceneComponent> sceneIterator = getSceneComponents().iterator();
+		Iterator<ModelSceneComponent> sceneIterator = getSceneComponents().iterator();
 		while (sceneIterator.hasNext()) {
-			MainSceneComponent current = sceneIterator.next();
+			ModelSceneComponent current = sceneIterator.next();
 
 			if (logger.isDebugEnabled()) {
 				logger.debug(">> (1) checking collision from :" + source.getGameComponent().getId() + " at x,y=" + x
@@ -662,11 +662,11 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		this.publisher = publisher;
 	}
 
-	public PublishSubject<MainMatch> getOnMatchStart() {
+	public PublishSubject<ModelMatch> getOnMatchStart() {
 		return onMatchStart;
 	}
 
-	public PublishSubject<MainMatch> getOnMatchEnd() {
+	public PublishSubject<ModelMatch> getOnMatchEnd() {
 		return onMatchEnd;
 	}
 

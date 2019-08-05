@@ -13,9 +13,9 @@ import com.robolucha.shared.Calc;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainGameDefinition;
-import io.swagger.client.model.MainSceneComponent;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelGameDefinition;
+import io.swagger.client.model.ModelSceneComponent;
 
 public class CalcTest {
 
@@ -39,8 +39,8 @@ public class CalcTest {
 
 		MatchRunner match = MockMatchRunner.build();
 
-		MainGameComponent a = MockLuchador.build(1);
-		MainGameComponent b = MockLuchador.build(2);
+		ModelGameComponent a = MockLuchador.build(1);
+		ModelGameComponent b = MockLuchador.build(2);
 
 		LuchadorRunner runnerA = match.add(a).blockingFirst();
 		LuchadorRunner runnerB = match.add(b).blockingFirst();
@@ -67,9 +67,9 @@ public class CalcTest {
 	@Test
 	public void testIntersectSceneComponentWithLuchadorINSIDE() throws Exception {
 
-		MainGameDefinition gd = MockMatchRunner.buildGameDefinition();
+		ModelGameDefinition gd = MockMatchRunner.buildGameDefinition();
 		double radius = gd.getLuchadorSize() / 2;
-		MainSceneComponent sc = new MainSceneComponent();
+		ModelSceneComponent sc = new ModelSceneComponent();
 		sc.setX(50);
 		sc.setY(50);
 		sc.setWidth(200);
@@ -81,10 +81,10 @@ public class CalcTest {
 	@Test
 	public void testIntersectSceneComponentWithLuchadorOUTSIDE() throws Exception {
 
-		MainGameDefinition gd = MockMatchRunner.buildGameDefinition();
+		ModelGameDefinition gd = MockMatchRunner.buildGameDefinition();
 		double radius = gd.getLuchadorSize() / 2;
 
-		MainSceneComponent sc = new MainSceneComponent();
+		ModelSceneComponent sc = new ModelSceneComponent();
 		sc.setX(50);
 		sc.setY(50);
 		sc.setWidth(200);
@@ -97,10 +97,10 @@ public class CalcTest {
 	@Test
 	public void testIntersectSceneComponentWithLuchadorTOUCHING() throws Exception {
 
-		MainGameDefinition gd = MockMatchRunner.buildGameDefinition();
+		ModelGameDefinition gd = MockMatchRunner.buildGameDefinition();
 		double radius = gd.getLuchadorSize() / 2;
 
-		MainSceneComponent sc = new MainSceneComponent();
+		ModelSceneComponent sc = new ModelSceneComponent();
 		sc.setX(50);
 		sc.setY(50);
 		sc.setWidth(200);

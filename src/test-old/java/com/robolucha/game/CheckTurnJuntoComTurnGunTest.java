@@ -13,7 +13,7 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
 public class CheckTurnJuntoComTurnGunTest {
 
@@ -30,7 +30,7 @@ public class CheckTurnJuntoComTurnGunTest {
 
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
-        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10);turn(45);turnGun(-45);");
+        ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10);turn(45);turnGun(-45);");
 
         match.add(a);
 

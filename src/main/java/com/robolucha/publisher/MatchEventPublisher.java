@@ -17,7 +17,7 @@ import com.robolucha.runner.MatchRunnerAPI;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.shared.JSONFormat;
 
-import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.ModelMatch;
 
 public class MatchEventPublisher implements MatchEventListener {
 	private final RemoteQueue publisher;
@@ -25,9 +25,9 @@ public class MatchEventPublisher implements MatchEventListener {
 	private final String channel;
 
 	private Logger logger = Logger.getLogger(MatchEventPublisher.class);
-	private MainMatch match;
+	private ModelMatch match;
 
-	public MatchEventPublisher(MainMatch match, RemoteQueue publisher, ThreadMonitor threadMonitor) {
+	public MatchEventPublisher(ModelMatch match, RemoteQueue publisher, ThreadMonitor threadMonitor) {
 		this.match = match;
 		this.publisher = publisher;
 		this.threadMonitor = threadMonitor;

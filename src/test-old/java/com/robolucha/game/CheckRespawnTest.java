@@ -11,8 +11,8 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainCode;
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelGameComponent;
 
 public class CheckRespawnTest {
 
@@ -24,13 +24,13 @@ public class CheckRespawnTest {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        MainGameComponent a = MockLuchador.build();
+        ModelGameComponent a = MockLuchador.build();
         a.setId(1);
 
-        MainGameComponent b = MockLuchador.build();
+        ModelGameComponent b = MockLuchador.build();
         b.setId(2);
 
-        MainCode c = MockLuchador.buildCode(MethodNames.ON_REPEAT, "fire(2)");
+        ModelCode c = MockLuchador.buildCode(MethodNames.ON_REPEAT, "fire(2)");
         a.getCodes().add(c);
 
         match.add(a);

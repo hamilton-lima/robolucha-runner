@@ -14,41 +14,54 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
- * MainScoreList
+ * ModelStudent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainScoreList {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelStudent {
 
-  @SerializedName("scores")
-  private List<MainMatchScore> scores = null;
-  public MainScoreList scores(List<MainMatchScore> scores) {
-    this.scores = scores;
+  @SerializedName("id")
+  private Integer id = null;
+
+  @SerializedName("userID")
+  private Integer userID = null;
+  public ModelStudent id(Integer id) {
+    this.id = id;
     return this;
   }
 
-  public MainScoreList addScoresItem(MainMatchScore scoresItem) {
-    if (this.scores == null) {
-      this.scores = new ArrayList<MainMatchScore>();
-    }
-    this.scores.add(scoresItem);
-    return this;
-  }
+  
 
   /**
-  * Get scores
-  * @return scores
+  * Get id
+  * @return id
   **/
   @Schema(description = "")
-  public List<MainMatchScore> getScores() {
-    return scores;
+  public Integer getId() {
+    return id;
   }
-  public void setScores(List<MainMatchScore> scores) {
-    this.scores = scores;
+  public void setId(Integer id) {
+    this.id = id;
+  }
+  public ModelStudent userID(Integer userID) {
+    this.userID = userID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get userID
+  * @return userID
+  **/
+  @Schema(description = "")
+  public Integer getUserID() {
+    return userID;
+  }
+  public void setUserID(Integer userID) {
+    this.userID = userID;
   }
   @Override
   public boolean equals(java.lang.Object o) {
@@ -58,21 +71,23 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainScoreList mainScoreList = (MainScoreList) o;
-    return Objects.equals(this.scores, mainScoreList.scores);
+    ModelStudent modelStudent = (ModelStudent) o;
+    return Objects.equals(this.id, modelStudent.id) &&
+        Objects.equals(this.userID, modelStudent.userID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(scores);
+    return java.util.Objects.hash(id, userID);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainScoreList {\n");
+    sb.append("class ModelStudent {\n");
     
-    sb.append("    scores: ").append(toIndentedString(scores)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

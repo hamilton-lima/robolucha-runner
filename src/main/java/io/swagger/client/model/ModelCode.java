@@ -17,10 +17,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainCode
+ * ModelCode
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainCode {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelCode {
 
   @SerializedName("event")
   private String event = null;
@@ -36,7 +36,7 @@ import java.util.Objects;
 
   @SerializedName("script")
   private String script = null;
-  public MainCode event(String event) {
+  public ModelCode event(String event) {
     this.event = event;
     return this;
   }
@@ -54,7 +54,7 @@ import java.util.Objects;
   public void setEvent(String event) {
     this.event = event;
   }
-  public MainCode exception(String exception) {
+  public ModelCode exception(String exception) {
     this.exception = exception;
     return this;
   }
@@ -72,7 +72,7 @@ import java.util.Objects;
   public void setException(String exception) {
     this.exception = exception;
   }
-  public MainCode gameDefinition(Integer gameDefinition) {
+  public ModelCode gameDefinition(Integer gameDefinition) {
     this.gameDefinition = gameDefinition;
     return this;
   }
@@ -90,7 +90,7 @@ import java.util.Objects;
   public void setGameDefinition(Integer gameDefinition) {
     this.gameDefinition = gameDefinition;
   }
-  public MainCode id(Integer id) {
+  public ModelCode id(Integer id) {
     this.id = id;
     return this;
   }
@@ -108,7 +108,7 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainCode script(String script) {
+  public ModelCode script(String script) {
     this.script = script;
     return this;
   }
@@ -134,12 +134,12 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainCode mainCode = (MainCode) o;
-    return Objects.equals(this.event, mainCode.event) &&
-        Objects.equals(this.exception, mainCode.exception) &&
-        Objects.equals(this.gameDefinition, mainCode.gameDefinition) &&
-        Objects.equals(this.id, mainCode.id) &&
-        Objects.equals(this.script, mainCode.script);
+    ModelCode modelCode = (ModelCode) o;
+    return Objects.equals(this.event, modelCode.event) &&
+        Objects.equals(this.exception, modelCode.exception) &&
+        Objects.equals(this.gameDefinition, modelCode.gameDefinition) &&
+        Objects.equals(this.id, modelCode.id) &&
+        Objects.equals(this.script, modelCode.script);
   }
 
   @Override
@@ -150,7 +150,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainCode {\n");
+    sb.append("class ModelCode {\n");
     
     sb.append("    event: ").append(toIndentedString(event)).append("\n");
     sb.append("    exception: ").append(toIndentedString(exception)).append("\n");

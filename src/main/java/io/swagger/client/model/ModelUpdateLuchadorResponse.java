@@ -19,22 +19,22 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * MainUpdateLuchadorResponse
+ * ModelUpdateLuchadorResponse
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainUpdateLuchadorResponse {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelUpdateLuchadorResponse {
 
   @SerializedName("errors")
   private List<String> errors = null;
 
   @SerializedName("luchador")
-  private MainGameComponent luchador = null;
-  public MainUpdateLuchadorResponse errors(List<String> errors) {
+  private ModelGameComponent luchador = null;
+  public ModelUpdateLuchadorResponse errors(List<String> errors) {
     this.errors = errors;
     return this;
   }
 
-  public MainUpdateLuchadorResponse addErrorsItem(String errorsItem) {
+  public ModelUpdateLuchadorResponse addErrorsItem(String errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<String>();
     }
@@ -53,7 +53,7 @@ import java.util.Objects;
   public void setErrors(List<String> errors) {
     this.errors = errors;
   }
-  public MainUpdateLuchadorResponse luchador(MainGameComponent luchador) {
+  public ModelUpdateLuchadorResponse luchador(ModelGameComponent luchador) {
     this.luchador = luchador;
     return this;
   }
@@ -65,10 +65,10 @@ import java.util.Objects;
   * @return luchador
   **/
   @Schema(description = "")
-  public MainGameComponent getLuchador() {
+  public ModelGameComponent getLuchador() {
     return luchador;
   }
-  public void setLuchador(MainGameComponent luchador) {
+  public void setLuchador(ModelGameComponent luchador) {
     this.luchador = luchador;
   }
   @Override
@@ -79,9 +79,9 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainUpdateLuchadorResponse mainUpdateLuchadorResponse = (MainUpdateLuchadorResponse) o;
-    return Objects.equals(this.errors, mainUpdateLuchadorResponse.errors) &&
-        Objects.equals(this.luchador, mainUpdateLuchadorResponse.luchador);
+    ModelUpdateLuchadorResponse modelUpdateLuchadorResponse = (ModelUpdateLuchadorResponse) o;
+    return Objects.equals(this.errors, modelUpdateLuchadorResponse.errors) &&
+        Objects.equals(this.luchador, modelUpdateLuchadorResponse.luchador);
   }
 
   @Override
@@ -92,7 +92,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainUpdateLuchadorResponse {\n");
+    sb.append("class ModelUpdateLuchadorResponse {\n");
     
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("    luchador: ").append(toIndentedString(luchador)).append("\n");

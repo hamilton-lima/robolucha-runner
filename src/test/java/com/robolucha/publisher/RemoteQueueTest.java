@@ -14,8 +14,8 @@ import com.robolucha.test.MockLuchador;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.BehaviorSubject;
-import io.swagger.client.model.MainCode;
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelGameComponent;
 
 public class RemoteQueueTest {
     RedisDockerHelper docker = new RedisDockerHelper();
@@ -32,25 +32,25 @@ public class RemoteQueueTest {
 
         try (RemoteQueue queue = new RemoteQueue(Config.getInstance())) {
 
-            BehaviorSubject<MainGameComponent> subject = queue.subscribe(MainGameComponent.class);
+            BehaviorSubject<ModelGameComponent> subject = queue.subscribe(ModelGameComponent.class);
             CompletableFuture<String> future = new CompletableFuture<>();
 
-            subject.subscribe(new Consumer<MainGameComponent>() {
+            subject.subscribe(new Consumer<ModelGameComponent>() {
                 @Override
-                public void accept(MainGameComponent luchador) throws Exception {
+                public void accept(ModelGameComponent luchador) throws Exception {
                     logger.info("Luchador from REDIS subscription=" + luchador.toString());
 
                     assertEquals(luchador.getId().intValue(), 2);
                     assertEquals(luchador.getCodes().size(), 1);
 
-                    MainCode code = luchador.getCodes().stream().findFirst().get();
+                    ModelCode code = luchador.getCodes().stream().findFirst().get();
                     assertEquals("start", code.getEvent());
                     assertEquals("move(10)", code.getScript());
                     future.complete("subscribe");
                 }
             });
 
-            MainGameComponent foo = MockLuchador.build(2, "start", "move(10)");
+            ModelGameComponent foo = MockLuchador.build(2, "start", "move(10)");
             queue.publish(foo);
 
             assertEquals("subscribe", future.get(5, TimeUnit.SECONDS));

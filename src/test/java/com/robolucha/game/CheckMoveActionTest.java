@@ -13,8 +13,8 @@ import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelMatch;
 
 public class CheckMoveActionTest {
 
@@ -33,14 +33,14 @@ public class CheckMoveActionTest {
 		MatchRunner match = MockMatchRunner.build();
 		match.getGameDefinition().setDuration(1000);
 
-		MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
-		MainGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "move(-10)");
+		ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
+		ModelGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "move(-10)");
 
 		LuchadorRunner runnerA = match.add(a).blockingFirst();
 		LuchadorRunner runnerB = match.add(b).blockingFirst();
 
-		match.getOnMatchStart().subscribe(new Consumer<MainMatch>() {
-			public void accept(MainMatch arg0) throws Exception {
+		match.getOnMatchStart().subscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch arg0) throws Exception {
 
 				runnerA.getState().setX(100);
 				runnerA.getState().setY(100);
