@@ -17,10 +17,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainMatchMetric
+ * ModelMatchMetric
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainMatchMetric {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelMatchMetric {
 
   @SerializedName("fps")
   private Integer fps = null;
@@ -36,7 +36,7 @@ import java.util.Objects;
 
   @SerializedName("players")
   private Integer players = null;
-  public MainMatchMetric fps(Integer fps) {
+  public ModelMatchMetric fps(Integer fps) {
     this.fps = fps;
     return this;
   }
@@ -54,7 +54,7 @@ import java.util.Objects;
   public void setFps(Integer fps) {
     this.fps = fps;
   }
-  public MainMatchMetric gameDefinitionID(Integer gameDefinitionID) {
+  public ModelMatchMetric gameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
     return this;
   }
@@ -72,7 +72,7 @@ import java.util.Objects;
   public void setGameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
   }
-  public MainMatchMetric id(Integer id) {
+  public ModelMatchMetric id(Integer id) {
     this.id = id;
     return this;
   }
@@ -90,7 +90,7 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainMatchMetric matchID(Integer matchID) {
+  public ModelMatchMetric matchID(Integer matchID) {
     this.matchID = matchID;
     return this;
   }
@@ -108,7 +108,7 @@ import java.util.Objects;
   public void setMatchID(Integer matchID) {
     this.matchID = matchID;
   }
-  public MainMatchMetric players(Integer players) {
+  public ModelMatchMetric players(Integer players) {
     this.players = players;
     return this;
   }
@@ -134,12 +134,12 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainMatchMetric mainMatchMetric = (MainMatchMetric) o;
-    return Objects.equals(this.fps, mainMatchMetric.fps) &&
-        Objects.equals(this.gameDefinitionID, mainMatchMetric.gameDefinitionID) &&
-        Objects.equals(this.id, mainMatchMetric.id) &&
-        Objects.equals(this.matchID, mainMatchMetric.matchID) &&
-        Objects.equals(this.players, mainMatchMetric.players);
+    ModelMatchMetric modelMatchMetric = (ModelMatchMetric) o;
+    return Objects.equals(this.fps, modelMatchMetric.fps) &&
+        Objects.equals(this.gameDefinitionID, modelMatchMetric.gameDefinitionID) &&
+        Objects.equals(this.id, modelMatchMetric.id) &&
+        Objects.equals(this.matchID, modelMatchMetric.matchID) &&
+        Objects.equals(this.players, modelMatchMetric.players);
   }
 
   @Override
@@ -150,7 +150,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainMatchMetric {\n");
+    sb.append("class ModelMatchMetric {\n");
     
     sb.append("    fps: ").append(toIndentedString(fps)).append("\n");
     sb.append("    gameDefinitionID: ").append(toIndentedString(gameDefinitionID)).append("\n");

@@ -6,20 +6,20 @@ import org.junit.Test;
 
 import com.robolucha.monitor.ServerMonitor;
 
-import io.swagger.client.model.MainMatchMetric;
+import io.swagger.client.model.ModelMatchMetric;
 
 public class MatchRunnerMonitorTest {
 
 	private class MockServerMonitor extends ServerMonitor {
 
-		public MainMatchMetric lastMetric;
+		public ModelMatchMetric lastMetric;
 
 		public MockServerMonitor() {
 			super(null);
 		}
 
 		@Override
-		public void matchMetric(MainMatchMetric metric) {
+		public void matchMetric(ModelMatchMetric metric) {
 			this.lastMetric = metric;
 		}
 
@@ -29,7 +29,7 @@ public class MatchRunnerMonitorTest {
 	public void testTick() throws InterruptedException {
 		int interval = 1000;
 		MockServerMonitor serverMonitor = new MockServerMonitor();
-		MainMatchMetric metric = new MainMatchMetric();
+		ModelMatchMetric metric = new ModelMatchMetric();
 
 		metric.setGameDefinitionID(42);
 		MatchRunnerMonitor monitor = new MatchRunnerMonitor(serverMonitor, metric, interval);
@@ -50,7 +50,7 @@ public class MatchRunnerMonitorTest {
 	public void testKeepNumberOfPlayersAfterTick() throws InterruptedException {
 		int interval = 200;
 		MockServerMonitor serverMonitor = new MockServerMonitor();
-		MainMatchMetric metric = new MainMatchMetric();
+		ModelMatchMetric metric = new ModelMatchMetric();
 
 		metric.setGameDefinitionID(42);
 		MatchRunnerMonitor monitor = new MatchRunnerMonitor(serverMonitor, metric, interval);
@@ -72,7 +72,7 @@ public class MatchRunnerMonitorTest {
 	public void testFPSCalculation() throws InterruptedException {
 		int interval = 2000;
 		MockServerMonitor serverMonitor = new MockServerMonitor();
-		MainMatchMetric metric = new MainMatchMetric();
+		ModelMatchMetric metric = new ModelMatchMetric();
 
 		MatchRunnerMonitor monitor = new MatchRunnerMonitor(serverMonitor, metric, interval);
 		int max = 100;

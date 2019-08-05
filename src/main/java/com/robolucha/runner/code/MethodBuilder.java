@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import io.swagger.client.model.MainCode;
+import io.swagger.client.model.ModelCode;
 
 /**
  * 
@@ -22,9 +22,9 @@ public class MethodBuilder {
 		return instance;
 	}
 
-	public void buildAll(ScriptDefinition scriptDef, List<MainCode> codes) {
+	public void buildAll(ScriptDefinition scriptDef, List<ModelCode> codes) {
 
-		HashMap<String, MainCode> local = populateLocalHash(codes);
+		HashMap<String, ModelCode> local = populateLocalHash(codes);
 		String script = "";
 		Integer codeId = 0;
 		String key = null;
@@ -39,7 +39,7 @@ public class MethodBuilder {
 			script = "";
 			codeId = 0;
 
-			MainCode code = null;
+			ModelCode code = null;
 
 			if (local.containsKey(key)) {
 				code = local.get(key);
@@ -73,19 +73,19 @@ public class MethodBuilder {
 
 	}
 
-	private HashMap<String, MainCode> populateLocalHash(List<MainCode> codes) {
-		HashMap<String, MainCode> result = new HashMap<String, MainCode>();
+	private HashMap<String, ModelCode> populateLocalHash(List<ModelCode> codes) {
+		HashMap<String, ModelCode> result = new HashMap<String, ModelCode>();
 		if (codes != null) {
-			Iterator<MainCode> iterator = codes.iterator();
+			Iterator<ModelCode> iterator = codes.iterator();
 			while (iterator.hasNext()) {
-				MainCode code = iterator.next();
+				ModelCode code = iterator.next();
 				result.put(code.getEvent(), code);
 			}
 		}
 		return result;
 	}
 
-	public void build(ScriptDefinition scriptDef, MainCode code) {
+	public void build(ScriptDefinition scriptDef, ModelCode code) {
 
 		logger.debug("building code: " + code);
 		if (code == null) {

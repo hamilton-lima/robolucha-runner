@@ -11,7 +11,7 @@ import com.robolucha.runner.code.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
 public class LuchadorConstantsTest {
 
@@ -33,7 +33,7 @@ public class LuchadorConstantsTest {
                 " lw = LUCHADOR_WIDTH; " +
                 " lh = LUCHADOR_HEIGHT;";
 
-        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, script);
+        ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, script);
 
         match.add(a);
         match.add(MockLuchador.build());

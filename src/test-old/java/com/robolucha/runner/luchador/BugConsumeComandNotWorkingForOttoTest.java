@@ -11,7 +11,7 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.ModelMatch;
 
 public class BugConsumeComandNotWorkingForOttoTest {
 
@@ -29,8 +29,8 @@ public class BugConsumeComandNotWorkingForOttoTest {
 		MatchRunner match = MockMatchRunner.buildWithDefaultLuchador();
 
 		// set initial position for luchador
-		match.getOnMatchStart().subscribe(new Consumer<MainMatch>() {
-			public void accept(MainMatch arg0) throws Exception {
+		match.getOnMatchStart().subscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch arg0) throws Exception {
 
 				LuchadorRunner ottoRunner = match.getRunners().get(-1L);
 				LuchadorRunner farolRunner = match.getRunners().get(-2L);
@@ -58,8 +58,8 @@ public class BugConsumeComandNotWorkingForOttoTest {
 		MockMatchRunner.start(match);
 
 		// get final state
-		match.getOnMatchEnd().blockingSubscribe(new Consumer<MainMatch>() {
-			public void accept(MainMatch arg0) throws Exception {
+		match.getOnMatchEnd().blockingSubscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch arg0) throws Exception {
 				otto = match.getRunners().get(-1L).getState().getPublicState();
 				farol = match.getRunners().get(-2L).getState().getPublicState();
 			}

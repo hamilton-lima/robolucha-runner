@@ -17,10 +17,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainConfig
+ * ModelConfig
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainConfig {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelConfig {
 
   @SerializedName("id")
   private Integer id = null;
@@ -30,7 +30,7 @@ import java.util.Objects;
 
   @SerializedName("value")
   private String value = null;
-  public MainConfig id(Integer id) {
+  public ModelConfig id(Integer id) {
     this.id = id;
     return this;
   }
@@ -48,7 +48,7 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainConfig key(String key) {
+  public ModelConfig key(String key) {
     this.key = key;
     return this;
   }
@@ -66,7 +66,7 @@ import java.util.Objects;
   public void setKey(String key) {
     this.key = key;
   }
-  public MainConfig value(String value) {
+  public ModelConfig value(String value) {
     this.value = value;
     return this;
   }
@@ -92,10 +92,10 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainConfig mainConfig = (MainConfig) o;
-    return Objects.equals(this.id, mainConfig.id) &&
-        Objects.equals(this.key, mainConfig.key) &&
-        Objects.equals(this.value, mainConfig.value);
+    ModelConfig modelConfig = (ModelConfig) o;
+    return Objects.equals(this.id, modelConfig.id) &&
+        Objects.equals(this.key, modelConfig.key) &&
+        Objects.equals(this.value, modelConfig.value);
   }
 
   @Override
@@ -106,7 +106,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainConfig {\n");
+    sb.append("class ModelConfig {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");

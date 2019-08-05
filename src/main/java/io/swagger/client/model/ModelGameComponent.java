@@ -12,25 +12,26 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.google.gson.annotations.SerializedName;
-
-import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
- * MainLuchador
+ * ModelGameComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T20:42:11.396Z[GMT]")public class MainLuchador {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelGameComponent {
 
   @SerializedName("codes")
-  private List<MainCode> codes = null;
+  private List<ModelCode> codes = null;
 
   @SerializedName("configs")
-  private List<MainConfig> configs = null;
+  private List<ModelConfig> configs = null;
+
+  @SerializedName("gameDefinition")
+  private Integer gameDefinition = null;
 
   @SerializedName("id")
   private Integer id = null;
@@ -40,14 +41,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
   @SerializedName("userID")
   private Integer userID = null;
-  public MainLuchador codes(List<MainCode> codes) {
+  public ModelGameComponent codes(List<ModelCode> codes) {
     this.codes = codes;
     return this;
   }
 
-  public MainLuchador addCodesItem(MainCode codesItem) {
+  public ModelGameComponent addCodesItem(ModelCode codesItem) {
     if (this.codes == null) {
-      this.codes = new ArrayList<MainCode>();
+      this.codes = new ArrayList<ModelCode>();
     }
     this.codes.add(codesItem);
     return this;
@@ -58,20 +59,20 @@ import io.swagger.v3.oas.annotations.media.Schema;
   * @return codes
   **/
   @Schema(description = "")
-  public List<MainCode> getCodes() {
+  public List<ModelCode> getCodes() {
     return codes;
   }
-  public void setCodes(List<MainCode> codes) {
+  public void setCodes(List<ModelCode> codes) {
     this.codes = codes;
   }
-  public MainLuchador configs(List<MainConfig> configs) {
+  public ModelGameComponent configs(List<ModelConfig> configs) {
     this.configs = configs;
     return this;
   }
 
-  public MainLuchador addConfigsItem(MainConfig configsItem) {
+  public ModelGameComponent addConfigsItem(ModelConfig configsItem) {
     if (this.configs == null) {
-      this.configs = new ArrayList<MainConfig>();
+      this.configs = new ArrayList<ModelConfig>();
     }
     this.configs.add(configsItem);
     return this;
@@ -82,13 +83,31 @@ import io.swagger.v3.oas.annotations.media.Schema;
   * @return configs
   **/
   @Schema(description = "")
-  public List<MainConfig> getConfigs() {
+  public List<ModelConfig> getConfigs() {
     return configs;
   }
-  public void setConfigs(List<MainConfig> configs) {
+  public void setConfigs(List<ModelConfig> configs) {
     this.configs = configs;
   }
-  public MainLuchador id(Integer id) {
+  public ModelGameComponent gameDefinition(Integer gameDefinition) {
+    this.gameDefinition = gameDefinition;
+    return this;
+  }
+
+  
+
+  /**
+  * Get gameDefinition
+  * @return gameDefinition
+  **/
+  @Schema(description = "")
+  public Integer getGameDefinition() {
+    return gameDefinition;
+  }
+  public void setGameDefinition(Integer gameDefinition) {
+    this.gameDefinition = gameDefinition;
+  }
+  public ModelGameComponent id(Integer id) {
     this.id = id;
     return this;
   }
@@ -106,7 +125,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainLuchador name(String name) {
+  public ModelGameComponent name(String name) {
     this.name = name;
     return this;
   }
@@ -124,7 +143,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   public void setName(String name) {
     this.name = name;
   }
-  public MainLuchador userID(Integer userID) {
+  public ModelGameComponent userID(Integer userID) {
     this.userID = userID;
     return this;
   }
@@ -150,26 +169,28 @@ import io.swagger.v3.oas.annotations.media.Schema;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainLuchador mainLuchador = (MainLuchador) o;
-    return Objects.equals(this.codes, mainLuchador.codes) &&
-        Objects.equals(this.configs, mainLuchador.configs) &&
-        Objects.equals(this.id, mainLuchador.id) &&
-        Objects.equals(this.name, mainLuchador.name) &&
-        Objects.equals(this.userID, mainLuchador.userID);
+    ModelGameComponent modelGameComponent = (ModelGameComponent) o;
+    return Objects.equals(this.codes, modelGameComponent.codes) &&
+        Objects.equals(this.configs, modelGameComponent.configs) &&
+        Objects.equals(this.gameDefinition, modelGameComponent.gameDefinition) &&
+        Objects.equals(this.id, modelGameComponent.id) &&
+        Objects.equals(this.name, modelGameComponent.name) &&
+        Objects.equals(this.userID, modelGameComponent.userID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(codes, configs, id, name, userID);
+    return java.util.Objects.hash(codes, configs, gameDefinition, id, name, userID);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainLuchador {\n");
+    sb.append("class ModelGameComponent {\n");
     
     sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
     sb.append("    configs: ").append(toIndentedString(configs)).append("\n");
+    sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");

@@ -17,10 +17,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainMatchScore
+ * ModelMatchScore
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainMatchScore {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelMatchScore {
 
   @SerializedName("deaths")
   private Integer deaths = null;
@@ -39,7 +39,7 @@ import java.util.Objects;
 
   @SerializedName("score")
   private Integer score = null;
-  public MainMatchScore deaths(Integer deaths) {
+  public ModelMatchScore deaths(Integer deaths) {
     this.deaths = deaths;
     return this;
   }
@@ -57,7 +57,7 @@ import java.util.Objects;
   public void setDeaths(Integer deaths) {
     this.deaths = deaths;
   }
-  public MainMatchScore id(Integer id) {
+  public ModelMatchScore id(Integer id) {
     this.id = id;
     return this;
   }
@@ -75,7 +75,7 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainMatchScore kills(Integer kills) {
+  public ModelMatchScore kills(Integer kills) {
     this.kills = kills;
     return this;
   }
@@ -93,7 +93,7 @@ import java.util.Objects;
   public void setKills(Integer kills) {
     this.kills = kills;
   }
-  public MainMatchScore luchadorID(Integer luchadorID) {
+  public ModelMatchScore luchadorID(Integer luchadorID) {
     this.luchadorID = luchadorID;
     return this;
   }
@@ -111,7 +111,7 @@ import java.util.Objects;
   public void setLuchadorID(Integer luchadorID) {
     this.luchadorID = luchadorID;
   }
-  public MainMatchScore matchID(Integer matchID) {
+  public ModelMatchScore matchID(Integer matchID) {
     this.matchID = matchID;
     return this;
   }
@@ -129,7 +129,7 @@ import java.util.Objects;
   public void setMatchID(Integer matchID) {
     this.matchID = matchID;
   }
-  public MainMatchScore score(Integer score) {
+  public ModelMatchScore score(Integer score) {
     this.score = score;
     return this;
   }
@@ -155,13 +155,13 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainMatchScore mainMatchScore = (MainMatchScore) o;
-    return Objects.equals(this.deaths, mainMatchScore.deaths) &&
-        Objects.equals(this.id, mainMatchScore.id) &&
-        Objects.equals(this.kills, mainMatchScore.kills) &&
-        Objects.equals(this.luchadorID, mainMatchScore.luchadorID) &&
-        Objects.equals(this.matchID, mainMatchScore.matchID) &&
-        Objects.equals(this.score, mainMatchScore.score);
+    ModelMatchScore modelMatchScore = (ModelMatchScore) o;
+    return Objects.equals(this.deaths, modelMatchScore.deaths) &&
+        Objects.equals(this.id, modelMatchScore.id) &&
+        Objects.equals(this.kills, modelMatchScore.kills) &&
+        Objects.equals(this.luchadorID, modelMatchScore.luchadorID) &&
+        Objects.equals(this.matchID, modelMatchScore.matchID) &&
+        Objects.equals(this.score, modelMatchScore.score);
   }
 
   @Override
@@ -172,7 +172,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainMatchScore {\n");
+    sb.append("class ModelMatchScore {\n");
     
     sb.append("    deaths: ").append(toIndentedString(deaths)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");

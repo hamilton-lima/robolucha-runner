@@ -11,7 +11,7 @@ import com.robolucha.runner.code.MethodNames;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
 /**
  * @author hamiltonlima
@@ -32,7 +32,7 @@ public class BugFire1Fire10Test {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1);");
+        ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "fire(1);");
         a.getCodes().add(MockLuchador.buildCode(MethodNames.ON_START, "var foundIt = 0;"));
         a.getCodes().add(MockLuchador.buildCode(MethodNames.ON_FOUND, "foundIt = 1; fire(10);"));
 

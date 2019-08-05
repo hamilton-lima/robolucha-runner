@@ -15,8 +15,8 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelMatch;
 
 // @deprecated need to define proper way to simulate match
 public class BugNaoRetornandoMatchRunnerAtivoTest {
@@ -25,7 +25,7 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 			.getLogger(BugNaoRetornandoMatchRunnerAtivoTest.class);
 
 	RemoteQueue queue = new RemoteQueue(Config.getInstance());
-	MainMatch match = new MainMatch();
+	ModelMatch match = new ModelMatch();
 
 	MatchStatePublisher publisher = new MatchStatePublisher("test", match, queue);
 
@@ -45,7 +45,7 @@ public class BugNaoRetornandoMatchRunnerAtivoTest {
 		match.getGameDefinition().setMinParticipants(1);
 		match.getGameDefinition().setDuration(500);
 
-		MainGameComponent a = MockLuchador.build();
+		ModelGameComponent a = MockLuchador.build();
 		a.setId(1);
 
 		match.add(a);

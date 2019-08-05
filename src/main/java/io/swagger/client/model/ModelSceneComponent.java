@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * MainSceneComponent
+ * ModelSceneComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainSceneComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelSceneComponent {
 
   @SerializedName("alpha")
   private BigDecimal alpha = null;
@@ -32,7 +32,7 @@ import java.util.Objects;
   private Boolean blockMovement = null;
 
   @SerializedName("codes")
-  private List<MainCode> codes = null;
+  private List<ModelCode> codes = null;
 
   @SerializedName("colider")
   private Boolean colider = null;
@@ -69,7 +69,7 @@ import java.util.Objects;
 
   @SerializedName("y")
   private Integer y = null;
-  public MainSceneComponent alpha(BigDecimal alpha) {
+  public ModelSceneComponent alpha(BigDecimal alpha) {
     this.alpha = alpha;
     return this;
   }
@@ -87,7 +87,7 @@ import java.util.Objects;
   public void setAlpha(BigDecimal alpha) {
     this.alpha = alpha;
   }
-  public MainSceneComponent blockMovement(Boolean blockMovement) {
+  public ModelSceneComponent blockMovement(Boolean blockMovement) {
     this.blockMovement = blockMovement;
     return this;
   }
@@ -105,14 +105,14 @@ import java.util.Objects;
   public void setBlockMovement(Boolean blockMovement) {
     this.blockMovement = blockMovement;
   }
-  public MainSceneComponent codes(List<MainCode> codes) {
+  public ModelSceneComponent codes(List<ModelCode> codes) {
     this.codes = codes;
     return this;
   }
 
-  public MainSceneComponent addCodesItem(MainCode codesItem) {
+  public ModelSceneComponent addCodesItem(ModelCode codesItem) {
     if (this.codes == null) {
-      this.codes = new ArrayList<MainCode>();
+      this.codes = new ArrayList<ModelCode>();
     }
     this.codes.add(codesItem);
     return this;
@@ -123,13 +123,13 @@ import java.util.Objects;
   * @return codes
   **/
   @Schema(description = "")
-  public List<MainCode> getCodes() {
+  public List<ModelCode> getCodes() {
     return codes;
   }
-  public void setCodes(List<MainCode> codes) {
+  public void setCodes(List<ModelCode> codes) {
     this.codes = codes;
   }
-  public MainSceneComponent colider(Boolean colider) {
+  public ModelSceneComponent colider(Boolean colider) {
     this.colider = colider;
     return this;
   }
@@ -147,7 +147,7 @@ import java.util.Objects;
   public void setColider(Boolean colider) {
     this.colider = colider;
   }
-  public MainSceneComponent color(String color) {
+  public ModelSceneComponent color(String color) {
     this.color = color;
     return this;
   }
@@ -165,7 +165,7 @@ import java.util.Objects;
   public void setColor(String color) {
     this.color = color;
   }
-  public MainSceneComponent gameDefinition(Integer gameDefinition) {
+  public ModelSceneComponent gameDefinition(Integer gameDefinition) {
     this.gameDefinition = gameDefinition;
     return this;
   }
@@ -183,7 +183,7 @@ import java.util.Objects;
   public void setGameDefinition(Integer gameDefinition) {
     this.gameDefinition = gameDefinition;
   }
-  public MainSceneComponent height(Integer height) {
+  public ModelSceneComponent height(Integer height) {
     this.height = height;
     return this;
   }
@@ -201,7 +201,7 @@ import java.util.Objects;
   public void setHeight(Integer height) {
     this.height = height;
   }
-  public MainSceneComponent id(Integer id) {
+  public ModelSceneComponent id(Integer id) {
     this.id = id;
     return this;
   }
@@ -219,7 +219,7 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainSceneComponent respawn(Boolean respawn) {
+  public ModelSceneComponent respawn(Boolean respawn) {
     this.respawn = respawn;
     return this;
   }
@@ -237,7 +237,7 @@ import java.util.Objects;
   public void setRespawn(Boolean respawn) {
     this.respawn = respawn;
   }
-  public MainSceneComponent rotation(Integer rotation) {
+  public ModelSceneComponent rotation(Integer rotation) {
     this.rotation = rotation;
     return this;
   }
@@ -255,7 +255,7 @@ import java.util.Objects;
   public void setRotation(Integer rotation) {
     this.rotation = rotation;
   }
-  public MainSceneComponent showInRadar(Boolean showInRadar) {
+  public ModelSceneComponent showInRadar(Boolean showInRadar) {
     this.showInRadar = showInRadar;
     return this;
   }
@@ -273,7 +273,7 @@ import java.util.Objects;
   public void setShowInRadar(Boolean showInRadar) {
     this.showInRadar = showInRadar;
   }
-  public MainSceneComponent type(String type) {
+  public ModelSceneComponent type(String type) {
     this.type = type;
     return this;
   }
@@ -291,7 +291,7 @@ import java.util.Objects;
   public void setType(String type) {
     this.type = type;
   }
-  public MainSceneComponent width(Integer width) {
+  public ModelSceneComponent width(Integer width) {
     this.width = width;
     return this;
   }
@@ -309,7 +309,7 @@ import java.util.Objects;
   public void setWidth(Integer width) {
     this.width = width;
   }
-  public MainSceneComponent x(Integer x) {
+  public ModelSceneComponent x(Integer x) {
     this.x = x;
     return this;
   }
@@ -327,7 +327,7 @@ import java.util.Objects;
   public void setX(Integer x) {
     this.x = x;
   }
-  public MainSceneComponent y(Integer y) {
+  public ModelSceneComponent y(Integer y) {
     this.y = y;
     return this;
   }
@@ -353,22 +353,22 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainSceneComponent mainSceneComponent = (MainSceneComponent) o;
-    return Objects.equals(this.alpha, mainSceneComponent.alpha) &&
-        Objects.equals(this.blockMovement, mainSceneComponent.blockMovement) &&
-        Objects.equals(this.codes, mainSceneComponent.codes) &&
-        Objects.equals(this.colider, mainSceneComponent.colider) &&
-        Objects.equals(this.color, mainSceneComponent.color) &&
-        Objects.equals(this.gameDefinition, mainSceneComponent.gameDefinition) &&
-        Objects.equals(this.height, mainSceneComponent.height) &&
-        Objects.equals(this.id, mainSceneComponent.id) &&
-        Objects.equals(this.respawn, mainSceneComponent.respawn) &&
-        Objects.equals(this.rotation, mainSceneComponent.rotation) &&
-        Objects.equals(this.showInRadar, mainSceneComponent.showInRadar) &&
-        Objects.equals(this.type, mainSceneComponent.type) &&
-        Objects.equals(this.width, mainSceneComponent.width) &&
-        Objects.equals(this.x, mainSceneComponent.x) &&
-        Objects.equals(this.y, mainSceneComponent.y);
+    ModelSceneComponent modelSceneComponent = (ModelSceneComponent) o;
+    return Objects.equals(this.alpha, modelSceneComponent.alpha) &&
+        Objects.equals(this.blockMovement, modelSceneComponent.blockMovement) &&
+        Objects.equals(this.codes, modelSceneComponent.codes) &&
+        Objects.equals(this.colider, modelSceneComponent.colider) &&
+        Objects.equals(this.color, modelSceneComponent.color) &&
+        Objects.equals(this.gameDefinition, modelSceneComponent.gameDefinition) &&
+        Objects.equals(this.height, modelSceneComponent.height) &&
+        Objects.equals(this.id, modelSceneComponent.id) &&
+        Objects.equals(this.respawn, modelSceneComponent.respawn) &&
+        Objects.equals(this.rotation, modelSceneComponent.rotation) &&
+        Objects.equals(this.showInRadar, modelSceneComponent.showInRadar) &&
+        Objects.equals(this.type, modelSceneComponent.type) &&
+        Objects.equals(this.width, modelSceneComponent.width) &&
+        Objects.equals(this.x, modelSceneComponent.x) &&
+        Objects.equals(this.y, modelSceneComponent.y);
   }
 
   @Override
@@ -379,7 +379,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainSceneComponent {\n");
+    sb.append("class ModelSceneComponent {\n");
     
     sb.append("    alpha: ").append(toIndentedString(alpha)).append("\n");
     sb.append("    blockMovement: ").append(toIndentedString(blockMovement)).append("\n");

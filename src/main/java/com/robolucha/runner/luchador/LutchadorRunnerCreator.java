@@ -15,7 +15,7 @@ import com.robolucha.runner.code.MethodNames;
 import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.subjects.PublishSubject;
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
 /**
  * 
@@ -26,7 +26,7 @@ public class LutchadorRunnerCreator implements Runnable {
 
 	private class ToBeCreated {
 		PublishSubject<LuchadorRunner> subject;
-		MainGameComponent component;
+		ModelGameComponent component;
 	}
 	
 	static Logger logger = Logger.getLogger(LutchadorRunnerCreator.class);
@@ -59,7 +59,7 @@ public class LutchadorRunnerCreator implements Runnable {
 		this.alive = false;
 	}
 
-	public PublishSubject<LuchadorRunner> add(MainGameComponent component) {
+	public PublishSubject<LuchadorRunner> add(ModelGameComponent component) {
 		logger.info("gamecomponent added to creation queue: " + JSONFormat.clean(component.toString()));
 		
 		ToBeCreated toCreate = new ToBeCreated();
@@ -111,7 +111,7 @@ public class LutchadorRunnerCreator implements Runnable {
 
 	}
 
-	private LuchadorRunner create(MainGameComponent component) throws Exception {
+	private LuchadorRunner create(ModelGameComponent component) throws Exception {
 
 		logger.info("gamecomponent started (run): " + JSONFormat.clean(component.toString()));
 

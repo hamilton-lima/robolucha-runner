@@ -7,31 +7,31 @@ import com.github.javafaker.Faker;
 import com.robolucha.models.LuchadorMatchState;
 import com.robolucha.runner.code.MethodNames;
 
-import io.swagger.client.model.MainCode;
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelGameComponent;
 
 public class MockLuchador {
 
 	static Faker faker = new Faker();
 
-	public static MainGameComponent build() {
-		MainGameComponent a = new MainGameComponent();
+	public static ModelGameComponent build() {
+		ModelGameComponent a = new ModelGameComponent();
 		a.setId(faker.hashCode());
 		a.setName(faker.name().username()); 
-		a.setCodes(new ArrayList<MainCode>());
+		a.setCodes(new ArrayList<ModelCode>());
 		return a;
 	}
 
-	public static MainGameComponent build(int id) {
-		MainGameComponent a = build();
+	public static ModelGameComponent build(int id) {
+		ModelGameComponent a = build();
 		a.setId(id);
 		return a;
 	}
 
-	public static MainGameComponent build(int id, String event, String code) {
-		MainGameComponent a = build(id);
+	public static ModelGameComponent build(int id, String event, String code) {
+		ModelGameComponent a = build(id);
 
-		MainCode c2 = new MainCode();
+		ModelCode c2 = new ModelCode();
 		c2.setEvent(event);
 		c2.setScript(code);
 		a.getCodes().add(c2);
@@ -39,11 +39,11 @@ public class MockLuchador {
 		return a;
 	}
 
-	public static MainGameComponent createWithRepeatCode(String repeatCode) {
+	public static ModelGameComponent createWithRepeatCode(String repeatCode) {
 
-		MainGameComponent a = MockLuchador.build();
+		ModelGameComponent a = MockLuchador.build();
 
-		MainCode c = new MainCode();
+		ModelCode c = new ModelCode();
 		c.setEvent(MethodNames.ON_REPEAT);
 		c.setScript(repeatCode);
 
@@ -51,12 +51,12 @@ public class MockLuchador {
 		return a;
 	}
 
-	public static MainCode getRepeatCode(List<MainCode> codes) {
+	public static ModelCode getRepeatCode(List<ModelCode> codes) {
 		return getCode(codes, MethodNames.ON_REPEAT);
 	}
 
-	public static MainCode getCode(List<MainCode> codes, String event) {
-		for (MainCode code : codes) {
+	public static ModelCode getCode(List<ModelCode> codes, String event) {
+		for (ModelCode code : codes) {
 			if (code.getEvent().equals(event)) {
 				return code;
 			}
@@ -72,8 +72,8 @@ public class MockLuchador {
 		return result;
 	}
 
-	public static MainCode buildCode(String event, String script) {
-		MainCode code = new MainCode();
+	public static ModelCode buildCode(String event, String script) {
+		ModelCode code = new ModelCode();
 		code.setEvent(event);
 		code.setScript(script);
 		return code;

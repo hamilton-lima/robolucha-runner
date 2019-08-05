@@ -19,8 +19,8 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainCode;
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelGameComponent;
 
 /**
  * testes para suporte a investigacao de vazamento de memoria apos a execucao de
@@ -201,20 +201,20 @@ public class MemoryLeakChecks {
     protected void runMatch() throws Exception {
         MatchRunner match = MockMatchRunner.build();
 
-        MainGameComponent a = MockLuchador.build();
+        ModelGameComponent a = MockLuchador.build();
         a.setId(1);
 
-        MainGameComponent b = MockLuchador.build();
+        ModelGameComponent b = MockLuchador.build();
         b.setId(2);
 
-        MainCode c = MockLuchador.buildCode(MethodNames.ON_REPEAT, "turnGun(10);fire(1);turn(12);move(-10);");
-        List<MainCode> codes = new ArrayList<MainCode>();
+        ModelCode c = MockLuchador.buildCode(MethodNames.ON_REPEAT, "turnGun(10);fire(1);turn(12);move(-10);");
+        List<ModelCode> codes = new ArrayList<ModelCode>();
         codes.add(c);
 
         a.getCodes().addAll(codes);
 
-        MainCode c1 = MockLuchador.buildCode(MethodNames.ON_REPEAT, "turnGun(-10);fire(2);turn(12);move(10);");
-        List<MainCode> codes1 = new ArrayList<MainCode>();
+        ModelCode c1 = MockLuchador.buildCode(MethodNames.ON_REPEAT, "turnGun(-10);fire(2);turn(12);move(10);");
+        List<ModelCode> codes1 = new ArrayList<ModelCode>();
         codes1.add(c1);
 
         b.getCodes().addAll(codes1);

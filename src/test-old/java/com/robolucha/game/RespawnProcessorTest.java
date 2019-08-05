@@ -13,7 +13,7 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
 public class RespawnProcessorTest {
 
@@ -27,8 +27,8 @@ public class RespawnProcessorTest {
     public void testCalculateLocations() throws Exception {
 
         MatchRunner match = MockMatchRunner.build();
-        MainGameComponent a = MockLuchador.build(1);
-        MainGameComponent b = MockLuchador.build(2);
+        ModelGameComponent a = MockLuchador.build(1);
+        ModelGameComponent b = MockLuchador.build(2);
 
         match.add(a);
         match.add(b);

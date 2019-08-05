@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * MainMatch
+ * ModelMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelMatch {
 
   @SerializedName("gameDefinitionID")
   private Integer gameDefinitionID = null;
@@ -34,14 +34,14 @@ import java.util.Objects;
   private String lastTimeAlive = null;
 
   @SerializedName("participants")
-  private List<MainGameComponent> participants = null;
+  private List<ModelGameComponent> participants = null;
 
   @SerializedName("timeEnd")
   private String timeEnd = null;
 
   @SerializedName("timeStart")
   private String timeStart = null;
-  public MainMatch gameDefinitionID(Integer gameDefinitionID) {
+  public ModelMatch gameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
     return this;
   }
@@ -59,7 +59,7 @@ import java.util.Objects;
   public void setGameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
   }
-  public MainMatch id(Integer id) {
+  public ModelMatch id(Integer id) {
     this.id = id;
     return this;
   }
@@ -77,7 +77,7 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainMatch lastTimeAlive(String lastTimeAlive) {
+  public ModelMatch lastTimeAlive(String lastTimeAlive) {
     this.lastTimeAlive = lastTimeAlive;
     return this;
   }
@@ -95,14 +95,14 @@ import java.util.Objects;
   public void setLastTimeAlive(String lastTimeAlive) {
     this.lastTimeAlive = lastTimeAlive;
   }
-  public MainMatch participants(List<MainGameComponent> participants) {
+  public ModelMatch participants(List<ModelGameComponent> participants) {
     this.participants = participants;
     return this;
   }
 
-  public MainMatch addParticipantsItem(MainGameComponent participantsItem) {
+  public ModelMatch addParticipantsItem(ModelGameComponent participantsItem) {
     if (this.participants == null) {
-      this.participants = new ArrayList<MainGameComponent>();
+      this.participants = new ArrayList<ModelGameComponent>();
     }
     this.participants.add(participantsItem);
     return this;
@@ -113,13 +113,13 @@ import java.util.Objects;
   * @return participants
   **/
   @Schema(description = "")
-  public List<MainGameComponent> getParticipants() {
+  public List<ModelGameComponent> getParticipants() {
     return participants;
   }
-  public void setParticipants(List<MainGameComponent> participants) {
+  public void setParticipants(List<ModelGameComponent> participants) {
     this.participants = participants;
   }
-  public MainMatch timeEnd(String timeEnd) {
+  public ModelMatch timeEnd(String timeEnd) {
     this.timeEnd = timeEnd;
     return this;
   }
@@ -137,7 +137,7 @@ import java.util.Objects;
   public void setTimeEnd(String timeEnd) {
     this.timeEnd = timeEnd;
   }
-  public MainMatch timeStart(String timeStart) {
+  public ModelMatch timeStart(String timeStart) {
     this.timeStart = timeStart;
     return this;
   }
@@ -163,13 +163,13 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainMatch mainMatch = (MainMatch) o;
-    return Objects.equals(this.gameDefinitionID, mainMatch.gameDefinitionID) &&
-        Objects.equals(this.id, mainMatch.id) &&
-        Objects.equals(this.lastTimeAlive, mainMatch.lastTimeAlive) &&
-        Objects.equals(this.participants, mainMatch.participants) &&
-        Objects.equals(this.timeEnd, mainMatch.timeEnd) &&
-        Objects.equals(this.timeStart, mainMatch.timeStart);
+    ModelMatch modelMatch = (ModelMatch) o;
+    return Objects.equals(this.gameDefinitionID, modelMatch.gameDefinitionID) &&
+        Objects.equals(this.id, modelMatch.id) &&
+        Objects.equals(this.lastTimeAlive, modelMatch.lastTimeAlive) &&
+        Objects.equals(this.participants, modelMatch.participants) &&
+        Objects.equals(this.timeEnd, modelMatch.timeEnd) &&
+        Objects.equals(this.timeStart, modelMatch.timeStart);
   }
 
   @Override
@@ -180,7 +180,7 @@ import java.util.Objects;
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainMatch {\n");
+    sb.append("class ModelMatch {\n");
     
     sb.append("    gameDefinitionID: ").append(toIndentedString(gameDefinitionID)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");

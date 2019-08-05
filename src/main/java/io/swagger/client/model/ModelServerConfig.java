@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * MainServerConfig
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class MainServerConfig {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class ModelServerConfig {
 
   @SerializedName("id")
   private Integer id = null;
@@ -32,7 +32,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
   @SerializedName("value")
   private String value = null;
-  public MainServerConfig id(Integer id) {
+  public ModelServerConfig id(Integer id) {
     this.id = id;
     return this;
   }
@@ -50,7 +50,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainServerConfig key(String key) {
+  public ModelServerConfig key(String key) {
     this.key = key;
     return this;
   }
@@ -68,7 +68,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   public void setKey(String key) {
     this.key = key;
   }
-  public MainServerConfig value(String value) {
+  public ModelServerConfig value(String value) {
     this.value = value;
     return this;
   }
@@ -94,7 +94,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainServerConfig mainServerConfig = (MainServerConfig) o;
+    ModelServerConfig mainServerConfig = (ModelServerConfig) o;
     return Objects.equals(this.id, mainServerConfig.id) &&
         Objects.equals(this.key, mainServerConfig.key) &&
         Objects.equals(this.value, mainServerConfig.value);

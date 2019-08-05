@@ -2,18 +2,18 @@ package com.robolucha.runner;
 
 import com.robolucha.monitor.ServerMonitor;
 
-import io.swagger.client.model.MainMatchMetric;
+import io.swagger.client.model.ModelMatchMetric;
 
 public class MatchRunnerMonitor {
 	private ServerMonitor serverMonitor;
-	private MainMatchMetric metric;
+	private ModelMatchMetric metric;
 	private int players;
 	private int frames;
 	private long monitorLastTime;
 	private int seconds;
 	private int interval;
 
-	public MatchRunnerMonitor(ServerMonitor serverMonitor, MainMatchMetric metric, int interval) {
+	public MatchRunnerMonitor(ServerMonitor serverMonitor, ModelMatchMetric metric, int interval) {
 		this.serverMonitor = serverMonitor;
 		this.metric = metric;
 		this.interval = interval;

@@ -17,17 +17,20 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * MainUser
+ * ModelUserSetting
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-07-07T15:51:13.581Z[GMT]")public class MainUser {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelUserSetting {
 
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("username")
-  private String username = null;
-  public MainUser id(Integer id) {
+  @SerializedName("lastOption")
+  private String lastOption = null;
+
+  @SerializedName("userID")
+  private Integer userID = null;
+  public ModelUserSetting id(Integer id) {
     this.id = id;
     return this;
   }
@@ -45,23 +48,41 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public MainUser username(String username) {
-    this.username = username;
+  public ModelUserSetting lastOption(String lastOption) {
+    this.lastOption = lastOption;
     return this;
   }
 
   
 
   /**
-  * Get username
-  * @return username
+  * Get lastOption
+  * @return lastOption
   **/
   @Schema(description = "")
-  public String getUsername() {
-    return username;
+  public String getLastOption() {
+    return lastOption;
   }
-  public void setUsername(String username) {
-    this.username = username;
+  public void setLastOption(String lastOption) {
+    this.lastOption = lastOption;
+  }
+  public ModelUserSetting userID(Integer userID) {
+    this.userID = userID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get userID
+  * @return userID
+  **/
+  @Schema(description = "")
+  public Integer getUserID() {
+    return userID;
+  }
+  public void setUserID(Integer userID) {
+    this.userID = userID;
   }
   @Override
   public boolean equals(java.lang.Object o) {
@@ -71,23 +92,25 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MainUser mainUser = (MainUser) o;
-    return Objects.equals(this.id, mainUser.id) &&
-        Objects.equals(this.username, mainUser.username);
+    ModelUserSetting modelUserSetting = (ModelUserSetting) o;
+    return Objects.equals(this.id, modelUserSetting.id) &&
+        Objects.equals(this.lastOption, modelUserSetting.lastOption) &&
+        Objects.equals(this.userID, modelUserSetting.userID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, username);
+    return java.util.Objects.hash(id, lastOption, userID);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainUser {\n");
+    sb.append("class ModelUserSetting {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    lastOption: ").append(toIndentedString(lastOption)).append("\n");
+    sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

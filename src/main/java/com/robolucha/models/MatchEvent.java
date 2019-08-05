@@ -1,11 +1,11 @@
 package com.robolucha.models;
 
-import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.ModelMatch;
 
 public class MatchEvent {
 
 	private long id;
-	private MainMatch match;
+	private ModelMatch match;
 	private long componentA;
 	private long componentB;
 	private long timeStart;
@@ -26,11 +26,11 @@ public class MatchEvent {
 		this.id = id;
 	}
 
-	public MainMatch getMatch() {
+	public ModelMatch getMatch() {
 		return match;
 	}
 
-	public void setMatch(MainMatch match) {
+	public void setMatch(ModelMatch match) {
 		this.match = match;
 	}
 

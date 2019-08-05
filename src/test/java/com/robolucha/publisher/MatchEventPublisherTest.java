@@ -16,7 +16,7 @@ import com.robolucha.shared.JSONFormat;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.ModelMatch;
 
 public class MatchEventPublisherTest {
 
@@ -44,7 +44,7 @@ public class MatchEventPublisherTest {
 		queue = new MockRemoteQueue();
 		threadMonitor = new MockThreadMonitor();
 
-		publisher = new MatchEventPublisher(new MainMatch(), queue, threadMonitor);
+		publisher = new MatchEventPublisher(new ModelMatch(), queue, threadMonitor);
 		runner = MockMatchRunner.build();
 		runner.getMatch().setId(id);
 		logger.debug("match " + runner.getMatch());

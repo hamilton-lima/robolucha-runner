@@ -13,17 +13,17 @@ import com.robolucha.runner.code.ScriptDefinitionFactory;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.shared.JSONFormat;
 
-import io.swagger.client.model.MainCode;
-import io.swagger.client.model.MainSceneComponent;
+import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelSceneComponent;
 
 public class SceneComponentEventsRunner {
 	static Logger logger = Logger.getLogger(SceneComponentEventsRunner.class);
 
 	private class SceneComponentRunner {
-		MainSceneComponent component;
+		ModelSceneComponent component;
 		MatchScriptDefinition scriptDefinition;
 
-		public SceneComponentRunner(MainSceneComponent component, MatchScriptDefinition scriptDefinition) {
+		public SceneComponentRunner(ModelSceneComponent component, MatchScriptDefinition scriptDefinition) {
 			this.component = component;
 			this.scriptDefinition = scriptDefinition;
 		}
@@ -36,7 +36,7 @@ public class SceneComponentEventsRunner {
 		runners = new HashMap<Integer, SceneComponentEventsRunner.SceneComponentRunner>();
 		facade = new MatchFacade(runner);
 
-		for (MainSceneComponent component : runner.getGameDefinition().getSceneComponents()) {
+		for (ModelSceneComponent component : runner.getGameDefinition().getSceneComponents()) {
 			MatchScriptDefinition scriptDefinition = ScriptDefinitionFactory.getInstance().getMatchScript();
 			scriptDefinition.loadDefaultLibraries();
 
@@ -44,7 +44,7 @@ public class SceneComponentEventsRunner {
 			MethodBuilder.getInstance().buildAll(scriptDefinition, component.getCodes());
 
 			// output code errors
-			for (MainCode code : component.getCodes()) {
+			for (ModelCode code : component.getCodes()) {
 				if (hasException(code)) {
 					logger.warn("Exception in the code: " + JSONFormat.clean(code.toString()));
 				}
@@ -54,15 +54,15 @@ public class SceneComponentEventsRunner {
 		}
 	}
 
-	boolean hasException(MainCode code) {
+	boolean hasException(ModelCode code) {
 		return code != null && code.getException() != null && code.getException().trim().length() > 0;
 	}
 
-	public void onHit(MainSceneComponent component, LuchadorRunner luchador) {
+	public void onHit(ModelSceneComponent component, LuchadorRunner luchador) {
 		logger.info("OnHit: component:" + component.getId() + " luchador:" + luchador.getState());
 
 		SceneComponentRunner runner = runners.get(component.getId());
-		MainCode code = runner.component.getCodes().stream()
+		ModelCode code = runner.component.getCodes().stream()
 				.filter((c) -> c.getEvent().equals(MethodNames.ON_HIT_OTHER)).findAny().orElse(null);
 
 		if (code != null) {

@@ -16,10 +16,10 @@ import com.robolucha.score.ScoreUpdater;
 import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainGameDefinition;
-import io.swagger.client.model.MainJoinMatch;
-import io.swagger.client.model.MainMatch;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelGameDefinition;
+import io.swagger.client.model.ModelJoinMatch;
+import io.swagger.client.model.ModelMatch;
 
 public class Server {
 	static Logger logger = Logger.getLogger(Server.class);
@@ -41,13 +41,13 @@ public class Server {
 	}
 
 	public void start(String gameDefinitionName) throws Exception {
-		MainMatch match = MatchRunnerAPI.getInstance().createMatch(gameDefinitionName);
-		MainGameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(gameDefinitionName);
+		ModelMatch match = MatchRunnerAPI.getInstance().createMatch(gameDefinitionName);
+		ModelGameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(gameDefinitionName);
 
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
 
-		runner.getOnMatchEnd().subscribe(new Consumer<MainMatch>() {
-			public void accept(MainMatch match) throws Exception {
+		runner.getOnMatchEnd().subscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch match) throws Exception {
 				logger.info("Match ended, stopping the application, see you next time.");
 				MatchRunnerAPI.getInstance().endMatch(match);
 				System.exit(0);
@@ -60,13 +60,13 @@ public class Server {
 		thread.start();
 	}
 
-	public synchronized void start(MainJoinMatch joinMatch) throws Exception {
+	public synchronized void start(ModelJoinMatch joinMatch) throws Exception {
 		logger.info("Start match " + joinMatch);
 
-		MainMatch match = MatchRunnerAPI.getInstance().findMatch(joinMatch.getMatchID());
+		ModelMatch match = MatchRunnerAPI.getInstance().findMatch(joinMatch.getMatchID());
 		logger.info("found match " + JSONFormat.clean(match.toString()));
 
-		MainGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
+		ModelGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
 				match.getGameDefinitionID());
 		logger.info("found luchador " + JSONFormat.clean(luchador.toString()));
 
@@ -76,7 +76,7 @@ public class Server {
 			// save to the list of running matches
 			add2Matches(match.getGameDefinitionID(), luchador.getId());
 
-			MainGameDefinition gameDefinition = MatchRunnerAPI.getInstance()
+			ModelGameDefinition gameDefinition = MatchRunnerAPI.getInstance()
 					.getGameDefinition(match.getGameDefinitionID());
 			logger.info("found gamedefinition " + JSONFormat.clean(gameDefinition.toString()));
 

@@ -9,20 +9,20 @@ import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainGameDefinition;
-import io.swagger.client.model.MainJoinMatch;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelGameDefinition;
+import io.swagger.client.model.ModelJoinMatch;
 
-public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable {
+public class JoinMatchListener implements Consumer<ModelJoinMatch>, Disposable {
 
 	static Logger logger = Logger.getLogger(JoinMatchListener.class);
 	private Disposable disposable;
 
 	@SuppressWarnings("unused")
 	private MatchRunner runner;
-	private MainGameDefinition gameDefinition;
+	private ModelGameDefinition gameDefinition;
 
-	public JoinMatchListener(MainGameDefinition gameDefinition) {
+	public JoinMatchListener(ModelGameDefinition gameDefinition) {
 		this.gameDefinition = gameDefinition;
 	}
 
@@ -35,7 +35,7 @@ public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable {
 		String channel = String.format("match.%s.join", runner.getMatch().getId());
 		logger.debug("listen " + channel);
 
-		listener.disposable = publisher.subscribe(channel, MainJoinMatch.class).subscribe(listener, new ErrorHandler());
+		listener.disposable = publisher.subscribe(channel, ModelJoinMatch.class).subscribe(listener, new ErrorHandler());
 	}
 
 	protected static class ErrorHandler implements Consumer<Throwable> {
@@ -46,9 +46,9 @@ public class JoinMatchListener implements Consumer<MainJoinMatch>, Disposable {
 	}
 
 	@Override
-	public void accept(MainJoinMatch joinMatch) throws Exception {
+	public void accept(ModelJoinMatch joinMatch) throws Exception {
 		logger.info("Luchador wants to join a match " + JSONFormat.clean(joinMatch.toString()));
-		MainGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
+		ModelGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
 				gameDefinition.getId());
 
 		logger.info(">>>>>>>> Luchador found by ID " + JSONFormat.clean(luchador.toString()));

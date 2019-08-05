@@ -14,11 +14,11 @@ import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.MainCode;
-import io.swagger.client.model.MainGameComponent;
-import io.swagger.client.model.MainGameDefinition;
-import io.swagger.client.model.MainMatch;
-import io.swagger.client.model.MainSceneComponent;
+import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelGameComponent;
+import io.swagger.client.model.ModelGameDefinition;
+import io.swagger.client.model.ModelMatch;
+import io.swagger.client.model.ModelSceneComponent;
 
 public class SceneComponentEventsRunnerTest {
 
@@ -52,18 +52,18 @@ public class SceneComponentEventsRunnerTest {
 	static double aX1;
 	static MockFacade facade;
 
-	MainSceneComponent buildSceneComponent() {
-		MainSceneComponent result = new MainSceneComponent();
+	ModelSceneComponent buildSceneComponent() {
+		ModelSceneComponent result = new ModelSceneComponent();
 		result.setId(42);
 		result.setX(100);
 		result.setY(100);
 		result.setWidth(100);
 		result.setHeight(100);
 
-		MainCode code = new MainCode();
+		ModelCode code = new ModelCode();
 		code.setEvent("onHitOther");
 		code.setScript("endGame()");
-		result.setCodes(new ArrayList<MainCode>());
+		result.setCodes(new ArrayList<ModelCode>());
 		result.getCodes().add(code);
 
 		result.setColider(true);
@@ -75,19 +75,19 @@ public class SceneComponentEventsRunnerTest {
 	@Test
 	public void testRun() throws Exception {
 
-		MainGameDefinition gameDefinition = MockMatchRunner.buildGameDefinition();
+		ModelGameDefinition gameDefinition = MockMatchRunner.buildGameDefinition();
 		gameDefinition.setDuration(1000);
 		gameDefinition.setMinParticipants(1);
 		gameDefinition.getSceneComponents().add(buildSceneComponent());
 
 		MatchRunner match = MockMatchRunner.build(gameDefinition);
-		MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
+		ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
 		LuchadorRunner runnerA = match.add(a).blockingFirst();
 		facade = new MockFacade(match);
 		match.eventsRunner.facade = facade;
 
-		match.getOnMatchStart().subscribe(new Consumer<MainMatch>() {
-			public void accept(MainMatch arg0) throws Exception {
+		match.getOnMatchStart().subscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch arg0) throws Exception {
 
 				int shift = match.getGameDefinition().getLuchadorSize() / 2;
 				aX1 = 100 - shift - 2;

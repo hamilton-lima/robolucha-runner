@@ -12,7 +12,7 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelGameComponent;
 
 /**
  * atraves da variavel me com possibilidade de posicionar o lutchador arbitrariamente.
@@ -33,7 +33,7 @@ public class CheckFireCoolDownVariable {
         MatchRunner match = MockMatchRunner.build();
         match.getGameDefinition().setMinParticipants(1);
 
-        MainGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT,
+        ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT,
                 "fire(3); if (me.fireCoolDown > 1) {move(10);}");
 
         match.add(a);

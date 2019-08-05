@@ -14,8 +14,8 @@ import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
-import io.swagger.client.model.MainCode;
-import io.swagger.client.model.MainGameComponent;
+import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelGameComponent;
 
 public class CheckRadarActionTest {
 
@@ -32,13 +32,13 @@ public class CheckRadarActionTest {
 
         MatchRunner match = MockMatchRunner.build();
 
-        MainGameComponent a = MockLuchador.build();
+        ModelGameComponent a = MockLuchador.build();
         a.setId(1);
 
-        MainGameComponent b = MockLuchador.build();
+        ModelGameComponent b = MockLuchador.build();
         b.setId(2);
 
-        MainCode c = MockLuchador.buildCode("onFound","// does nothing ... ");
+        ModelCode c = MockLuchador.buildCode("onFound","// does nothing ... ");
         a.getCodes().add(c);
 
         match.add(a);
