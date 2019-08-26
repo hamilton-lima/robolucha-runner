@@ -72,11 +72,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	private List<MatchRunnerListener> listeners;
 	private ModelGameDefinition gameDefinition;
 	private MatchStatePublisher publisher;
-	private JoinMatchListener joinListener;
-
-	public void setJoinListener(JoinMatchListener joinListener) {
-		this.joinListener = joinListener;
-	}
 
 	// TODO: replace all the listeners by Subjects
 	private List<LuchadorEventListener> eventListeners;
@@ -337,10 +332,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		eventHandler.cleanup();
 		luchadorCreator.cleanup();
-
-		if (joinListener != null) {
-			joinListener.dispose();
-		}
 
 		cleanup();
 	}

@@ -58,12 +58,6 @@ public class MatchRunnerAPI {
 		api.internalMatchParticipantPost(participant);
 	}
 
-	public ModelMatch createMatch(String gameDefinitionName) throws Exception {
-		ModelMatch match = api.internalStartMatchNamePost(gameDefinitionName);
-		logger.info("createMatch() API response" + JSONFormat.clean(match.toString()));
-		return match;
-	}
-
 	public void endMatch(ModelMatch match) throws Exception {
 		ModelMatch body = new ModelMatch();
 		body.setId(match.getId().intValue());

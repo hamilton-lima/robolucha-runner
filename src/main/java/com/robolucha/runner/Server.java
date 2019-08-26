@@ -15,7 +15,6 @@ import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.score.ScoreUpdater;
 import com.robolucha.shared.JSONFormat;
 
-import io.reactivex.functions.Consumer;
 import io.swagger.client.model.ModelGameComponent;
 import io.swagger.client.model.ModelGameDefinition;
 import io.swagger.client.model.ModelJoinMatch;
@@ -30,6 +29,8 @@ public class Server {
 	private String serverID;
 
 	// stores the match indexed by gamedefinitionID and luchadorID
+	// TODO: change this structure to support matches that are running
+	// there is no need to control by user the API is handling this
 	private HashMap<Integer, HashMap<Integer, Long>> matches;
 
 	public Server(String serverID, ThreadMonitor threadMonitor, RemoteQueue queue, ServerMonitor monitor) {
@@ -40,25 +41,25 @@ public class Server {
 		this.matches = new HashMap<Integer, HashMap<Integer, Long>>();
 	}
 
-	public void start(String gameDefinitionName) throws Exception {
-		ModelMatch match = MatchRunnerAPI.getInstance().createMatch(gameDefinitionName);
-		ModelGameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(gameDefinitionName);
-
-		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
-
-		runner.getOnMatchEnd().subscribe(new Consumer<ModelMatch>() {
-			public void accept(ModelMatch match) throws Exception {
-				logger.info("Match ended, stopping the application, see you next time.");
-				MatchRunnerAPI.getInstance().endMatch(match);
-				System.exit(0);
-			}
-		});
-
-		MatchStatePublisher publisher = new MatchStatePublisher(serverID, match, queue);
-
-		Thread thread = setupRunner(runner, publisher);
-		thread.start();
-	}
+//	public void start(String gameDefinitionName) throws Exception {
+//		ModelMatch match = MatchRunnerAPI.getInstance().createMatch(gameDefinitionName);
+//		ModelGameDefinition gameDefinition = MatchRunnerAPI.getInstance().getGameDefinition(gameDefinitionName);
+//
+//		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
+//
+//		runner.getOnMatchEnd().subscribe(new Consumer<ModelMatch>() {
+//			public void accept(ModelMatch match) throws Exception {
+//				logger.info("Match ended, stopping the application, see you next time.");
+//				MatchRunnerAPI.getInstance().endMatch(match);
+//				System.exit(0);
+//			}
+//		});
+//
+//		MatchStatePublisher publisher = new MatchStatePublisher(serverID, match, queue);
+//
+//		Thread thread = setupRunner(runner, publisher);
+//		thread.start();
+//	}
 
 	public synchronized void start(ModelJoinMatch joinMatch) throws Exception {
 		logger.info("Start match " + joinMatch);
@@ -143,9 +144,6 @@ public class Server {
 		// message listener
 		runner.addListener(new MatchMessagePublisher(queue));
 
-		// join match listener
-		JoinMatchListener.listen(queue, runner);
-
 		return new Thread(runner);
 	}
 
@@ -159,6 +157,19 @@ public class Server {
 
 	public ThreadMonitor getThreadMonitor() {
 		return threadMonitor;
+	}
+
+	public void add2JoinMatchQueue(ModelJoinMatch joinMatch) {
+		// TODO add to queue
+		// TODO change runner to consume this queue
+		
+//		ModelGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(joinMatch.getLuchadorID(),
+//				gameDefinition.getId());
+//
+//		logger.info(">>>>>>>> Luchador found by ID " + JSONFormat.clean(luchador.toString()));
+//		runner.addLuchador(luchador);
+
+		
 	}
 
 }
