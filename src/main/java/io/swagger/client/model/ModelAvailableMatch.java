@@ -17,13 +17,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * ModelMatchMetric
+ * ModelAvailableMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-26T00:14:33.822Z[GMT]")public class ModelMatchMetric {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-26T00:14:33.822Z[GMT]")public class ModelAvailableMatch {
 
-  @SerializedName("fps")
-  private Integer fps = null;
+  @SerializedName("classroomID")
+  private Integer classroomID = null;
 
   @SerializedName("gameDefinitionID")
   private Integer gameDefinitionID = null;
@@ -31,30 +31,27 @@ import java.util.Objects;
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("matchID")
-  private Integer matchID = null;
-
-  @SerializedName("players")
-  private Integer players = null;
-  public ModelMatchMetric fps(Integer fps) {
-    this.fps = fps;
+  @SerializedName("name")
+  private String name = null;
+  public ModelAvailableMatch classroomID(Integer classroomID) {
+    this.classroomID = classroomID;
     return this;
   }
 
   
 
   /**
-  * Get fps
-  * @return fps
+  * Get classroomID
+  * @return classroomID
   **/
   @Schema(description = "")
-  public Integer getFps() {
-    return fps;
+  public Integer getClassroomID() {
+    return classroomID;
   }
-  public void setFps(Integer fps) {
-    this.fps = fps;
+  public void setClassroomID(Integer classroomID) {
+    this.classroomID = classroomID;
   }
-  public ModelMatchMetric gameDefinitionID(Integer gameDefinitionID) {
+  public ModelAvailableMatch gameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
     return this;
   }
@@ -72,7 +69,7 @@ import java.util.Objects;
   public void setGameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
   }
-  public ModelMatchMetric id(Integer id) {
+  public ModelAvailableMatch id(Integer id) {
     this.id = id;
     return this;
   }
@@ -90,41 +87,23 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public ModelMatchMetric matchID(Integer matchID) {
-    this.matchID = matchID;
+  public ModelAvailableMatch name(String name) {
+    this.name = name;
     return this;
   }
 
   
 
   /**
-  * Get matchID
-  * @return matchID
+  * Get name
+  * @return name
   **/
   @Schema(description = "")
-  public Integer getMatchID() {
-    return matchID;
+  public String getName() {
+    return name;
   }
-  public void setMatchID(Integer matchID) {
-    this.matchID = matchID;
-  }
-  public ModelMatchMetric players(Integer players) {
-    this.players = players;
-    return this;
-  }
-
-  
-
-  /**
-  * Get players
-  * @return players
-  **/
-  @Schema(description = "")
-  public Integer getPlayers() {
-    return players;
-  }
-  public void setPlayers(Integer players) {
-    this.players = players;
+  public void setName(String name) {
+    this.name = name;
   }
   @Override
   public boolean equals(java.lang.Object o) {
@@ -134,29 +113,27 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelMatchMetric modelMatchMetric = (ModelMatchMetric) o;
-    return Objects.equals(this.fps, modelMatchMetric.fps) &&
-        Objects.equals(this.gameDefinitionID, modelMatchMetric.gameDefinitionID) &&
-        Objects.equals(this.id, modelMatchMetric.id) &&
-        Objects.equals(this.matchID, modelMatchMetric.matchID) &&
-        Objects.equals(this.players, modelMatchMetric.players);
+    ModelAvailableMatch modelAvailableMatch = (ModelAvailableMatch) o;
+    return Objects.equals(this.classroomID, modelAvailableMatch.classroomID) &&
+        Objects.equals(this.gameDefinitionID, modelAvailableMatch.gameDefinitionID) &&
+        Objects.equals(this.id, modelAvailableMatch.id) &&
+        Objects.equals(this.name, modelAvailableMatch.name);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(fps, gameDefinitionID, id, matchID, players);
+    return java.util.Objects.hash(classroomID, gameDefinitionID, id, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelMatchMetric {\n");
+    sb.append("class ModelAvailableMatch {\n");
     
-    sb.append("    fps: ").append(toIndentedString(fps)).append("\n");
+    sb.append("    classroomID: ").append(toIndentedString(classroomID)).append("\n");
     sb.append("    gameDefinitionID: ").append(toIndentedString(gameDefinitionID)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");
-    sb.append("    players: ").append(toIndentedString(players)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

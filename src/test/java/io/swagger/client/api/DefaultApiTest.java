@@ -14,6 +14,7 @@ package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.ModelActiveMatch;
+import io.swagger.client.model.ModelAvailableMatch;
 import io.swagger.client.model.ModelClassroom;
 import io.swagger.client.model.ModelConfig;
 import io.swagger.client.model.ModelFindLuchadorWithGamedefinition;
@@ -221,6 +222,21 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * request to play a match
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalPlayPostTest() throws ApiException {
+        ModelAvailableMatch body = null;
+        ModelMatch response = api.internalPlayPost(body);
+
+        // TODO: test validations
+    }
+    /**
      * returns application health check information
      *
      * 
@@ -235,7 +251,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * create Match
+     * find available matches by classroom
      *
      * 
      *
@@ -243,9 +259,23 @@ public class DefaultApiTest {
      *          if the Api call fails
      */
     @Test
-    public void internalStartMatchNamePostTest() throws ApiException {
-        String name = null;
-        ModelMatch response = api.internalStartMatchNamePost(name);
+    public void privateAvailableMatchClassroomClassroomGetTest() throws ApiException {
+        Integer id = null;
+        ModelAvailableMatch response = api.privateAvailableMatchClassroomClassroomGet(id);
+
+        // TODO: test validations
+    }
+    /**
+     * find all public available matches
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateAvailableMatchPublicGetTest() throws ApiException {
+        List<ModelAvailableMatch> response = api.privateAvailableMatchPublicGet();
 
         // TODO: test validations
     }
@@ -435,21 +465,6 @@ public class DefaultApiTest {
     public void privateMatchSingleGetTest() throws ApiException {
         Integer matchID = null;
         ModelMatch response = api.privateMatchSingleGet(matchID);
-
-        // TODO: test validations
-    }
-    /**
-     * create Match and publish
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void privateStartTutorialMatchNamePostTest() throws ApiException {
-        String name = null;
-        ModelJoinMatch response = api.privateStartTutorialMatchNamePost(name);
 
         // TODO: test validations
     }
