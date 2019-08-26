@@ -2,13 +2,11 @@ package com.robolucha.listener;
 
 import org.apache.log4j.Logger;
 
-import com.robolucha.runner.MatchRunnerAPI;
 import com.robolucha.runner.Server;
 import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.ModelGameComponent;
 import io.swagger.client.model.ModelJoinMatch;
 
 public class JoinMatchListener implements Consumer<ModelJoinMatch>, Disposable {
@@ -25,7 +23,7 @@ public class JoinMatchListener implements Consumer<ModelJoinMatch>, Disposable {
 	public static void listen(Server server) {
 		JoinMatchListener listener = new JoinMatchListener(server);
 
-		String channel = "match.join";
+		String channel = "join.match";
 		logger.debug("listen " + channel);
 
 		listener.disposable = server.getQueue().subscribe(channel, ModelJoinMatch.class).subscribe(listener,
@@ -39,7 +37,6 @@ public class JoinMatchListener implements Consumer<ModelJoinMatch>, Disposable {
 		}
 	}
 
-	// Add JoinMatch to the queue
 	@Override
 	public void accept(ModelJoinMatch joinMatch) throws Exception {
 		logger.info("Luchador wants to join a match " + JSONFormat.clean(joinMatch.toString()));
