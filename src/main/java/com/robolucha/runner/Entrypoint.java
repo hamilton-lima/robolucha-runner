@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 
+import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.listener.StartMatchListener;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
@@ -17,27 +18,17 @@ public class Entrypoint {
 
 	static Logger logger = Logger.getLogger(Entrypoint.class);
 	MatchMessagePublisher matchMessagePublisher;
-	static final String GAME_MODE_MULTIPLAYER = "multiplayer";
-	static final String GAME_MODE_TUTORIAL = "tutorial";
-
-	static String[] gameModes = { GAME_MODE_MULTIPLAYER, GAME_MODE_TUTORIAL };
 
 	public static void main(String[] args) throws Exception {
 
 		logger.info("Starting robolucha-runner, " + Arrays.toString(args));
 
-		if (args.length < 2) {
-			String message = "Invalid use, must provide: "
-					+ "server id, server mode:[multiplayer,tutorial] and GameDefinition name if mode is multiplayer";
+		if (args.length < 1) {
+			String message = "Invalid use, must provide: server id";
 			throw new RuntimeException(message);
 		}
 
 		String serverID = args[0];
-		String gameMode = args[1];
-
-		if (!Arrays.asList(gameModes).contains(gameMode)) {
-			throw new RuntimeException("Invalid game mode" + gameMode);
-		}
 
 		addRunTimeHook();
 		configAPIClient();
@@ -47,21 +38,8 @@ public class Entrypoint {
 		ServerMonitor monitor = new ServerMonitor(queue);
 
 		Server server = new Server(serverID, threadMonitor, queue, monitor);
-
-		if (gameMode.contentEquals(GAME_MODE_MULTIPLAYER)) {
-
-			if (args.length < 3) {
-				throw new RuntimeException("Missing Gamedefinition name for game mode: " + gameMode);
-			}
-
-			String gameDefinitionName = args[2];
-			server.start(gameDefinitionName);
-		}
-
-		if (gameMode.contentEquals(GAME_MODE_TUTORIAL)) {
-			// wait for the command to start matches
-			StartMatchListener.listen(server);
-		}
+		StartMatchListener.listen(server);
+		JoinMatchListener.listen(server);
 
 	}
 

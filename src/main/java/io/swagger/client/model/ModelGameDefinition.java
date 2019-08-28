@@ -22,7 +22,7 @@ import java.util.Objects;
  * ModelGameDefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-05T15:54:58.632Z[GMT]")public class ModelGameDefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-26T00:14:33.822Z[GMT]")public class ModelGameDefinition {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
