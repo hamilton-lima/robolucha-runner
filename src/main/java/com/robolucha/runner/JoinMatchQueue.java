@@ -38,12 +38,14 @@ public class JoinMatchQueue implements Runnable {
 		while (alive) {
 			ModelJoinMatch next = this.queue.poll();
 			try {
-				// match is running
-				if (this.matches.containsKey(next.getMatchID())) {
-					addLuchadorToMatch(next);
-				} else {
-					// add back to the queue
-					this.queue.add(next);
+				if (next != null) {
+					// match is running
+					if (this.matches.containsKey(next.getMatchID())) {
+						addLuchadorToMatch(next);
+					} else {
+						// add back to the queue
+						this.queue.add(next);
+					}
 				}
 
 				Thread.sleep(SLEEP);
@@ -68,7 +70,7 @@ public class JoinMatchQueue implements Runnable {
 	}
 
 	public void start() {
-		Thread thread = new Thread(this); 
+		Thread thread = new Thread(this);
 		thread.start();
 	}
 
