@@ -6,9 +6,9 @@ import com.robolucha.runner.Server;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.ModelJoinMatch;
+import io.swagger.client.model.ModelMatch;
 
-public class StartMatchListener implements Consumer<ModelJoinMatch>, Disposable {
+public class StartMatchListener implements Consumer<ModelMatch>, Disposable {
 
 	static Logger logger = Logger.getLogger(StartMatchListener.class);
 	private Disposable disposable;
@@ -25,7 +25,7 @@ public class StartMatchListener implements Consumer<ModelJoinMatch>, Disposable 
 		String channel = "start.match";
 		logger.info("Listening to channel: " + channel);
 
-		listener.disposable = server.getQueue().subscribe(channel, ModelJoinMatch.class).subscribe(listener, new ErrorHandler());
+		listener.disposable = server.getQueue().subscribe(channel, ModelMatch.class).subscribe(listener, new ErrorHandler());
 	}
 
 	protected static class ErrorHandler implements Consumer<Throwable> {
@@ -36,9 +36,9 @@ public class StartMatchListener implements Consumer<ModelJoinMatch>, Disposable 
 	}
 
 	@Override
-	public void accept(ModelJoinMatch joinMatch) throws Exception {
-		logger.info("Luchador wants to start a match " + joinMatch);
-		server.start(joinMatch);
+	public void accept(ModelMatch startMatch) throws Exception {
+		logger.info("Luchador wants to start a match " + startMatch);
+		server.start(startMatch);
 	}
 
 	@Override

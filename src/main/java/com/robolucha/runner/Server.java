@@ -35,10 +35,10 @@ public class Server {
 		this.joinMatchQueue.start();
 	}
 
-	public synchronized void start(ModelJoinMatch joinMatch) throws Exception {
-		logger.info("Start match " + joinMatch);
+	public synchronized void start(ModelMatch startMatch) throws Exception {
+		logger.info("Start match " + startMatch);
 
-		ModelMatch match = MatchRunnerAPI.getInstance().findMatch(joinMatch.getMatchID());
+		ModelMatch match = MatchRunnerAPI.getInstance().findMatch(startMatch.getId());
 		logger.info("found match " + JSONFormat.clean(match.toString()));
 
 		ModelGameDefinition gameDefinition = MatchRunnerAPI.getInstance()
@@ -46,7 +46,7 @@ public class Server {
 		logger.info("found gamedefinition " + JSONFormat.clean(gameDefinition.toString()));
 
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
-		this.joinMatchQueue.add(joinMatch.getMatchID(), runner);
+		this.joinMatchQueue.add(startMatch.getId(), runner);
 
 		MatchStatePublisher publisher = new MatchStatePublisher(serverID, match, queue);
 
