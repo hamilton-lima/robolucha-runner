@@ -20,7 +20,7 @@ import java.util.Objects;
  * ModelJoinMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-26T00:14:33.822Z[GMT]")public class ModelJoinMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-31T13:34:39.126Z[GMT]")public class ModelJoinMatch {
 
   @SerializedName("luchadorID")
   private Integer luchadorID = null;

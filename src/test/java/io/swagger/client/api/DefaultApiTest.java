@@ -222,21 +222,6 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * request to play a match
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void internalPlayPostTest() throws ApiException {
-        ModelAvailableMatch body = null;
-        ModelMatch response = api.internalPlayPost(body);
-
-        // TODO: test validations
-    }
-    /**
      * returns application health check information
      *
      * 
@@ -259,9 +244,9 @@ public class DefaultApiTest {
      *          if the Api call fails
      */
     @Test
-    public void privateAvailableMatchClassroomClassroomGetTest() throws ApiException {
+    public void privateAvailableMatchClassroomIdGetTest() throws ApiException {
         Integer id = null;
-        ModelAvailableMatch response = api.privateAvailableMatchClassroomClassroomGet(id);
+        ModelAvailableMatch response = api.privateAvailableMatchClassroomIdGet(id);
 
         // TODO: test validations
     }
@@ -465,6 +450,21 @@ public class DefaultApiTest {
     public void privateMatchSingleGetTest() throws ApiException {
         Integer matchID = null;
         ModelMatch response = api.privateMatchSingleGet(matchID);
+
+        // TODO: test validations
+    }
+    /**
+     * request to play a match
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privatePlayIdPostTest() throws ApiException {
+        Integer id = null;
+        ModelMatch response = api.privatePlayIdPost(id);
 
         // TODO: test validations
     }
