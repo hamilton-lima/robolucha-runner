@@ -318,12 +318,12 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		onMatchEnd.onComplete();
 
 		// send end event and shut down event handler
-//		getEventHandler().end(new RunAfterThisTask(this) {
-//			public void run() {
-//				logger.info("matchrun shutdown (2)");
-//				((MatchRunner) data).shutDownServices();
-//			}
-//		});
+		getEventHandler().end(new RunAfterThisTask(this) {
+			public void run() {
+				logger.info("matchrun shutdown (2)");
+				((MatchRunner) data).shutDownServices();
+			}
+		});
 
 	}
 
