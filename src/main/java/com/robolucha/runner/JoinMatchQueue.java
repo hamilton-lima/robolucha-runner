@@ -57,6 +57,8 @@ public class JoinMatchQueue implements Runnable {
 
 	private void addLuchadorToMatch(ModelJoinMatch next) throws Exception {
 		MatchRunner runner = this.matches.get(next.getMatchID());
+		logger.info(">>>>>>>> found Runner " + JSONFormat.clean(runner.toString()));
+
 		int gameDefinitionID = runner.getGameDefinition().getId();
 		ModelGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(next.getLuchadorID(),
 				gameDefinitionID);
