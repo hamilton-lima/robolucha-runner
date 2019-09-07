@@ -1,15 +1,17 @@
 package com.robolucha.runner.luchador;
 
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class LuchadorCommandQueue {
 
 	private String command;
-	private LinkedList<LuchadorCommand> commands;
+	private List<LuchadorCommand> commands;
 
 	public LuchadorCommandQueue(String command) {
 		this.command = command;
-		this.commands = new LinkedList<LuchadorCommand>();
+		this.commands = Collections.synchronizedList(new LinkedList<LuchadorCommand>());
 	}
 
 	public String getCommand() {
@@ -20,11 +22,11 @@ public class LuchadorCommandQueue {
 		if(commands.isEmpty()) {
 			return null;
 		}
-		return commands.getFirst();
+		return commands.get(0);
 	}
 
 	public void add(LuchadorCommand command) {
-		commands.addLast(command);
+		commands.add(command);
 	}
 
 	public void remove(LuchadorCommand command) {
