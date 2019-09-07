@@ -46,13 +46,10 @@ public class BugAcessoVariavelMeTest {
 
         // stop the match
         Thread.sleep(500);
+        assertTrue("verifica se lutchador ficou no lugar certo ...", runnerA.getState().getX() == 100);
+
         match.kill();
         Thread.sleep(500);
-
-        logger.debug("--- A depois : " + runnerA.getState().getPublicState());
-        logger.debug("--- A depois : " + runnerA.getState());
-
-        assertTrue("verifica se lutchador ficou no lugar certo ...", runnerA.getState().getX() == 100);
 
     }
 }
