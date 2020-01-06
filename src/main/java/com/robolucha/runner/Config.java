@@ -6,16 +6,19 @@ public class Config {
 	public static final String REDIS_PORT = "REDIS_PORT";
 	public static final String API_CLIENT_BASEPATH = "API_CLIENT_BASEPATH";
 	public static final String INTERNAL_API_KEY = "INTERNAL_API_KEY";
+	public static final String MONITOR_INTERVAL = "MONITOR_INTERVAL";
 
 	public static final String DEFAULT_REDIS_HOST = "localhost";
 	public static final int DEFAULT_REDIS_PORT = 6379;
 	public static final String DEFAULT_API_CLIENT_BASEPATH = "http://localhost:8080";
 	public static final String DEFAULT_INTERNAL_API_KEY = "9239";
+	public static final int DEFAULT_MONITOR_INTERVAL = 30000;
 
 	private String redisHost;
 	private int redisPort;
 	private String basePath;
 	private String internalAPIKey;
+	private int monitorInterval;
 
 	private static Config instance;
 
@@ -24,6 +27,15 @@ public class Config {
 		setRedisPort();
 		setAPIClientBasePath();
 		setInternalAPIKey();
+		setMonitorInterval();
+	}
+
+	private void setMonitorInterval() {
+		try {
+			this.monitorInterval = Integer.parseInt(System.getenv(MONITOR_INTERVAL));
+		} catch (NumberFormatException e) {
+			this.monitorInterval = DEFAULT_MONITOR_INTERVAL;
+		}
 	}
 
 	private void setRedisHost() {
@@ -91,6 +103,10 @@ public class Config {
 
 	public String getInternalAPIKey() {
 		return internalAPIKey;
+	}
+
+	public int getMonitorInterval() {
+		return monitorInterval;
 	}
 
 }

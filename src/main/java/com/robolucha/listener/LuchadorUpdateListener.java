@@ -24,7 +24,7 @@ public class LuchadorUpdateListener implements Consumer<ModelGameComponent>, Dis
 		runner.setUpdateListener(listener);
 
 		String channel = String.format("luchador.%s.update", runner.getGameComponent().getId());
-		logger.debug("listen " + channel);
+		logger.info("listen " + channel);
 
 		listener.disposable = publisher.subscribe(channel, ModelGameComponent.class).subscribe(listener, new ErrorHandler());
 	}
@@ -32,7 +32,7 @@ public class LuchadorUpdateListener implements Consumer<ModelGameComponent>, Dis
 	protected static class ErrorHandler implements Consumer<Throwable> {
 		@Override
 		public void accept(Throwable error) {
-			logger.error("Error from JoinMatchListener", error);
+			logger.error("Error from LuchadorUpdateListener", error);
 		}
 	}
 
