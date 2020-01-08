@@ -569,10 +569,11 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		}
 
 		if (isConsumingCommands.compareAndSet(false, true)) {
-			logger.debug("consumeCommand()");
+			logger.debug("start consumeCommand()");
 
 			if (codeExecutionQueue.isEmpty()) {
-				logger.debug("consumeCommand() codeExecutionQueue empty");
+				logger.info("consumeCommand() codeExecutionQueue empty");
+				isConsumingCommands.set(false);
 				return;
 			}
 
@@ -592,6 +593,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			} catch (Exception e) {
 				logger.error("Error reading first", e);
 				logger.warn("Error reading the first LuchadorCodeExecution, try again.");
+				isConsumingCommands.set(false);
 				return;
 			}
 
