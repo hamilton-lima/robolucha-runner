@@ -572,7 +572,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			logger.debug("start consumeCommand()");
 
 			if (codeExecutionQueue.isEmpty()) {
-				logger.info("consumeCommand() codeExecutionQueue empty");
+				logger.debug("consumeCommand() codeExecutionQueue empty");
 				isConsumingCommands.set(false);
 				return;
 			}
