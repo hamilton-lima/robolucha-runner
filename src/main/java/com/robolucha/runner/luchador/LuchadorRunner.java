@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -559,40 +560,50 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		}
 	}
 
+	// TODO: move the entire logic of consuming commands to a new class
+	private AtomicBoolean isConsumingCommands = new AtomicBoolean(false);
+
 	public void consumeCommand() {
-		logger.debug("consumeCommand()");
-
-		if (codeExecutionQueue.isEmpty()) {
-			logger.debug("consumeCommand() codeExecutionQueue empty");
+		if (isConsumingCommands.get()) {
 			return;
 		}
 
-		Iterator<LuchadorCodeExecution> iterator = codeExecutionQueue.values().iterator();
-		LuchadorCodeExecution codeExecution = null;
+		if (isConsumingCommands.compareAndSet(false, true)) {
+			logger.debug("consumeCommand()");
 
-		try {
-			codeExecution = iterator.next();
-
-			Iterator<LuchadorCommandQueue> commandIterator = codeExecution.getCommands().values().iterator();
-			LuchadorCommandQueue command = null;
-
-			while (commandIterator.hasNext()) {
-				command = commandIterator.next();
-				consumeCommand(commandIterator, command);
+			if (codeExecutionQueue.isEmpty()) {
+				logger.debug("consumeCommand() codeExecutionQueue empty");
+				return;
 			}
-		} catch (Exception e) {
-			logger.error("Error reading first", e);
-			logger.warn("Error reading the first LuchadorCodeExecution, try again.");
-			return;
+
+			Iterator<LuchadorCodeExecution> iterator = codeExecutionQueue.values().iterator();
+			LuchadorCodeExecution codeExecution = null;
+
+			try {
+				codeExecution = iterator.next();
+
+				Iterator<LuchadorCommandQueue> commandIterator = codeExecution.getCommands().values().iterator();
+				LuchadorCommandQueue command = null;
+
+				while (commandIterator.hasNext()) {
+					command = commandIterator.next();
+					consumeCommand(commandIterator, command);
+				}
+			} catch (Exception e) {
+				logger.error("Error reading first", e);
+				logger.warn("Error reading the first LuchadorCodeExecution, try again.");
+				return;
+			}
+
+			logger.debug("consumeCommand() action" + codeExecution);
+
+			// the action dont have any commands to execute, so remove from the queue
+			if (codeExecution.getCommands().size() == 0) {
+				iterator.remove();
+			}
+
+			isConsumingCommands.set(false);
 		}
-
-		logger.debug("consumeCommand() action" + codeExecution);
-
-		// the action dont have any commands to execute, so remove from the queue
-		if (codeExecution.getCommands().size() == 0) {
-			iterator.remove();
-		}
-
 	}
 
 	private void consumeCommand(Iterator<LuchadorCommandQueue> iterator, LuchadorCommandQueue commandQueue) {
