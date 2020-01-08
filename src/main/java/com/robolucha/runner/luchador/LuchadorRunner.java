@@ -603,13 +603,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			if (codeExecution.getCommands().size() == 0) {
 				iterator.remove();
 			}
-			
-			// add new commands
-			while( ! precodeExecutionQueue.isEmpty()) {
-				codeExecution = precodeExecutionQueue.poll();
-				codeExecutionQueue.put(codeExecution.getCodeName(), codeExecution);
-			}
-			
+
 			isConsumingCommands.set(false);
 		}
 	}
@@ -669,8 +663,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		}
 
 	}
-	
-	private Queue<LuchadorCodeExecution> precodeExecutionQueue = new LinkedList<LuchadorCodeExecution>();
 
 	/**
 	 * add a command to the commands queue only if:
@@ -694,7 +686,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		if (codeExecution == null) {
 			codeExecution = new LuchadorCodeExecution(command.getCodeName(), this.start);
-			precodeExecutionQueue.add(codeExecution);
+			codeExecutionQueue.put(command.getCodeName(), codeExecution);
 		}
 
 		codeExecution.add(command);
