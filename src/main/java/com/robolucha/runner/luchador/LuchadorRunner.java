@@ -67,7 +67,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private long elapsed;
 	private String lastRunningError;
 
-	private Map<String, LuchadorCodeExecution> codeExecutionQueue;
+	private LinkedHashMap<String, LuchadorCodeExecution> codeExecutionQueue;
 	Map<String, LuchadorEvent> events;
 	private Queue<MessageVO> messages;
 
@@ -98,7 +98,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.halfSize = this.size / 2;
 
 		this.active = false;
-		this.codeExecutionQueue = buildCodeExecutionQueue();
+		this.codeExecutionQueue = new LinkedHashMap<String, LuchadorCodeExecution>();
 		this.events = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorEvent>());
 		this.messages = new LinkedList<MessageVO>();
 
@@ -120,20 +120,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		// listen to luchador name change
 		// TODO: Remove this?
 		GeneralEventManager.getInstance().addHandler(ConstEvents.LUCHADOR_NAME_CHANGE, this);
-	}
-
-	/**
-	 * code execution queue will store all supported codeNames, e.g. onStart, onRepeat, and so on
-	 * with the list of commands that are in execution in the LuchadorCodeExecution object
-	 * when the execution is finished the objects will stay in the map, but with no content
-	 * ready to keep the new execution of the code/command pairs.
-	 * @return
-	 */
-	private Map<String, LuchadorCodeExecution> buildCodeExecutionQueue() {
-		Map<String, LuchadorCodeExecution> result = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorCodeExecution>());
-		
-		
-		return result;
 	}
 
 	// used for tests only
@@ -590,12 +576,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 				return;
 			}
 
-			Iterator<LuchadorCodeExecution> iterator = codeExecutionQueue.values().iterator();
-			LuchadorCodeExecution codeExecution = null;
-
 			try {
-				codeExecution = iterator.next();
-
+				LuchadorCodeExecution codeExecution = codeExecutionQueue.values().stream().findFirst().get();
 				Iterator<LuchadorCommandQueue> commandIterator = codeExecution.getCommands().values().iterator();
 				LuchadorCommandQueue command = null;
 
@@ -603,6 +585,12 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 					command = commandIterator.next();
 					consumeCommand(commandIterator, command);
 				}
+				
+				// the action dont have any commands to execute, so remove from the queue
+				if (codeExecution.getCommands().size() == 0) {
+					codeExecutionQueue.remove(codeExecution.getCodeName());
+				}
+
 			} catch (Exception e) {
 				logger.error("Error reading first", e);
 				logger.warn("Error reading the first LuchadorCodeExecution, try again.");
@@ -610,12 +598,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 				return;
 			}
 
-			logger.debug("consumeCommand() action" + codeExecution);
-
-			// the action dont have any commands to execute, so remove from the queue
-			if (codeExecution.getCommands().size() == 0) {
-				iterator.remove();
-			}
 
 			isConsumingCommands.set(false);
 		}
