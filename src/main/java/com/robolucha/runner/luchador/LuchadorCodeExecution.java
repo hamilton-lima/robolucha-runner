@@ -7,13 +7,11 @@ import java.util.Map;
 public class LuchadorCodeExecution {
 
 	private String codeName;
-	private long start;
 	private Map<String, LuchadorCommandQueue> commands;
 
-	public LuchadorCodeExecution(String codeName, long start) {
+	public LuchadorCodeExecution(String codeName) {
 		this.codeName = codeName;
 		this.commands = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorCommandQueue>());
-		this.start = start;
 	}
 
 	public String getCodeName() {
@@ -22,10 +20,6 @@ public class LuchadorCodeExecution {
 
 	public Map<String, LuchadorCommandQueue> getCommands() {
 		return commands;
-	}
-
-	public long getStart() {
-		return start;
 	}
 
 	public void clear(String commandName) {

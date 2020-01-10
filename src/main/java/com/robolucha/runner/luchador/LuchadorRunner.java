@@ -56,7 +56,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public static final String ACTION_CHECK_RADAR = "checkRadar";
 	private static final double DOUBLE_MIN_THRESHOLD = 0.01;
-	private static final int MAX_COLOR_LENGTH = 7;
 
 	private static Logger logger = Logger.getLogger(LuchadorRunner.class);
 
@@ -99,7 +98,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		this.halfSize = this.size / 2;
 
 		this.active = false;
-		this.codeExecutionQueue = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorCodeExecution>());
+		this.codeExecutionQueue = buildCodeExecutionQueue();
 		this.events = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorEvent>());
 		this.messages = new LinkedList<MessageVO>();
 
@@ -121,6 +120,20 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		// listen to luchador name change
 		// TODO: Remove this?
 		GeneralEventManager.getInstance().addHandler(ConstEvents.LUCHADOR_NAME_CHANGE, this);
+	}
+
+	/**
+	 * code execution queue will store all supported codeNames, e.g. onStart, onRepeat, and so on
+	 * with the list of commands that are in execution in the LuchadorCodeExecution object
+	 * when the execution is finished the objects will stay in the map, but with no content
+	 * ready to keep the new execution of the code/command pairs.
+	 * @return
+	 */
+	private Map<String, LuchadorCodeExecution> buildCodeExecutionQueue() {
+		Map<String, LuchadorCodeExecution> result = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorCodeExecution>());
+		
+		
+		return result;
 	}
 
 	// used for tests only
@@ -685,7 +698,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		}
 
 		if (codeExecution == null) {
-			codeExecution = new LuchadorCodeExecution(command.getCodeName(), this.start);
+			codeExecution = new LuchadorCodeExecution(command.getCodeName());
 			codeExecutionQueue.put(command.getCodeName(), codeExecution);
 		}
 
