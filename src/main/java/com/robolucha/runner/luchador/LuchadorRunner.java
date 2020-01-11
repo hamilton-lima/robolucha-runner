@@ -577,20 +577,25 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			}
 
 			try {
-				LuchadorCodeExecution codeExecution = codeExecutionQueue.values().stream().findFirst().get();
+				LuchadorCodeExecution[] array = (LuchadorCodeExecution[]) codeExecutionQueue.values().toArray();
 
-				// move Commands from waiting list to the current list of commands
-				codeExecution.moveQueue2Process();
-				Iterator<LuchadorCommandQueue> commandIterator = codeExecution.getCommands().values().iterator();
+				if (array.length > 0) {
+					LuchadorCodeExecution codeExecution = array[0];
 
-				while (commandIterator.hasNext()) {
-					LuchadorCommandQueue command = commandIterator.next();
-					consumeCommand(commandIterator, command);
-				}
-				
-				// the action dont have any commands to execute, so remove from the queue
-				if (codeExecution.isEmpty()) {
-					codeExecutionQueue.remove(codeExecution.getCodeName());
+					// move Commands from waiting list to the current list of commands
+					codeExecution.moveQueue2Process();
+					Iterator<LuchadorCommandQueue> commandIterator = codeExecution.getCommands().values().iterator();
+
+					while (commandIterator.hasNext()) {
+						LuchadorCommandQueue command = commandIterator.next();
+						consumeCommand(commandIterator, command);
+					}
+
+					// the action dont have any commands to execute, so remove from the queue
+					if (codeExecution.isEmpty()) {
+						codeExecutionQueue.remove(codeExecution.getCodeName());
+					}
+
 				}
 
 			} catch (Exception e) {
