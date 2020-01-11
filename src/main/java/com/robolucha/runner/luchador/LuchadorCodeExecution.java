@@ -1,17 +1,20 @@
 package com.robolucha.runner.luchador;
 
-import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 public class LuchadorCodeExecution {
 
 	private String codeName;
-	private Map<String, LuchadorCommandQueue> commands;
+	private LinkedHashMap<String, LuchadorCommandQueue> commands;
+	private Queue<LuchadorCommand> waiting2process;
 
 	public LuchadorCodeExecution(String codeName) {
 		this.codeName = codeName;
-		this.commands = Collections.synchronizedMap(new LinkedHashMap<String, LuchadorCommandQueue>());
+		commands = new LinkedHashMap<String, LuchadorCommandQueue>();
+		waiting2process = new LinkedList<LuchadorCommand>();
 	}
 
 	public String getCodeName() {
@@ -27,13 +30,21 @@ public class LuchadorCodeExecution {
 	}
 
 	public void add(LuchadorCommand command) {
-		LuchadorCommandQueue queue = commands.get(command.getCommand());
-		if (queue == null) {
-			queue = new LuchadorCommandQueue(command.getCommand());
-			commands.put(command.getCommand(), queue);
-		}
+		waiting2process.add(command);
+	}
 
-		queue.add(command);
+	public void moveQueue2Process() {
+		while( waiting2process.size() > 0 ) {
+			LuchadorCommand command = waiting2process.poll();
+			
+			LuchadorCommandQueue queue = commands.get(command.getCommand());
+			if (queue == null) {
+				queue = new LuchadorCommandQueue(command.getCommand());
+				commands.put(command.getCommand(), queue);
+			}
+
+			queue.add(command);
+		}
 	}
 
 }
