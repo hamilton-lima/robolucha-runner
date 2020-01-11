@@ -32,14 +32,14 @@ public class MatchEventHandlerThread implements Runnable {
 		this.alive = true;
 	}
 
-	// processa os ultimos eventos.
+	// cleanup last events.
 	public void kill() {
 		logger.info("KILL MatchEventHandlerThread !!");
 		this.alive = false;
 	}
 
 	public void add(GeneralEvent event) {
-		logger.info("add event: " + event);
+		logger.debug("add event: " + event);
 
 		if (this.alive) {
 			this.events.add(event);
@@ -96,8 +96,8 @@ public class MatchEventHandlerThread implements Runnable {
 		}
 		
 		this.eventListeners = this.matchEventHandler.runner.getMatchEventListeners().toArray();
-		logger.info("START consumindo evento : " + event);
-		logger.info("== listeners : " + eventListeners.length);
+		logger.debug("START consumindo evento : " + event);
+		logger.debug("== listeners : " + eventListeners.length);
 
 		for (int i = 0; i < eventListeners.length; i++) {
 			MatchEventListener listener = (MatchEventListener) eventListeners[i];
@@ -134,7 +134,7 @@ public class MatchEventHandlerThread implements Runnable {
 			}
 		}
 
-		logger.info("END consumindo evento : " + event);
+		logger.debug("END consumindo evento : " + event);
 	}
 
 }
