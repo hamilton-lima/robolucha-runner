@@ -34,17 +34,22 @@ public class LuchadorCodeExecution {
 	}
 
 	public void moveQueue2Process() {
-		while( waiting2process.size() > 0 ) {
+		while (waiting2process.size() > 0) {
 			LuchadorCommand command = waiting2process.poll();
-			
-			LuchadorCommandQueue queue = commands.get(command.getCommand());
-			if (queue == null) {
-				queue = new LuchadorCommandQueue(command.getCommand());
-				commands.put(command.getCommand(), queue);
-			}
+			if( command != null ) {
+				LuchadorCommandQueue queue = commands.get(command.getCommand());
+				if (queue == null) {
+					queue = new LuchadorCommandQueue(command.getCommand());
+					commands.put(command.getCommand(), queue);
+				}
 
-			queue.add(command);
+				queue.add(command);
+			}
 		}
+	}
+
+	public boolean isEmpty() {
+		return getCommands().size() == 0 && waiting2process.size() == 0;
 	}
 
 }
