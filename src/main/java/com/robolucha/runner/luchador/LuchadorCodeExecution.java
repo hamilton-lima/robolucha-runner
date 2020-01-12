@@ -33,18 +33,17 @@ public class LuchadorCodeExecution {
 		waiting2process.add(command);
 	}
 
+	// move ONE 
 	public void moveQueue2Process() {
-		while (waiting2process.size() > 0) {
-			LuchadorCommand command = waiting2process.poll();
-			if( command != null ) {
-				LuchadorCommandQueue queue = commands.get(command.getCommand());
-				if (queue == null) {
-					queue = new LuchadorCommandQueue(command.getCommand());
-					commands.put(command.getCommand(), queue);
-				}
-
-				queue.add(command);
+		LuchadorCommand command = waiting2process.poll();
+		if( command != null ) {
+			LuchadorCommandQueue queue = commands.get(command.getCommand());
+			if (queue == null) {
+				queue = new LuchadorCommandQueue(command.getCommand());
+				commands.put(command.getCommand(), queue);
 			}
+
+			queue.add(command);
 		}
 	}
 

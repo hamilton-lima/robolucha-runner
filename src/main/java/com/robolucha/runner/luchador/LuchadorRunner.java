@@ -578,9 +578,9 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 			try {
 				LuchadorCodeExecution codeExecution = codeExecutionQueue.values().parallelStream().findFirst().get();
-
 				// move Commands from waiting list to the current list of commands
 				codeExecution.moveQueue2Process();
+
 				Iterator<LuchadorCommandQueue> commandIterator = codeExecution.getCommands().values().iterator();
 
 				while (commandIterator.hasNext()) {
