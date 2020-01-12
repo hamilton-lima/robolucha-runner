@@ -14,13 +14,11 @@ public class ScriptReader {
 
 	public String readDefinitions(Class clazz, String file) throws Exception {
 		StringBuffer buffer = new StringBuffer();
-//		String fileName = "<emtpy>";
 		
 		try {
-//			fileName = resolveName(clazz, file);
-			logger.info("reading file : " + file);
+			logger.debug("reading file : " + file);
 			InputStream in = clazz.getResourceAsStream(file);
-			logger.info("input stream: " + in);
+			logger.debug("input stream: " + in);
 			Reader fr = new InputStreamReader(in, "utf-8");
 
 			BufferedReader reader = new BufferedReader(fr);
