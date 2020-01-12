@@ -34,6 +34,7 @@ public class MockLuchador {
 		ModelCode c2 = new ModelCode();
 		c2.setEvent(event);
 		c2.setScript(code);
+		c2.setGameDefinition(1);
 		a.getCodes().add(c2);
 
 		return a;
