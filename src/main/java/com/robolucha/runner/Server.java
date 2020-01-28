@@ -30,7 +30,7 @@ public class Server {
 		this.threadMonitor = threadMonitor;
 		this.queue = queue;
 		this.monitor = monitor;
-		
+
 		this.joinMatchQueue = new JoinMatchQueue();
 		this.joinMatchQueue.start();
 	}
@@ -93,6 +93,13 @@ public class Server {
 
 	public void add2JoinMatchQueue(ModelJoinMatch joinMatch) {
 		this.joinMatchQueue.add(joinMatch);
+	}
+
+	public void end(ModelMatch endMatch) {
+		MatchRunner runner = getThreadMonitor().getMatch(endMatch.getAvailableMatchID());
+		if (runner != null) {
+			runner.kill();
+		}
 	}
 
 }

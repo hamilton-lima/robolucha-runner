@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.apache.log4j.Logger;
 
+import com.robolucha.listener.EndMatchListener;
 import com.robolucha.listener.JoinMatchListener;
 import com.robolucha.listener.StartMatchListener;
 import com.robolucha.monitor.ServerMonitor;
@@ -39,6 +40,7 @@ public class Entrypoint {
 
 		Server server = new Server(serverID, threadMonitor, queue, monitor);
 		StartMatchListener.listen(server);
+		EndMatchListener.listen(server);
 		JoinMatchListener.listen(server);
 
 	}

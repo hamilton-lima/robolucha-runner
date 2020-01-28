@@ -54,6 +54,24 @@ public class ThreadMonitor  {
 
 		return null;
 	}
+	
+	public MatchRunner getMatch(Integer matchID) {
+		Iterator<String> iterator = threads.keySet().iterator();
+		while (iterator.hasNext()) {
+			String key = iterator.next();
+			Object one = threads.get(key);
+
+			if (one instanceof MatchRunner) {
+				MatchRunner runner = (MatchRunner) one;
+				if (runner.isAlive() && runner.getMatch().getId().equals(matchID)) {
+					return runner;
+				}
+			}
+		}
+
+		return null;
+	}
+
 
 	public ThreadStatusVO[] getStatus() {
 
@@ -121,6 +139,5 @@ public class ThreadMonitor  {
 			}
 		}
 	}
-
 
 }
