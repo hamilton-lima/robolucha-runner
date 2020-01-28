@@ -1,5 +1,6 @@
 package com.robolucha.runner;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -8,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.robolucha.shared.JSONFormat;
 
+import io.swagger.client.model.ModelCode;
 import io.swagger.client.model.ModelGameComponent;
 import io.swagger.client.model.ModelJoinMatch;
 
@@ -62,6 +64,11 @@ public class JoinMatchQueue implements Runnable {
 		int gameDefinitionID = runner.getGameDefinition().getId();
 		ModelGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(next.getLuchadorID(),
 				gameDefinitionID);
+		
+		// STARTS luchador with empty code when running tutorial, wait for save command
+		if( GameDefinitionType.TUTORIAL.equals(runner.getGameDefinition().getType())) {
+			luchador.setCodes( new ArrayList<ModelCode>());
+		}
 
 		logger.info(">>>>>>>> Luchador found by ID " + JSONFormat.clean(luchador.toString()));
 		runner.addLuchador(luchador);
