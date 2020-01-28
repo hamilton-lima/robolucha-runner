@@ -5,7 +5,7 @@ RUN apk add bash
 RUN apk add apache-ant 
 
 # install ivy
-RUN wget http://central.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar \
+RUN wget https://central.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar \
     -O /usr/share/java/apache-ant/lib/ivy-2.4.0.jar
 
 RUN mkdir -pv /usr/src/app/target
