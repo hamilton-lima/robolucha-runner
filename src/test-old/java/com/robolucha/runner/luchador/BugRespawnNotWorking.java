@@ -66,7 +66,7 @@ public class BugRespawnNotWorking {
 			return Observable.just(0L);
 		}
 
-		public <T> BehaviorSubject subscribe(String channel, Class<T> clazzToSubscribe) {
+		public <T> BehaviorSubject getSubject(String channel, Class<T> clazzToSubscribe) {
 			return BehaviorSubject.create();
 		}
 	}

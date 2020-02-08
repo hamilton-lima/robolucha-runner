@@ -26,7 +26,7 @@ public class JoinMatchListener implements Consumer<ModelJoinMatch>, Disposable {
 		String channel = "join.match";
 		logger.debug("listen " + channel);
 
-		listener.disposable = server.getQueue().subscribe(channel, ModelJoinMatch.class).subscribe(listener,
+		listener.disposable = server.getQueue().getSubject(channel, ModelJoinMatch.class).subscribe(listener,
 				new ErrorHandler());
 	}
 

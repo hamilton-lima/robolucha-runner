@@ -25,7 +25,7 @@ public class EndMatchListener implements Consumer<ModelMatch>, Disposable {
 		String channel = "end.match";
 		logger.info("Listening to channel: " + channel);
 
-		listener.disposable = server.getQueue().subscribe(channel, ModelMatch.class).subscribe(listener, new ErrorHandler());
+		listener.disposable = server.getQueue().getSubject(channel, ModelMatch.class).subscribe(listener, new ErrorHandler());
 	}
 
 	protected static class ErrorHandler implements Consumer<Throwable> {

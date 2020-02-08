@@ -13,7 +13,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPubSub;
 
-// TODO: create interface Publisher
 public class RemoteQueue implements AutoCloseable {
 
     private Logger logger = Logger.getLogger(RemoteQueue.class);
@@ -25,8 +24,7 @@ public class RemoteQueue implements AutoCloseable {
     public RemoteQueue(Config config) {
         subscriberPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
         publisherPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
-
-        this.gson = new Gson();
+        gson = new Gson();
     }
 
     protected RemoteQueue(){}
@@ -69,12 +67,12 @@ public class RemoteQueue implements AutoCloseable {
         return getChannelName(subjectToPublish.getClass());
     }
 
-    public <T> BehaviorSubject subscribe(Class<T> clazzToSubscribe) {
+    public <T> BehaviorSubject<T> getSubject(Class<T> clazzToSubscribe) {
         String channel = getChannelName(clazzToSubscribe);
-        return subscribe(channel, clazzToSubscribe);
+        return getSubject(channel, clazzToSubscribe);
     }
     	
-    public <T> BehaviorSubject subscribe(String channel, Class<T> clazzToSubscribe) {
+    public <T> BehaviorSubject<T> getSubject(String channel, Class<T> clazzToSubscribe) {
 
         BehaviorSubject<T> result = BehaviorSubject.create();
         logger.debug("subscribing to " + channel);

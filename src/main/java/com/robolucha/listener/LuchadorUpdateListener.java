@@ -26,7 +26,7 @@ public class LuchadorUpdateListener implements Consumer<ModelGameComponent>, Dis
 		String channel = String.format("luchador.%s.update", runner.getGameComponent().getId());
 		logger.info("listen " + channel);
 
-		listener.disposable = publisher.subscribe(channel, ModelGameComponent.class).subscribe(listener, new ErrorHandler());
+		listener.disposable = publisher.getSubject(channel, ModelGameComponent.class).subscribe(listener, new ErrorHandler());
 	}
 
 	protected static class ErrorHandler implements Consumer<Throwable> {
