@@ -15,118 +15,147 @@ import redis.clients.jedis.JedisPubSub;
 
 public class RemoteQueue implements AutoCloseable {
 
-    private Logger logger = Logger.getLogger(RemoteQueue.class);
+	private Logger logger = Logger.getLogger(RemoteQueue.class);
 
-    private JedisPool subscriberPool;
-    private JedisPool publisherPool;
-    private Gson gson;
+	private JedisPool subscriberPool;
+	private JedisPool publisherPool;
+	private Gson gson;
 
-    public RemoteQueue(Config config) {
-        subscriberPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
-        publisherPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
-        gson = new Gson();
-    }
+	public RemoteQueue(Config config) {
+		subscriberPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
+		publisherPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
+		gson = new Gson();
+	}
 
-    protected RemoteQueue(){}
+	protected RemoteQueue() {
+	}
 
-    @Override
-    public void close() {
-        subscriberPool.close();
-        publisherPool.close();
-    }
+	@Override
+	public void close() {
+		subscriberPool.close();
+		publisherPool.close();
+	}
 
-    public Observable<Long> publishWithSuffix(String suffix, Object subjectToPublish) {
-        String channel = getChannelName(subjectToPublish);
-        return publish(channel + suffix, subjectToPublish);
-    }
+	public Observable<Long> publishWithSuffix(String suffix, Object subjectToPublish) {
+		String channel = getChannelName(subjectToPublish);
+		return publish(channel + suffix, subjectToPublish);
+	}
 
-    public Observable<Long> publish(Object subjectToPublish) {
-        String channel = getChannelName(subjectToPublish);
-        return publish(channel, subjectToPublish);
-    }
+	public Observable<Long> publish(Object subjectToPublish) {
+		String channel = getChannelName(subjectToPublish);
+		return publish(channel, subjectToPublish);
+	}
 
-    public Observable<Long> publish(String channel, Object subjectToPublish) {
-        String data = getData(subjectToPublish);
+	public Observable<Long> publish(String channel, Object subjectToPublish) {
+		String data = getData(subjectToPublish);
 
-        Jedis publisher = publisherPool.getResource();
-        Observable result = Observable.just(publisher.publish(channel, data));
-        publisher.close();
+		Jedis publisher = publisherPool.getResource();
+		Observable<Long> result = Observable.just(publisher.publish(channel, data));
+		publisher.close();
 
-        return result;
-    }
+		return result;
+	}
 
-    private String getData(Object subjectToPublish) {
-        return this.gson.toJson(subjectToPublish);
-    }
+	private String getData(Object subjectToPublish) {
+		return this.gson.toJson(subjectToPublish);
+	}
 
-    public static String getChannelName(Class clazz) {
-        return clazz.getCanonicalName();
-    }
+	public static String getChannelName(Class clazz) {
+		return clazz.getCanonicalName();
+	}
 
-    public static String getChannelName(Object subjectToPublish) {
-        return getChannelName(subjectToPublish.getClass());
-    }
+	public static String getChannelName(Object subjectToPublish) {
+		return getChannelName(subjectToPublish.getClass());
+	}
 
-    public <T> BehaviorSubject<T> getSubject(Class<T> clazzToSubscribe) {
-        String channel = getChannelName(clazzToSubscribe);
-        return getSubject(channel, clazzToSubscribe);
-    }
-    	
-    public <T> BehaviorSubject<T> getSubject(String channel, Class<T> clazzToSubscribe) {
+	public <T> BehaviorSubject<T> getSubject(Class<T> clazzToSubscribe) {
+		String channel = getChannelName(clazzToSubscribe);
+		return getSubject(channel, clazzToSubscribe);
+	}
+	
+	public <T> BehaviorSubject<T> getSubject(String channel, Class<T> clazzToSubscribe) {
 
-        BehaviorSubject<T> result = BehaviorSubject.create();
-        logger.debug("subscribing to " + channel);
+		BehaviorSubject<T> result = BehaviorSubject.create();
+		logger.debug("subscribing to " + channel);
 
-        Thread subscriber = new Thread(new Runnable() {
-            public void run() {
+		Thread subscriber = new Thread(new Runnable() {
+			Jedis subscriber;
+			int retries;
+			int maxRetries = 200;
+			int waitbetweenRetries = 1000;
 
-                Jedis subscriber = subscriberPool.getResource();
+			private void waitForMessages() {
+				subscriber = subscriberPool.getResource();
+				logger.info("Building subscription to [" + channel + "]");
 
-                subscriber.subscribe(new JedisPubSub() {
+				// this a synchronous call and will be blocked
+				subscriber.subscribe(new JedisPubSub() {
 
-                    public void onSubscribe(String channel, int subscribedChannels) {
-                        super.onSubscribe(channel, subscribedChannels);
-                    }
+					public void onSubscribe(String channel, int subscribedChannels) {
+						super.onSubscribe(channel, subscribedChannels);
+					}
 
-                    public void onMessage(String channel, String message) {
-                        T data = gson.fromJson(message, clazzToSubscribe);
-                        result.onNext(data);
-                    }
+					public void onMessage(String channel, String message) {
+						T data = gson.fromJson(message, clazzToSubscribe);
+						result.onNext(data);
+					}
 
-                }, channel);
+				}, channel);
+			}
 
-                subscriber.close();
-            }
-        });
+			public void run() {
+				synchronized (channel) {
+					while (retries < maxRetries) {
+						try {
+							waitForMessages();
+						} catch (Throwable throwable) {
+							logger.error("RemoteQueue exception while waiting for message", throwable);
+						}
 
-        result.subscribe(new ThreadKiller<>(subscriber));
-        subscriber.start();
+						retries++;
+						try {
+							channel.wait(waitbetweenRetries);
+						} catch (InterruptedException e) {
+							logger.error("Interrupted while been a good boy and waiting", e);
+						}
 
-        return result;
-    }
+						logger.info("Retrying connection to Redis, retry: " + retries);
+					}
+				}
 
+				subscriber.close();
+			}
+		});
 
-    private static class ThreadKiller<T> implements Observer<T> {
+		result.subscribe(new ThreadKiller<>(subscriber));
+		subscriber.start();
 
-        private final Thread thread;
+		return result;
+	}
 
-        ThreadKiller(Thread thread) {
-            this.thread = thread;
-        }
+	private static class ThreadKiller<T> implements Observer<T> {
+		private Logger logger = Logger.getLogger(ThreadKiller.class);
 
-        public void onComplete() {
-            thread.interrupt();
-        }
+		private final Thread thread;
 
-        public void onSubscribe(Disposable disposable) {
-        }
+		ThreadKiller(Thread thread) {
+			this.thread = thread;
+		}
 
-        public void onNext(T t) {
-        }
+		public void onComplete() {
+			thread.interrupt();
+		}
 
-        public void onError(Throwable throwable) {
-            thread.interrupt();
-        }
+		public void onSubscribe(Disposable disposable) {
+		}
 
-    }
+		public void onNext(T t) {
+		}
+
+		public void onError(Throwable throwable) {
+			logger.error("RemoteQueue.ThereadKiller on error", throwable);
+			thread.interrupt();
+		}
+
+	}
 }
