@@ -19,11 +19,14 @@ public class JoinMatchQueue implements Runnable {
 	private static final long SLEEP = 100;
 
 	private HashMap<Integer, MatchRunner> matches;
+	private HashMap<Integer, Integer> joinMatchRetries;
 	private Queue<ModelJoinMatch> queue;
 	private boolean alive = true;
+	private Integer maxRetries = 20;
 
 	JoinMatchQueue() {
 		this.matches = new HashMap<Integer, MatchRunner>();
+		this.joinMatchRetries = new HashMap<Integer, Integer>();
 		this.queue = new LinkedList<ModelJoinMatch>();
 	}
 
@@ -33,6 +36,13 @@ public class JoinMatchQueue implements Runnable {
 
 	public void add(ModelJoinMatch joinMatch) {
 		this.queue.add(joinMatch);
+	}
+
+	private Integer retriesToJoin(Integer matchID) {
+		Integer retries = joinMatchRetries.get(matchID);
+		retries++;
+		joinMatchRetries.put(matchID, retries);
+		return retries;
 	}
 
 	@Override
@@ -45,8 +55,14 @@ public class JoinMatchQueue implements Runnable {
 					if (this.matches.containsKey(next.getMatchID())) {
 						addLuchadorToMatch(next);
 					} else {
-						// add back to the queue
-						this.queue.add(next);
+						if (retriesToJoin(next.getMatchID()) > maxRetries) {
+							logger.warn("Reached max retries to join match, matchID=" + next.getMatchID());
+
+						} else {
+							logger.info("Not running this match, will check again soon, matchID=" + next.getMatchID());
+							this.queue.add(next);
+						}
+
 					}
 				}
 
@@ -64,10 +80,10 @@ public class JoinMatchQueue implements Runnable {
 		int gameDefinitionID = runner.getGameDefinition().getId();
 		ModelGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(next.getLuchadorID(),
 				gameDefinitionID);
-		
+
 		// STARTS luchador with empty code when running tutorial, wait for save command
-		if( GameDefinitionType.TUTORIAL.equals(runner.getGameDefinition().getType())) {
-			luchador.setCodes( new ArrayList<ModelCode>());
+		if (GameDefinitionType.TUTORIAL.equals(runner.getGameDefinition().getType())) {
+			luchador.setCodes(new ArrayList<ModelCode>());
 		}
 
 		logger.info(">>>>>>>> Luchador found by ID " + JSONFormat.clean(luchador.toString()));
