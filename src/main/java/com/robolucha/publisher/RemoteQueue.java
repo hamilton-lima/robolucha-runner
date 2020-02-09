@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.robolucha.runner.Config;
+import com.robolucha.runner.CriticalErrorHandler;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -17,14 +18,18 @@ public class RemoteQueue implements AutoCloseable {
 
 	private Logger logger = Logger.getLogger(RemoteQueue.class);
 
+	private CriticalErrorHandler criticalHandler;
 	private JedisPool subscriberPool;
 	private JedisPool publisherPool;
 	private Gson gson;
+	private Config config;
 
-	public RemoteQueue(Config config) {
+	public RemoteQueue(Config config, CriticalErrorHandler criticalHandler) {
 		subscriberPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
 		publisherPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
 		gson = new Gson();
+		this.criticalHandler = criticalHandler;
+		this.config = config;
 	}
 
 	protected RemoteQueue() {
@@ -81,10 +86,14 @@ public class RemoteQueue implements AutoCloseable {
 		Thread subscriber = new Thread(new Runnable() {
 			Jedis subscriber;
 			int retries;
-			int maxRetries = 200;
-			int waitbetweenRetries = 1000;
+			int maxRetries = 10000;
+			int waitbetweenRetries = 200;
 
 			private void waitForMessages() {
+				if( subscriberPool.isClosed()) {
+					subscriberPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
+				}
+				
 				subscriber = subscriberPool.getResource();
 				logger.info("Building subscription to [" + channel + "]");
 
@@ -121,6 +130,8 @@ public class RemoteQueue implements AutoCloseable {
 
 						logger.info("Retrying connection to Redis, retry: " + retries);
 					}
+					
+					criticalHandler.bye("Have exhausted maximum number of retries for REDIS");
 				}
 
 				subscriber.close();

@@ -18,6 +18,7 @@ import io.swagger.client.Configuration;
 public class Entrypoint {
 
 	static Logger logger = Logger.getLogger(Entrypoint.class);
+
 	MatchMessagePublisher matchMessagePublisher;
 
 	public static void main(String[] args) throws Exception {
@@ -34,8 +35,9 @@ public class Entrypoint {
 		addRunTimeHook();
 		configAPIClient();
 
+		CriticalErrorHandler criticalHandler = new CriticalErrorHandler();
 		ThreadMonitor threadMonitor = ThreadMonitor.getInstance();
-		RemoteQueue queue = new RemoteQueue(Config.getInstance());
+		RemoteQueue queue = new RemoteQueue(Config.getInstance(), criticalHandler);
 		ServerMonitor monitor = new ServerMonitor(queue);
 
 		Server server = new Server(serverID, threadMonitor, queue, monitor);
