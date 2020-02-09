@@ -40,6 +40,9 @@ public class JoinMatchQueue implements Runnable {
 
 	private Integer retriesToJoin(Integer matchID) {
 		Integer retries = joinMatchRetries.get(matchID);
+		if( retries == null ) {
+			retries = 0;
+		}
 		retries++;
 		joinMatchRetries.put(matchID, retries);
 		return retries;
