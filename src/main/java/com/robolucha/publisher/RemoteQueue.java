@@ -53,6 +53,9 @@ public class RemoteQueue implements AutoCloseable {
 
 	public Observable<Long> publish(String channel, Object subjectToPublish) {
 		String data = getData(subjectToPublish);
+		if( publisherPool.isClosed()) {
+			publisherPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
+		}
 
 		Jedis publisher = publisherPool.getResource();
 		Observable<Long> result = Observable.just(publisher.publish(channel, data));
@@ -86,6 +89,8 @@ public class RemoteQueue implements AutoCloseable {
 		Thread subscriber = new Thread(new Runnable() {
 			Jedis subscriber;
 			int retries;
+			
+			//TODO: move to config
 			int maxRetries = 10000;
 			int waitbetweenRetries = 200;
 
@@ -97,19 +102,15 @@ public class RemoteQueue implements AutoCloseable {
 				subscriber = subscriberPool.getResource();
 				logger.info("Building subscription to [" + channel + "]");
 
-				// this a synchronous call and will be blocked
-				subscriber.subscribe(new JedisPubSub() {
-
-					public void onSubscribe(String channel, int subscribedChannels) {
-						super.onSubscribe(channel, subscribedChannels);
-					}
-
+				JedisPubSub messageHandler = new JedisPubSub() {
 					public void onMessage(String channel, String message) {
 						T data = gson.fromJson(message, clazzToSubscribe);
 						result.onNext(data);
 					}
-
-				}, channel);
+				};
+				
+				// this a synchronous call
+				subscriber.subscribe(messageHandler, channel);
 			}
 
 			public void run() {
