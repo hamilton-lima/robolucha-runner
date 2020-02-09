@@ -312,7 +312,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			logger.error("*** ERROR last publisher update", e);
 		}
 
-		logger.info("matchrun shutdown (1)");
+		logger.info("START matchrun shutdown match.id=" + match.getId() );
 		onMatchEnd.onNext(match);
 		onMatchEnd.onComplete();
 
