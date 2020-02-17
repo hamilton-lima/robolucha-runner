@@ -14,13 +14,14 @@ public class LuchadorUpdateListener implements Consumer<ModelGameComponent>, Dis
 
 	static Logger logger = Logger.getLogger(LuchadorUpdateListener.class);
 	private Disposable disposable;
-
 	private LuchadorRunner runner;
 
-	@SuppressWarnings("unchecked")
+	private LuchadorUpdateListener(LuchadorRunner runner) {
+		this.runner = runner;
+	}
+
 	public static void listen(RemoteQueue publisher, LuchadorRunner runner) {
-		LuchadorUpdateListener listener = new LuchadorUpdateListener();
-		listener.runner = runner;
+		LuchadorUpdateListener listener = new LuchadorUpdateListener(runner);
 		runner.setUpdateListener(listener);
 
 		String channel = String.format("luchador.%s.update", runner.getGameComponent().getId());
