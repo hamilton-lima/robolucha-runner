@@ -3,6 +3,7 @@ package com.robolucha.monitor;
 public interface ThreadStatus {
 
 	public static final String STARTING = "starting";
+	public static final String WAITING = "waiting";
 	public static final String RUNNING = "running";
 	public static final String FINISHED = "finished";
 

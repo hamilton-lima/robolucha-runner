@@ -5,21 +5,49 @@ import java.util.LinkedHashMap;
 
 import org.apache.log4j.Logger;
 
+import com.google.gson.Gson;
 import com.robolucha.runner.MatchRunner;
 
-public class ThreadMonitor  {
+public class ThreadMonitor {
 
 	public static final long SMALL_SLEEP = 5;
 	public static final long MEDIUM_SLEEP = 60;
+	private static final int TIME_BETWEEN_REPORTS = 10000;
 
 	static Logger logger = Logger.getLogger(ThreadMonitor.class);
 
 	private static ThreadMonitor instance;
 	LinkedHashMap<String, ThreadStatus> threads;
+	protected boolean reporting;
+	private Gson gson;
 
 	public ThreadMonitor() {
 		threads = new LinkedHashMap<String, ThreadStatus>();
 		instance = this;
+		gson = new Gson();
+
+		Thread reporter = new Thread(new Runnable() {
+			public void run() {
+				Thread.currentThread().setName("ThreadMonitor-Report");
+				reporting = true;
+				while (reporting) {
+					synchronized (instance) {
+						String json = gson.toJson(getStatus());
+						String report = String.format("THREAD-MONITOR.report:%s", json);
+						logger.info(report);
+
+						try {
+							instance.wait(TIME_BETWEEN_REPORTS);
+						} catch (InterruptedException e) {
+							logger.error("Interrupted while been a good boy and waiting", e);
+						}
+					}
+				}
+			}
+
+		});
+
+		reporter.start();
 	}
 
 	public void register(MatchRunner thread) {
@@ -37,7 +65,6 @@ public class ThreadMonitor  {
 		return instance;
 	}
 
-
 	public MatchRunner getMatch() {
 
 		Iterator<String> iterator = threads.keySet().iterator();
@@ -54,7 +81,7 @@ public class ThreadMonitor  {
 
 		return null;
 	}
-	
+
 	public MatchRunner getMatch(Integer matchID) {
 		Iterator<String> iterator = threads.keySet().iterator();
 		while (iterator.hasNext()) {
@@ -72,7 +99,6 @@ public class ThreadMonitor  {
 		return null;
 	}
 
-
 	public ThreadStatusVO[] getStatus() {
 
 		ThreadStatusVO[] result = new ThreadStatusVO[threads.size()];
@@ -81,7 +107,7 @@ public class ThreadMonitor  {
 
 		Iterator<String> iterator = threads.keySet().iterator();
 		while (iterator.hasNext()) {
-			String key =  iterator.next();
+			String key = iterator.next();
 			one = threads.get(key);
 			result[pos] = new ThreadStatusVO(one.getThreadName(), one.getThreadStatus(), one.getThreadStartTime());
 			pos++;
@@ -97,18 +123,20 @@ public class ThreadMonitor  {
 		return Long.toString(counter);
 	}
 
-	//TODO add to Threadstatus and control ack of errors
+	// TODO add to Threadstatus and control ack of errors
 	public void addException(String threadName, MessageList messageList) {
 		logger.error("addException, thread=" + threadName + " errors=" + messageList);
 	}
-	
-	public void addException(String threadName, String message) {
-		logger.error("addException, thread=" + threadName + " errors=" + message);		
-	}
 
+	public void addException(String threadName, String message) {
+		logger.error("addException, thread=" + threadName + " errors=" + message);
+	}
 
 	public void contextDestroyed() {
 		logger.debug("--- APP is exiting, time to shutdown all the threads.");
+
+		// stop reporting Thread status
+		reporting = false;
 
 		Iterator<String> iterator = threads.keySet().iterator();
 		while (iterator.hasNext()) {
@@ -127,7 +155,6 @@ public class ThreadMonitor  {
 		}
 
 	}
-
 
 	public void alive(String threadName) {
 		ThreadStatus thread = threads.get(threadName);
