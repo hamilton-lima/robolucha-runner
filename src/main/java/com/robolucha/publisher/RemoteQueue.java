@@ -21,15 +21,41 @@ public class RemoteQueue implements AutoCloseable {
 	private CriticalErrorHandler criticalHandler;
 	private JedisPool subscriberPool;
 	private JedisPool publisherPool;
+
 	private Gson gson;
 	private Config config;
 
 	public RemoteQueue(Config config, CriticalErrorHandler criticalHandler) {
-		subscriberPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
-		publisherPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
-		gson = new Gson();
-		this.criticalHandler = criticalHandler;
 		this.config = config;
+		this.criticalHandler = criticalHandler;
+		gson = new Gson();
+	}
+
+	// synchronized to prevent multiple reconnects
+	protected synchronized JedisPool getSubscriberPool() {
+		if (subscriberPool == null || subscriberPool.isClosed()) {
+			subscriberPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
+		}
+
+		return subscriberPool;
+	}
+	
+	protected void resetSubscriptionPool() {
+		// this will notify existing clients to reconnect
+		if( subscriberPool != null ) {
+			subscriberPool.close();
+		}
+		
+		// forces reconnection
+		subscriberPool = null;
+	}
+
+	protected JedisPool getPublisherPool() {
+		if (publisherPool == null || publisherPool.isClosed()) {
+			publisherPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
+		}
+
+		return publisherPool;
 	}
 
 	protected RemoteQueue() {
@@ -53,11 +79,7 @@ public class RemoteQueue implements AutoCloseable {
 
 	public Observable<Long> publish(String channel, Object subjectToPublish) {
 		String data = getData(subjectToPublish);
-		if (publisherPool.isClosed()) {
-			publisherPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
-		}
-
-		Jedis publisher = publisherPool.getResource();
+		Jedis publisher = getPublisherPool().getResource();
 		Observable<Long> result = Observable.just(publisher.publish(channel, data));
 		publisher.close();
 
@@ -95,11 +117,7 @@ public class RemoteQueue implements AutoCloseable {
 			int waitbetweenRetries = 200;
 
 			private void waitForMessages() {
-				if (subscriberPool.isClosed()) {
-					subscriberPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
-				}
-
-				subscriber = subscriberPool.getResource();
+				subscriber = getSubscriberPool().getResource();
 				logger.info("Building subscription to [" + channel + "]");
 
 				JedisPubSub messageHandler = new JedisPubSub() {
@@ -119,6 +137,9 @@ public class RemoteQueue implements AutoCloseable {
 						try {
 							waitForMessages();
 						} catch (Throwable throwable) {
+							
+							// reset subscription pool to force reconnection
+							resetSubscriptionPool();
 							logger.error("RemoteQueue exception while waiting for message", throwable);
 						}
 
@@ -144,6 +165,7 @@ public class RemoteQueue implements AutoCloseable {
 
 		return result;
 	}
+
 
 	private static class ThreadKiller<T> implements Observer<T> {
 		private Logger logger = Logger.getLogger(ThreadKiller.class);
