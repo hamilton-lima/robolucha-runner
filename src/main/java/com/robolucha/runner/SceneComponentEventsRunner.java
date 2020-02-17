@@ -59,7 +59,7 @@ public class SceneComponentEventsRunner {
 	}
 
 	public void onHit(ModelSceneComponent component, LuchadorRunner luchador) {
-		logger.info("OnHit: component:" + component.getId() + " luchador:" + luchador.getState());
+		logger.debug("OnHit: component:" + component.getId() + " luchador:" + luchador.getState());
 
 		SceneComponentRunner runner = runners.get(component.getId());
 		ModelCode code = runner.component.getCodes().stream()
