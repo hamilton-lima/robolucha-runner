@@ -53,7 +53,7 @@ public class RemoteQueue implements AutoCloseable {
 
 	public Observable<Long> publish(String channel, Object subjectToPublish) {
 		String data = getData(subjectToPublish);
-		if( publisherPool.isClosed()) {
+		if (publisherPool.isClosed()) {
 			publisherPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
 		}
 
@@ -80,7 +80,7 @@ public class RemoteQueue implements AutoCloseable {
 		String channel = getChannelName(clazzToSubscribe);
 		return getSubject(channel, clazzToSubscribe);
 	}
-	
+
 	public <T> BehaviorSubject<T> getSubject(String channel, Class<T> clazzToSubscribe) {
 
 		BehaviorSubject<T> result = BehaviorSubject.create();
@@ -89,16 +89,16 @@ public class RemoteQueue implements AutoCloseable {
 		Thread subscriber = new Thread(new Runnable() {
 			Jedis subscriber;
 			int retries;
-			
-			//TODO: move to config
+
+			// TODO: move to config
 			int maxRetries = 10000;
 			int waitbetweenRetries = 200;
 
 			private void waitForMessages() {
-				if( subscriberPool.isClosed()) {
+				if (subscriberPool.isClosed()) {
 					subscriberPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
 				}
-				
+
 				subscriber = subscriberPool.getResource();
 				logger.info("Building subscription to [" + channel + "]");
 
@@ -108,7 +108,7 @@ public class RemoteQueue implements AutoCloseable {
 						result.onNext(data);
 					}
 				};
-				
+
 				// this a synchronous call
 				subscriber.subscribe(messageHandler, channel);
 			}
@@ -131,7 +131,7 @@ public class RemoteQueue implements AutoCloseable {
 
 						logger.info("Retrying connection to Redis, retry: " + retries);
 					}
-					
+
 					criticalHandler.bye("Have exhausted maximum number of retries for REDIS");
 				}
 

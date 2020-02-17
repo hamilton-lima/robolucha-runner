@@ -196,7 +196,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 * @param luchador
 	 */
 	public void update(ModelGameComponent luchador) {
-		logger.info("*** luchador UPDATE " + luchador.getId());
+		logger.info("*** luchador UPDATE " + luchador.getId() + ", using gamedefinition ID: " + matchRunner.getGameDefinition().getId());
 
 		try {
 			this.gameComponent = luchador;

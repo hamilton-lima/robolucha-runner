@@ -126,7 +126,7 @@ public class LutchadorRunnerCreator implements Runnable {
 			logger.warn("!!! trying to save match participation with unsaved MatchRun, is it running a TEST?");
 		}
 
-		LuchadorRunner runner = new LuchadorRunner(component, this.owner);
+		LuchadorRunner runner = new LuchadorRunner(component, owner);
 		LuchadorUpdateListener.listen(queue, runner);
 
 		logger.info(">>>>>>>>> LUCHADOR runner created: " + runner.getGameComponent().getName());
