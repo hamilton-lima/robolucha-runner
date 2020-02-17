@@ -10,8 +10,10 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.BehaviorSubject;
+import io.swagger.client.model.ModelMatch;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisPubSub;
 
 public class RemoteQueue implements AutoCloseable {
@@ -31,28 +33,35 @@ public class RemoteQueue implements AutoCloseable {
 		gson = new Gson();
 	}
 
+	// @see http://commons.apache.org/proper/commons-pool/api-1.6/org/apache/commons/pool/impl/GenericObjectPool.html
+	protected JedisPoolConfig getJedisConfig() {
+		JedisPoolConfig poolConfig = new JedisPoolConfig();
+        poolConfig.setMaxTotal(1024);
+        return poolConfig;
+	}
+
 	// synchronized to prevent multiple reconnects
 	protected synchronized JedisPool getSubscriberPool() {
 		if (subscriberPool == null || subscriberPool.isClosed()) {
-			subscriberPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
+			subscriberPool = new JedisPool(getJedisConfig(), config.getRedisHost(), config.getRedisPort());
 		}
 
 		return subscriberPool;
 	}
-	
+
 	protected void resetSubscriptionPool() {
 		// this will notify existing clients to reconnect
-		if( subscriberPool != null ) {
+		if (subscriberPool != null) {
 			subscriberPool.close();
 		}
-		
+
 		// forces reconnection
 		subscriberPool = null;
 	}
 
 	protected JedisPool getPublisherPool() {
 		if (publisherPool == null || publisherPool.isClosed()) {
-			publisherPool = new JedisPool(config.getRedisHost(), config.getRedisPort());
+			publisherPool = new JedisPool(getJedisConfig(), config.getRedisHost(), config.getRedisPort());
 		}
 
 		return publisherPool;
@@ -98,11 +107,6 @@ public class RemoteQueue implements AutoCloseable {
 		return getChannelName(subjectToPublish.getClass());
 	}
 
-	public <T> BehaviorSubject<T> getSubject(Class<T> clazzToSubscribe) {
-		String channel = getChannelName(clazzToSubscribe);
-		return getSubject(channel, clazzToSubscribe);
-	}
-
 	public <T> BehaviorSubject<T> getSubject(String channel, Class<T> clazzToSubscribe) {
 
 		BehaviorSubject<T> result = BehaviorSubject.create();
@@ -132,12 +136,15 @@ public class RemoteQueue implements AutoCloseable {
 			}
 
 			public void run() {
+				String name = String.format("RemoteQueueThread.%s.%s", channel, Thread.currentThread().getName());
+				Thread.currentThread().setName(name);
+
 				synchronized (channel) {
 					while (retries < maxRetries) {
 						try {
 							waitForMessages();
 						} catch (Throwable throwable) {
-							
+
 							// reset subscription pool to force reconnection
 							resetSubscriptionPool();
 							logger.error("RemoteQueue exception while waiting for message", throwable);
@@ -166,7 +173,6 @@ public class RemoteQueue implements AutoCloseable {
 		return result;
 	}
 
-
 	private static class ThreadKiller<T> implements Observer<T> {
 		private Logger logger = Logger.getLogger(ThreadKiller.class);
 
@@ -191,5 +197,10 @@ public class RemoteQueue implements AutoCloseable {
 			thread.interrupt();
 		}
 
+	}
+
+	public Observable getSubject(String channel, Class<ModelMatch> class1, Object $missing$) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
