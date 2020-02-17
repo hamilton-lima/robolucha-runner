@@ -6,11 +6,19 @@
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
+<mapAttribute key="org.eclipse.debug.core.environmentVariables">
+<mapEntry key="API_CLIENT_BASEPATH" value="http://localhost:5000"/>
+<mapEntry key="INTERNAL_API_KEY" value="252bbf8856b7d633c9ad8fadb541b7c3"/>
+<mapEntry key="MONITOR_INTERVAL" value="60000"/>
+<mapEntry key="REDIS_HOST" value="localhost"/>
+<mapEntry key="REDIS_PORT" value="6379"/>
+<mapEntry key="SERVER_ID" value="server-ID-local-ENV"/>
+</mapAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_CLASSPATH_ONLY_JAR" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.buildship.core.classpathprovider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.robolucha.runner.Entrypoint"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="default-gamedefinition.json"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="serverID-LOCAL"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="runner"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dlog4j.configuration=file:log4j.properties"/>
 </launchConfiguration>
