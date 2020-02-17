@@ -20,6 +20,9 @@ public class RemoteQueue implements AutoCloseable {
 
 	private Logger logger = Logger.getLogger(RemoteQueue.class);
 
+	// lots and lots of subscriptions
+	private static final int MAX_POOL_CONNECTIONS = 4096;
+
 	private CriticalErrorHandler criticalHandler;
 	private JedisPool subscriberPool;
 	private JedisPool publisherPool;
@@ -34,9 +37,13 @@ public class RemoteQueue implements AutoCloseable {
 	}
 
 	// @see http://commons.apache.org/proper/commons-pool/api-1.6/org/apache/commons/pool/impl/GenericObjectPool.html
+	// @see https://partners-intl.aliyun.com/help/doc-detail/98726.htm
 	protected JedisPoolConfig getJedisConfig() {
 		JedisPoolConfig poolConfig = new JedisPoolConfig();
-        poolConfig.setMaxTotal(1024);
+        poolConfig.setMaxTotal(MAX_POOL_CONNECTIONS);
+
+        // please throw an Exception!
+        poolConfig.setBlockWhenExhausted(false);
         return poolConfig;
 	}
 
