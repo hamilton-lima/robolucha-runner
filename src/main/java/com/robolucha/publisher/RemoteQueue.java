@@ -199,8 +199,4 @@ public class RemoteQueue implements AutoCloseable {
 
 	}
 
-	public Observable getSubject(String channel, Class<ModelMatch> class1, Object $missing$) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
