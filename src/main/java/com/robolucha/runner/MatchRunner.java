@@ -101,7 +101,10 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	public MatchRunner(ModelGameDefinition gameDefinition, ModelMatch match, RemoteQueue queue,
 			ServerMonitor serverMonitor) throws Exception {
-		threadName = this.getClass().getName() + "-" + ThreadMonitor.getUID();
+		logger.info("CREATE MatchRunner: " + this + " gameDefinition: " + JSONFormat.clean(gameDefinition.toString()));
+
+		threadName = String.format("MatchRunner-Thread-%s-%s", gameDefinition.getName(), match.getId());
+		Thread.currentThread().setName(threadName);
 
 		status = ThreadStatus.STARTING;
 		alive = true;
@@ -204,8 +207,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	}
 
 	public void run() {
-		Thread.currentThread().setName("MatchRunner-Thread" + gameDefinition.getName());
-
 		startTime = System.currentTimeMillis();
 		this.onInit.onNext(new MatchInitVO(startTime));
 		this.onInit.onComplete();
@@ -219,6 +220,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	public void mainLoop() {
 		CheckRespawnAction respawnAction = new CheckRespawnAction(this);
 		RemoveDeadAction removeDeadAction = new RemoveDeadAction(this);
+		status = ThreadStatus.WAITING;
 
 		logger.info("Waiting for the minimum participants: " + gameDefinition.getMinParticipants());
 
@@ -250,6 +252,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		delta = expectedFrameProcessingTime / 1000.0;
 
 		logger.info("Starting Match mainLoop()");
+		status = ThreadStatus.RUNNING;
 
 		while (alive) {
 			start = System.currentTimeMillis();
