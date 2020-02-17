@@ -104,8 +104,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		logger.info("CREATE MatchRunner: " + this + " gameDefinition: " + JSONFormat.clean(gameDefinition.toString()));
 
 		threadName = String.format("MatchRunner-Thread-%s-%s", gameDefinition.getName(), match.getId());
-		Thread.currentThread().setName(threadName);
-
 		status = ThreadStatus.STARTING;
 		alive = true;
 		delta = 0.0;
@@ -207,6 +205,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	}
 
 	public void run() {
+		Thread.currentThread().setName(threadName);
+
 		startTime = System.currentTimeMillis();
 		this.onInit.onNext(new MatchInitVO(startTime));
 		this.onInit.onComplete();
