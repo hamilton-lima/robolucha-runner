@@ -209,7 +209,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			logger.info("new code" + codes4CurrentGameDefinition);
 			updateCodeEngine(codes4CurrentGameDefinition);
 
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			this.active = false;
 			logger.warn("error updating code: " + luchador);
 			// TODO: send feedback to the user
@@ -260,7 +260,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		try {
 			createCodeEngine(list);
 			this.active = true;
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			logger.error("error running code initialization", e);
 			throw e;
 		}
