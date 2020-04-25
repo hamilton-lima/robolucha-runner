@@ -96,10 +96,17 @@ public class Server {
 	}
 
 	public void end(ModelMatch endMatch) {
-		MatchRunner runner = getThreadMonitor().getMatch(endMatch.getAvailableMatchID());
-		if (runner != null) {
+		logger.info("START end match" + JSONFormat.clean(endMatch.toString()));
+
+		MatchRunner runner = getThreadMonitor().getMatch(endMatch.getId());
+		if (runner == null) {
+			logger.info("MatchRunner NOT found");
+		} else {
+			logger.info("MatchRunner to kill: " + JSONFormat.clean(runner.getMatch().toString()));
+			getThreadMonitor().remove(endMatch.getId());
 			runner.kill();
 		}
+
 	}
 
 }

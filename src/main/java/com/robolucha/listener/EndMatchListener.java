@@ -3,6 +3,7 @@ package com.robolucha.listener;
 import org.apache.log4j.Logger;
 
 import com.robolucha.runner.Server;
+import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -37,7 +38,7 @@ public class EndMatchListener implements Consumer<ModelMatch>, Disposable {
 
 	@Override
 	public void accept(ModelMatch endMatch) throws Exception {
-		logger.info("Luchador wants to end a match " + endMatch);
+		logger.info("Luchador wants to end a match " + JSONFormat.clean(endMatch.toString()));
 		server.end(endMatch);
 	}
 

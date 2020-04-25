@@ -82,7 +82,26 @@ public class ThreadMonitor {
 		return null;
 	}
 
+
+	public void remove(Integer matchID) {
+		Object key = findThreadKeyByMatchID(matchID);
+		if( key != null ) {
+			threads.remove(key);
+		} else {
+			logger.warn("MatchID not found in threads: " + matchID);
+		}
+	}
+	
 	public MatchRunner getMatch(Integer matchID) {
+		Object key = findThreadKeyByMatchID(matchID);
+		if( key != null ) {
+			return (MatchRunner) threads.get(key);
+		}
+		
+		return null;
+	}
+
+	public Object findThreadKeyByMatchID(Integer matchID) {
 		Iterator<String> iterator = threads.keySet().iterator();
 		while (iterator.hasNext()) {
 			String key = iterator.next();
@@ -91,7 +110,7 @@ public class ThreadMonitor {
 			if (one instanceof MatchRunner) {
 				MatchRunner runner = (MatchRunner) one;
 				if (runner.isAlive() && runner.getMatch().getId().equals(matchID)) {
-					return runner;
+					return key;
 				}
 			}
 		}
