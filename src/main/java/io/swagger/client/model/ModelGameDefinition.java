@@ -22,7 +22,7 @@ import java.util.Objects;
  * ModelGameDefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-31T13:34:39.126Z[GMT]")public class ModelGameDefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T16:45:46.153-04:00[America/Toronto]")public class ModelGameDefinition {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
@@ -84,6 +84,9 @@ import java.util.Objects;
   @SerializedName("maxFireDamage")
   private Integer maxFireDamage = null;
 
+  @SerializedName("maxLevel")
+  private Integer maxLevel = null;
+
   @SerializedName("maxParticipants")
   private Integer maxParticipants = null;
 
@@ -92,6 +95,9 @@ import java.util.Objects;
 
   @SerializedName("minFireDamage")
   private Integer minFireDamage = null;
+
+  @SerializedName("minLevel")
+  private Integer minLevel = null;
 
   @SerializedName("minParticipants")
   private Integer minParticipants = null;
@@ -155,6 +161,9 @@ import java.util.Objects;
 
   @SerializedName("type")
   private String type = null;
+
+  @SerializedName("unblockLevel")
+  private Integer unblockLevel = null;
   public ModelGameDefinition arenaHeight(Integer arenaHeight) {
     this.arenaHeight = arenaHeight;
     return this;
@@ -527,6 +536,24 @@ import java.util.Objects;
   public void setMaxFireDamage(Integer maxFireDamage) {
     this.maxFireDamage = maxFireDamage;
   }
+  public ModelGameDefinition maxLevel(Integer maxLevel) {
+    this.maxLevel = maxLevel;
+    return this;
+  }
+
+  
+
+  /**
+  * Get maxLevel
+  * @return maxLevel
+  **/
+  @Schema(description = "")
+  public Integer getMaxLevel() {
+    return maxLevel;
+  }
+  public void setMaxLevel(Integer maxLevel) {
+    this.maxLevel = maxLevel;
+  }
   public ModelGameDefinition maxParticipants(Integer maxParticipants) {
     this.maxParticipants = maxParticipants;
     return this;
@@ -580,6 +607,24 @@ import java.util.Objects;
   }
   public void setMinFireDamage(Integer minFireDamage) {
     this.minFireDamage = minFireDamage;
+  }
+  public ModelGameDefinition minLevel(Integer minLevel) {
+    this.minLevel = minLevel;
+    return this;
+  }
+
+  
+
+  /**
+  * Get minLevel
+  * @return minLevel
+  **/
+  @Schema(description = "")
+  public Integer getMinLevel() {
+    return minLevel;
+  }
+  public void setMinLevel(Integer minLevel) {
+    this.minLevel = minLevel;
   }
   public ModelGameDefinition minParticipants(Integer minParticipants) {
     this.minParticipants = minParticipants;
@@ -971,6 +1016,24 @@ import java.util.Objects;
   public void setType(String type) {
     this.type = type;
   }
+  public ModelGameDefinition unblockLevel(Integer unblockLevel) {
+    this.unblockLevel = unblockLevel;
+    return this;
+  }
+
+  
+
+  /**
+  * Get unblockLevel
+  * @return unblockLevel
+  **/
+  @Schema(description = "")
+  public Integer getUnblockLevel() {
+    return unblockLevel;
+  }
+  public void setUnblockLevel(Integer unblockLevel) {
+    this.unblockLevel = unblockLevel;
+  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -1000,9 +1063,11 @@ import java.util.Objects;
         Objects.equals(this.maxFireAmount, modelGameDefinition.maxFireAmount) &&
         Objects.equals(this.maxFireCooldown, modelGameDefinition.maxFireCooldown) &&
         Objects.equals(this.maxFireDamage, modelGameDefinition.maxFireDamage) &&
+        Objects.equals(this.maxLevel, modelGameDefinition.maxLevel) &&
         Objects.equals(this.maxParticipants, modelGameDefinition.maxParticipants) &&
         Objects.equals(this.minFireAmount, modelGameDefinition.minFireAmount) &&
         Objects.equals(this.minFireDamage, modelGameDefinition.minFireDamage) &&
+        Objects.equals(this.minLevel, modelGameDefinition.minLevel) &&
         Objects.equals(this.minParticipants, modelGameDefinition.minParticipants) &&
         Objects.equals(this.moveSpeed, modelGameDefinition.moveSpeed) &&
         Objects.equals(this.name, modelGameDefinition.name) &&
@@ -1023,12 +1088,13 @@ import java.util.Objects;
         Objects.equals(this.suggestedCodes, modelGameDefinition.suggestedCodes) &&
         Objects.equals(this.turnGunSpeed, modelGameDefinition.turnGunSpeed) &&
         Objects.equals(this.turnSpeed, modelGameDefinition.turnSpeed) &&
-        Objects.equals(this.type, modelGameDefinition.type);
+        Objects.equals(this.type, modelGameDefinition.type) &&
+        Objects.equals(this.unblockLevel, modelGameDefinition.unblockLevel);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxParticipants, minFireAmount, minFireDamage, minParticipants, moveSpeed, name, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnAngle, respawnCooldown, respawnGunAngle, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, turnGunSpeed, turnSpeed, type);
+    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxLevel, maxParticipants, minFireAmount, minFireDamage, minLevel, minParticipants, moveSpeed, name, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnAngle, respawnCooldown, respawnGunAngle, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, turnGunSpeed, turnSpeed, type, unblockLevel);
   }
 
   @Override
@@ -1056,9 +1122,11 @@ import java.util.Objects;
     sb.append("    maxFireAmount: ").append(toIndentedString(maxFireAmount)).append("\n");
     sb.append("    maxFireCooldown: ").append(toIndentedString(maxFireCooldown)).append("\n");
     sb.append("    maxFireDamage: ").append(toIndentedString(maxFireDamage)).append("\n");
+    sb.append("    maxLevel: ").append(toIndentedString(maxLevel)).append("\n");
     sb.append("    maxParticipants: ").append(toIndentedString(maxParticipants)).append("\n");
     sb.append("    minFireAmount: ").append(toIndentedString(minFireAmount)).append("\n");
     sb.append("    minFireDamage: ").append(toIndentedString(minFireDamage)).append("\n");
+    sb.append("    minLevel: ").append(toIndentedString(minLevel)).append("\n");
     sb.append("    minParticipants: ").append(toIndentedString(minParticipants)).append("\n");
     sb.append("    moveSpeed: ").append(toIndentedString(moveSpeed)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
@@ -1080,6 +1148,7 @@ import java.util.Objects;
     sb.append("    turnGunSpeed: ").append(toIndentedString(turnGunSpeed)).append("\n");
     sb.append("    turnSpeed: ").append(toIndentedString(turnSpeed)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    unblockLevel: ").append(toIndentedString(unblockLevel)).append("\n");
     sb.append("}");
     return sb.toString();
   }

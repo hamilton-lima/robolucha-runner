@@ -20,7 +20,7 @@ import java.util.Objects;
  * ModelActiveMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-31T13:34:39.126Z[GMT]")public class ModelActiveMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T16:45:46.153-04:00[America/Toronto]")public class ModelActiveMatch {
 
   @SerializedName("description")
   private String description = null;

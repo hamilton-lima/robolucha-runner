@@ -17,17 +17,38 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * ModelUser
+ * ModelSkill
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T16:45:46.153-04:00[America/Toronto]")public class ModelUser {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T16:45:46.153-04:00[America/Toronto]")public class ModelSkill {
+
+  @SerializedName("description")
+  private String description = null;
 
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("username")
-  private String username = null;
-  public ModelUser id(Integer id) {
+  @SerializedName("name")
+  private String name = null;
+  public ModelSkill description(String description) {
+    this.description = description;
+    return this;
+  }
+
+  
+
+  /**
+  * Get description
+  * @return description
+  **/
+  @Schema(description = "")
+  public String getDescription() {
+    return description;
+  }
+  public void setDescription(String description) {
+    this.description = description;
+  }
+  public ModelSkill id(Integer id) {
     this.id = id;
     return this;
   }
@@ -45,23 +66,23 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public ModelUser username(String username) {
-    this.username = username;
+  public ModelSkill name(String name) {
+    this.name = name;
     return this;
   }
 
   
 
   /**
-  * Get username
-  * @return username
+  * Get name
+  * @return name
   **/
   @Schema(description = "")
-  public String getUsername() {
-    return username;
+  public String getName() {
+    return name;
   }
-  public void setUsername(String username) {
-    this.username = username;
+  public void setName(String name) {
+    this.name = name;
   }
   @Override
   public boolean equals(java.lang.Object o) {
@@ -71,23 +92,25 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelUser modelUser = (ModelUser) o;
-    return Objects.equals(this.id, modelUser.id) &&
-        Objects.equals(this.username, modelUser.username);
+    ModelSkill modelSkill = (ModelSkill) o;
+    return Objects.equals(this.description, modelSkill.description) &&
+        Objects.equals(this.id, modelSkill.id) &&
+        Objects.equals(this.name, modelSkill.name);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, username);
+    return java.util.Objects.hash(description, id, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelUser {\n");
+    sb.append("class ModelSkill {\n");
     
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

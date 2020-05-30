@@ -17,17 +17,20 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * ModelUser
+ * ModelUserLevel
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T16:45:46.153-04:00[America/Toronto]")public class ModelUser {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T16:45:46.153-04:00[America/Toronto]")public class ModelUserLevel {
 
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("username")
-  private String username = null;
-  public ModelUser id(Integer id) {
+  @SerializedName("level")
+  private Integer level = null;
+
+  @SerializedName("userID")
+  private Integer userID = null;
+  public ModelUserLevel id(Integer id) {
     this.id = id;
     return this;
   }
@@ -45,23 +48,41 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public ModelUser username(String username) {
-    this.username = username;
+  public ModelUserLevel level(Integer level) {
+    this.level = level;
     return this;
   }
 
   
 
   /**
-  * Get username
-  * @return username
+  * Get level
+  * @return level
   **/
   @Schema(description = "")
-  public String getUsername() {
-    return username;
+  public Integer getLevel() {
+    return level;
   }
-  public void setUsername(String username) {
-    this.username = username;
+  public void setLevel(Integer level) {
+    this.level = level;
+  }
+  public ModelUserLevel userID(Integer userID) {
+    this.userID = userID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get userID
+  * @return userID
+  **/
+  @Schema(description = "")
+  public Integer getUserID() {
+    return userID;
+  }
+  public void setUserID(Integer userID) {
+    this.userID = userID;
   }
   @Override
   public boolean equals(java.lang.Object o) {
@@ -71,23 +92,25 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelUser modelUser = (ModelUser) o;
-    return Objects.equals(this.id, modelUser.id) &&
-        Objects.equals(this.username, modelUser.username);
+    ModelUserLevel modelUserLevel = (ModelUserLevel) o;
+    return Objects.equals(this.id, modelUserLevel.id) &&
+        Objects.equals(this.level, modelUserLevel.level) &&
+        Objects.equals(this.userID, modelUserLevel.userID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, username);
+    return java.util.Objects.hash(id, level, userID);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelUser {\n");
+    sb.append("class ModelUserLevel {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    level: ").append(toIndentedString(level)).append("\n");
+    sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

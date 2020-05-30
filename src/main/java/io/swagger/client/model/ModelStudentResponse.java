@@ -17,35 +17,56 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * ModelUser
+ * ModelStudentResponse
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T16:45:46.153-04:00[America/Toronto]")public class ModelUser {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T16:45:46.153-04:00[America/Toronto]")public class ModelStudentResponse {
 
-  @SerializedName("id")
-  private Integer id = null;
+  @SerializedName("studentID")
+  private Integer studentID = null;
+
+  @SerializedName("userID")
+  private Integer userID = null;
 
   @SerializedName("username")
   private String username = null;
-  public ModelUser id(Integer id) {
-    this.id = id;
+  public ModelStudentResponse studentID(Integer studentID) {
+    this.studentID = studentID;
     return this;
   }
 
   
 
   /**
-  * Get id
-  * @return id
+  * Get studentID
+  * @return studentID
   **/
   @Schema(description = "")
-  public Integer getId() {
-    return id;
+  public Integer getStudentID() {
+    return studentID;
   }
-  public void setId(Integer id) {
-    this.id = id;
+  public void setStudentID(Integer studentID) {
+    this.studentID = studentID;
   }
-  public ModelUser username(String username) {
+  public ModelStudentResponse userID(Integer userID) {
+    this.userID = userID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get userID
+  * @return userID
+  **/
+  @Schema(description = "")
+  public Integer getUserID() {
+    return userID;
+  }
+  public void setUserID(Integer userID) {
+    this.userID = userID;
+  }
+  public ModelStudentResponse username(String username) {
     this.username = username;
     return this;
   }
@@ -71,22 +92,24 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelUser modelUser = (ModelUser) o;
-    return Objects.equals(this.id, modelUser.id) &&
-        Objects.equals(this.username, modelUser.username);
+    ModelStudentResponse modelStudentResponse = (ModelStudentResponse) o;
+    return Objects.equals(this.studentID, modelStudentResponse.studentID) &&
+        Objects.equals(this.userID, modelStudentResponse.userID) &&
+        Objects.equals(this.username, modelStudentResponse.username);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, username);
+    return java.util.Objects.hash(studentID, userID, username);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelUser {\n");
+    sb.append("class ModelStudentResponse {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    studentID: ").append(toIndentedString(studentID)).append("\n");
+    sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("}");
     return sb.toString();

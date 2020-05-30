@@ -20,16 +20,22 @@ import java.util.Objects;
  * ModelUserSetting
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-31T13:34:39.126Z[GMT]")public class ModelUserSetting {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T16:45:46.153-04:00[America/Toronto]")public class ModelUserSetting {
 
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("lastOption")
-  private String lastOption = null;
+  @SerializedName("playedTutorial")
+  private Boolean playedTutorial = null;
 
   @SerializedName("userID")
   private Integer userID = null;
+
+  @SerializedName("visitedMainPage")
+  private Boolean visitedMainPage = null;
+
+  @SerializedName("visitedMaskPage")
+  private Boolean visitedMaskPage = null;
   public ModelUserSetting id(Integer id) {
     this.id = id;
     return this;
@@ -48,23 +54,23 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public ModelUserSetting lastOption(String lastOption) {
-    this.lastOption = lastOption;
+  public ModelUserSetting playedTutorial(Boolean playedTutorial) {
+    this.playedTutorial = playedTutorial;
     return this;
   }
 
   
 
   /**
-  * Get lastOption
-  * @return lastOption
+  * Get playedTutorial
+  * @return playedTutorial
   **/
   @Schema(description = "")
-  public String getLastOption() {
-    return lastOption;
+  public Boolean isPlayedTutorial() {
+    return playedTutorial;
   }
-  public void setLastOption(String lastOption) {
-    this.lastOption = lastOption;
+  public void setPlayedTutorial(Boolean playedTutorial) {
+    this.playedTutorial = playedTutorial;
   }
   public ModelUserSetting userID(Integer userID) {
     this.userID = userID;
@@ -84,6 +90,42 @@ import java.util.Objects;
   public void setUserID(Integer userID) {
     this.userID = userID;
   }
+  public ModelUserSetting visitedMainPage(Boolean visitedMainPage) {
+    this.visitedMainPage = visitedMainPage;
+    return this;
+  }
+
+  
+
+  /**
+  * Get visitedMainPage
+  * @return visitedMainPage
+  **/
+  @Schema(description = "")
+  public Boolean isVisitedMainPage() {
+    return visitedMainPage;
+  }
+  public void setVisitedMainPage(Boolean visitedMainPage) {
+    this.visitedMainPage = visitedMainPage;
+  }
+  public ModelUserSetting visitedMaskPage(Boolean visitedMaskPage) {
+    this.visitedMaskPage = visitedMaskPage;
+    return this;
+  }
+
+  
+
+  /**
+  * Get visitedMaskPage
+  * @return visitedMaskPage
+  **/
+  @Schema(description = "")
+  public Boolean isVisitedMaskPage() {
+    return visitedMaskPage;
+  }
+  public void setVisitedMaskPage(Boolean visitedMaskPage) {
+    this.visitedMaskPage = visitedMaskPage;
+  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -94,13 +136,15 @@ import java.util.Objects;
     }
     ModelUserSetting modelUserSetting = (ModelUserSetting) o;
     return Objects.equals(this.id, modelUserSetting.id) &&
-        Objects.equals(this.lastOption, modelUserSetting.lastOption) &&
-        Objects.equals(this.userID, modelUserSetting.userID);
+        Objects.equals(this.playedTutorial, modelUserSetting.playedTutorial) &&
+        Objects.equals(this.userID, modelUserSetting.userID) &&
+        Objects.equals(this.visitedMainPage, modelUserSetting.visitedMainPage) &&
+        Objects.equals(this.visitedMaskPage, modelUserSetting.visitedMaskPage);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, lastOption, userID);
+    return java.util.Objects.hash(id, playedTutorial, userID, visitedMainPage, visitedMaskPage);
   }
 
   @Override
@@ -109,8 +153,10 @@ import java.util.Objects;
     sb.append("class ModelUserSetting {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    lastOption: ").append(toIndentedString(lastOption)).append("\n");
+    sb.append("    playedTutorial: ").append(toIndentedString(playedTutorial)).append("\n");
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
+    sb.append("    visitedMainPage: ").append(toIndentedString(visitedMainPage)).append("\n");
+    sb.append("    visitedMaskPage: ").append(toIndentedString(visitedMaskPage)).append("\n");
     sb.append("}");
     return sb.toString();
   }

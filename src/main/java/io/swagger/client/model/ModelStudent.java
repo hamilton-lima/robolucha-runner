@@ -14,19 +14,48 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * ModelStudent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-31T13:34:39.126Z[GMT]")public class ModelStudent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T16:45:46.153-04:00[America/Toronto]")public class ModelStudent {
+
+  @SerializedName("classrooms")
+  private List<ModelClassroom> classrooms = null;
 
   @SerializedName("id")
   private Integer id = null;
 
   @SerializedName("userID")
   private Integer userID = null;
+  public ModelStudent classrooms(List<ModelClassroom> classrooms) {
+    this.classrooms = classrooms;
+    return this;
+  }
+
+  public ModelStudent addClassroomsItem(ModelClassroom classroomsItem) {
+    if (this.classrooms == null) {
+      this.classrooms = new ArrayList<ModelClassroom>();
+    }
+    this.classrooms.add(classroomsItem);
+    return this;
+  }
+
+  /**
+  * Get classrooms
+  * @return classrooms
+  **/
+  @Schema(description = "")
+  public List<ModelClassroom> getClassrooms() {
+    return classrooms;
+  }
+  public void setClassrooms(List<ModelClassroom> classrooms) {
+    this.classrooms = classrooms;
+  }
   public ModelStudent id(Integer id) {
     this.id = id;
     return this;
@@ -72,13 +101,14 @@ import java.util.Objects;
       return false;
     }
     ModelStudent modelStudent = (ModelStudent) o;
-    return Objects.equals(this.id, modelStudent.id) &&
+    return Objects.equals(this.classrooms, modelStudent.classrooms) &&
+        Objects.equals(this.id, modelStudent.id) &&
         Objects.equals(this.userID, modelStudent.userID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, userID);
+    return java.util.Objects.hash(classrooms, id, userID);
   }
 
   @Override
@@ -86,6 +116,7 @@ import java.util.Objects;
     StringBuilder sb = new StringBuilder();
     sb.append("class ModelStudent {\n");
     
+    sb.append("    classrooms: ").append(toIndentedString(classrooms)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("}");
