@@ -26,7 +26,7 @@ public class SceneComponentEventsRunnerTest {
 
 		int luchador;
 		int amount;
-		boolean endGameCalled;
+		boolean endGameCalled = false;
 
 		public MockFacade(MatchRunner runner) {
 			super(runner);
@@ -62,7 +62,7 @@ public class SceneComponentEventsRunnerTest {
 
 		ModelCode code = new ModelCode();
 		code.setEvent("onHitOther");
-		code.setScript("endGame()");
+		code.setScript("addDamage(other.id, 16) \n endGame()"); //endGame()\n Goodbye cruel world.
 		result.setCodes(new ArrayList<ModelCode>());
 		result.getCodes().add(code);
 
@@ -107,6 +107,9 @@ public class SceneComponentEventsRunnerTest {
 		double aX2 = runnerA.getState().getPublicState().x;
 		logger.debug(String.format("*** results : a[%s, %s]", aX1, aX2));
 		assertTrue("check if luchador moved", aX2 > aX1);
+		assertTrue("check if addDamage was called", facade.luchador == 1);
+		assertTrue("check if addDamage was called", facade.amount == 16);
+
 		assertTrue("check if endGame code was called", facade.endGameCalled);
 	}
 	
