@@ -171,8 +171,10 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			return result;
 		}
 
-		if (runners.size() >= gameDefinition.getMaxParticipants()) {
-			String message = "trying to add luchador beyond the limit";
+		if (getNumberOfPlayers() >= gameDefinition.getMaxParticipants()) {
+			String message = "Trying to add luchador beyond the limit";
+			logger.info(message);
+
 			PublishSubject<LuchadorRunner> result = PublishSubject.create();
 			result.onError(new Exception(message));
 			result.onComplete();
@@ -182,6 +184,20 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		logger.info("new luchador added to the match: " + JSONFormat.clean(component.toString()));
 		component.setIsNPC(false);
 		return luchadorCreator.add(component);
+	}
+	
+	private int getNumberOfPlayers() {
+		int counter = 0;
+		LuchadorRunner[] localRunners = new LuchadorRunner[runners.values().size()];
+		localRunners = runners.values().toArray(localRunners);
+
+		for (int i = 0; i < localRunners.length; i++) {
+			LuchadorRunner runner = localRunners[i];
+			if( ! runner.getGameComponent().isIsNPC()) {
+				counter ++;
+			}
+		}
+		return counter;
 	}
 
 	public PublishSubject<LuchadorRunner> addNPC(final ModelGameComponent component) throws Exception {
@@ -229,7 +245,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		logger.info("Waiting for the minimum participants: " + gameDefinition.getMinParticipants());
 
-		while (alive && runners.size() < gameDefinition.getMinParticipants()) {
+		while (alive && getNumberOfPlayers() < gameDefinition.getMinParticipants()) {
 			try {
 				Thread.sleep(SMALL_SLEEP);
 			} catch (InterruptedException e) {
@@ -363,7 +379,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		for (int i = 0; i < localRunners.length; i++) {
 			LuchadorRunner runner = localRunners[i];
 			runner.cleanup();
-			// runners.put(runner.getGameComponent().getId(), null);
 		}
 
 		listeners.stream().forEach(disposable -> disposable.dispose());
