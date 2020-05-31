@@ -20,8 +20,8 @@ public class ScoreUpdaterTest {
     public void before() {
         runner = MockMatchRunner.build();
         scoreUpdater = new ScoreUpdater();
-        luchador1 = new LuchadorMatchState();
-        luchador2 = new LuchadorMatchState();
+        luchador1 = new LuchadorMatchState(false);
+        luchador2 = new LuchadorMatchState(false);
     }
 
     @Test
