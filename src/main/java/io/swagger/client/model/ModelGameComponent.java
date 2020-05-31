@@ -22,7 +22,7 @@ import java.util.Objects;
  * ModelGameComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-30T19:45:01.940-04:00[America/Toronto]")public class ModelGameComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T12:20:23.222-04:00[America/Toronto]")public class ModelGameComponent {
 
   @SerializedName("codes")
   private List<ModelCode> codes = null;
@@ -30,11 +30,17 @@ import java.util.Objects;
   @SerializedName("configs")
   private List<ModelConfig> configs = null;
 
+  @SerializedName("defaultState")
+  private ModelDefaultState defaultState = null;
+
   @SerializedName("gameDefinition")
   private Integer gameDefinition = null;
 
   @SerializedName("id")
   private Integer id = null;
+
+  @SerializedName("isNPC")
+  private Boolean isNPC = null;
 
   @SerializedName("name")
   private String name = null;
@@ -89,6 +95,24 @@ import java.util.Objects;
   public void setConfigs(List<ModelConfig> configs) {
     this.configs = configs;
   }
+  public ModelGameComponent defaultState(ModelDefaultState defaultState) {
+    this.defaultState = defaultState;
+    return this;
+  }
+
+  
+
+  /**
+  * Get defaultState
+  * @return defaultState
+  **/
+  @Schema(description = "")
+  public ModelDefaultState getDefaultState() {
+    return defaultState;
+  }
+  public void setDefaultState(ModelDefaultState defaultState) {
+    this.defaultState = defaultState;
+  }
   public ModelGameComponent gameDefinition(Integer gameDefinition) {
     this.gameDefinition = gameDefinition;
     return this;
@@ -124,6 +148,24 @@ import java.util.Objects;
   }
   public void setId(Integer id) {
     this.id = id;
+  }
+  public ModelGameComponent isNPC(Boolean isNPC) {
+    this.isNPC = isNPC;
+    return this;
+  }
+
+  
+
+  /**
+  * Get isNPC
+  * @return isNPC
+  **/
+  @Schema(description = "")
+  public Boolean isIsNPC() {
+    return isNPC;
+  }
+  public void setIsNPC(Boolean isNPC) {
+    this.isNPC = isNPC;
   }
   public ModelGameComponent name(String name) {
     this.name = name;
@@ -172,15 +214,17 @@ import java.util.Objects;
     ModelGameComponent modelGameComponent = (ModelGameComponent) o;
     return Objects.equals(this.codes, modelGameComponent.codes) &&
         Objects.equals(this.configs, modelGameComponent.configs) &&
+        Objects.equals(this.defaultState, modelGameComponent.defaultState) &&
         Objects.equals(this.gameDefinition, modelGameComponent.gameDefinition) &&
         Objects.equals(this.id, modelGameComponent.id) &&
+        Objects.equals(this.isNPC, modelGameComponent.isNPC) &&
         Objects.equals(this.name, modelGameComponent.name) &&
         Objects.equals(this.userID, modelGameComponent.userID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(codes, configs, gameDefinition, id, name, userID);
+    return java.util.Objects.hash(codes, configs, defaultState, gameDefinition, id, isNPC, name, userID);
   }
 
   @Override
@@ -190,8 +234,10 @@ import java.util.Objects;
     
     sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
     sb.append("    configs: ").append(toIndentedString(configs)).append("\n");
+    sb.append("    defaultState: ").append(toIndentedString(defaultState)).append("\n");
     sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    isNPC: ").append(toIndentedString(isNPC)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("}");
