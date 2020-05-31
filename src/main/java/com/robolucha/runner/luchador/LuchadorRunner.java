@@ -34,6 +34,7 @@ import com.robolucha.runner.code.ScriptDefinitionFactory;
 import com.robolucha.shared.Calc;
 
 import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelDefaultState;
 import io.swagger.client.model.ModelGameComponent;
 
 /**
@@ -270,11 +271,26 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	}
 
 	private void setDefaultState(RespawnPoint point) {
-		state.setX(point.x);
-		state.setY(point.y);
-		state.setLife(matchRunner.getGameDefinition().getLife());
-		state.setAngle(point.angle);
-		state.setGunAngle(point.gunAngle);
+		
+		if ( getGameComponent().isIsNPC() ) {
+			// NPC with default state
+			ModelDefaultState defaultState = getGameComponent().getDefaultState();
+
+			state.setX(defaultState.getX());
+			state.setY(defaultState.getY());
+			state.setLife(defaultState.getLife());
+			state.setAngle(defaultState.getAngle());
+			state.setGunAngle(defaultState.getGunAngle());
+		} else {
+			
+			// Player state
+			state.setX(point.x);
+			state.setY(point.y);
+			state.setLife(matchRunner.getGameDefinition().getLife());
+			state.setAngle(point.angle);
+			state.setGunAngle(point.gunAngle);
+		}
+		
 		state.setFireCoolDown(0);
 
 		respawnCoolDown = 0.0;
