@@ -22,7 +22,10 @@ import java.util.Objects;
  * ModelGameComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T12:20:23.222-04:00[America/Toronto]")public class ModelGameComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelGameComponent {
+
+  @SerializedName("angle")
+  private Integer angle = null;
 
   @SerializedName("codes")
   private List<ModelCode> codes = null;
@@ -30,11 +33,11 @@ import java.util.Objects;
   @SerializedName("configs")
   private List<ModelConfig> configs = null;
 
-  @SerializedName("defaultState")
-  private ModelDefaultState defaultState = null;
-
   @SerializedName("gameDefinition")
   private Integer gameDefinition = null;
+
+  @SerializedName("gunAngle")
+  private Integer gunAngle = null;
 
   @SerializedName("id")
   private Integer id = null;
@@ -42,11 +45,38 @@ import java.util.Objects;
   @SerializedName("isNPC")
   private Boolean isNPC = null;
 
+  @SerializedName("life")
+  private Integer life = null;
+
   @SerializedName("name")
   private String name = null;
 
   @SerializedName("userID")
   private Integer userID = null;
+
+  @SerializedName("x")
+  private Integer x = null;
+
+  @SerializedName("y")
+  private Integer y = null;
+  public ModelGameComponent angle(Integer angle) {
+    this.angle = angle;
+    return this;
+  }
+
+  
+
+  /**
+  * Get angle
+  * @return angle
+  **/
+  @Schema(description = "")
+  public Integer getAngle() {
+    return angle;
+  }
+  public void setAngle(Integer angle) {
+    this.angle = angle;
+  }
   public ModelGameComponent codes(List<ModelCode> codes) {
     this.codes = codes;
     return this;
@@ -95,24 +125,6 @@ import java.util.Objects;
   public void setConfigs(List<ModelConfig> configs) {
     this.configs = configs;
   }
-  public ModelGameComponent defaultState(ModelDefaultState defaultState) {
-    this.defaultState = defaultState;
-    return this;
-  }
-
-  
-
-  /**
-  * Get defaultState
-  * @return defaultState
-  **/
-  @Schema(description = "")
-  public ModelDefaultState getDefaultState() {
-    return defaultState;
-  }
-  public void setDefaultState(ModelDefaultState defaultState) {
-    this.defaultState = defaultState;
-  }
   public ModelGameComponent gameDefinition(Integer gameDefinition) {
     this.gameDefinition = gameDefinition;
     return this;
@@ -130,6 +142,24 @@ import java.util.Objects;
   }
   public void setGameDefinition(Integer gameDefinition) {
     this.gameDefinition = gameDefinition;
+  }
+  public ModelGameComponent gunAngle(Integer gunAngle) {
+    this.gunAngle = gunAngle;
+    return this;
+  }
+
+  
+
+  /**
+  * Get gunAngle
+  * @return gunAngle
+  **/
+  @Schema(description = "")
+  public Integer getGunAngle() {
+    return gunAngle;
+  }
+  public void setGunAngle(Integer gunAngle) {
+    this.gunAngle = gunAngle;
   }
   public ModelGameComponent id(Integer id) {
     this.id = id;
@@ -167,6 +197,24 @@ import java.util.Objects;
   public void setIsNPC(Boolean isNPC) {
     this.isNPC = isNPC;
   }
+  public ModelGameComponent life(Integer life) {
+    this.life = life;
+    return this;
+  }
+
+  
+
+  /**
+  * Get life
+  * @return life
+  **/
+  @Schema(description = "")
+  public Integer getLife() {
+    return life;
+  }
+  public void setLife(Integer life) {
+    this.life = life;
+  }
   public ModelGameComponent name(String name) {
     this.name = name;
     return this;
@@ -203,6 +251,42 @@ import java.util.Objects;
   public void setUserID(Integer userID) {
     this.userID = userID;
   }
+  public ModelGameComponent x(Integer x) {
+    this.x = x;
+    return this;
+  }
+
+  
+
+  /**
+  * Get x
+  * @return x
+  **/
+  @Schema(description = "")
+  public Integer getX() {
+    return x;
+  }
+  public void setX(Integer x) {
+    this.x = x;
+  }
+  public ModelGameComponent y(Integer y) {
+    this.y = y;
+    return this;
+  }
+
+  
+
+  /**
+  * Get y
+  * @return y
+  **/
+  @Schema(description = "")
+  public Integer getY() {
+    return y;
+  }
+  public void setY(Integer y) {
+    this.y = y;
+  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -212,19 +296,23 @@ import java.util.Objects;
       return false;
     }
     ModelGameComponent modelGameComponent = (ModelGameComponent) o;
-    return Objects.equals(this.codes, modelGameComponent.codes) &&
+    return Objects.equals(this.angle, modelGameComponent.angle) &&
+        Objects.equals(this.codes, modelGameComponent.codes) &&
         Objects.equals(this.configs, modelGameComponent.configs) &&
-        Objects.equals(this.defaultState, modelGameComponent.defaultState) &&
         Objects.equals(this.gameDefinition, modelGameComponent.gameDefinition) &&
+        Objects.equals(this.gunAngle, modelGameComponent.gunAngle) &&
         Objects.equals(this.id, modelGameComponent.id) &&
         Objects.equals(this.isNPC, modelGameComponent.isNPC) &&
+        Objects.equals(this.life, modelGameComponent.life) &&
         Objects.equals(this.name, modelGameComponent.name) &&
-        Objects.equals(this.userID, modelGameComponent.userID);
+        Objects.equals(this.userID, modelGameComponent.userID) &&
+        Objects.equals(this.x, modelGameComponent.x) &&
+        Objects.equals(this.y, modelGameComponent.y);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(codes, configs, defaultState, gameDefinition, id, isNPC, name, userID);
+    return java.util.Objects.hash(angle, codes, configs, gameDefinition, gunAngle, id, isNPC, life, name, userID, x, y);
   }
 
   @Override
@@ -232,14 +320,18 @@ import java.util.Objects;
     StringBuilder sb = new StringBuilder();
     sb.append("class ModelGameComponent {\n");
     
+    sb.append("    angle: ").append(toIndentedString(angle)).append("\n");
     sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
     sb.append("    configs: ").append(toIndentedString(configs)).append("\n");
-    sb.append("    defaultState: ").append(toIndentedString(defaultState)).append("\n");
     sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
+    sb.append("    gunAngle: ").append(toIndentedString(gunAngle)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    isNPC: ").append(toIndentedString(isNPC)).append("\n");
+    sb.append("    life: ").append(toIndentedString(life)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
+    sb.append("    x: ").append(toIndentedString(x)).append("\n");
+    sb.append("    y: ").append(toIndentedString(y)).append("\n");
     sb.append("}");
     return sb.toString();
   }
