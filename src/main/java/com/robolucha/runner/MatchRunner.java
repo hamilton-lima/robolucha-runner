@@ -180,6 +180,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		}
 
 		logger.info("new luchador added to the match: " + JSONFormat.clean(component.toString()));
+		component.setIsNPC(false);
 		return luchadorCreator.add(component);
 	}
 
