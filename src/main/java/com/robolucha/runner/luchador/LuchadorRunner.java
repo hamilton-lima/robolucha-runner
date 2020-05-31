@@ -105,7 +105,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		scriptDefinition = ScriptDefinitionFactory.getInstance().getLuchadorScript();
 
-		state = new LuchadorMatchState();
+		state = new LuchadorMatchState(gameComponent.isIsNPC());
 		state.setId(component.getId());
 		state.setName(component.getName());
 
@@ -273,14 +273,12 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	private void setDefaultState(RespawnPoint point) {
 		
 		if ( getGameComponent().isIsNPC() ) {
-			// NPC with default state
-			ModelDefaultState defaultState = getGameComponent().getDefaultState();
-
-			state.setX(defaultState.getX());
-			state.setY(defaultState.getY());
-			state.setLife(defaultState.getLife());
-			state.setAngle(defaultState.getAngle());
-			state.setGunAngle(defaultState.getGunAngle());
+			ModelGameComponent component = getGameComponent();
+			state.setX(component.getX());
+			state.setY(component.getY());
+			state.setLife(component.getLife());
+			state.setAngle(component.getAngle());
+			state.setGunAngle(component.getGunAngle());
 		} else {
 			
 			// Player state
