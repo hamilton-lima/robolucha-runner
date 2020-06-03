@@ -22,10 +22,13 @@ import java.util.Objects;
  * ModelMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-31T13:34:39.126Z[GMT]")public class ModelMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelMatch {
 
   @SerializedName("availableMatchID")
   private Integer availableMatchID = null;
+
+  @SerializedName("gameDefinition")
+  private ModelGameDefinition gameDefinition = null;
 
   @SerializedName("gameDefinitionID")
   private Integer gameDefinitionID = null;
@@ -61,6 +64,24 @@ import java.util.Objects;
   }
   public void setAvailableMatchID(Integer availableMatchID) {
     this.availableMatchID = availableMatchID;
+  }
+  public ModelMatch gameDefinition(ModelGameDefinition gameDefinition) {
+    this.gameDefinition = gameDefinition;
+    return this;
+  }
+
+  
+
+  /**
+  * Get gameDefinition
+  * @return gameDefinition
+  **/
+  @Schema(description = "")
+  public ModelGameDefinition getGameDefinition() {
+    return gameDefinition;
+  }
+  public void setGameDefinition(ModelGameDefinition gameDefinition) {
+    this.gameDefinition = gameDefinition;
   }
   public ModelMatch gameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
@@ -186,6 +207,7 @@ import java.util.Objects;
     }
     ModelMatch modelMatch = (ModelMatch) o;
     return Objects.equals(this.availableMatchID, modelMatch.availableMatchID) &&
+        Objects.equals(this.gameDefinition, modelMatch.gameDefinition) &&
         Objects.equals(this.gameDefinitionID, modelMatch.gameDefinitionID) &&
         Objects.equals(this.id, modelMatch.id) &&
         Objects.equals(this.lastTimeAlive, modelMatch.lastTimeAlive) &&
@@ -196,7 +218,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(availableMatchID, gameDefinitionID, id, lastTimeAlive, participants, timeEnd, timeStart);
+    return java.util.Objects.hash(availableMatchID, gameDefinition, gameDefinitionID, id, lastTimeAlive, participants, timeEnd, timeStart);
   }
 
   @Override
@@ -205,6 +227,7 @@ import java.util.Objects;
     sb.append("class ModelMatch {\n");
     
     sb.append("    availableMatchID: ").append(toIndentedString(availableMatchID)).append("\n");
+    sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
     sb.append("    gameDefinitionID: ").append(toIndentedString(gameDefinitionID)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    lastTimeAlive: ").append(toIndentedString(lastTimeAlive)).append("\n");

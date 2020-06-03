@@ -42,7 +42,7 @@ public class OnInitAddNPC implements Consumer<MatchInitVO>, MatchRunnerListener 
 			ModelGameComponent npc = iterator.next();
 
 			try {
-				runner.add(npc);
+				runner.addNPC(npc);
 				logger.info("gamecomponent add to the match: " + npc.getName());
 			} catch (Exception e) {
 				logger.error("Error adding NPC to match", e);

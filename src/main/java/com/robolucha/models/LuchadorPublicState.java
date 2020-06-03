@@ -23,6 +23,7 @@ public class LuchadorPublicState {
 	public int k;
 	public int d;
 	public int score;
+	public boolean npc;
 
     @Override
     public String toString() {
@@ -39,6 +40,7 @@ public class LuchadorPublicState {
                 ", k=" + k +
                 ", d=" + d +
                 ", score=" + score +
+                ", npc=" + npc +
                 '}';
     }
 }

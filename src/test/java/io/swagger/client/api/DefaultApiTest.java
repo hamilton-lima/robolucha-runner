@@ -14,6 +14,7 @@ package io.swagger.client.api;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.ModelActiveMatch;
+import io.swagger.client.model.ModelActivity;
 import io.swagger.client.model.ModelAvailableMatch;
 import io.swagger.client.model.ModelClassroom;
 import io.swagger.client.model.ModelConfig;
@@ -25,9 +26,11 @@ import io.swagger.client.model.ModelMatch;
 import io.swagger.client.model.ModelMatchMetric;
 import io.swagger.client.model.ModelMatchParticipant;
 import io.swagger.client.model.ModelMatchScore;
+import io.swagger.client.model.ModelPageEventRequest;
 import io.swagger.client.model.ModelScoreList;
+import io.swagger.client.model.ModelStudentResponse;
 import io.swagger.client.model.ModelUpdateLuchadorResponse;
-import io.swagger.client.model.ModelUser;
+import io.swagger.client.model.ModelUserDetails;
 import io.swagger.client.model.ModelUserSetting;
 import java.util.List;
 import org.junit.Ignore;
@@ -41,6 +44,78 @@ public class DefaultApiTest {
 
     private final DefaultApi api = new DefaultApi();
 
+    /**
+     * find existing activities
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void dashboardActivityGetTest() throws ApiException {
+        List<ModelActivity> response = api.dashboardActivityGet();
+
+        // TODO: test validations
+    }
+    /**
+     * find all Classroom
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void dashboardClassroomGetTest() throws ApiException {
+        List<ModelClassroom> response = api.dashboardClassroomGet();
+
+        // TODO: test validations
+    }
+    /**
+     * add a Classroom
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void dashboardClassroomPostTest() throws ApiException {
+        ModelClassroom body = null;
+        ModelClassroom response = api.dashboardClassroomPost(body);
+
+        // TODO: test validations
+    }
+    /**
+     * find all Classroom students
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void dashboardClassroomStudentsIdGetTest() throws ApiException {
+        Integer id = null;
+        List<ModelStudentResponse> response = api.dashboardClassroomStudentsIdGet(id);
+
+        // TODO: test validations
+    }
+    /**
+     * find The current user information
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void dashboardGetUserGetTest() throws ApiException {
+        ModelUserDetails response = api.dashboardGetUserGet();
+
+        // TODO: test validations
+    }
     /**
      * saves a match score
      *
@@ -147,21 +222,6 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * join a classroom
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void internalJoinClassroomAccessCodePostTest() throws ApiException {
-        String accessCode = null;
-        ModelClassroom response = api.internalJoinClassroomAccessCodePost(accessCode);
-
-        // TODO: test validations
-    }
-    /**
      * find Luchador by ID
      *
      * 
@@ -246,7 +306,7 @@ public class DefaultApiTest {
     @Test
     public void privateAvailableMatchClassroomIdGetTest() throws ApiException {
         Integer id = null;
-        ModelAvailableMatch response = api.privateAvailableMatchClassroomIdGet(id);
+        List<ModelAvailableMatch> response = api.privateAvailableMatchClassroomIdGet(id);
 
         // TODO: test validations
     }
@@ -261,35 +321,6 @@ public class DefaultApiTest {
     @Test
     public void privateAvailableMatchPublicGetTest() throws ApiException {
         List<ModelAvailableMatch> response = api.privateAvailableMatchPublicGet();
-
-        // TODO: test validations
-    }
-    /**
-     * find all Classroom
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void privateClassroomGetTest() throws ApiException {
-        List<ModelClassroom> response = api.privateClassroomGet();
-
-        // TODO: test validations
-    }
-    /**
-     * add a Classroom
-     *
-     * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
-     */
-    @Test
-    public void privateClassroomPostTest() throws ApiException {
-        ModelClassroom body = null;
-        ModelClassroom response = api.privateClassroomPost(body);
 
         // TODO: test validations
     }
@@ -332,7 +363,22 @@ public class DefaultApiTest {
      */
     @Test
     public void privateGetUserGetTest() throws ApiException {
-        ModelUser response = api.privateGetUserGet();
+        ModelUserDetails response = api.privateGetUserGet();
+
+        // TODO: test validations
+    }
+    /**
+     * join a classroom
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateJoinClassroomAccessCodePostTest() throws ApiException {
+        String accessCode = null;
+        ModelClassroom response = api.privateJoinClassroomAccessCodePost(accessCode);
 
         // TODO: test validations
     }
@@ -348,6 +394,20 @@ public class DefaultApiTest {
     public void privateJoinMatchPostTest() throws ApiException {
         ModelJoinMatch body = null;
         ModelMatch response = api.privateJoinMatchPost(body);
+
+        // TODO: test validations
+    }
+    /**
+     * Sends message to end active tutorial matches
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateLeaveTutorialMatchPostTest() throws ApiException {
+        String response = api.privateLeaveTutorialMatchPost();
 
         // TODO: test validations
     }
@@ -450,6 +510,21 @@ public class DefaultApiTest {
     public void privateMatchSingleGetTest() throws ApiException {
         Integer matchID = null;
         ModelMatch response = api.privateMatchSingleGet(matchID);
+
+        // TODO: test validations
+    }
+    /**
+     * add page events
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privatePageEventsPostTest() throws ApiException {
+        ModelPageEventRequest body = null;
+        String response = api.privatePageEventsPost(body);
 
         // TODO: test validations
     }

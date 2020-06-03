@@ -20,7 +20,7 @@ import java.util.Objects;
  * ModelCode
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-31T13:34:39.126Z[GMT]")public class ModelCode {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelCode {
 
   @SerializedName("event")
   private String event = null;
@@ -36,6 +36,9 @@ import java.util.Objects;
 
   @SerializedName("script")
   private String script = null;
+
+  @SerializedName("version")
+  private Integer version = null;
   public ModelCode event(String event) {
     this.event = event;
     return this;
@@ -126,6 +129,24 @@ import java.util.Objects;
   public void setScript(String script) {
     this.script = script;
   }
+  public ModelCode version(Integer version) {
+    this.version = version;
+    return this;
+  }
+
+  
+
+  /**
+  * Get version
+  * @return version
+  **/
+  @Schema(description = "")
+  public Integer getVersion() {
+    return version;
+  }
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -139,12 +160,13 @@ import java.util.Objects;
         Objects.equals(this.exception, modelCode.exception) &&
         Objects.equals(this.gameDefinition, modelCode.gameDefinition) &&
         Objects.equals(this.id, modelCode.id) &&
-        Objects.equals(this.script, modelCode.script);
+        Objects.equals(this.script, modelCode.script) &&
+        Objects.equals(this.version, modelCode.version);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(event, exception, gameDefinition, id, script);
+    return java.util.Objects.hash(event, exception, gameDefinition, id, script, version);
   }
 
   @Override
@@ -157,6 +179,7 @@ import java.util.Objects;
     sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    script: ").append(toIndentedString(script)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("}");
     return sb.toString();
   }

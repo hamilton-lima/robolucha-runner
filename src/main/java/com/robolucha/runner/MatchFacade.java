@@ -22,7 +22,7 @@ public class MatchFacade implements MatchScriptFacade {
 	@Override
 	public void addDamage(int luchador, int amount) {
 		logger.info("Add damage to :" + luchador + " amount:" + amount);
-		LuchadorRunner luchadorRunner = runner.runners.get(luchador);
+		LuchadorRunner luchadorRunner = runner.getRunners().get(luchador);
 		
 		if (luchadorRunner != null && itsTimeToHitAgain(luchador)) {
 			saveLastHit(luchador);

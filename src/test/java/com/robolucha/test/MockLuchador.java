@@ -67,7 +67,7 @@ public class MockLuchador {
 	}
 
 	public static LuchadorMatchState buildLuchadorMatchState(long id) {
-		LuchadorMatchState result = new LuchadorMatchState();
+		LuchadorMatchState result = new LuchadorMatchState(false);
 		result.setId(id);
 		result.setName(faker.name().username());
 		return result;

@@ -31,7 +31,7 @@ public class Server {
 		this.queue = queue;
 		this.monitor = monitor;
 
-		this.joinMatchQueue = new JoinMatchQueue();
+		this.joinMatchQueue = new JoinMatchQueue(this);
 		this.joinMatchQueue.start();
 	}
 
@@ -46,8 +46,6 @@ public class Server {
 		logger.info("found gamedefinition " + JSONFormat.clean(gameDefinition.toString()));
 
 		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
-		this.joinMatchQueue.add(startMatch.getId(), runner);
-
 		MatchStatePublisher publisher = new MatchStatePublisher(serverID, match, queue);
 
 		Thread thread = setupRunner(runner, publisher);

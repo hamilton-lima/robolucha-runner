@@ -18,21 +18,22 @@ public class JoinMatchQueue implements Runnable {
 	static Logger logger = Logger.getLogger(JoinMatchQueue.class);
 	private static final long SLEEP = 100;
 
-	private HashMap<Integer, MatchRunner> matches;
+//	private HashMap<Integer, MatchRunner> matches;
 	private HashMap<Integer, Integer> joinMatchRetries;
 	private Queue<ModelJoinMatch> queue;
 	private boolean alive = true;
 	private Integer maxRetries = 20;
+	private Server server;
 
-	JoinMatchQueue() {
-		this.matches = new HashMap<Integer, MatchRunner>();
+	JoinMatchQueue(Server server) {
+		this.server = server;
 		this.joinMatchRetries = new HashMap<Integer, Integer>();
 		this.queue = new LinkedList<ModelJoinMatch>();
 	}
 
-	public void add(Integer matchID, MatchRunner runner) {
-		this.matches.put(matchID, runner);
-	}
+//	public void add(Integer matchID, MatchRunner runner) {
+//		this.matches.put(matchID, runner);
+//	}
 
 	public void add(ModelJoinMatch joinMatch) {
 		this.queue.add(joinMatch);
@@ -40,7 +41,7 @@ public class JoinMatchQueue implements Runnable {
 
 	private Integer retriesToJoin(Integer matchID) {
 		Integer retries = joinMatchRetries.get(matchID);
-		if( retries == null ) {
+		if (retries == null) {
 			retries = 0;
 		}
 		retries++;
@@ -55,8 +56,9 @@ public class JoinMatchQueue implements Runnable {
 			try {
 				if (next != null) {
 					// match is running
-					if (this.matches.containsKey(next.getMatchID())) {
-						addLuchadorToMatch(next);
+					MatchRunner runner = server.getThreadMonitor().getMatch(next.getMatchID());
+					if (runner != null) {
+						addLuchadorToMatch(next, runner);
 					} else {
 						if (retriesToJoin(next.getMatchID()) > maxRetries) {
 							logger.warn("Reached max retries to join match, matchID=" + next.getMatchID());
@@ -76,9 +78,9 @@ public class JoinMatchQueue implements Runnable {
 		}
 	}
 
-	private void addLuchadorToMatch(ModelJoinMatch next) throws Exception {
-		MatchRunner runner = this.matches.get(next.getMatchID());
-		logger.info(">>>>>>>> found Runner " + JSONFormat.clean(runner.toString()));
+	private void addLuchadorToMatch(ModelJoinMatch next, MatchRunner runner) throws Exception {
+
+		logger.info("START addLuchadorToMatch next: " + next + " runner: " + runner);
 
 		int gameDefinitionID = runner.getGameDefinition().getId();
 		ModelGameComponent luchador = MatchRunnerAPI.getInstance().findLuchadorById(next.getLuchadorID(),
@@ -89,8 +91,10 @@ public class JoinMatchQueue implements Runnable {
 			luchador.setCodes(new ArrayList<ModelCode>());
 		}
 
-		logger.info(">>>>>>>> Luchador found by ID " + JSONFormat.clean(luchador.toString()));
+		logger.info("Luchador found by ID " + JSONFormat.clean(luchador.toString()));
 		runner.addLuchador(luchador);
+
+		logger.info("END addLuchadorToMatch");
 	}
 
 	public void stop() {

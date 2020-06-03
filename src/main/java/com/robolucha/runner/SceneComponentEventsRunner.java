@@ -72,8 +72,10 @@ public class SceneComponentEventsRunner {
 			} else {
 				Object[] parameter = new Object[] { luchador.getState().getPublicState() };
 
-				logger.info("onHit Calling the scriptDefinition run() : " + JSONFormat.clean(component.toString())
-						+ " parameter: " + Arrays.toString(parameter));
+				if( logger.isDebugEnabled() ) {
+					logger.debug("onHit Calling the scriptDefinition run() : " + JSONFormat.clean(component.toString())
+					+ " parameter: " + Arrays.toString(parameter));
+				}
 
 				runner.scriptDefinition.run(facade, MethodNames.ON_HIT_OTHER, parameter);
 			}

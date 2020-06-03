@@ -1,12 +1,21 @@
 package com.robolucha.game.processor;
 
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+
 import org.apache.log4j.Logger;
 
 import com.robolucha.game.action.CheckBulletHitAction;
+import com.robolucha.game.event.OnGotDamageEvent;
+import com.robolucha.game.event.OnHitWallEvent;
 import com.robolucha.models.Bullet;
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.SafeList;
+import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.shared.Calc;
+import com.robolucha.shared.JSONFormat;
+
+import io.swagger.client.model.ModelSceneComponent;
 
 public class BulletsProcessor {
 
@@ -50,8 +59,16 @@ public class BulletsProcessor {
 	}
 
 	public void checkBulletHit(Bullet bullet) {
+		logger.debug("checkBulletHit " + bullet.getId() );
+
 		CheckBulletHitAction action = new CheckBulletHitAction(runner, bullet);
 		runner.runAllActive(action);
+
+		logger.debug("checkBulletHit is active " + bullet.isActive() );
+
+		if (bullet.isActive()) {
+			checkIfHitSceneComponent(bullet);
+		}
 	}
 
 	public void removeDeadBullets() {
@@ -71,8 +88,7 @@ public class BulletsProcessor {
 			}
 
 			if (!Calc.insideTheMapLimits(runner.getGameDefinition().getArenaWidth(),
-					runner.getGameDefinition().getArenaHeight(),
-					bullet.getX(), bullet.getY(), halfSize)) {
+					runner.getGameDefinition().getArenaHeight(), bullet.getX(), bullet.getY(), halfSize)) {
 				bullets.remove(pos);
 			}
 
@@ -85,4 +101,37 @@ public class BulletsProcessor {
 		this.bullets = null;
 		this.runner = null;
 	}
+
+	private void checkIfHitSceneComponent(Bullet bullet) {
+
+		double radius = bullet.getSize() / 2;
+
+		Iterator<ModelSceneComponent> sceneIterator = runner.getSceneComponents().iterator();
+		logger.debug("scene components: " + runner.getSceneComponents().size() );
+		
+		while (sceneIterator.hasNext()) {
+			ModelSceneComponent current = sceneIterator.next();
+
+			logger.debug("component: " + current.getId() + " life: " + current.getLife() );
+
+			if (current.getLife() > 0
+					&& Calc.intersectCirclewithSceneComponent(bullet.getX(), bullet.getY(), radius, current)) {
+
+				bullet.setActive(false);
+
+				// Add damage to sceneComponent
+				current.setLife((int) (current.getLife() - bullet.getAmount()));
+
+				// Check if life is under ZERO and remove it 
+				if (current.getLife() <= 0) {
+					sceneIterator.remove();
+				}
+				
+				logger.debug("bullet hit obstacle and removed life");
+
+			}
+		}
+
+	}
+
 }

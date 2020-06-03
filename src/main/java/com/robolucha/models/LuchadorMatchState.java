@@ -28,8 +28,9 @@ public class LuchadorMatchState {
 	public ScoreVO score;
 	public LuchadorPublicState publicState;
 
-	public LuchadorMatchState() {
+	public LuchadorMatchState(boolean npc) {
 		publicState = new LuchadorPublicState();
+		publicState.npc = npc;
 		score = new ScoreVO();
 	}
 

@@ -121,14 +121,14 @@ public class Calc {
 
 	public static boolean intersectCirclewithSceneComponent(double x, double y, double radius, ModelSceneComponent component) {
 
-		// Finds the closest point from the rectangle to the center of the luchador
+		// Finds the closest point from the rectangle to the center of x,y
 		double minX = Math.min(x, component.getX() + component.getWidth());
 		double DeltaX = x - Math.max(component.getX(), minX);
 
 		double minY = Math.min(y, component.getY() + component.getHeight());
 		double DeltaY = y - Math.max(component.getY(), minY);
 
-		// calculate the distance from the closest point and the luchador center
+		// calculate the distance from the closest point and x,y
 		double dist = Math.sqrt(Math.pow(DeltaX, 2) + Math.pow(DeltaY, 2));
 		return dist < radius;
 	}

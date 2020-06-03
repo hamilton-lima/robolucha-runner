@@ -20,10 +20,13 @@ import java.util.Objects;
  * ModelAvailableMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-08-31T13:34:39.126Z[GMT]")public class ModelAvailableMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelAvailableMatch {
 
   @SerializedName("classroomID")
   private Integer classroomID = null;
+
+  @SerializedName("gameDefinition")
+  private ModelGameDefinition gameDefinition = null;
 
   @SerializedName("gameDefinitionID")
   private Integer gameDefinitionID = null;
@@ -50,6 +53,24 @@ import java.util.Objects;
   }
   public void setClassroomID(Integer classroomID) {
     this.classroomID = classroomID;
+  }
+  public ModelAvailableMatch gameDefinition(ModelGameDefinition gameDefinition) {
+    this.gameDefinition = gameDefinition;
+    return this;
+  }
+
+  
+
+  /**
+  * Get gameDefinition
+  * @return gameDefinition
+  **/
+  @Schema(description = "")
+  public ModelGameDefinition getGameDefinition() {
+    return gameDefinition;
+  }
+  public void setGameDefinition(ModelGameDefinition gameDefinition) {
+    this.gameDefinition = gameDefinition;
   }
   public ModelAvailableMatch gameDefinitionID(Integer gameDefinitionID) {
     this.gameDefinitionID = gameDefinitionID;
@@ -115,6 +136,7 @@ import java.util.Objects;
     }
     ModelAvailableMatch modelAvailableMatch = (ModelAvailableMatch) o;
     return Objects.equals(this.classroomID, modelAvailableMatch.classroomID) &&
+        Objects.equals(this.gameDefinition, modelAvailableMatch.gameDefinition) &&
         Objects.equals(this.gameDefinitionID, modelAvailableMatch.gameDefinitionID) &&
         Objects.equals(this.id, modelAvailableMatch.id) &&
         Objects.equals(this.name, modelAvailableMatch.name);
@@ -122,7 +144,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(classroomID, gameDefinitionID, id, name);
+    return java.util.Objects.hash(classroomID, gameDefinition, gameDefinitionID, id, name);
   }
 
   @Override
@@ -131,6 +153,7 @@ import java.util.Objects;
     sb.append("class ModelAvailableMatch {\n");
     
     sb.append("    classroomID: ").append(toIndentedString(classroomID)).append("\n");
+    sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
     sb.append("    gameDefinitionID: ").append(toIndentedString(gameDefinitionID)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");

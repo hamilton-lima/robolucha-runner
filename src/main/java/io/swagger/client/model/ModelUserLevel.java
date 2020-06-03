@@ -14,49 +14,23 @@ package io.swagger.client.model;
 
 import com.google.gson.annotations.SerializedName;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
- * ModelStudent
+ * ModelUserLevel
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelStudent {
-
-  @SerializedName("classrooms")
-  private List<ModelClassroom> classrooms = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelUserLevel {
 
   @SerializedName("id")
   private Integer id = null;
 
+  @SerializedName("level")
+  private Integer level = null;
+
   @SerializedName("userID")
   private Integer userID = null;
-  public ModelStudent classrooms(List<ModelClassroom> classrooms) {
-    this.classrooms = classrooms;
-    return this;
-  }
-
-  public ModelStudent addClassroomsItem(ModelClassroom classroomsItem) {
-    if (this.classrooms == null) {
-      this.classrooms = new ArrayList<ModelClassroom>();
-    }
-    this.classrooms.add(classroomsItem);
-    return this;
-  }
-
-  /**
-  * Get classrooms
-  * @return classrooms
-  **/
-  @Schema(description = "")
-  public List<ModelClassroom> getClassrooms() {
-    return classrooms;
-  }
-  public void setClassrooms(List<ModelClassroom> classrooms) {
-    this.classrooms = classrooms;
-  }
-  public ModelStudent id(Integer id) {
+  public ModelUserLevel id(Integer id) {
     this.id = id;
     return this;
   }
@@ -74,7 +48,25 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public ModelStudent userID(Integer userID) {
+  public ModelUserLevel level(Integer level) {
+    this.level = level;
+    return this;
+  }
+
+  
+
+  /**
+  * Get level
+  * @return level
+  **/
+  @Schema(description = "")
+  public Integer getLevel() {
+    return level;
+  }
+  public void setLevel(Integer level) {
+    this.level = level;
+  }
+  public ModelUserLevel userID(Integer userID) {
     this.userID = userID;
     return this;
   }
@@ -100,24 +92,24 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelStudent modelStudent = (ModelStudent) o;
-    return Objects.equals(this.classrooms, modelStudent.classrooms) &&
-        Objects.equals(this.id, modelStudent.id) &&
-        Objects.equals(this.userID, modelStudent.userID);
+    ModelUserLevel modelUserLevel = (ModelUserLevel) o;
+    return Objects.equals(this.id, modelUserLevel.id) &&
+        Objects.equals(this.level, modelUserLevel.level) &&
+        Objects.equals(this.userID, modelUserLevel.userID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(classrooms, id, userID);
+    return java.util.Objects.hash(id, level, userID);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelStudent {\n");
+    sb.append("class ModelUserLevel {\n");
     
-    sb.append("    classrooms: ").append(toIndentedString(classrooms)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("}");
     return sb.toString();
