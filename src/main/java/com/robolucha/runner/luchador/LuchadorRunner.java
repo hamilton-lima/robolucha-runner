@@ -32,6 +32,7 @@ import com.robolucha.runner.code.MethodBuilder;
 import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.code.ScriptDefinitionFactory;
 import com.robolucha.shared.Calc;
+import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.model.ModelCode;
 import io.swagger.client.model.ModelDefaultState;
@@ -197,7 +198,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 * @param luchador
 	 */
 	public void update(ModelGameComponent luchador) {
-		logger.info("*** luchador UPDATE " + luchador.getId() + ", using gamedefinition ID: " + matchRunner.getGameDefinition().getId());
+		logger.info("*** luchador UPDATE " + luchador.getId() + ", using gamedefinition ID: "
+				+ matchRunner.getGameDefinition().getId());
 
 		try {
 			this.gameComponent = luchador;
@@ -271,16 +273,30 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	}
 
 	private void setDefaultState(RespawnPoint point) {
-		
-		if ( getGameComponent().isIsNPC() ) {
+
+		if (getGameComponent().isIsNPC()) {
 			ModelGameComponent component = getGameComponent();
-			state.setX(component.getX());
-			state.setY(component.getY());
-			state.setLife(component.getLife());
+
+			// If position is not defined used calculated respawn position
+			if (component.getX() <= 0 || component.getY() <= 0) {
+				state.setX(point.x);
+				state.setY(point.y);
+			} else {
+				state.setX(component.getX());
+				state.setY(component.getY());
+			}
+
+			// If life is not defined use the default from match
+			if (component.getLife() <= 0) {
+				state.setLife(matchRunner.getGameDefinition().getLife());
+			} else {
+				state.setLife(component.getLife());
+			}
+
 			state.setAngle(component.getAngle());
 			state.setGunAngle(component.getGunAngle());
 		} else {
-			
+
 			// Player state
 			state.setX(point.x);
 			state.setY(point.y);
@@ -288,7 +304,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			state.setAngle(point.angle);
 			state.setGunAngle(point.gunAngle);
 		}
-		
+
 		state.setFireCoolDown(0);
 
 		respawnCoolDown = 0.0;
