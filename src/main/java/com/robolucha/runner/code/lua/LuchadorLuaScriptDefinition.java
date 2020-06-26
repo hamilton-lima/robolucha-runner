@@ -11,7 +11,7 @@ public class LuchadorLuaScriptDefinition extends LuaScriptDefinition implements 
 
 	public LuchadorLuaScriptDefinition() {
 		super();
-		addMethod(MethodNames.ON_START, "function onStart()\n", "\nend");
+		addMethod(MethodNames.ON_START, "\n", "\n");
 		addMethod(MethodNames.ON_REPEAT, "function onRepeat()\n", "\nend");
 		addMethod(MethodNames.ON_HIT_WALL, "function onHitWall()\n", "\nend");
 		addMethod(MethodNames.ON_HIT_OTHER, "function onHitOther(other)\n", "\nend");

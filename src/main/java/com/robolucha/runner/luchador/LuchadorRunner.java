@@ -211,6 +211,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 			logger.info("new code" + codes4CurrentGameDefinition);
 			updateCodeEngine(codes4CurrentGameDefinition);
+			
+			// make sure start is runned after code update
+			MethodBuilder.getInstance().build(scriptDefinition, getStartCode());
+
 
 		} catch (Throwable e) {
 			this.active = false;
