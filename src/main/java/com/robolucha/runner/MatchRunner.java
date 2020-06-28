@@ -183,6 +183,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		logger.info("new luchador added to the match: " + JSONFormat.clean(component.toString()));
 		component.setIsNPC(false);
+		monitor.addPlayer();
+
 		return luchadorCreator.add(component);
 	}
 	
@@ -207,7 +209,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	}
 
 	public void addLuchador(final ModelGameComponent component) throws Exception {
-		monitor.addPlayer();
 		add(component);
 	}
 
