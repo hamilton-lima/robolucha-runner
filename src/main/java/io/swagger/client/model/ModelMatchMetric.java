@@ -20,7 +20,7 @@ import java.util.Objects;
  * ModelMatchMetric
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelMatchMetric {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T01:07:09.701808-04:00[America/Toronto]")public class ModelMatchMetric {
 
   @SerializedName("fps")
   private Integer fps = null;

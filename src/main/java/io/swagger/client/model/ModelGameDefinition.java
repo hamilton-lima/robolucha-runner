@@ -22,7 +22,7 @@ import java.util.Objects;
  * ModelGameDefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelGameDefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T01:07:09.701808-04:00[America/Toronto]")public class ModelGameDefinition {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
@@ -152,6 +152,9 @@ import java.util.Objects;
 
   @SerializedName("suggestedCodes")
   private List<ModelCode> suggestedCodes = null;
+
+  @SerializedName("teamDefinition")
+  private ModelTeamDefinition teamDefinition = null;
 
   @SerializedName("turnGunSpeed")
   private Integer turnGunSpeed = null;
@@ -962,6 +965,24 @@ import java.util.Objects;
   public void setSuggestedCodes(List<ModelCode> suggestedCodes) {
     this.suggestedCodes = suggestedCodes;
   }
+  public ModelGameDefinition teamDefinition(ModelTeamDefinition teamDefinition) {
+    this.teamDefinition = teamDefinition;
+    return this;
+  }
+
+  
+
+  /**
+  * Get teamDefinition
+  * @return teamDefinition
+  **/
+  @Schema(description = "")
+  public ModelTeamDefinition getTeamDefinition() {
+    return teamDefinition;
+  }
+  public void setTeamDefinition(ModelTeamDefinition teamDefinition) {
+    this.teamDefinition = teamDefinition;
+  }
   public ModelGameDefinition turnGunSpeed(Integer turnGunSpeed) {
     this.turnGunSpeed = turnGunSpeed;
     return this;
@@ -1086,6 +1107,7 @@ import java.util.Objects;
         Objects.equals(this.sceneComponents, modelGameDefinition.sceneComponents) &&
         Objects.equals(this.sortOrder, modelGameDefinition.sortOrder) &&
         Objects.equals(this.suggestedCodes, modelGameDefinition.suggestedCodes) &&
+        Objects.equals(this.teamDefinition, modelGameDefinition.teamDefinition) &&
         Objects.equals(this.turnGunSpeed, modelGameDefinition.turnGunSpeed) &&
         Objects.equals(this.turnSpeed, modelGameDefinition.turnSpeed) &&
         Objects.equals(this.type, modelGameDefinition.type) &&
@@ -1094,7 +1116,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxLevel, maxParticipants, minFireAmount, minFireDamage, minLevel, minParticipants, moveSpeed, name, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnAngle, respawnCooldown, respawnGunAngle, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, turnGunSpeed, turnSpeed, type, unblockLevel);
+    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxLevel, maxParticipants, minFireAmount, minFireDamage, minLevel, minParticipants, moveSpeed, name, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnAngle, respawnCooldown, respawnGunAngle, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, teamDefinition, turnGunSpeed, turnSpeed, type, unblockLevel);
   }
 
   @Override
@@ -1145,6 +1167,7 @@ import java.util.Objects;
     sb.append("    sceneComponents: ").append(toIndentedString(sceneComponents)).append("\n");
     sb.append("    sortOrder: ").append(toIndentedString(sortOrder)).append("\n");
     sb.append("    suggestedCodes: ").append(toIndentedString(suggestedCodes)).append("\n");
+    sb.append("    teamDefinition: ").append(toIndentedString(teamDefinition)).append("\n");
     sb.append("    turnGunSpeed: ").append(toIndentedString(turnGunSpeed)).append("\n");
     sb.append("    turnSpeed: ").append(toIndentedString(turnSpeed)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");

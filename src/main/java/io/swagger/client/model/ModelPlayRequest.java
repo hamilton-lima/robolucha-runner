@@ -17,56 +17,35 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * ModelJoinMatch
+ * ModelPlayRequest
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T01:07:09.701808-04:00[America/Toronto]")public class ModelJoinMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T01:07:09.701808-04:00[America/Toronto]")public class ModelPlayRequest {
 
-  @SerializedName("luchadorID")
-  private Integer luchadorID = null;
-
-  @SerializedName("matchID")
-  private Integer matchID = null;
+  @SerializedName("availableMatchID")
+  private Integer availableMatchID = null;
 
   @SerializedName("teamID")
   private Integer teamID = null;
-  public ModelJoinMatch luchadorID(Integer luchadorID) {
-    this.luchadorID = luchadorID;
+  public ModelPlayRequest availableMatchID(Integer availableMatchID) {
+    this.availableMatchID = availableMatchID;
     return this;
   }
 
   
 
   /**
-  * Get luchadorID
-  * @return luchadorID
+  * Get availableMatchID
+  * @return availableMatchID
   **/
   @Schema(description = "")
-  public Integer getLuchadorID() {
-    return luchadorID;
+  public Integer getAvailableMatchID() {
+    return availableMatchID;
   }
-  public void setLuchadorID(Integer luchadorID) {
-    this.luchadorID = luchadorID;
+  public void setAvailableMatchID(Integer availableMatchID) {
+    this.availableMatchID = availableMatchID;
   }
-  public ModelJoinMatch matchID(Integer matchID) {
-    this.matchID = matchID;
-    return this;
-  }
-
-  
-
-  /**
-  * Get matchID
-  * @return matchID
-  **/
-  @Schema(description = "")
-  public Integer getMatchID() {
-    return matchID;
-  }
-  public void setMatchID(Integer matchID) {
-    this.matchID = matchID;
-  }
-  public ModelJoinMatch teamID(Integer teamID) {
+  public ModelPlayRequest teamID(Integer teamID) {
     this.teamID = teamID;
     return this;
   }
@@ -92,24 +71,22 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelJoinMatch modelJoinMatch = (ModelJoinMatch) o;
-    return Objects.equals(this.luchadorID, modelJoinMatch.luchadorID) &&
-        Objects.equals(this.matchID, modelJoinMatch.matchID) &&
-        Objects.equals(this.teamID, modelJoinMatch.teamID);
+    ModelPlayRequest modelPlayRequest = (ModelPlayRequest) o;
+    return Objects.equals(this.availableMatchID, modelPlayRequest.availableMatchID) &&
+        Objects.equals(this.teamID, modelPlayRequest.teamID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(luchadorID, matchID, teamID);
+    return java.util.Objects.hash(availableMatchID, teamID);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelJoinMatch {\n");
+    sb.append("class ModelPlayRequest {\n");
     
-    sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
-    sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");
+    sb.append("    availableMatchID: ").append(toIndentedString(availableMatchID)).append("\n");
     sb.append("    teamID: ").append(toIndentedString(teamID)).append("\n");
     sb.append("}");
     return sb.toString();

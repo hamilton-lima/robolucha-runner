@@ -12,27 +12,25 @@
 
 package io.swagger.client.model;
 
+import com.google.gson.annotations.SerializedName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
-import com.google.gson.annotations.SerializedName;
-
-import io.swagger.v3.oas.annotations.media.Schema;
-
 /**
- * MainServerConfig
+ * ModelTeamParticipant
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2019-05-26T19:12:24.480Z[GMT]")public class ModelServerConfig {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T01:07:09.701808-04:00[America/Toronto]")public class ModelTeamParticipant {
 
   @SerializedName("id")
   private Integer id = null;
 
-  @SerializedName("key")
-  private String key = null;
+  @SerializedName("luchadorID")
+  private Integer luchadorID = null;
 
-  @SerializedName("value")
-  private String value = null;
-  public ModelServerConfig id(Integer id) {
+  @SerializedName("teamID")
+  private Integer teamID = null;
+  public ModelTeamParticipant id(Integer id) {
     this.id = id;
     return this;
   }
@@ -50,41 +48,41 @@ import io.swagger.v3.oas.annotations.media.Schema;
   public void setId(Integer id) {
     this.id = id;
   }
-  public ModelServerConfig key(String key) {
-    this.key = key;
+  public ModelTeamParticipant luchadorID(Integer luchadorID) {
+    this.luchadorID = luchadorID;
     return this;
   }
 
   
 
   /**
-  * Get key
-  * @return key
+  * Get luchadorID
+  * @return luchadorID
   **/
   @Schema(description = "")
-  public String getKey() {
-    return key;
+  public Integer getLuchadorID() {
+    return luchadorID;
   }
-  public void setKey(String key) {
-    this.key = key;
+  public void setLuchadorID(Integer luchadorID) {
+    this.luchadorID = luchadorID;
   }
-  public ModelServerConfig value(String value) {
-    this.value = value;
+  public ModelTeamParticipant teamID(Integer teamID) {
+    this.teamID = teamID;
     return this;
   }
 
   
 
   /**
-  * Get value
-  * @return value
+  * Get teamID
+  * @return teamID
   **/
   @Schema(description = "")
-  public String getValue() {
-    return value;
+  public Integer getTeamID() {
+    return teamID;
   }
-  public void setValue(String value) {
-    this.value = value;
+  public void setTeamID(Integer teamID) {
+    this.teamID = teamID;
   }
   @Override
   public boolean equals(java.lang.Object o) {
@@ -94,25 +92,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelServerConfig mainServerConfig = (ModelServerConfig) o;
-    return Objects.equals(this.id, mainServerConfig.id) &&
-        Objects.equals(this.key, mainServerConfig.key) &&
-        Objects.equals(this.value, mainServerConfig.value);
+    ModelTeamParticipant modelTeamParticipant = (ModelTeamParticipant) o;
+    return Objects.equals(this.id, modelTeamParticipant.id) &&
+        Objects.equals(this.luchadorID, modelTeamParticipant.luchadorID) &&
+        Objects.equals(this.teamID, modelTeamParticipant.teamID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id, key, value);
+    return java.util.Objects.hash(id, luchadorID, teamID);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class MainServerConfig {\n");
+    sb.append("class ModelTeamParticipant {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
+    sb.append("    teamID: ").append(toIndentedString(teamID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

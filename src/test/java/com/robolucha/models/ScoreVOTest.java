@@ -24,7 +24,7 @@ public class ScoreVOTest {
 	@Test
 	public void testScoreVOLongString() {
 
-		ScoreVO vo = new ScoreVO(45, "foo");
+		ScoreVO vo = new ScoreVO(45, 2, "foo");
 		assertEquals("foo", vo.getName());
 		assertTrue(vo.getId().equals(vo.getId()));
 		assertEquals(0, vo.getK());
@@ -35,7 +35,7 @@ public class ScoreVOTest {
 	@Test
 	public void testScoreBuilder() {
 
-		ScoreVO vo = new ScoreVO(45, "foo");
+		ScoreVO vo = new ScoreVO(45, 3, "foo");
 		ScoreBuilder builder = ScoreBuilder.getInstance();
 
 		builder.addDamagePoints(vo, 5);
@@ -59,7 +59,7 @@ public class ScoreVOTest {
 		builder.addKill(vo);
 		assertEquals(1, vo.getK());
 		assertEquals(0, vo.getD());
-		
+
 		builder.addKill(vo);
 		assertEquals(2, vo.getK());
 		assertEquals(0, vo.getD());
@@ -75,8 +75,8 @@ public class ScoreVOTest {
 
 		// tudo igual deve prevalecer o ID mais antigo
 		List<ScoreVO> list = new ArrayList<ScoreVO>();
-		ScoreVO vo1 = new ScoreVO(1, "s1", 1, 1, 1);
-		ScoreVO vo2 = new ScoreVO(2, "s1", 1, 1, 1);
+		ScoreVO vo1 = new ScoreVO(1, 0, "s1", 1, 1, 1);
+		ScoreVO vo2 = new ScoreVO(2, 0, "s1", 1, 1, 1);
 
 		list.add(vo1);
 		list.add(vo2);
@@ -91,8 +91,8 @@ public class ScoreVOTest {
 
 		// score maior
 		ArrayList<ScoreVO> list = new ArrayList<ScoreVO>();
-		ScoreVO vo1 = new ScoreVO(1, "s1", 1, 0, 200);
-		ScoreVO vo2 = new ScoreVO(2, "s1", 1, 1, 250);
+		ScoreVO vo1 = new ScoreVO(1, 0, "s1", 1, 0, 200);
+		ScoreVO vo2 = new ScoreVO(2, 0, "s1", 1, 1, 250);
 
 		list.add(vo1);
 		list.add(vo2);
@@ -116,9 +116,9 @@ public class ScoreVOTest {
 
 		// score maior
 		ArrayList<ScoreVO> list = new ArrayList<ScoreVO>();
-		ScoreVO vo1 = new ScoreVO(1, "s1", 1, 0, 200);
-		ScoreVO vo2 = new ScoreVO(2, "s1", 1, 1, 250);
-		ScoreVO vo3 = new ScoreVO(3, "s1", 2, 1, 250);
+		ScoreVO vo1 = new ScoreVO(1, 0, "s1", 1, 0, 200);
+		ScoreVO vo2 = new ScoreVO(2, 0, "s1", 1, 1, 250);
+		ScoreVO vo3 = new ScoreVO(3, 0, "s1", 2, 1, 250);
 
 		list.add(vo1);
 		list.add(vo2);

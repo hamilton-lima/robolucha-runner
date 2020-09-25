@@ -22,7 +22,7 @@ import java.util.Objects;
  * ModelStudent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelStudent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T01:07:09.701808-04:00[America/Toronto]")public class ModelStudent {
 
   @SerializedName("classrooms")
   private List<ModelClassroom> classrooms = null;

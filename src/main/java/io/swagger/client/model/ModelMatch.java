@@ -22,7 +22,7 @@ import java.util.Objects;
  * ModelMatch
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelMatch {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T01:07:09.701808-04:00[America/Toronto]")public class ModelMatch {
 
   @SerializedName("availableMatchID")
   private Integer availableMatchID = null;
@@ -41,6 +41,9 @@ import java.util.Objects;
 
   @SerializedName("participants")
   private List<ModelGameComponent> participants = null;
+
+  @SerializedName("teamParticipants")
+  private List<ModelTeamParticipant> teamParticipants = null;
 
   @SerializedName("timeEnd")
   private String timeEnd = null;
@@ -161,6 +164,30 @@ import java.util.Objects;
   public void setParticipants(List<ModelGameComponent> participants) {
     this.participants = participants;
   }
+  public ModelMatch teamParticipants(List<ModelTeamParticipant> teamParticipants) {
+    this.teamParticipants = teamParticipants;
+    return this;
+  }
+
+  public ModelMatch addTeamParticipantsItem(ModelTeamParticipant teamParticipantsItem) {
+    if (this.teamParticipants == null) {
+      this.teamParticipants = new ArrayList<ModelTeamParticipant>();
+    }
+    this.teamParticipants.add(teamParticipantsItem);
+    return this;
+  }
+
+  /**
+  * Get teamParticipants
+  * @return teamParticipants
+  **/
+  @Schema(description = "")
+  public List<ModelTeamParticipant> getTeamParticipants() {
+    return teamParticipants;
+  }
+  public void setTeamParticipants(List<ModelTeamParticipant> teamParticipants) {
+    this.teamParticipants = teamParticipants;
+  }
   public ModelMatch timeEnd(String timeEnd) {
     this.timeEnd = timeEnd;
     return this;
@@ -212,13 +239,14 @@ import java.util.Objects;
         Objects.equals(this.id, modelMatch.id) &&
         Objects.equals(this.lastTimeAlive, modelMatch.lastTimeAlive) &&
         Objects.equals(this.participants, modelMatch.participants) &&
+        Objects.equals(this.teamParticipants, modelMatch.teamParticipants) &&
         Objects.equals(this.timeEnd, modelMatch.timeEnd) &&
         Objects.equals(this.timeStart, modelMatch.timeStart);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(availableMatchID, gameDefinition, gameDefinitionID, id, lastTimeAlive, participants, timeEnd, timeStart);
+    return java.util.Objects.hash(availableMatchID, gameDefinition, gameDefinitionID, id, lastTimeAlive, participants, teamParticipants, timeEnd, timeStart);
   }
 
   @Override
@@ -232,6 +260,7 @@ import java.util.Objects;
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    lastTimeAlive: ").append(toIndentedString(lastTimeAlive)).append("\n");
     sb.append("    participants: ").append(toIndentedString(participants)).append("\n");
+    sb.append("    teamParticipants: ").append(toIndentedString(teamParticipants)).append("\n");
     sb.append("    timeEnd: ").append(toIndentedString(timeEnd)).append("\n");
     sb.append("    timeStart: ").append(toIndentedString(timeStart)).append("\n");
     sb.append("}");
