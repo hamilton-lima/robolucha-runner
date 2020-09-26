@@ -92,7 +92,7 @@ public class JoinMatchQueue implements Runnable {
 		}
 
 		logger.info("Luchador found by ID " + JSONFormat.clean(luchador.toString()));
-		runner.addLuchador(luchador);
+		runner.addLuchador(luchador, next.getTeamID());
 
 		logger.info("END addLuchadorToMatch");
 	}

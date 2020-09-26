@@ -51,10 +51,10 @@ public class MatchRunnerAPI {
 		api.internalAddMatchScoresPost(requestBody);
 	}
 
-	public void addMatchParticipant(MatchParticipant matchParticipant) throws Exception {
+	public void addMatchParticipant(int matchId, ModelGameComponent luchador, Integer teamId) throws Exception {
 		ModelMatchParticipant participant = new ModelMatchParticipant();
-		participant.setMatchID(matchParticipant.getMatchRun().getId().intValue());
-		participant.setLuchadorID(Long.valueOf(matchParticipant.getLuchador().getId()).intValue());
+		participant.setMatchID(matchId);
+		participant.setLuchadorID(Long.valueOf(luchador.getId()).intValue());
 		api.internalMatchParticipantPost(participant);
 	}
 

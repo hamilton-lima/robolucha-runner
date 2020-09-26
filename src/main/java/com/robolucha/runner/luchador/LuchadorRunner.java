@@ -32,10 +32,8 @@ import com.robolucha.runner.code.MethodBuilder;
 import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.code.ScriptDefinitionFactory;
 import com.robolucha.shared.Calc;
-import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.model.ModelCode;
-import io.swagger.client.model.ModelDefaultState;
 import io.swagger.client.model.ModelGameComponent;
 
 /**
@@ -91,7 +89,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	private LuchadorUpdateListener luchadorUpdatelistener;
 
-	public LuchadorRunner(ModelGameComponent component, MatchRunner matchRunner) {
+	public LuchadorRunner(ModelGameComponent component, Integer teamId, MatchRunner matchRunner) {
 		this.gameComponent = component;
 		this.matchRunner = matchRunner;
 		this.setExceptionCounter(0);
@@ -112,7 +110,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		try {
 			setDefaultState(matchRunner.getRespawnPoint(this));
-			setDefaultScore();
+			setDefaultScore(teamId);
 			createCodeEngine(component.getCodes());
 			this.active = true;
 		} catch (Exception e) {
@@ -316,8 +314,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		punchCoolDown = 0.0;
 	}
 
-	private void setDefaultScore() {
-		state.score = new ScoreVO(gameComponent.getId(), gameComponent.getName());
+	private void setDefaultScore(Integer teamId) {
+		state.score = new ScoreVO(gameComponent.getId(), teamId, gameComponent.getName());
 	}
 
 	String getString(String script) throws Exception {

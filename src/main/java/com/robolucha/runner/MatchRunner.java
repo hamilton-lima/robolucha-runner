@@ -159,7 +159,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		listener.subscribe(this);
 	}
 
-	public PublishSubject<LuchadorRunner> add(final ModelGameComponent component) throws Exception {
+	public PublishSubject<LuchadorRunner> add(final ModelGameComponent component, Integer teamId) throws Exception {
 
 		if (runners.containsKey(component.getId())) {
 			String message = "trying to add luchador that is already in the match, id: " + component.getId();
@@ -180,12 +180,14 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			result.onComplete();
 			return result;
 		}
+		
+		// check limits of team
 
 		logger.info("new luchador added to the match: " + JSONFormat.clean(component.toString()));
 		component.setIsNPC(false);
 		monitor.addPlayer();
 
-		return luchadorCreator.add(component);
+		return luchadorCreator.add(component, teamId);
 	}
 	
 	private int getNumberOfPlayers() {
@@ -205,11 +207,11 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	public PublishSubject<LuchadorRunner> addNPC(final ModelGameComponent component) throws Exception {
 		logger.info("new NPC added to the match: " + JSONFormat.clean(component.toString()));
 		component.setIsNPC(true);
-		return luchadorCreator.add(component);
+		return luchadorCreator.add(component, 0);
 	}
 
-	public void addLuchador(final ModelGameComponent component) throws Exception {
-		add(component);
+	public void addLuchador(final ModelGameComponent component, Integer teamId) throws Exception {
+		add(component, teamId);
 	}
 
 	public void fire(Bullet bullet) {
