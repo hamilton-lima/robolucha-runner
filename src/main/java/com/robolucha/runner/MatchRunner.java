@@ -164,6 +164,10 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		listener.subscribe(this);
 	}
 
+	public PublishSubject<LuchadorRunner> add(final ModelGameComponent component) throws Exception {
+		return add(component, 0);
+	}
+
 	public PublishSubject<LuchadorRunner> add(final ModelGameComponent component, Integer teamId) throws Exception {
 
 		if (runners.containsKey(component.getId())) {
@@ -189,7 +193,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		// Check limits of team
 		if (gameDefinition.getTeamDefinition() != null) {
 			ModelTeamDefinition teamDefinition = gameDefinition.getTeamDefinition();
-			if (teamDefinition.getTeams() != null) {
+			if (teamDefinition != null && teamDefinition.getTeams() != null) {
 
 				Optional<ModelTeam> find = teamDefinition.getTeams().stream().filter(t -> t.getId() == teamId)
 						.findFirst();
@@ -283,7 +287,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		}
 
 		ModelTeamDefinition teamDefinition = gameDefinition.getTeamDefinition();
-		if (teamDefinition.getTeams() != null && teamDefinition.getTeams().size() > 0) {
+		if (teamDefinition != null && teamDefinition.getTeams() != null && teamDefinition.getTeams().size() > 0) {
 
 			// count participants by team.
 			Map<Integer, Integer> countbyTeam = new LinkedHashMap<Integer, Integer>();

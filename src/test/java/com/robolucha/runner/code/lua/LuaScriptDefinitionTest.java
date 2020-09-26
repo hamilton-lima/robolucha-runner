@@ -43,9 +43,9 @@ public class LuaScriptDefinitionTest {
 			MethodDefinition methodDefinition = methods.get(value);
 			assertNotNull(methodDefinition);
 
-			if (value.equals("start")) {
-				assertTrue(methodDefinition.getStart().length() == 0);
-				assertTrue(methodDefinition.getEnd().length() == 0);
+			if (value.equals("onStart")) {
+				assertTrue(methodDefinition.getStart().startsWith("\n"));
+				assertTrue(methodDefinition.getEnd().startsWith("\n"));
 
 			} else {
 				assertTrue(methodDefinition.getStart().startsWith("function "));

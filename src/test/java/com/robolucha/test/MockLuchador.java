@@ -19,6 +19,7 @@ public class MockLuchador {
 		a.setId(faker.hashCode());
 		a.setName(faker.name().username()); 
 		a.setCodes(new ArrayList<ModelCode>());
+		a.setIsNPC(false);
 		return a;
 	}
 
