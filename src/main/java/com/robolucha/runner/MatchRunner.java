@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -44,6 +46,8 @@ import io.swagger.client.model.ModelGameDefinition;
 import io.swagger.client.model.ModelMatch;
 import io.swagger.client.model.ModelMatchMetric;
 import io.swagger.client.model.ModelSceneComponent;
+import io.swagger.client.model.ModelTeam;
+import io.swagger.client.model.ModelTeamDefinition;
 
 /**
  * main match logic
@@ -162,7 +166,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	public PublishSubject<LuchadorRunner> add(final ModelGameComponent component, Integer teamId) throws Exception {
 
 		if (runners.containsKey(component.getId())) {
-			String message = "trying to add luchador that is already in the match, id: " + component.getId();
+			String message = "Trying to add luchador that is already in the match, id: " + component.getId();
 			logger.info(message);
 
 			PublishSubject<LuchadorRunner> result = PublishSubject.create();
@@ -180,14 +184,47 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			result.onComplete();
 			return result;
 		}
-		
-		// check limits of team
+
+		// Check limits of team
+		if (gameDefinition.getTeamDefinition() != null) {
+			ModelTeamDefinition teamDefinition = gameDefinition.getTeamDefinition();
+			if (teamDefinition.getTeams() != null && teamDefinition.getTeams().size() > 1) {
+
+				Optional<ModelTeam> find = teamDefinition.getTeams().stream()
+						.filter(t -> t.getId() == teamId)
+						.findFirst();
+				
+				if( find.isPresent() ) {
+					ModelTeam team = find.get();
+					List<LuchadorRunner> participants = getRunnersByTeam(teamId);
+					if( participants.size() +1 > team.getMaxParticipants() ) {
+						
+						String message = "Team max participants is reached";
+						logger.info(message);
+
+						PublishSubject<LuchadorRunner> result = PublishSubject.create();
+						result.onError(new Exception(message));
+						result.onComplete();
+						return result;
+					}
+					
+				}
+			}
+		}
 
 		logger.info("new luchador added to the match: " + JSONFormat.clean(component.toString()));
 		component.setIsNPC(false);
 		monitor.addPlayer();
 
 		return luchadorCreator.add(component, teamId);
+	}
+
+	private List<LuchadorRunner> getRunnersByTeam(int teamId){
+		List<LuchadorRunner> result = runners.values()
+				.stream()
+				.filter( r -> r.getTeamId() == teamId)
+				.collect(Collectors.toList());
+		return result;
 	}
 	
 	private int getNumberOfPlayers() {
@@ -197,8 +234,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		for (int i = 0; i < localRunners.length; i++) {
 			LuchadorRunner runner = localRunners[i];
-			if( ! runner.getGameComponent().isIsNPC()) {
-				counter ++;
+			if (!runner.getGameComponent().isIsNPC()) {
+				counter++;
 			}
 		}
 		return counter;
@@ -210,8 +247,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return luchadorCreator.add(component, 0);
 	}
 
-	public void addLuchador(final ModelGameComponent component, Integer teamId) throws Exception {
-		add(component, teamId);
+	public PublishSubject<LuchadorRunner> addLuchador(final ModelGameComponent component, Integer teamId) throws Exception {
+		return add(component, teamId);
 	}
 
 	public void fire(Bullet bullet) {
@@ -339,7 +376,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			logger.error("*** ERROR last publisher update", e);
 		}
 
-		logger.info("START matchrun shutdown match.id=" + match.getId() );
+		logger.info("START matchrun shutdown match.id=" + match.getId());
 		onMatchEnd.onNext(match);
 		onMatchEnd.onComplete();
 
