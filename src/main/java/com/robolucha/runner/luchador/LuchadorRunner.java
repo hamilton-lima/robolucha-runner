@@ -61,6 +61,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	// test classes can update this.
 	ModelGameComponent gameComponent;
+	int teamId;
 
 	private boolean active;
 	private long start;
@@ -91,6 +92,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public LuchadorRunner(ModelGameComponent component, Integer teamId, MatchRunner matchRunner) {
 		this.gameComponent = component;
+		this.teamId = teamId;
+
 		this.matchRunner = matchRunner;
 		this.setExceptionCounter(0);
 
@@ -209,10 +212,9 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 			logger.info("new code" + codes4CurrentGameDefinition);
 			updateCodeEngine(codes4CurrentGameDefinition);
-			
+
 			// make sure start is runned after code update
 			MethodBuilder.getInstance().build(scriptDefinition, getStartCode());
-
 
 		} catch (Throwable e) {
 			this.active = false;
@@ -890,6 +892,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public void setExceptionCounter(int exceptionCounter) {
 		this.exceptionCounter = exceptionCounter;
+	}
+
+	public int getTeamId() {
+		return teamId;
 	}
 
 }
