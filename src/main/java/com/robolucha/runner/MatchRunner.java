@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -54,7 +55,7 @@ import io.swagger.client.model.ModelTeamDefinition;
  */
 public class MatchRunner implements Runnable, ThreadStatus {
 
-	private static final long SMALL_SLEEP = 5;
+	private static final long DEEP_BREATH_SLEEP = 3000;
 	private static final String WALL_TYPE = "wall";
 
 	private SafeList bullets;
@@ -188,17 +189,16 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		// Check limits of team
 		if (gameDefinition.getTeamDefinition() != null) {
 			ModelTeamDefinition teamDefinition = gameDefinition.getTeamDefinition();
-			if (teamDefinition.getTeams() != null && teamDefinition.getTeams().size() > 1) {
+			if (teamDefinition.getTeams() != null) {
 
-				Optional<ModelTeam> find = teamDefinition.getTeams().stream()
-						.filter(t -> t.getId() == teamId)
+				Optional<ModelTeam> find = teamDefinition.getTeams().stream().filter(t -> t.getId() == teamId)
 						.findFirst();
-				
-				if( find.isPresent() ) {
+
+				if (find.isPresent()) {
 					ModelTeam team = find.get();
 					List<LuchadorRunner> participants = getRunnersByTeam(teamId);
-					if( participants.size() +1 > team.getMaxParticipants() ) {
-						
+					if (participants.size() + 1 > team.getMaxParticipants()) {
+
 						String message = "Team max participants is reached";
 						logger.info(message);
 
@@ -207,7 +207,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 						result.onComplete();
 						return result;
 					}
-					
+
 				}
 			}
 		}
@@ -219,14 +219,12 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return luchadorCreator.add(component, teamId);
 	}
 
-	private List<LuchadorRunner> getRunnersByTeam(int teamId){
-		List<LuchadorRunner> result = runners.values()
-				.stream()
-				.filter( r -> r.getTeamId() == teamId)
+	private List<LuchadorRunner> getRunnersByTeam(int teamId) {
+		List<LuchadorRunner> result = runners.values().stream().filter(r -> r.getTeamId() == teamId)
 				.collect(Collectors.toList());
 		return result;
 	}
-	
+
 	private int getNumberOfPlayers() {
 		int counter = 0;
 		LuchadorRunner[] localRunners = new LuchadorRunner[runners.values().size()];
@@ -247,7 +245,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return luchadorCreator.add(component, 0);
 	}
 
-	public PublishSubject<LuchadorRunner> addLuchador(final ModelGameComponent component, Integer teamId) throws Exception {
+	public PublishSubject<LuchadorRunner> addLuchador(final ModelGameComponent component, Integer teamId)
+			throws Exception {
 		return add(component, teamId);
 	}
 
@@ -278,6 +277,40 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		mainLoop();
 	}
 
+	boolean readyToStartMatch() {
+		if (getNumberOfPlayers() < gameDefinition.getMinParticipants()) {
+			return false;
+		}
+
+		ModelTeamDefinition teamDefinition = gameDefinition.getTeamDefinition();
+		if (teamDefinition.getTeams() != null && teamDefinition.getTeams().size() > 0) {
+
+			// count participants by team.
+			Map<Integer, Integer> countbyTeam = new LinkedHashMap<Integer, Integer>();
+			runners.values().forEach((runner) -> {
+				int teamId = runner.getTeamId();
+
+				if (countbyTeam.containsKey(teamId)) {
+					int value = countbyTeam.get(teamId);
+					countbyTeam.put(teamId, value + 1);
+				} else {
+					countbyTeam.put(teamId, 1);
+				}
+			});
+
+			for (ModelTeam team : teamDefinition.getTeams()) {
+				List<LuchadorRunner> participants = getRunnersByTeam(team.getId());
+				if (participants.size() < team.getMinParticipants()) {
+					logger.info(String.format("Match: %s, Missing participants to start on team: [%s] %s, current %s: ",
+							match.getId(), team.getId(), team.getName(), participants.size()));
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
 	public void mainLoop() {
 		CheckRespawnAction respawnAction = new CheckRespawnAction(this);
 		RemoveDeadAction removeDeadAction = new RemoveDeadAction(this);
@@ -285,9 +318,9 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		logger.info("Waiting for the minimum participants: " + gameDefinition.getMinParticipants());
 
-		while (alive && getNumberOfPlayers() < gameDefinition.getMinParticipants()) {
+		while (alive && !readyToStartMatch()) {
 			try {
-				Thread.sleep(SMALL_SLEEP);
+				Thread.sleep(DEEP_BREATH_SLEEP);
 			} catch (InterruptedException e) {
 				logger.error("Interrupted while waiting for participants", e);
 			}
