@@ -150,6 +150,13 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		logger.info("MatchRunner created:" + this);
 	}
+	
+	public boolean isFriendlyFire(){
+		if (gameDefinition.getTeamDefinition() != null) {
+			return gameDefinition.getTeamDefinition().isFriendlyFire();
+		}
+		return true;
+	}
 
 	public List<ModelSceneComponent> getSceneComponents() {
 		return gameDefinition.getSceneComponents();

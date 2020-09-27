@@ -109,6 +109,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		state = new LuchadorMatchState(gameComponent.isIsNPC());
 		state.setId(component.getId());
+		state.setTeam(teamId);
 		state.setName(component.getName());
 
 		try {

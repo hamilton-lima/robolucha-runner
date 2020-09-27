@@ -42,14 +42,20 @@ public class CheckBulletHitAction implements GameAction {
 				if (Calc.intersectBullet(runner, bullet)) {
 
 					bullet.setActive(false);
-					runner.damage(bullet.getAmount());
 
-					if (logger.isDebugEnabled()) {
-						logger.debug("checkbullethit, dano aplicado = " + bullet.getAmount());
+					// check if friendly fire is active
+					if (bullet.getOwner().getState().getTeam() != runner.getTeamId()) {
+
+						addDamage(runner);
+
+					} else {
+						if (matchRunner.isFriendlyFire()) {
+
+							addDamage(runner);
+						}
 					}
 
 					if (runner.getState().getLife() <= 0) {
-
 						if (logger.isDebugEnabled()) {
 							logger.debug("checkbullethit, luchador MORREU !! = " + runner);
 						}
@@ -57,15 +63,24 @@ public class CheckBulletHitAction implements GameAction {
 						matchRunner.getEventHandler().kill(bullet.getOwner().getState(), runner.getState());
 					}
 
-					runner.addEvent(new OnGotDamageEvent(bullet.getOwner().getState().getPublicState(),
-							runner.getState().getPublicState(), bullet.getAmount()));
-
-					matchRunner.getEventHandler().damage(bullet.getOwner().getState(), runner.getState(),
-							bullet.getAmount());
 				}
 			}
 		}
 
+	}
+
+	// Apply damage and generate events
+	private void addDamage(LuchadorRunner runner) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("checkbullethit, dano aplicado = " + bullet.getAmount());
+		}
+
+		runner.damage(bullet.getAmount());
+
+		runner.addEvent(new OnGotDamageEvent(bullet.getOwner().getState().getPublicState(),
+				runner.getState().getPublicState(), bullet.getAmount()));
+
+		matchRunner.getEventHandler().damage(bullet.getOwner().getState(), runner.getState(), bullet.getAmount());
 	}
 
 	public String getName() {
