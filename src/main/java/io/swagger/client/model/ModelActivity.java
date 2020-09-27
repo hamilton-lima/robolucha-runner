@@ -22,7 +22,7 @@ import java.util.Objects;
  * ModelActivity
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T01:07:09.701808-04:00[America/Toronto]")public class ModelActivity {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-27T16:34:36.898480-04:00[America/Toronto]")public class ModelActivity {
 
   @SerializedName("description")
   private String description = null;

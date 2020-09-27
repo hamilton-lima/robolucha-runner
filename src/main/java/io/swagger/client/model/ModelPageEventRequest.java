@@ -20,7 +20,7 @@ import java.util.Objects;
  * ModelPageEventRequest
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-25T01:07:09.701808-04:00[America/Toronto]")public class ModelPageEventRequest {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-27T16:34:36.898480-04:00[America/Toronto]")public class ModelPageEventRequest {
 
   @SerializedName("action")
   private String action = null;

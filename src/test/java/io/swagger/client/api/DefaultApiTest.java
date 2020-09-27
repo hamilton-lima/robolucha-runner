@@ -354,6 +354,21 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * notify that the match is running, all participants joined
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalRunMatchPutTest() throws ApiException {
+        ModelMatch body = null;
+        ModelMatch response = api.internalRunMatchPut(body);
+
+        // TODO: test validations
+    }
+    /**
      * find available matches by classroom
      *
      * 
