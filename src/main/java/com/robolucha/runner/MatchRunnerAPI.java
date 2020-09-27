@@ -87,6 +87,13 @@ public class MatchRunnerAPI {
 		return result;
 	}
 
+	public ModelMatch matchIsRunning(Integer matchID) throws Exception {
+		ModelMatch body = new ModelMatch();
+		body.setId(matchID);
+		ModelMatch result = api.internalRunMatchPut(body);
+		return result;
+	}
+
 	public ModelGameDefinition getGameDefinition(Integer gameDefinitionID) throws Exception {
 		ModelGameDefinition result = api.internalGameDefinitionIdIdGet(gameDefinitionID);
 		return result;

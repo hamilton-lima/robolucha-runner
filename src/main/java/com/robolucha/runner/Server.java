@@ -9,6 +9,7 @@ import com.robolucha.publisher.MatchEventPublisher;
 import com.robolucha.publisher.MatchMessagePublisher;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
+import com.robolucha.runner.subscribers.MatchRunning;
 import com.robolucha.score.ScoreUpdater;
 import com.robolucha.shared.JSONFormat;
 
@@ -73,6 +74,9 @@ public class Server {
 
 		// message listener
 		runner.addListener(new MatchMessagePublisher(queue));
+		
+		// notify when match starts to run
+		runner.getOnMatchStart().subscribe(new MatchRunning());
 
 		return new Thread(runner);
 	}
