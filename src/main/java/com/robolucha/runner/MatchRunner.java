@@ -68,6 +68,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private PublishSubject<ModelMatch> onMatchStart;
 	private PublishSubject<ModelMatch> onMatchEnd;
+	private PublishSubject<String> onRunnerShutdown;
 	private PublishSubject<MessageVO> onMessage;
 	private PublishSubject<MatchInitVO> onInit;
 
@@ -145,6 +146,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		onMatchStart = PublishSubject.create();
 		onMatchEnd = PublishSubject.create();
+		onRunnerShutdown = PublishSubject.create();
 		onMessage = PublishSubject.create();
 		onInit = PublishSubject.create();
 
@@ -496,6 +498,9 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		luchadorCreator = null;
 
 		logger.info("matchrun shutdown (9)");
+		
+		onRunnerShutdown.onNext(getThreadName());
+		onRunnerShutdown.onComplete();
 
 	}
 
@@ -765,6 +770,10 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	public PublishSubject<ModelMatch> getOnMatchEnd() {
 		return onMatchEnd;
+	}
+
+	public PublishSubject<String> getOnRunnerShutdown() {
+		return onRunnerShutdown;
 	}
 
 	public PublishSubject<MessageVO> getOnMessage() {

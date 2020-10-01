@@ -43,23 +43,29 @@ public class CheckBulletHitAction implements GameAction {
 
 					bullet.setActive(false);
 
-					// check if friendly fire is active
-					if (bullet.getOwner().getState().getTeam() != runner.getTeamId()) {
+					// team definition exists
+					if (matchRunner.getGameDefinition().getTeamDefinition().getId() > 0) {
 
-						addDamage(runner);
+						// different team 
+						if (bullet.getOwner().getState().getTeam() != runner.getTeamId()) {
+							logger.info("Not in the same team, set damage");
+							addDamage(runner);
+						} else {
+							
+							// same team
+							logger.info("SAME team: friendlyfire? " + matchRunner.isFriendlyFire());
+
+							if (matchRunner.isFriendlyFire()) {
+								addDamage(runner);
+							}
+						}
 
 					} else {
-						if (matchRunner.isFriendlyFire()) {
-
-							addDamage(runner);
-						}
+						addDamage(runner);
 					}
 
 					if (runner.getState().getLife() <= 0) {
-						if (logger.isDebugEnabled()) {
-							logger.debug("checkbullethit, luchador MORREU !! = " + runner);
-						}
-
+						logger.info("player is dead!: " + runner.getGameComponent().getId());
 						matchRunner.getEventHandler().kill(bullet.getOwner().getState(), runner.getState());
 					}
 

@@ -9,10 +9,10 @@ import com.robolucha.publisher.MatchEventPublisher;
 import com.robolucha.publisher.MatchMessagePublisher;
 import com.robolucha.publisher.MatchStatePublisher;
 import com.robolucha.publisher.RemoteQueue;
-import com.robolucha.runner.subscribers.MatchRunning;
 import com.robolucha.score.ScoreUpdater;
 import com.robolucha.shared.JSONFormat;
 
+import io.reactivex.functions.Consumer;
 import io.swagger.client.model.ModelGameDefinition;
 import io.swagger.client.model.ModelJoinMatch;
 import io.swagger.client.model.ModelMatch;
@@ -74,9 +74,20 @@ public class Server {
 
 		// message listener
 		runner.addListener(new MatchMessagePublisher(queue));
-		
+
 		// notify when match starts to run
-		runner.getOnMatchStart().subscribe(new MatchRunning());
+		runner.getOnMatchStart().subscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch match) throws Exception {
+				MatchRunnerAPI.getInstance().matchIsRunning(match.getId());
+			}
+		});
+
+		// notify when match starts to run
+		runner.getOnRunnerShutdown().subscribe(new Consumer<String>() {
+			public void accept(String name) throws Exception {
+				ThreadMonitor.getInstance().remove(name);
+			}
+		});
 
 		return new Thread(runner);
 	}
