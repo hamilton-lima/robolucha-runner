@@ -3,8 +3,10 @@ package com.robolucha.runner;
 import org.apache.log4j.Logger;
 
 import com.robolucha.game.action.OnInitAddNPC;
+import com.robolucha.game.vo.MatchReadyToStartVO;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
+import com.robolucha.publisher.MatchCreatedPublisher;
 import com.robolucha.publisher.MatchEventPublisher;
 import com.robolucha.publisher.MatchMessagePublisher;
 import com.robolucha.publisher.MatchStatePublisher;
@@ -74,6 +76,7 @@ public class Server {
 
 		// message listener
 		runner.addListener(new MatchMessagePublisher(queue));
+		runner.addListener(new MatchCreatedPublisher(queue));
 
 		// notify when match starts to run
 		runner.getOnMatchStart().subscribe(new Consumer<ModelMatch>() {
