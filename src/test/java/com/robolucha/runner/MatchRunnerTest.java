@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.robolucha.game.vo.MatchReadyToStartVO;
 import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
@@ -40,7 +41,8 @@ public class MatchRunnerTest {
 		ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "--");
 		runner.add(a).blockingFirst();
 
-		assertFalse("Cant start with only one luchador", runner.readyToStartMatch());
+		MatchReadyToStartVO info = runner.readyToStartMatch();
+		assertFalse("Cant start with only one luchador", info.ready);
 	}
 
 	@Test
@@ -49,12 +51,13 @@ public class MatchRunnerTest {
 		MatchRunner runner = MockMatchRunner.build();
 		runner.getGameDefinition().setMinParticipants(2);
 
-		ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_REPEAT, "--");
-		ModelGameComponent b = MockLuchador.build(2, MethodNames.ON_REPEAT, "--");
+		ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_START, "--");
+		ModelGameComponent b = MockLuchador.build(2, MethodNames.ON_START, "--");
 		runner.add(a).blockingFirst();
 		runner.add(b).blockingFirst();
-
-		assertTrue("CAN start with only one luchador", runner.readyToStartMatch());
+		
+		MatchReadyToStartVO info = runner.readyToStartMatch();
+		assertTrue("CAN start with only one luchador", info.ready);
 	}
 
 	@Test
@@ -84,7 +87,8 @@ public class MatchRunnerTest {
 		runner.add(a, 1).blockingFirst();
 		runner.add(b, 2).blockingFirst();
 
-		assertFalse("CANT start", runner.readyToStartMatch());
+		MatchReadyToStartVO info = runner.readyToStartMatch();
+		assertFalse("CANT start", info.ready);
 	}
 	
 	@Test
@@ -113,7 +117,8 @@ public class MatchRunnerTest {
 		runner.add(MockLuchador.build(3), 2).blockingFirst();
 		runner.add(MockLuchador.build(4), 2).blockingFirst();
 
-		assertTrue("CAN start", runner.readyToStartMatch());
+		MatchReadyToStartVO info = runner.readyToStartMatch();
+		assertTrue("CAN start", info.ready);
 	}
 	
 
@@ -142,7 +147,8 @@ public class MatchRunnerTest {
 		runner.add(MockLuchador.build(3), 2).blockingFirst();
 		runner.add(MockLuchador.build(4), 2).blockingFirst();
 
-		assertFalse("CANNOT start, one team is missing participants", runner.readyToStartMatch());
+		MatchReadyToStartVO info = runner.readyToStartMatch();
+		assertFalse("CANNOT start, one team is missing participants", info.ready);
 	}
 	
 

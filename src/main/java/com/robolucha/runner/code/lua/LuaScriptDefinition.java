@@ -1,15 +1,20 @@
 package com.robolucha.runner.code.lua;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
 import org.luaj.vm2.LuaFunction;
+import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
+import com.robolucha.publisher.MatchCreatedPublisher;
 import com.robolucha.runner.code.MethodDefinition;
 import com.robolucha.runner.code.ScriptDefinition;
 import com.robolucha.runner.code.ScriptFacade;
 
 public abstract class LuaScriptDefinition implements ScriptDefinition {
+	private static Logger logger = Logger.getLogger(LuaScriptDefinition.class);
 
 	protected HashMap<String, MethodDefinition> methods;
 	protected LuaVM lua;
@@ -30,7 +35,15 @@ public abstract class LuaScriptDefinition implements ScriptDefinition {
 	public void run(ScriptFacade facade, String name, Object... parameter) {
 
 		lua.put("__internal", facade);
-		LuaFunction function = lua.getFunction(name);
+
+		LuaValue value = lua.getFunction(name);
+		if (!value.isfunction()) {
+			logger.error(
+					String.format("Unable to run LUA function: %s, parameters: %s", name, Arrays.toString(parameter)));
+			return;
+		}
+
+		LuaFunction function = (LuaFunction) value;
 
 		if (parameter.length == 0) {
 			function.call();
