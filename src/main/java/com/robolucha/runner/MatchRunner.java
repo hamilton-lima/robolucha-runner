@@ -320,6 +320,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		
 		MatchReadyToStartVO readyToStart = new MatchReadyToStartVO();
 		readyToStart.ready = true;
+		readyToStart.matchID = match.getId();
 		readyToStart.minParticipants = gameDefinition.getMinParticipants();
 		readyToStart.maxParticipants = gameDefinition.getMaxParticipants();
 		readyToStart.participants = getNumberOfPlayers();
