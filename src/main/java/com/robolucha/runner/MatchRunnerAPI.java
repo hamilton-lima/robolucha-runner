@@ -4,11 +4,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.robolucha.models.MatchParticipant;
 import com.robolucha.models.MatchScore;
 import com.robolucha.shared.JSONFormat;
 
-import io.swagger.client.ApiException;
 import io.swagger.client.api.DefaultApi;
 import io.swagger.client.model.ModelFindLuchadorWithGamedefinition;
 import io.swagger.client.model.ModelGameComponent;
