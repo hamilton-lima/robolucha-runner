@@ -33,6 +33,8 @@ public class MatchCreatedPublisher implements Consumer<MatchReadyToStartVO>, Mat
 	@Override
 	public void accept(MatchReadyToStartVO info) throws Exception {
 		String channel = String.format("match.%s.state", info.matchID);
+		logger.info(String.format("Checking for readiness, info: %s", info));
+
 		MessageEnvelope envelope = MessageEnvelope.buildMatchCreated(info);
 		remoteQueue.publish(channel, envelope);
 	}

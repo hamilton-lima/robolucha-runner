@@ -5,4 +5,9 @@ public class MatchReadyToStartTeamInformationVO {
 	public int minParticipants;
 	public int maxParticipants;
 	public int participants;
+
+	public String toString() {
+		return "MatchReadyToStartTeamInformationVO [teamID=" + teamID + ", minParticipants=" + minParticipants
+				+ ", maxParticipants=" + maxParticipants + ", participants=" + participants + "]";
+	}
 }

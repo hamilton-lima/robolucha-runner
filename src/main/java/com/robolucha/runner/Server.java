@@ -81,7 +81,9 @@ public class Server {
 		// notify when match starts to run
 		runner.getOnMatchStart().subscribe(new Consumer<ModelMatch>() {
 			public void accept(ModelMatch match) throws Exception {
-				MatchRunnerAPI.getInstance().matchIsRunning(match.getId());
+				logger.info("Send notification that match is running: " + match.getId());
+				ModelMatch result = MatchRunnerAPI.getInstance().matchIsRunning(match.getId());
+				logger.info("Response from send notification that match is running: " + result.getStatus());
 			}
 		});
 
