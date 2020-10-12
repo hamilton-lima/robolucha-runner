@@ -1,10 +1,14 @@
 package com.robolucha.runner;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -27,6 +31,8 @@ import com.robolucha.game.processor.IRespawnProcessor;
 import com.robolucha.game.processor.PunchesProcessor;
 import com.robolucha.game.processor.RespawnProcessorFactory;
 import com.robolucha.game.vo.MatchInitVO;
+import com.robolucha.game.vo.MatchReadyToStartTeamInformationVO;
+import com.robolucha.game.vo.MatchReadyToStartVO;
 import com.robolucha.game.vo.MessageVO;
 import com.robolucha.models.Bullet;
 import com.robolucha.monitor.ServerMonitor;
@@ -44,13 +50,15 @@ import io.swagger.client.model.ModelGameDefinition;
 import io.swagger.client.model.ModelMatch;
 import io.swagger.client.model.ModelMatchMetric;
 import io.swagger.client.model.ModelSceneComponent;
+import io.swagger.client.model.ModelTeam;
+import io.swagger.client.model.ModelTeamDefinition;
 
 /**
  * main match logic
  */
 public class MatchRunner implements Runnable, ThreadStatus {
 
-	private static final long SMALL_SLEEP = 5;
+	private static final long DEEP_BREATH_SLEEP = 3000;
 	private static final String WALL_TYPE = "wall";
 
 	private SafeList bullets;
@@ -63,8 +71,10 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	private PublishSubject<ModelMatch> onMatchStart;
 	private PublishSubject<ModelMatch> onMatchEnd;
+	private PublishSubject<String> onRunnerShutdown;
 	private PublishSubject<MessageVO> onMessage;
 	private PublishSubject<MatchInitVO> onInit;
+	private PublishSubject<MatchReadyToStartVO> onCheckingReadiness;
 
 	private List<MatchRunnerListener> listeners;
 	private ModelGameDefinition gameDefinition;
@@ -140,10 +150,19 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		onMatchStart = PublishSubject.create();
 		onMatchEnd = PublishSubject.create();
+		onRunnerShutdown = PublishSubject.create();
 		onMessage = PublishSubject.create();
 		onInit = PublishSubject.create();
+		onCheckingReadiness = PublishSubject.create();
 
 		logger.info("MatchRunner created:" + this);
+	}
+	
+	public boolean isFriendlyFire(){
+		if (gameDefinition.getTeamDefinition() != null) {
+			return gameDefinition.getTeamDefinition().isFriendlyFire();
+		}
+		return true;
 	}
 
 	public List<ModelSceneComponent> getSceneComponents() {
@@ -160,9 +179,13 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	}
 
 	public PublishSubject<LuchadorRunner> add(final ModelGameComponent component) throws Exception {
+		return add(component, 0);
+	}
+
+	public PublishSubject<LuchadorRunner> add(final ModelGameComponent component, Integer teamId) throws Exception {
 
 		if (runners.containsKey(component.getId())) {
-			String message = "trying to add luchador that is already in the match, id: " + component.getId();
+			String message = "Trying to add luchador that is already in the match, id: " + component.getId();
 			logger.info(message);
 
 			PublishSubject<LuchadorRunner> result = PublishSubject.create();
@@ -181,13 +204,45 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			return result;
 		}
 
+		// Check limits of team
+		if (gameDefinition.getTeamDefinition() != null) {
+			ModelTeamDefinition teamDefinition = gameDefinition.getTeamDefinition();
+			if (teamDefinition != null && teamDefinition.getTeams() != null) {
+
+				Optional<ModelTeam> find = teamDefinition.getTeams().stream().filter(t -> t.getId() == teamId)
+						.findFirst();
+
+				if (find.isPresent()) {
+					ModelTeam team = find.get();
+					List<LuchadorRunner> participants = getRunnersByTeam(teamId);
+					if (participants.size() + 1 > team.getMaxParticipants()) {
+
+						String message = "Team max participants is reached";
+						logger.info(message);
+
+						PublishSubject<LuchadorRunner> result = PublishSubject.create();
+						result.onError(new Exception(message));
+						result.onComplete();
+						return result;
+					}
+
+				}
+			}
+		}
+
 		logger.info("new luchador added to the match: " + JSONFormat.clean(component.toString()));
 		component.setIsNPC(false);
 		monitor.addPlayer();
 
-		return luchadorCreator.add(component);
+		return luchadorCreator.add(component, teamId);
 	}
 	
+	private List<LuchadorRunner> getRunnersByTeam(int teamId) {
+		List<LuchadorRunner> result = runners.values().stream().filter(r -> r.getTeamId() == teamId)
+				.collect(Collectors.toList());
+		return result;
+	}
+
 	private int getNumberOfPlayers() {
 		int counter = 0;
 		LuchadorRunner[] localRunners = new LuchadorRunner[runners.values().size()];
@@ -195,8 +250,8 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		for (int i = 0; i < localRunners.length; i++) {
 			LuchadorRunner runner = localRunners[i];
-			if( ! runner.getGameComponent().isIsNPC()) {
-				counter ++;
+			if (!runner.getGameComponent().isIsNPC()) {
+				counter++;
 			}
 		}
 		return counter;
@@ -205,11 +260,12 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	public PublishSubject<LuchadorRunner> addNPC(final ModelGameComponent component) throws Exception {
 		logger.info("new NPC added to the match: " + JSONFormat.clean(component.toString()));
 		component.setIsNPC(true);
-		return luchadorCreator.add(component);
+		return luchadorCreator.add(component, 0);
 	}
 
-	public void addLuchador(final ModelGameComponent component) throws Exception {
-		add(component);
+	public PublishSubject<LuchadorRunner> addLuchador(final ModelGameComponent component, Integer teamId)
+			throws Exception {
+		return add(component, teamId);
 	}
 
 	public void fire(Bullet bullet) {
@@ -239,6 +295,77 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		mainLoop();
 	}
 
+	MatchReadyToStartVO readyToStartMatch() {
+		
+		MatchReadyToStartVO readyToStart = populateReadyToStart();
+		
+		if (readyToStart.participants < readyToStart.minParticipants) {
+			readyToStart.ready = false;
+			return readyToStart;
+		}
+		
+		for (MatchReadyToStartTeamInformationVO info : readyToStart.teamParticipants) {
+			if (info.participants < info.minParticipants ) {
+				logger.info(String.format("Match: %s, Missing participants to start on team: %s, expected: %s, current: %s",
+						match.getId(), info.teamID, info.minParticipants, info.participants));
+				readyToStart.ready = false;
+				return readyToStart;
+			}
+		}
+		
+		return readyToStart;
+	}
+
+	private MatchReadyToStartVO populateReadyToStart() {
+		
+		MatchReadyToStartVO readyToStart = new MatchReadyToStartVO();
+		readyToStart.ready = true;
+		readyToStart.matchID = match.getId();
+		readyToStart.minParticipants = gameDefinition.getMinParticipants();
+		readyToStart.maxParticipants = gameDefinition.getMaxParticipants();
+		readyToStart.participants = getNumberOfPlayers();
+		readyToStart.teamParticipants = new MatchReadyToStartTeamInformationVO[0]; 
+
+		List<MatchReadyToStartTeamInformationVO> teamInfo = new ArrayList<MatchReadyToStartTeamInformationVO>();
+
+		ModelTeamDefinition teamDefinition = gameDefinition.getTeamDefinition();
+		if (teamDefinition != null && teamDefinition.getTeams() != null && teamDefinition.getTeams().size() > 0) {
+
+			// count participants by team.
+			Map<Integer, Integer> countbyTeam = new LinkedHashMap<Integer, Integer>();
+			runners.values().forEach((runner) -> {
+				int teamId = runner.getTeamId();
+
+				if (countbyTeam.containsKey(teamId)) {
+					int value = countbyTeam.get(teamId);
+					countbyTeam.put(teamId, value + 1);
+				} else {
+					countbyTeam.put(teamId, 1);
+				}
+			});
+
+			// get each team definition
+			for (ModelTeam team : teamDefinition.getTeams()) {
+
+				MatchReadyToStartTeamInformationVO item = new MatchReadyToStartTeamInformationVO();
+				item.teamID = team.getId();
+				item.minParticipants = team.getMinParticipants();
+				item.maxParticipants = team.getMaxParticipants();
+
+				if( countbyTeam.containsKey(team.getId())) {
+					item.participants = countbyTeam.get(team.getId());
+				} else {
+					item.participants = 0; 
+				}
+				
+				teamInfo.add(item);
+			}
+		}
+		
+		readyToStart.teamParticipants = teamInfo.toArray(readyToStart.teamParticipants);
+		return readyToStart;
+	}
+
 	public void mainLoop() {
 		CheckRespawnAction respawnAction = new CheckRespawnAction(this);
 		RemoveDeadAction removeDeadAction = new RemoveDeadAction(this);
@@ -246,9 +373,15 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 		logger.info("Waiting for the minimum participants: " + gameDefinition.getMinParticipants());
 
-		while (alive && getNumberOfPlayers() < gameDefinition.getMinParticipants()) {
+		MatchReadyToStartVO readinessInfo = readyToStartMatch();
+		onCheckingReadiness.onNext(readinessInfo);
+		
+		while (alive && !readinessInfo.ready) {
 			try {
-				Thread.sleep(SMALL_SLEEP);
+				Thread.sleep(DEEP_BREATH_SLEEP);
+				readinessInfo = readyToStartMatch();
+				onCheckingReadiness.onNext(readinessInfo);
+
 			} catch (InterruptedException e) {
 				logger.error("Interrupted while waiting for participants", e);
 			}
@@ -337,7 +470,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			logger.error("*** ERROR last publisher update", e);
 		}
 
-		logger.info("START matchrun shutdown match.id=" + match.getId() );
+		logger.info("START matchrun shutdown match.id=" + match.getId());
 		onMatchEnd.onNext(match);
 		onMatchEnd.onComplete();
 
@@ -413,6 +546,9 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		luchadorCreator = null;
 
 		logger.info("matchrun shutdown (9)");
+		
+		onRunnerShutdown.onNext(getThreadName());
+		onRunnerShutdown.onComplete();
 
 	}
 
@@ -684,8 +820,16 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		return onMatchEnd;
 	}
 
+	public PublishSubject<String> getOnRunnerShutdown() {
+		return onRunnerShutdown;
+	}
+
 	public PublishSubject<MessageVO> getOnMessage() {
 		return onMessage;
+	}
+
+	public PublishSubject<MatchReadyToStartVO> getOnCheckingReadiness() {
+		return onCheckingReadiness;
 	}
 
 	public PublishSubject<MatchInitVO> getOnInit() {

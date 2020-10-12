@@ -32,10 +32,8 @@ import com.robolucha.runner.code.MethodBuilder;
 import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.code.ScriptDefinitionFactory;
 import com.robolucha.shared.Calc;
-import com.robolucha.shared.JSONFormat;
 
 import io.swagger.client.model.ModelCode;
-import io.swagger.client.model.ModelDefaultState;
 import io.swagger.client.model.ModelGameComponent;
 
 /**
@@ -63,6 +61,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	// test classes can update this.
 	ModelGameComponent gameComponent;
+	int teamId;
 
 	private boolean active;
 	private long start;
@@ -91,8 +90,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	private LuchadorUpdateListener luchadorUpdatelistener;
 
-	public LuchadorRunner(ModelGameComponent component, MatchRunner matchRunner) {
+	public LuchadorRunner(ModelGameComponent component, Integer teamId, MatchRunner matchRunner) {
 		this.gameComponent = component;
+		this.teamId = teamId;
+
 		this.matchRunner = matchRunner;
 		this.setExceptionCounter(0);
 
@@ -108,11 +109,12 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 		state = new LuchadorMatchState(gameComponent.isIsNPC());
 		state.setId(component.getId());
+		state.setTeam(teamId);
 		state.setName(component.getName());
 
 		try {
 			setDefaultState(matchRunner.getRespawnPoint(this));
-			setDefaultScore();
+			setDefaultScore(teamId);
 			createCodeEngine(component.getCodes());
 			this.active = true;
 		} catch (Exception e) {
@@ -211,10 +213,9 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 			logger.info("new code" + codes4CurrentGameDefinition);
 			updateCodeEngine(codes4CurrentGameDefinition);
-			
+
 			// make sure start is runned after code update
 			MethodBuilder.getInstance().build(scriptDefinition, getStartCode());
-
 
 		} catch (Throwable e) {
 			this.active = false;
@@ -316,8 +317,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		punchCoolDown = 0.0;
 	}
 
-	private void setDefaultScore() {
-		state.score = new ScoreVO(gameComponent.getId(), gameComponent.getName());
+	private void setDefaultScore(Integer teamId) {
+		state.score = new ScoreVO(gameComponent.getId(), teamId, gameComponent.getName());
 	}
 
 	String getString(String script) throws Exception {
@@ -892,6 +893,10 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public void setExceptionCounter(int exceptionCounter) {
 		this.exceptionCounter = exceptionCounter;
+	}
+
+	public int getTeamId() {
+		return teamId;
 	}
 
 }

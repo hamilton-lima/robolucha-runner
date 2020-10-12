@@ -42,8 +42,8 @@ public class CalcTest {
 		ModelGameComponent a = MockLuchador.build(1);
 		ModelGameComponent b = MockLuchador.build(2);
 
-		LuchadorRunner runnerA = match.add(a).blockingFirst();
-		LuchadorRunner runnerB = match.add(b).blockingFirst();
+		LuchadorRunner runnerA = match.add(a, 0).blockingFirst();
+		LuchadorRunner runnerB = match.add(b, 0).blockingFirst();
 
 		runnerA.getState().setX(100);
 		runnerA.getState().setY(100);

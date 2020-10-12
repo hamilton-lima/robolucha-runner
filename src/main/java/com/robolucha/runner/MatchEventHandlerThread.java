@@ -62,7 +62,7 @@ public class MatchEventHandlerThread implements Runnable {
 			GeneralEvent event = this.events.poll();
 
 			if (event != null) {
-				MatchEventHandler.logger.debug("new event : " + event);
+				MatchEventHandler.logger.info("new event : " + event);
 				consume(event);
 			}
 

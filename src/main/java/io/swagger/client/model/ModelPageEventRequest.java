@@ -20,22 +20,49 @@ import java.util.Objects;
  * ModelPageEventRequest
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelPageEventRequest {
-
-  @SerializedName("AppName")
-  private String appName = null;
-
-  @SerializedName("AppVersion")
-  private String appVersion = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-27T16:34:36.898480-04:00[America/Toronto]")public class ModelPageEventRequest {
 
   @SerializedName("action")
   private String action = null;
+
+  @SerializedName("appName")
+  private String appName = null;
+
+  @SerializedName("appVersion")
+  private String appVersion = null;
 
   @SerializedName("componentID")
   private String componentID = null;
 
   @SerializedName("page")
   private String page = null;
+
+  @SerializedName("value1")
+  private String value1 = null;
+
+  @SerializedName("value2")
+  private String value2 = null;
+
+  @SerializedName("value3")
+  private String value3 = null;
+  public ModelPageEventRequest action(String action) {
+    this.action = action;
+    return this;
+  }
+
+  
+
+  /**
+  * Get action
+  * @return action
+  **/
+  @Schema(description = "")
+  public String getAction() {
+    return action;
+  }
+  public void setAction(String action) {
+    this.action = action;
+  }
   public ModelPageEventRequest appName(String appName) {
     this.appName = appName;
     return this;
@@ -71,24 +98,6 @@ import java.util.Objects;
   }
   public void setAppVersion(String appVersion) {
     this.appVersion = appVersion;
-  }
-  public ModelPageEventRequest action(String action) {
-    this.action = action;
-    return this;
-  }
-
-  
-
-  /**
-  * Get action
-  * @return action
-  **/
-  @Schema(description = "")
-  public String getAction() {
-    return action;
-  }
-  public void setAction(String action) {
-    this.action = action;
   }
   public ModelPageEventRequest componentID(String componentID) {
     this.componentID = componentID;
@@ -126,6 +135,60 @@ import java.util.Objects;
   public void setPage(String page) {
     this.page = page;
   }
+  public ModelPageEventRequest value1(String value1) {
+    this.value1 = value1;
+    return this;
+  }
+
+  
+
+  /**
+  * Get value1
+  * @return value1
+  **/
+  @Schema(description = "")
+  public String getValue1() {
+    return value1;
+  }
+  public void setValue1(String value1) {
+    this.value1 = value1;
+  }
+  public ModelPageEventRequest value2(String value2) {
+    this.value2 = value2;
+    return this;
+  }
+
+  
+
+  /**
+  * Get value2
+  * @return value2
+  **/
+  @Schema(description = "")
+  public String getValue2() {
+    return value2;
+  }
+  public void setValue2(String value2) {
+    this.value2 = value2;
+  }
+  public ModelPageEventRequest value3(String value3) {
+    this.value3 = value3;
+    return this;
+  }
+
+  
+
+  /**
+  * Get value3
+  * @return value3
+  **/
+  @Schema(description = "")
+  public String getValue3() {
+    return value3;
+  }
+  public void setValue3(String value3) {
+    this.value3 = value3;
+  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -135,16 +198,19 @@ import java.util.Objects;
       return false;
     }
     ModelPageEventRequest modelPageEventRequest = (ModelPageEventRequest) o;
-    return Objects.equals(this.appName, modelPageEventRequest.appName) &&
+    return Objects.equals(this.action, modelPageEventRequest.action) &&
+        Objects.equals(this.appName, modelPageEventRequest.appName) &&
         Objects.equals(this.appVersion, modelPageEventRequest.appVersion) &&
-        Objects.equals(this.action, modelPageEventRequest.action) &&
         Objects.equals(this.componentID, modelPageEventRequest.componentID) &&
-        Objects.equals(this.page, modelPageEventRequest.page);
+        Objects.equals(this.page, modelPageEventRequest.page) &&
+        Objects.equals(this.value1, modelPageEventRequest.value1) &&
+        Objects.equals(this.value2, modelPageEventRequest.value2) &&
+        Objects.equals(this.value3, modelPageEventRequest.value3);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(appName, appVersion, action, componentID, page);
+    return java.util.Objects.hash(action, appName, appVersion, componentID, page, value1, value2, value3);
   }
 
   @Override
@@ -152,11 +218,14 @@ import java.util.Objects;
     StringBuilder sb = new StringBuilder();
     sb.append("class ModelPageEventRequest {\n");
     
+    sb.append("    action: ").append(toIndentedString(action)).append("\n");
     sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
     sb.append("    appVersion: ").append(toIndentedString(appVersion)).append("\n");
-    sb.append("    action: ").append(toIndentedString(action)).append("\n");
     sb.append("    componentID: ").append(toIndentedString(componentID)).append("\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
+    sb.append("    value1: ").append(toIndentedString(value1)).append("\n");
+    sb.append("    value2: ").append(toIndentedString(value2)).append("\n");
+    sb.append("    value3: ").append(toIndentedString(value3)).append("\n");
     sb.append("}");
     return sb.toString();
   }

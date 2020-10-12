@@ -9,6 +9,8 @@ package com.robolucha.models;
 public class LuchadorPublicState {
 
 	public long id;
+	public long team;
+
 	public String name;
 	public int x;
 	public int y;
@@ -19,28 +21,17 @@ public class LuchadorPublicState {
 
 	public double fireCoolDown;
 	public long lastOnfound;
-	
+
 	public int k;
 	public int d;
 	public int score;
 	public boolean npc;
 
-    @Override
-    public String toString() {
-        return "LuchadorPublicState{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", x=" + x +
-                ", y=" + y +
-                ", life=" + life +
-                ", angle=" + angle +
-                ", gunAngle=" + gunAngle +
-                ", fireCoolDown=" + fireCoolDown +
-                ", lastOnfound=" + lastOnfound +
-                ", k=" + k +
-                ", d=" + d +
-                ", score=" + score +
-                ", npc=" + npc +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "LuchadorPublicState [id=" + id + ", team=" + team + ", name=" + name + ", x=" + x + ", y=" + y
+				+ ", life=" + life + ", angle=" + angle + ", gunAngle=" + gunAngle + ", fireCoolDown=" + fireCoolDown
+				+ ", lastOnfound=" + lastOnfound + ", k=" + k + ", d=" + d + ", score=" + score + ", npc=" + npc + "]";
+	}
+
 }

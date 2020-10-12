@@ -50,12 +50,12 @@ public class ThreadMonitor {
 		reporter.start();
 	}
 
-	public void register(MatchRunner thread) {
+	public void register(ThreadStatus thread) {
 		threads.put(thread.getThreadName(), thread);
 	}
 
-	public void remove(ThreadStatus thread) {
-		threads.remove(thread.getThreadName());
+	public void remove(String name) {
+		threads.remove(name);
 	}
 
 	public static ThreadMonitor getInstance() {

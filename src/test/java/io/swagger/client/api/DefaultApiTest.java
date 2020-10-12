@@ -22,11 +22,13 @@ import io.swagger.client.model.ModelFindLuchadorWithGamedefinition;
 import io.swagger.client.model.ModelGameComponent;
 import io.swagger.client.model.ModelGameDefinition;
 import io.swagger.client.model.ModelJoinMatch;
+import io.swagger.client.model.ModelLevelGroup;
 import io.swagger.client.model.ModelMatch;
 import io.swagger.client.model.ModelMatchMetric;
 import io.swagger.client.model.ModelMatchParticipant;
 import io.swagger.client.model.ModelMatchScore;
 import io.swagger.client.model.ModelPageEventRequest;
+import io.swagger.client.model.ModelPlayRequest;
 import io.swagger.client.model.ModelScoreList;
 import io.swagger.client.model.ModelStudentResponse;
 import io.swagger.client.model.ModelUpdateLuchadorResponse;
@@ -53,8 +55,64 @@ public class DefaultApiTest {
      *          if the Api call fails
      */
     @Test
+    public void assignmentidActivitiesPatchTest() throws ApiException {
+        List<Integer> response = api.assignmentidActivitiesPatch();
+
+        // TODO: test validations
+    }
+    /**
+     * find existing activities
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void assignmentidStudentsPatchTest() throws ApiException {
+        List<Integer> response = api.assignmentidStudentsPatch();
+
+        // TODO: test validations
+    }
+    /**
+     * find existing activities
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
     public void dashboardActivityGetTest() throws ApiException {
         List<ModelActivity> response = api.dashboardActivityGet();
+
+        // TODO: test validations
+    }
+    /**
+     * find existing activities
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void dashboardAssignmentsGetTest() throws ApiException {
+        List<ModelActivity> response = api.dashboardAssignmentsGet();
+
+        // TODO: test validations
+    }
+    /**
+     * find existing activities
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void dashboardAssignmentsPostTest() throws ApiException {
+        List<ModelActivity> response = api.dashboardAssignmentsPost();
 
         // TODO: test validations
     }
@@ -296,6 +354,21 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * notify that the match is running, all participants joined
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void internalRunMatchPutTest() throws ApiException {
+        ModelMatch body = null;
+        ModelMatch response = api.internalRunMatchPut(body);
+
+        // TODO: test validations
+    }
+    /**
      * find available matches by classroom
      *
      * 
@@ -412,6 +485,20 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * find all level groups
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateLevelGroupGetTest() throws ApiException {
+        List<ModelLevelGroup> response = api.privateLevelGroupGet();
+
+        // TODO: test validations
+    }
+    /**
      * find or create Luchador for the current user
      *
      * 
@@ -499,6 +586,20 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * find active multiplayer matches
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMatchMultiplayerGetTest() throws ApiException {
+        List<ModelMatch> response = api.privateMatchMultiplayerGet();
+
+        // TODO: test validations
+    }
+    /**
      * find one match
      *
      * 
@@ -537,9 +638,9 @@ public class DefaultApiTest {
      *          if the Api call fails
      */
     @Test
-    public void privatePlayIdPostTest() throws ApiException {
-        Integer id = null;
-        ModelMatch response = api.privatePlayIdPost(id);
+    public void privatePlayPostTest() throws ApiException {
+        ModelPlayRequest body = null;
+        ModelMatch response = api.privatePlayPost(body);
 
         // TODO: test validations
     }

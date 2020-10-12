@@ -17,10 +17,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 /**
- * ModelSkill
+ * ModelLevelGroup
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-27T16:34:36.898480-04:00[America/Toronto]")public class ModelSkill {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-27T16:34:36.898480-04:00[America/Toronto]")public class ModelLevelGroup {
 
   @SerializedName("description")
   private String description = null;
@@ -28,9 +28,12 @@ import java.util.Objects;
   @SerializedName("id")
   private Integer id = null;
 
+  @SerializedName("minLevel")
+  private Integer minLevel = null;
+
   @SerializedName("name")
   private String name = null;
-  public ModelSkill description(String description) {
+  public ModelLevelGroup description(String description) {
     this.description = description;
     return this;
   }
@@ -48,7 +51,7 @@ import java.util.Objects;
   public void setDescription(String description) {
     this.description = description;
   }
-  public ModelSkill id(Integer id) {
+  public ModelLevelGroup id(Integer id) {
     this.id = id;
     return this;
   }
@@ -66,7 +69,25 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
-  public ModelSkill name(String name) {
+  public ModelLevelGroup minLevel(Integer minLevel) {
+    this.minLevel = minLevel;
+    return this;
+  }
+
+  
+
+  /**
+  * Get minLevel
+  * @return minLevel
+  **/
+  @Schema(description = "")
+  public Integer getMinLevel() {
+    return minLevel;
+  }
+  public void setMinLevel(Integer minLevel) {
+    this.minLevel = minLevel;
+  }
+  public ModelLevelGroup name(String name) {
     this.name = name;
     return this;
   }
@@ -92,24 +113,26 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelSkill modelSkill = (ModelSkill) o;
-    return Objects.equals(this.description, modelSkill.description) &&
-        Objects.equals(this.id, modelSkill.id) &&
-        Objects.equals(this.name, modelSkill.name);
+    ModelLevelGroup modelLevelGroup = (ModelLevelGroup) o;
+    return Objects.equals(this.description, modelLevelGroup.description) &&
+        Objects.equals(this.id, modelLevelGroup.id) &&
+        Objects.equals(this.minLevel, modelLevelGroup.minLevel) &&
+        Objects.equals(this.name, modelLevelGroup.name);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(description, id, name);
+    return java.util.Objects.hash(description, id, minLevel, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelSkill {\n");
+    sb.append("class ModelLevelGroup {\n");
     
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    minLevel: ").append(toIndentedString(minLevel)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();

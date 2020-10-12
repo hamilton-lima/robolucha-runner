@@ -2,8 +2,8 @@ package com.robolucha.models;
 
 public class ScoreVO implements Comparable<ScoreVO> {
 
-	// TODO: validate if still need the id and name
 	private Integer id;
+	private Integer team;
 	private String name;
 	private int k;
 	private int d;
@@ -23,21 +23,24 @@ public class ScoreVO implements Comparable<ScoreVO> {
 	 */
 	public ScoreVO(ScoreVO previous, String name) {
 		this.id = previous.id;
+		this.team = previous.team;
 		this.name = name;
 		this.k = previous.k;
 		this.d = previous.d;
 		this.score = previous.score;
 	}
 
-	public ScoreVO(Integer id, String name) {
+	public ScoreVO(Integer id, Integer team, String name) {
 		this();
 		this.id = id;
+		this.team = team;
 		this.name = name;
 	}
 
 	// for tests only
-	ScoreVO(Integer id, String name, int k, int d, int score) {
+	ScoreVO(Integer id, Integer team, String name, int k, int d, int score) {
 		this.id = id;
+		this.team = team;
 		this.name = name;
 		this.k = k;
 		this.d = d;
@@ -74,7 +77,8 @@ public class ScoreVO implements Comparable<ScoreVO> {
 
 	@Override
 	public String toString() {
-		return "ScoreVO [id=" + id + ", name=" + name + ", k=" + k + ", d=" + d + ", score=" + score + "]";
+		return "ScoreVO [id=" + id + ", team=" + team + ", name=" + name + ", k=" + k + ", d=" + d + ", score=" + score
+				+ "]";
 	}
 
 	public Integer getId() {
@@ -83,6 +87,14 @@ public class ScoreVO implements Comparable<ScoreVO> {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getTeam() {
+		return team;
+	}
+
+	public void setTeam(Integer team) {
+		this.team = team;
 	}
 
 	public String getName() {

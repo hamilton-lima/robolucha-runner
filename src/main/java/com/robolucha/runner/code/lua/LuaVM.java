@@ -209,8 +209,8 @@ public class LuaVM {
 		}
 	}
 
-	public LuaFunction getFunction(String name) {
-		return (LuaFunction) localState.get(name);
+	public LuaValue getFunction(String name) {
+		return localState.get(name);
 	}
 
 }

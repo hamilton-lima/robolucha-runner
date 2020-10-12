@@ -4,11 +4,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.robolucha.models.MatchParticipant;
 import com.robolucha.models.MatchScore;
 import com.robolucha.shared.JSONFormat;
 
-import io.swagger.client.ApiException;
 import io.swagger.client.api.DefaultApi;
 import io.swagger.client.model.ModelFindLuchadorWithGamedefinition;
 import io.swagger.client.model.ModelGameComponent;
@@ -51,10 +49,10 @@ public class MatchRunnerAPI {
 		api.internalAddMatchScoresPost(requestBody);
 	}
 
-	public void addMatchParticipant(MatchParticipant matchParticipant) throws Exception {
+	public void addMatchParticipant(int matchId, ModelGameComponent luchador, Integer teamId) throws Exception {
 		ModelMatchParticipant participant = new ModelMatchParticipant();
-		participant.setMatchID(matchParticipant.getMatchRun().getId().intValue());
-		participant.setLuchadorID(Long.valueOf(matchParticipant.getLuchador().getId()).intValue());
+		participant.setMatchID(matchId);
+		participant.setLuchadorID(Long.valueOf(luchador.getId()).intValue());
 		api.internalMatchParticipantPost(participant);
 	}
 
@@ -84,6 +82,13 @@ public class MatchRunnerAPI {
 
 	public ModelMatch findMatch(Integer matchID) throws Exception {
 		ModelMatch result = api.internalMatchSingleGet(matchID);
+		return result;
+	}
+
+	public ModelMatch matchIsRunning(Integer matchID) throws Exception {
+		ModelMatch body = new ModelMatch();
+		body.setId(matchID);
+		ModelMatch result = api.internalRunMatchPut(body);
 		return result;
 	}
 

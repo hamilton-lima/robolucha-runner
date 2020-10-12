@@ -20,13 +20,16 @@ import java.util.Objects;
  * ModelMatchParticipant
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-05-31T15:22:14.057-04:00[America/Toronto]")public class ModelMatchParticipant {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-27T16:34:36.898480-04:00[America/Toronto]")public class ModelMatchParticipant {
 
   @SerializedName("luchadorID")
   private Integer luchadorID = null;
 
   @SerializedName("matchID")
   private Integer matchID = null;
+
+  @SerializedName("teamID")
+  private Integer teamID = null;
   public ModelMatchParticipant luchadorID(Integer luchadorID) {
     this.luchadorID = luchadorID;
     return this;
@@ -63,6 +66,24 @@ import java.util.Objects;
   public void setMatchID(Integer matchID) {
     this.matchID = matchID;
   }
+  public ModelMatchParticipant teamID(Integer teamID) {
+    this.teamID = teamID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get teamID
+  * @return teamID
+  **/
+  @Schema(description = "")
+  public Integer getTeamID() {
+    return teamID;
+  }
+  public void setTeamID(Integer teamID) {
+    this.teamID = teamID;
+  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -73,12 +94,13 @@ import java.util.Objects;
     }
     ModelMatchParticipant modelMatchParticipant = (ModelMatchParticipant) o;
     return Objects.equals(this.luchadorID, modelMatchParticipant.luchadorID) &&
-        Objects.equals(this.matchID, modelMatchParticipant.matchID);
+        Objects.equals(this.matchID, modelMatchParticipant.matchID) &&
+        Objects.equals(this.teamID, modelMatchParticipant.teamID);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(luchadorID, matchID);
+    return java.util.Objects.hash(luchadorID, matchID, teamID);
   }
 
   @Override
@@ -88,6 +110,7 @@ import java.util.Objects;
     
     sb.append("    luchadorID: ").append(toIndentedString(luchadorID)).append("\n");
     sb.append("    matchID: ").append(toIndentedString(matchID)).append("\n");
+    sb.append("    teamID: ").append(toIndentedString(teamID)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -3,8 +3,10 @@ package com.robolucha.runner;
 import org.apache.log4j.Logger;
 
 import com.robolucha.game.action.OnInitAddNPC;
+import com.robolucha.game.vo.MatchReadyToStartVO;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
+import com.robolucha.publisher.MatchCreatedPublisher;
 import com.robolucha.publisher.MatchEventPublisher;
 import com.robolucha.publisher.MatchMessagePublisher;
 import com.robolucha.publisher.MatchStatePublisher;
@@ -12,6 +14,7 @@ import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.score.ScoreUpdater;
 import com.robolucha.shared.JSONFormat;
 
+import io.reactivex.functions.Consumer;
 import io.swagger.client.model.ModelGameDefinition;
 import io.swagger.client.model.ModelJoinMatch;
 import io.swagger.client.model.ModelMatch;
@@ -73,6 +76,23 @@ public class Server {
 
 		// message listener
 		runner.addListener(new MatchMessagePublisher(queue));
+		runner.addListener(new MatchCreatedPublisher(queue));
+
+		// notify when match starts to run
+		runner.getOnMatchStart().subscribe(new Consumer<ModelMatch>() {
+			public void accept(ModelMatch match) throws Exception {
+				logger.info("Send notification that match is running: " + match.getId());
+				ModelMatch result = MatchRunnerAPI.getInstance().matchIsRunning(match.getId());
+				logger.info("Response from send notification that match is running: " + result.getStatus());
+			}
+		});
+
+		// notify when match starts to run
+		runner.getOnRunnerShutdown().subscribe(new Consumer<String>() {
+			public void accept(String name) throws Exception {
+				ThreadMonitor.getInstance().remove(name);
+			}
+		});
 
 		return new Thread(runner);
 	}

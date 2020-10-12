@@ -27,8 +27,9 @@ public class LutchadorRunnerCreator implements Runnable {
 	private class ToBeCreated {
 		PublishSubject<LuchadorRunner> subject;
 		ModelGameComponent component;
+		Integer teamId;
 	}
-	
+
 	static Logger logger = Logger.getLogger(LutchadorRunnerCreator.class);
 	private static final long SLEEP = 5;
 
@@ -59,11 +60,12 @@ public class LutchadorRunnerCreator implements Runnable {
 		this.alive = false;
 	}
 
-	public PublishSubject<LuchadorRunner> add(ModelGameComponent component) {
+	public PublishSubject<LuchadorRunner> add(ModelGameComponent component, Integer teamId) {
 		logger.info("gamecomponent added to creation queue: " + JSONFormat.clean(component.toString()));
-		
+
 		ToBeCreated toCreate = new ToBeCreated();
 		toCreate.component = component;
+		toCreate.teamId = teamId;
 		toCreate.subject = PublishSubject.create();
 
 		gameComponents.add(toCreate);
@@ -79,10 +81,10 @@ public class LutchadorRunnerCreator implements Runnable {
 
 		while (alive) {
 
-			ToBeCreated toCreate = gameComponents.poll(); 
+			ToBeCreated toCreate = gameComponents.poll();
 			if (toCreate != null && toCreate.component != null) {
 				try {
-					LuchadorRunner runner = create(toCreate.component);
+					LuchadorRunner runner = create(toCreate.component, toCreate.teamId);
 					toCreate.subject.onNext(runner);
 					toCreate.subject.onComplete();
 				} catch (Exception e) {
@@ -111,25 +113,24 @@ public class LutchadorRunnerCreator implements Runnable {
 
 	}
 
-	private LuchadorRunner create(ModelGameComponent component) throws Exception {
+	private LuchadorRunner create(ModelGameComponent component, Integer teamId) throws Exception {
 
-		logger.info("gamecomponent started (run): " + JSONFormat.clean(component.toString()));
+		if (logger.isInfoEnabled()) {
+			logger.info("gamecomponent started (run): " + JSONFormat.clean(component.toString()));
+		}
 
-		MatchParticipant matchParticipant = new MatchParticipant();
-		matchParticipant.setTimeStart(System.currentTimeMillis());
-		matchParticipant.setLuchador(component);
-		matchParticipant.setMatchRun(owner.getMatch());
-
-		if (matchParticipant.getMatchRun().getId() != null) {
-			MatchRunnerAPI.getInstance().addMatchParticipant(matchParticipant);
+		if (owner.getMatch().getId() != null) {
+			MatchRunnerAPI.getInstance().addMatchParticipant(owner.getMatch().getId().intValue(), component, teamId);
 		} else {
 			logger.warn("!!! trying to save match participation with unsaved MatchRun, is it running a TEST?");
 		}
 
-		LuchadorRunner runner = new LuchadorRunner(component, owner);
+		LuchadorRunner runner = new LuchadorRunner(component, teamId, owner);
 		LuchadorUpdateListener.listen(queue, runner);
 
-		logger.info(">>>>>>>>> LUCHADOR runner created: " + runner.getGameComponent().getName());
+		if (logger.isInfoEnabled()) {
+			logger.info(">>>>>>>>> LUCHADOR runner created: " + runner.getGameComponent().getName());
+		}
 
 		if (logger.isDebugEnabled()) {
 			logger.info(" runner=" + runner);

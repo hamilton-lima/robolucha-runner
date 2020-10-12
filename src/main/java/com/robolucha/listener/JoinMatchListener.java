@@ -19,7 +19,6 @@ public class JoinMatchListener implements Consumer<ModelJoinMatch>, Disposable {
 		this.server = server;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static void listen(Server server) {
 		JoinMatchListener listener = new JoinMatchListener(server);
 

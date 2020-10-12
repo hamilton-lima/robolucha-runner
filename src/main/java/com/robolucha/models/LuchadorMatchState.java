@@ -9,6 +9,7 @@ package com.robolucha.models;
 public class LuchadorMatchState {
 
 	public long id;
+	public long team;
 	public String name;
 
 	public double x;
@@ -38,6 +39,7 @@ public class LuchadorMatchState {
 
 		publicState.id = id;
 		publicState.name = name;
+		publicState.team = team;
 		publicState.x = (int) x;
 		publicState.y = (int) y;
 		publicState.life = (int) life;
@@ -124,11 +126,20 @@ public class LuchadorMatchState {
 		this.score = score;
 	}
 
+	public long getTeam() {
+		return team;
+	}
+
+	public void setTeam(long team) {
+		this.team = team;
+	}
+
 	@Override
 	public String toString() {
-		return "LuchadorMatchState [id=" + id + ", name=" + name + ", x=" + x + ", y=" + y + ", life=" + life
-				+ ", angle=" + angle + ", gunAngle=" + gunAngle + ", fireCoolDown=" + fireCoolDown + ", score=" + score
-				+ ", publicState=" + publicState + "]";
+		return "LuchadorMatchState [id=" + id + ", team=" + team + ", name=" + name + ", x=" + x + ", y=" + y
+				+ ", life=" + life + ", angle=" + angle + ", gunAngle=" + gunAngle + ", fireCoolDown=" + fireCoolDown
+				+ ", lastOnfound=" + lastOnfound + ", score=" + score + ", publicState=" + publicState + "]";
 	}
+
 
 }

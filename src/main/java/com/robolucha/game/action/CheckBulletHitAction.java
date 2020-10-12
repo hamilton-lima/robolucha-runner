@@ -42,30 +42,51 @@ public class CheckBulletHitAction implements GameAction {
 				if (Calc.intersectBullet(runner, bullet)) {
 
 					bullet.setActive(false);
-					runner.damage(bullet.getAmount());
 
-					if (logger.isDebugEnabled()) {
-						logger.debug("checkbullethit, dano aplicado = " + bullet.getAmount());
+					// team definition exists
+					if (matchRunner.getGameDefinition().getTeamDefinition().getId() > 0) {
+
+						// different team 
+						if (bullet.getOwner().getState().getTeam() != runner.getTeamId()) {
+							logger.info("Not in the same team, set damage");
+							addDamage(runner);
+						} else {
+							
+							// same team
+							logger.info("SAME team: friendlyfire? " + matchRunner.isFriendlyFire());
+
+							if (matchRunner.isFriendlyFire()) {
+								addDamage(runner);
+							}
+						}
+
+					} else {
+						addDamage(runner);
 					}
 
 					if (runner.getState().getLife() <= 0) {
-
-						if (logger.isDebugEnabled()) {
-							logger.debug("checkbullethit, luchador MORREU !! = " + runner);
-						}
-
+						logger.info("player is dead!: " + runner.getGameComponent().getId());
 						matchRunner.getEventHandler().kill(bullet.getOwner().getState(), runner.getState());
 					}
 
-					runner.addEvent(new OnGotDamageEvent(bullet.getOwner().getState().getPublicState(),
-							runner.getState().getPublicState(), bullet.getAmount()));
-
-					matchRunner.getEventHandler().damage(bullet.getOwner().getState(), runner.getState(),
-							bullet.getAmount());
 				}
 			}
 		}
 
+	}
+
+	// Apply damage and generate events
+	private void addDamage(LuchadorRunner runner) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("checkbullethit, dano aplicado = " + bullet.getAmount());
+		}
+
+		runner.damage(bullet.getAmount());
+
+		runner.addEvent(new OnGotDamageEvent(bullet.getOwner().getState().getPublicState(),
+				runner.getState().getPublicState(), bullet.getAmount()));
+
+		matchRunner.getEventHandler().damage(bullet.getOwner().getState(), runner.getState(), bullet.getAmount());
 	}
 
 	public String getName() {
