@@ -125,7 +125,7 @@ public class Calc {
 		double minX = Math.min(x, component.getX() + component.getWidth());
 		double DeltaX = x - Math.max(component.getX(), minX);
 
-		double minY = Math.min(y, component.getY() + component.getHeight());
+		double minY = Math.min(y, component.getY() + component.getLength());
 		double DeltaY = y - Math.max(component.getY(), minY);
 
 		// calculate the distance from the closest point and x,y

@@ -6,6 +6,7 @@ public class SceneComponentVO {
 	public int y;
 	public int width;
 	public int height;
+	public int length;
 	public int rotation;
 	public String type;
 	public String color;

@@ -63,6 +63,7 @@ public class MatchStatePublisher {
 			send.y = component.getY().intValue();
 			send.width = component.getWidth().intValue();
 			send.height = component.getHeight().intValue();
+			send.length = component.getLength().intValue();
 			send.rotation = component.getRotation().intValue();
 			send.type = component.getType();
 			send.color = component.getColor();
