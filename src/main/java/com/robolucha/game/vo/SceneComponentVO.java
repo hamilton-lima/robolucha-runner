@@ -4,6 +4,7 @@ public class SceneComponentVO {
 	public int id;
 	public int x;
 	public int y;
+	public int z;
 	public int width;
 	public int height;
 	public int length;
