@@ -23,7 +23,7 @@ import java.util.Objects;
  * ModelSceneComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-27T16:34:36.898480-04:00[America/Toronto]")public class ModelSceneComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-11-04T21:21:42.311875-05:00[America/Toronto]")public class ModelSceneComponent {
 
   @SerializedName("alpha")
   private BigDecimal alpha = null;
@@ -49,6 +49,9 @@ import java.util.Objects;
   @SerializedName("id")
   private Integer id = null;
 
+  @SerializedName("length")
+  private Integer length = null;
+
   @SerializedName("life")
   private Integer life = null;
 
@@ -72,6 +75,9 @@ import java.util.Objects;
 
   @SerializedName("y")
   private Integer y = null;
+
+  @SerializedName("z")
+  private Integer z = null;
   public ModelSceneComponent alpha(BigDecimal alpha) {
     this.alpha = alpha;
     return this;
@@ -222,6 +228,24 @@ import java.util.Objects;
   public void setId(Integer id) {
     this.id = id;
   }
+  public ModelSceneComponent length(Integer length) {
+    this.length = length;
+    return this;
+  }
+
+  
+
+  /**
+  * Get length
+  * @return length
+  **/
+  @Schema(description = "")
+  public Integer getLength() {
+    return length;
+  }
+  public void setLength(Integer length) {
+    this.length = length;
+  }
   public ModelSceneComponent life(Integer life) {
     this.life = life;
     return this;
@@ -366,6 +390,24 @@ import java.util.Objects;
   public void setY(Integer y) {
     this.y = y;
   }
+  public ModelSceneComponent z(Integer z) {
+    this.z = z;
+    return this;
+  }
+
+  
+
+  /**
+  * Get z
+  * @return z
+  **/
+  @Schema(description = "")
+  public Integer getZ() {
+    return z;
+  }
+  public void setZ(Integer z) {
+    this.z = z;
+  }
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -383,6 +425,7 @@ import java.util.Objects;
         Objects.equals(this.gameDefinition, modelSceneComponent.gameDefinition) &&
         Objects.equals(this.height, modelSceneComponent.height) &&
         Objects.equals(this.id, modelSceneComponent.id) &&
+        Objects.equals(this.length, modelSceneComponent.length) &&
         Objects.equals(this.life, modelSceneComponent.life) &&
         Objects.equals(this.respawn, modelSceneComponent.respawn) &&
         Objects.equals(this.rotation, modelSceneComponent.rotation) &&
@@ -390,12 +433,13 @@ import java.util.Objects;
         Objects.equals(this.type, modelSceneComponent.type) &&
         Objects.equals(this.width, modelSceneComponent.width) &&
         Objects.equals(this.x, modelSceneComponent.x) &&
-        Objects.equals(this.y, modelSceneComponent.y);
+        Objects.equals(this.y, modelSceneComponent.y) &&
+        Objects.equals(this.z, modelSceneComponent.z);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(alpha, blockMovement, codes, colider, color, gameDefinition, height, id, life, respawn, rotation, showInRadar, type, width, x, y);
+    return java.util.Objects.hash(alpha, blockMovement, codes, colider, color, gameDefinition, height, id, length, life, respawn, rotation, showInRadar, type, width, x, y, z);
   }
 
   @Override
@@ -411,6 +455,7 @@ import java.util.Objects;
     sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");
     sb.append("    height: ").append(toIndentedString(height)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    length: ").append(toIndentedString(length)).append("\n");
     sb.append("    life: ").append(toIndentedString(life)).append("\n");
     sb.append("    respawn: ").append(toIndentedString(respawn)).append("\n");
     sb.append("    rotation: ").append(toIndentedString(rotation)).append("\n");
@@ -419,6 +464,7 @@ import java.util.Objects;
     sb.append("    width: ").append(toIndentedString(width)).append("\n");
     sb.append("    x: ").append(toIndentedString(x)).append("\n");
     sb.append("    y: ").append(toIndentedString(y)).append("\n");
+    sb.append("    z: ").append(toIndentedString(z)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -19,36 +19,36 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * ModelScoreList
+ * ModelBulkConfig
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-11-04T21:21:42.311875-05:00[America/Toronto]")public class ModelScoreList {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-11-04T21:21:42.311875-05:00[America/Toronto]")public class ModelBulkConfig {
 
-  @SerializedName("scores")
-  private List<ModelMatchScore> scores = null;
-  public ModelScoreList scores(List<ModelMatchScore> scores) {
-    this.scores = scores;
+  @SerializedName("configs")
+  private List<ModelConfig> configs = null;
+  public ModelBulkConfig configs(List<ModelConfig> configs) {
+    this.configs = configs;
     return this;
   }
 
-  public ModelScoreList addScoresItem(ModelMatchScore scoresItem) {
-    if (this.scores == null) {
-      this.scores = new ArrayList<ModelMatchScore>();
+  public ModelBulkConfig addConfigsItem(ModelConfig configsItem) {
+    if (this.configs == null) {
+      this.configs = new ArrayList<ModelConfig>();
     }
-    this.scores.add(scoresItem);
+    this.configs.add(configsItem);
     return this;
   }
 
   /**
-  * Get scores
-  * @return scores
+  * Get configs
+  * @return configs
   **/
   @Schema(description = "")
-  public List<ModelMatchScore> getScores() {
-    return scores;
+  public List<ModelConfig> getConfigs() {
+    return configs;
   }
-  public void setScores(List<ModelMatchScore> scores) {
-    this.scores = scores;
+  public void setConfigs(List<ModelConfig> configs) {
+    this.configs = configs;
   }
   @Override
   public boolean equals(java.lang.Object o) {
@@ -58,21 +58,21 @@ import java.util.Objects;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ModelScoreList modelScoreList = (ModelScoreList) o;
-    return Objects.equals(this.scores, modelScoreList.scores);
+    ModelBulkConfig modelBulkConfig = (ModelBulkConfig) o;
+    return Objects.equals(this.configs, modelBulkConfig.configs);
   }
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(scores);
+    return java.util.Objects.hash(configs);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ModelScoreList {\n");
+    sb.append("class ModelBulkConfig {\n");
     
-    sb.append("    scores: ").append(toIndentedString(scores)).append("\n");
+    sb.append("    configs: ").append(toIndentedString(configs)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -22,7 +22,7 @@ import java.util.Objects;
  * ModelGameDefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-09-27T16:34:36.898480-04:00[America/Toronto]")public class ModelGameDefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-11-04T21:21:42.311875-05:00[America/Toronto]")public class ModelGameDefinition {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
@@ -107,6 +107,9 @@ import java.util.Objects;
 
   @SerializedName("name")
   private String name = null;
+
+  @SerializedName("ownerUserID")
+  private Integer ownerUserID = null;
 
   @SerializedName("punchAngle")
   private Integer punchAngle = null;
@@ -683,6 +686,24 @@ import java.util.Objects;
   public void setName(String name) {
     this.name = name;
   }
+  public ModelGameDefinition ownerUserID(Integer ownerUserID) {
+    this.ownerUserID = ownerUserID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get ownerUserID
+  * @return ownerUserID
+  **/
+  @Schema(description = "")
+  public Integer getOwnerUserID() {
+    return ownerUserID;
+  }
+  public void setOwnerUserID(Integer ownerUserID) {
+    this.ownerUserID = ownerUserID;
+  }
   public ModelGameDefinition punchAngle(Integer punchAngle) {
     this.punchAngle = punchAngle;
     return this;
@@ -1092,6 +1113,7 @@ import java.util.Objects;
         Objects.equals(this.minParticipants, modelGameDefinition.minParticipants) &&
         Objects.equals(this.moveSpeed, modelGameDefinition.moveSpeed) &&
         Objects.equals(this.name, modelGameDefinition.name) &&
+        Objects.equals(this.ownerUserID, modelGameDefinition.ownerUserID) &&
         Objects.equals(this.punchAngle, modelGameDefinition.punchAngle) &&
         Objects.equals(this.punchCoolDown, modelGameDefinition.punchCoolDown) &&
         Objects.equals(this.punchDamage, modelGameDefinition.punchDamage) &&
@@ -1116,7 +1138,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxLevel, maxParticipants, minFireAmount, minFireDamage, minLevel, minParticipants, moveSpeed, name, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnAngle, respawnCooldown, respawnGunAngle, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, teamDefinition, turnGunSpeed, turnSpeed, type, unblockLevel);
+    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxLevel, maxParticipants, minFireAmount, minFireDamage, minLevel, minParticipants, moveSpeed, name, ownerUserID, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnAngle, respawnCooldown, respawnGunAngle, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, teamDefinition, turnGunSpeed, turnSpeed, type, unblockLevel);
   }
 
   @Override
@@ -1152,6 +1174,7 @@ import java.util.Objects;
     sb.append("    minParticipants: ").append(toIndentedString(minParticipants)).append("\n");
     sb.append("    moveSpeed: ").append(toIndentedString(moveSpeed)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    ownerUserID: ").append(toIndentedString(ownerUserID)).append("\n");
     sb.append("    punchAngle: ").append(toIndentedString(punchAngle)).append("\n");
     sb.append("    punchCoolDown: ").append(toIndentedString(punchCoolDown)).append("\n");
     sb.append("    punchDamage: ").append(toIndentedString(punchDamage)).append("\n");

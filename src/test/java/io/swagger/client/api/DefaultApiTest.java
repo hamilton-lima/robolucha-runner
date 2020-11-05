@@ -16,6 +16,7 @@ import io.swagger.client.ApiException;
 import io.swagger.client.model.ModelActiveMatch;
 import io.swagger.client.model.ModelActivity;
 import io.swagger.client.model.ModelAvailableMatch;
+import io.swagger.client.model.ModelBulkConfig;
 import io.swagger.client.model.ModelClassroom;
 import io.swagger.client.model.ModelConfig;
 import io.swagger.client.model.ModelFindLuchadorWithGamedefinition;
@@ -171,6 +172,20 @@ public class DefaultApiTest {
     @Test
     public void dashboardGetUserGetTest() throws ApiException {
         ModelUserDetails response = api.dashboardGetUserGet();
+
+        // TODO: test validations
+    }
+    /**
+     * get default game definition
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void getDefaultGameDefinitionTest() throws ApiException {
+        ModelGameDefinition response = api.getDefaultGameDefinition();
 
         // TODO: test validations
     }
@@ -528,6 +543,50 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * find my gamedefitions
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMapeditorGetTest() throws ApiException {
+        List<ModelGameDefinition> response = api.privateMapeditorGet();
+
+        // TODO: test validations
+    }
+    /**
+     * add a single gamedefition for this user
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMapeditorPostTest() throws ApiException {
+        ModelGameDefinition body = null;
+        String response = api.privateMapeditorPost(body);
+
+        // TODO: test validations
+    }
+    /**
+     * update gamedefition for this user
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMapeditorPutTest() throws ApiException {
+        ModelGameDefinition body = null;
+        List<ModelGameDefinition> response = api.privateMapeditorPut(body);
+
+        // TODO: test validations
+    }
+    /**
      * find maskConfig for a luchador
      *
      * 
@@ -539,6 +598,21 @@ public class DefaultApiTest {
     public void privateMaskConfigIdGetTest() throws ApiException {
         Integer id = null;
         List<ModelConfig> response = api.privateMaskConfigIdGet(id);
+
+        // TODO: test validations
+    }
+    /**
+     * create random maskConfig in bulk
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMaskRandomBulkAmountGetTest() throws ApiException {
+        Integer amount = null;
+        List<ModelBulkConfig> response = api.privateMaskRandomBulkAmountGet(amount);
 
         // TODO: test validations
     }
@@ -596,6 +670,21 @@ public class DefaultApiTest {
     @Test
     public void privateMatchMultiplayerGetTest() throws ApiException {
         List<ModelMatch> response = api.privateMatchMultiplayerGet();
+
+        // TODO: test validations
+    }
+    /**
+     * find one match score
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void privateMatchScoreGetTest() throws ApiException {
+        Integer matchID = null;
+        List<ModelMatchScore> response = api.privateMatchScoreGet(matchID);
 
         // TODO: test validations
     }
