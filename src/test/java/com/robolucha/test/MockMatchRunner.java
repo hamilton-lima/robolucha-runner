@@ -66,9 +66,10 @@ public class MockMatchRunner {
 		ServerMonitor monitor = new ServerMonitor(queue);
 
 		ModelMatch match = new ModelMatch();
+		match.setId(1);
 		MatchRunner runner = null;
 		try {
-			runner = new MatchRunner(gameDefinition, match, queue, monitor);
+			runner = new MatchRunner(gameDefinition, match, queue, monitor, new MockMatchRunnerAPI());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -88,7 +89,7 @@ public class MockMatchRunner {
 		ModelMatch match = new ModelMatch();
 		MatchRunner runner = null;
 		try {
-			runner = new MatchRunner(gameDefinition, match, remoteQueue, monitor);
+			runner = new MatchRunner(gameDefinition, match, remoteQueue, monitor, new MockMatchRunnerAPI());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

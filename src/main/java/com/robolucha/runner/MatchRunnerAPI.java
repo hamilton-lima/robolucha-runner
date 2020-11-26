@@ -17,7 +17,7 @@ import io.swagger.client.model.ModelMatchParticipant;
 import io.swagger.client.model.ModelMatchScore;
 import io.swagger.client.model.ModelScoreList;
 
-public class MatchRunnerAPI {
+public class MatchRunnerAPI implements IMatchRunnerAPI {
 
 	private Logger logger = Logger.getLogger(MatchRunnerAPI.class);
 	private DefaultApi api;
@@ -26,9 +26,9 @@ public class MatchRunnerAPI {
 		api = new DefaultApi();
 	}
 
-	private static MatchRunnerAPI instance = new MatchRunnerAPI();
+	private static IMatchRunnerAPI instance = new MatchRunnerAPI();
 
-	public static MatchRunnerAPI getInstance() {
+	public static IMatchRunnerAPI getInstance() {
 		return instance;
 	}
 

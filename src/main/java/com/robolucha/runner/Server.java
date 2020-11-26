@@ -3,7 +3,6 @@ package com.robolucha.runner;
 import org.apache.log4j.Logger;
 
 import com.robolucha.game.action.OnInitAddNPC;
-import com.robolucha.game.vo.MatchReadyToStartVO;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.monitor.ThreadMonitor;
 import com.robolucha.publisher.MatchCreatedPublisher;
@@ -48,7 +47,7 @@ public class Server {
 				.getGameDefinition(match.getGameDefinitionID());
 		logger.info("found gamedefinition " + JSONFormat.clean(gameDefinition.toString()));
 
-		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor);
+		MatchRunner runner = new MatchRunner(gameDefinition, match, queue, monitor, MatchRunnerAPI.getInstance());
 		MatchStatePublisher publisher = new MatchStatePublisher(serverID, match, queue);
 
 		Thread thread = setupRunner(runner, publisher);

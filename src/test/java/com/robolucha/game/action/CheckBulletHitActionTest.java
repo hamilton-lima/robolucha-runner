@@ -20,6 +20,7 @@ public class CheckBulletHitActionTest {
 	@Test
 	public void testRunFriendlyFireON() throws Exception {
 		ModelTeamDefinition teamDefinition = new ModelTeamDefinition();
+		teamDefinition.setId(1);
 		teamDefinition.friendlyFire(false);
 
 		MatchRunner runner = MockMatchRunner.build();
@@ -48,6 +49,7 @@ public class CheckBulletHitActionTest {
 	@Test
 	public void testRunFriendlyFireOFF() throws Exception {
 		ModelTeamDefinition teamDefinition = new ModelTeamDefinition();
+		teamDefinition.setId(1);
 		teamDefinition.friendlyFire(true);
 
 		MatchRunner runner = MockMatchRunner.build();

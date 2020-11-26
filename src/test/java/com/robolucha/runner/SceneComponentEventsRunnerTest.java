@@ -59,6 +59,7 @@ public class SceneComponentEventsRunnerTest {
 		result.setY(100);
 		result.setWidth(100);
 		result.setHeight(100);
+		result.setLength(100);
 
 		ModelCode code = new ModelCode();
 		code.setEvent("onHitOther");
