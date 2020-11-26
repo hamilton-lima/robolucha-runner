@@ -102,13 +102,14 @@ public class MatchRunner implements Runnable, ThreadStatus {
 	SceneComponentEventsRunner eventsRunner;
 	private ModelMatch match;
 	private MatchRunnerMonitor monitor;
+	private IMatchRunnerAPI api;
 
 	public MatchEventHandler getEventHandler() {
 		return eventHandler;
 	}
 
 	public MatchRunner(ModelGameDefinition gameDefinition, ModelMatch match, RemoteQueue queue,
-			ServerMonitor serverMonitor) throws Exception {
+			ServerMonitor serverMonitor, IMatchRunnerAPI api) throws Exception {
 		logger.info("CREATE MatchRunner: " + this + " gameDefinition: " + JSONFormat.clean(gameDefinition.toString()));
 
 		threadName = String.format("MatchRunner-Thread-%s-%s", gameDefinition.getName(), match.getId());
@@ -117,6 +118,7 @@ public class MatchRunner implements Runnable, ThreadStatus {
 		delta = 0.0;
 		this.gameDefinition = gameDefinition;
 		this.match = match;
+		this.api = api;
 
 		ModelMatchMetric metric = new ModelMatchMetric();
 		metric.setGameDefinitionID(gameDefinition.getId());
@@ -834,5 +836,9 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	public PublishSubject<MatchInitVO> getOnInit() {
 		return onInit;
+	}
+
+	public IMatchRunnerAPI getApi() {
+		return api;
 	}
 }

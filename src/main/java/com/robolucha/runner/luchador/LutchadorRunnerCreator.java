@@ -117,10 +117,11 @@ public class LutchadorRunnerCreator implements Runnable {
 
 		if (logger.isInfoEnabled()) {
 			logger.info("gamecomponent started (run): " + JSONFormat.clean(component.toString()));
+			logger.info("gamecomponent started (run): teamId " + teamId);
 		}
 
 		if (owner.getMatch().getId() != null) {
-			MatchRunnerAPI.getInstance().addMatchParticipant(owner.getMatch().getId().intValue(), component, teamId);
+			this.owner.getApi().addMatchParticipant(owner.getMatch().getId().intValue(), component, teamId);
 		} else {
 			logger.warn("!!! trying to save match participation with unsaved MatchRun, is it running a TEST?");
 		}
