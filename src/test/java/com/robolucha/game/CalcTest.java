@@ -74,6 +74,7 @@ public class CalcTest {
 		sc.setY(50);
 		sc.setWidth(200);
 		sc.setHeight(300);
+		sc.setLength(300);
 
 		assertTrue(Calc.intersectCirclewithSceneComponent(50, 50, radius, sc));
 	}
@@ -89,6 +90,7 @@ public class CalcTest {
 		sc.setY(50);
 		sc.setWidth(200);
 		sc.setHeight(100);
+		sc.setLength(100);
 
 		int x = (int) (sc.getX() + sc.getWidth() + radius + 1);
 		assertFalse(Calc.intersectCirclewithSceneComponent(x, 50, radius, sc));
@@ -105,6 +107,7 @@ public class CalcTest {
 		sc.setY(50);
 		sc.setWidth(200);
 		sc.setHeight(100);
+		sc.setLength(100);
 
 		int x = (int) (sc.getX() + sc.getWidth() + radius );
 		assertFalse(Calc.intersectCirclewithSceneComponent(x, 50, radius, sc));
