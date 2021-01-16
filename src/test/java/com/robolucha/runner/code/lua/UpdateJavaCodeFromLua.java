@@ -5,14 +5,11 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.runner.code.lua.LuaVM;
-
 /**
  * 
  * @author hamiltonlima
  * 
  */
-@SuppressWarnings("restriction")
 public class UpdateJavaCodeFromLua {
 
 	LuaVM lua;

@@ -1,12 +1,14 @@
 package com.robolucha.runner.code;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
+import com.robolucha.shared.JSONFormat;
+
 import io.swagger.client.model.ModelCode;
+import io.swagger.client.model.ModelGameDefinition;
 
 /**
  * 
@@ -22,104 +24,92 @@ public class MethodBuilder {
 		return instance;
 	}
 
-	public void buildAll(ScriptDefinition scriptDef, List<ModelCode> codes) {
-
-		HashMap<String, ModelCode> local = populateLocalHash(codes);
-		String script = "";
-		Integer codeId = 0;
-		String key = null;
-
-		HashMap<String, MethodDefinition> methods = scriptDef.getDefaultMethods();
-
-		Iterator<String> iterator = methods.keySet().iterator();
-		while (iterator.hasNext()) {
-			StringBuffer buffer = new StringBuffer();
-
-			key = (String) iterator.next();
-			script = "";
-			codeId = 0;
-
-			ModelCode code = null;
-
-			if (local.containsKey(key)) {
-				code = local.get(key);
-				script = code.getScript();
-				codeId = code.getId();
-			}
-
-			logger.debug("defining code: key=" + key + ", script=" + script);
-			MethodDefinition definition = methods.get(key);
-			logger.debug("Using method definition: " + definition);
-
-			buffer.append(definition.getStart());
-			buffer.append(script);
-			buffer.append(definition.getEnd());
-
-			String createdSourceMainCode = buffer.toString();
-			if (logger.isDebugEnabled()) {
-				logger.debug(createdSourceMainCode);
-			}
-
-			try {
-				scriptDef.eval(createdSourceMainCode);
-			} catch (Exception e) {
-				logger.warn("Error compiling code: " + codeId);
-
-				if (key != null) {
-					local.get(key).setException(e.getMessage());
-				}
-			}
-		}
-
-	}
-
-	private HashMap<String, ModelCode> populateLocalHash(List<ModelCode> codes) {
-		HashMap<String, ModelCode> result = new HashMap<String, ModelCode>();
-		if (codes != null) {
-			Iterator<ModelCode> iterator = codes.iterator();
-			while (iterator.hasNext()) {
-				ModelCode code = iterator.next();
-				result.put(code.getEvent(), code);
-			}
-		}
+	public ModelCode empty(Integer id) {
+		ModelCode result = new ModelCode();
+		result.setEvent(MethodNames.ALL);
+		result.setScript("");
+		result.setGameDefinition(id);
 		return result;
 	}
 
-	public void build(ScriptDefinition scriptDef, ModelCode code) {
-
-		logger.debug("building code: " + code);
-		if (code == null) {
-			return;
-		}
-
-		String script = code.getScript();
-		Integer codeId = code.getId();
-		String key = code.getEvent();
-
-		HashMap<String, MethodDefinition> methods = scriptDef.getDefaultMethods();
-
-		MethodDefinition definition = methods.get(key);
-		logger.debug("Using method definition: " + definition);
-
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(definition.getStart());
-		buffer.append(script);
-		buffer.append(definition.getEnd());
-
-		String createdSourceMainCode = buffer.toString();
-		logger.debug(createdSourceMainCode);
-
+	public void build(ScriptDefinition scriptDefinition, ModelCode code) {
 		try {
-			scriptDef.eval(createdSourceMainCode);
-		} catch (Exception e) {
-			logger.error("error compiling code: " + codeId);
-			if (key != null) {
-				code.setException(e.getMessage());
+			if (logger.isDebugEnabled()) {
+				logger.debug(code);
 			}
+
+			scriptDefinition.eval(code.getScript());
+		} catch (Exception e) {
+			logger.warn("Error compiling code: " + code.getId());
+			code.setException(e.getMessage());
 		} finally {
-			scriptDef.afterCompile();
+			scriptDefinition.afterCompile();
+		}
+	}
+
+	public ModelCode filter(List<ModelCode> codes, ModelGameDefinition gameDefinition) {
+		ModelCode result;
+
+		if (codes == null) {
+			result = empty(gameDefinition.getId());
+			logger.warn("No LIST of codes, will return empty object");
+		} else {
+			logger.info(String.format("Look for gamedefinition code: gamedefinition: %s", gameDefinition.getId()));
+
+			// list all the codes when updating
+			for (ModelCode code : codes) {
+				logger.info(String.format("Code gamedefinition: %s, event: %s, script: %s", code.getGameDefinition(),
+						code.getEvent(), code.getScript()));
+			}
+
+			// Identify the code for the current gamedefinition with event == "ALL"
+			List<ModelCode> codes4CurrentGameDefinition = codes.stream()
+					.filter(line -> gameDefinition.getId().equals(line.getGameDefinition())
+							&& line.getEvent().equals(MethodNames.ALL))
+					.collect(Collectors.toList());
+
+			if (codes4CurrentGameDefinition.isEmpty()) {
+				result = empty(gameDefinition.getId());
+				logger.warn("No code found, will return empty object");
+			} else {
+				result = codes4CurrentGameDefinition.get(0);
+				logger.info("Found THE code: " + JSONFormat.clean(result.toString()));
+			}
 		}
 
+		return result;
+	}
+	
+	// filter event=all only
+	public ModelCode filter(List<ModelCode> codes) {
+		ModelCode result;
+
+		if (codes == null) {
+			result = empty(0);
+			logger.warn("No LIST of codes, will return empty object");
+		} else {
+			logger.info("Looking for code with event = all");
+
+			// list all the codes when updating
+			for (ModelCode code : codes) {
+				logger.info(String.format("Code event: %s, script: %s", code.getEvent(), code.getScript()));
+			}
+
+			// Identify the code for the current gamedefinition with event == "ALL"
+			List<ModelCode> codes4CurrentGameDefinition = codes.stream()
+					.filter(line -> line.getEvent().equals(MethodNames.ALL))
+					.collect(Collectors.toList());
+
+			if (codes4CurrentGameDefinition.isEmpty()) {
+				result = empty(0);
+				logger.warn("No code found, will return empty object");
+			} else {
+				result = codes4CurrentGameDefinition.get(0);
+				logger.info(String.format("Found THE code, id: %s, script: %s", result.getId(), result.getScript()));
+			}
+		}
+
+		return result;
 	}
 
 }

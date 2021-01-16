@@ -19,7 +19,6 @@ public class EndMatchListener implements Consumer<ModelMatch>, Disposable {
 		this.server = server;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static void listen(Server server) {
 		EndMatchListener listener = new EndMatchListener(server);
 

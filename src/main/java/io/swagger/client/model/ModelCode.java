@@ -20,7 +20,10 @@ import java.util.Objects;
  * ModelCode
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-11-04T21:21:42.311875-05:00[America/Toronto]")public class ModelCode {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-12-26T18:37:24.497003-05:00[America/Toronto]")public class ModelCode {
+
+  @SerializedName("blockly")
+  private String blockly = null;
 
   @SerializedName("event")
   private String event = null;
@@ -39,6 +42,24 @@ import java.util.Objects;
 
   @SerializedName("version")
   private Integer version = null;
+  public ModelCode blockly(String blockly) {
+    this.blockly = blockly;
+    return this;
+  }
+
+  
+
+  /**
+  * Get blockly
+  * @return blockly
+  **/
+  @Schema(description = "")
+  public String getBlockly() {
+    return blockly;
+  }
+  public void setBlockly(String blockly) {
+    this.blockly = blockly;
+  }
   public ModelCode event(String event) {
     this.event = event;
     return this;
@@ -156,7 +177,8 @@ import java.util.Objects;
       return false;
     }
     ModelCode modelCode = (ModelCode) o;
-    return Objects.equals(this.event, modelCode.event) &&
+    return Objects.equals(this.blockly, modelCode.blockly) &&
+        Objects.equals(this.event, modelCode.event) &&
         Objects.equals(this.exception, modelCode.exception) &&
         Objects.equals(this.gameDefinition, modelCode.gameDefinition) &&
         Objects.equals(this.id, modelCode.id) &&
@@ -166,7 +188,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(event, exception, gameDefinition, id, script, version);
+    return java.util.Objects.hash(blockly, event, exception, gameDefinition, id, script, version);
   }
 
   @Override
@@ -174,6 +196,7 @@ import java.util.Objects;
     StringBuilder sb = new StringBuilder();
     sb.append("class ModelCode {\n");
     
+    sb.append("    blockly: ").append(toIndentedString(blockly)).append("\n");
     sb.append("    event: ").append(toIndentedString(event)).append("\n");
     sb.append("    exception: ").append(toIndentedString(exception)).append("\n");
     sb.append("    gameDefinition: ").append(toIndentedString(gameDefinition)).append("\n");

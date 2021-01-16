@@ -61,9 +61,8 @@ public class SceneComponentEventsRunnerTest {
 		result.setHeight(100);
 		result.setLength(100);
 
-		ModelCode code = new ModelCode();
-		code.setEvent("onHitOther");
-		code.setScript("addDamage(other.id, 16) \n endGame()"); //endGame()\n Goodbye cruel world.
+		//endGame()\n Goodbye cruel world.
+		ModelCode code = MockLuchador.buildCodefromEvent("onHitOther", "addDamage(other.id, 16) \n endGame()"); 
 		result.setCodes(new ArrayList<ModelCode>());
 		result.getCodes().add(code);
 

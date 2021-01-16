@@ -43,7 +43,6 @@ public class MatchStatePublisher {
 
 				if (runner.isActive()) {
 					// read data to update the state
-					String name = runner.getGameComponent().getName();
 					LuchadorPublicState publicState = runner.getState().getPublicState();
 
 					// update luchador data

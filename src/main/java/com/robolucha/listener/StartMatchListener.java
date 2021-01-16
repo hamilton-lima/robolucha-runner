@@ -18,7 +18,6 @@ public class StartMatchListener implements Consumer<ModelMatch>, Disposable {
 		this.server = server;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static void listen(Server server) {
 		StartMatchListener listener = new StartMatchListener(server);
 

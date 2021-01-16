@@ -3,6 +3,8 @@ package com.robolucha.game.vo;
 import java.io.Serializable;
 
 public class ArenaVO implements Serializable {
+
+	private static final long serialVersionUID = -4994404110374108802L;
 	public int height;
 	public int width;
 	public String name;

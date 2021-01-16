@@ -2,8 +2,6 @@ package com.robolucha.runner.code.lua;
 
 import com.robolucha.runner.code.LuchadorScriptDefinition;
 import com.robolucha.runner.code.LuchadorScriptFacade;
-import com.robolucha.runner.code.MethodDefinition;
-import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.luchador.LuchadorFacade;
 import com.robolucha.runner.luchador.LuchadorRunner;
 
@@ -11,17 +9,6 @@ public class LuchadorLuaScriptDefinition extends LuaScriptDefinition implements 
 
 	public LuchadorLuaScriptDefinition() {
 		super();
-		addMethod(MethodNames.ON_START, "\n", "\n");
-		addMethod(MethodNames.ON_REPEAT, "function onRepeat()\n", "\nend");
-		addMethod(MethodNames.ON_HIT_WALL, "function onHitWall()\n", "\nend");
-		addMethod(MethodNames.ON_HIT_OTHER, "function onHitOther(other)\n", "\nend");
-		addMethod(MethodNames.ON_FOUND, "function onFound(other,chance)\n", "\nend");
-		addMethod(MethodNames.ON_GOT_DAMAGE, "function onGotDamage(other,amount)\n", "\nend");
-		addMethod(MethodNames.ON_LISTEN, "function onListen(other,message)\n", "\nend");
-	}
-
-	private void addMethod(String name, String start, String end) {
-		methods.put(name, new MethodDefinition(name, start, end));
 	}
 
 	@Override

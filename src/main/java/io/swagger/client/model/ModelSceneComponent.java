@@ -23,7 +23,7 @@ import java.util.Objects;
  * ModelSceneComponent
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-11-04T21:21:42.311875-05:00[America/Toronto]")public class ModelSceneComponent {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-12-26T18:37:24.497003-05:00[America/Toronto]")public class ModelSceneComponent {
 
   @SerializedName("alpha")
   private BigDecimal alpha = null;

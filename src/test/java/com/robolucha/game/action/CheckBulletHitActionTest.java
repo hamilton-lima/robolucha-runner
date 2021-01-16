@@ -1,6 +1,6 @@
 package com.robolucha.game.action;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -12,7 +12,6 @@ import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
 import io.swagger.client.model.ModelGameComponent;
-import io.swagger.client.model.ModelTeam;
 import io.swagger.client.model.ModelTeamDefinition;
 
 public class CheckBulletHitActionTest {

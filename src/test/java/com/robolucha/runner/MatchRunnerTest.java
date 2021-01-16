@@ -1,12 +1,13 @@
 package com.robolucha.runner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 import com.robolucha.game.vo.MatchReadyToStartVO;
 import com.robolucha.runner.code.MethodNames;
-import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
@@ -51,8 +52,8 @@ public class MatchRunnerTest {
 		MatchRunner runner = MockMatchRunner.build();
 		runner.getGameDefinition().setMinParticipants(2);
 
-		ModelGameComponent a = MockLuchador.build(1, MethodNames.ON_START, "--");
-		ModelGameComponent b = MockLuchador.build(2, MethodNames.ON_START, "--");
+		ModelGameComponent a = MockLuchador.build(1);
+		ModelGameComponent b = MockLuchador.build(2);
 		runner.add(a).blockingFirst();
 		runner.add(b).blockingFirst();
 		

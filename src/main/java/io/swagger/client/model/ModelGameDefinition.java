@@ -22,7 +22,7 @@ import java.util.Objects;
  * ModelGameDefinition
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-11-04T21:21:42.311875-05:00[America/Toronto]")public class ModelGameDefinition {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-12-26T18:37:24.497003-05:00[America/Toronto]")public class ModelGameDefinition {
 
   @SerializedName("arenaHeight")
   private Integer arenaHeight = null;
@@ -90,6 +90,9 @@ import java.util.Objects;
   @SerializedName("maxParticipants")
   private Integer maxParticipants = null;
 
+  @SerializedName("media")
+  private ModelMedia media = null;
+
   @SerializedName("minFireAmount")
   private Integer minFireAmount = null;
 
@@ -107,6 +110,12 @@ import java.util.Objects;
 
   @SerializedName("name")
   private String name = null;
+
+  @SerializedName("narrativeDefinitions")
+  private List<ModelNarrativeDefinition> narrativeDefinitions = null;
+
+  @SerializedName("nextGamedefinitionID")
+  private Integer nextGamedefinitionID = null;
 
   @SerializedName("ownerUserID")
   private Integer ownerUserID = null;
@@ -578,6 +587,24 @@ import java.util.Objects;
   public void setMaxParticipants(Integer maxParticipants) {
     this.maxParticipants = maxParticipants;
   }
+  public ModelGameDefinition media(ModelMedia media) {
+    this.media = media;
+    return this;
+  }
+
+  
+
+  /**
+  * Get media
+  * @return media
+  **/
+  @Schema(description = "")
+  public ModelMedia getMedia() {
+    return media;
+  }
+  public void setMedia(ModelMedia media) {
+    this.media = media;
+  }
   public ModelGameDefinition minFireAmount(Integer minFireAmount) {
     this.minFireAmount = minFireAmount;
     return this;
@@ -685,6 +712,48 @@ import java.util.Objects;
   }
   public void setName(String name) {
     this.name = name;
+  }
+  public ModelGameDefinition narrativeDefinitions(List<ModelNarrativeDefinition> narrativeDefinitions) {
+    this.narrativeDefinitions = narrativeDefinitions;
+    return this;
+  }
+
+  public ModelGameDefinition addNarrativeDefinitionsItem(ModelNarrativeDefinition narrativeDefinitionsItem) {
+    if (this.narrativeDefinitions == null) {
+      this.narrativeDefinitions = new ArrayList<ModelNarrativeDefinition>();
+    }
+    this.narrativeDefinitions.add(narrativeDefinitionsItem);
+    return this;
+  }
+
+  /**
+  * Get narrativeDefinitions
+  * @return narrativeDefinitions
+  **/
+  @Schema(description = "")
+  public List<ModelNarrativeDefinition> getNarrativeDefinitions() {
+    return narrativeDefinitions;
+  }
+  public void setNarrativeDefinitions(List<ModelNarrativeDefinition> narrativeDefinitions) {
+    this.narrativeDefinitions = narrativeDefinitions;
+  }
+  public ModelGameDefinition nextGamedefinitionID(Integer nextGamedefinitionID) {
+    this.nextGamedefinitionID = nextGamedefinitionID;
+    return this;
+  }
+
+  
+
+  /**
+  * Get nextGamedefinitionID
+  * @return nextGamedefinitionID
+  **/
+  @Schema(description = "")
+  public Integer getNextGamedefinitionID() {
+    return nextGamedefinitionID;
+  }
+  public void setNextGamedefinitionID(Integer nextGamedefinitionID) {
+    this.nextGamedefinitionID = nextGamedefinitionID;
   }
   public ModelGameDefinition ownerUserID(Integer ownerUserID) {
     this.ownerUserID = ownerUserID;
@@ -1107,12 +1176,15 @@ import java.util.Objects;
         Objects.equals(this.maxFireDamage, modelGameDefinition.maxFireDamage) &&
         Objects.equals(this.maxLevel, modelGameDefinition.maxLevel) &&
         Objects.equals(this.maxParticipants, modelGameDefinition.maxParticipants) &&
+        Objects.equals(this.media, modelGameDefinition.media) &&
         Objects.equals(this.minFireAmount, modelGameDefinition.minFireAmount) &&
         Objects.equals(this.minFireDamage, modelGameDefinition.minFireDamage) &&
         Objects.equals(this.minLevel, modelGameDefinition.minLevel) &&
         Objects.equals(this.minParticipants, modelGameDefinition.minParticipants) &&
         Objects.equals(this.moveSpeed, modelGameDefinition.moveSpeed) &&
         Objects.equals(this.name, modelGameDefinition.name) &&
+        Objects.equals(this.narrativeDefinitions, modelGameDefinition.narrativeDefinitions) &&
+        Objects.equals(this.nextGamedefinitionID, modelGameDefinition.nextGamedefinitionID) &&
         Objects.equals(this.ownerUserID, modelGameDefinition.ownerUserID) &&
         Objects.equals(this.punchAngle, modelGameDefinition.punchAngle) &&
         Objects.equals(this.punchCoolDown, modelGameDefinition.punchCoolDown) &&
@@ -1138,7 +1210,7 @@ import java.util.Objects;
 
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxLevel, maxParticipants, minFireAmount, minFireDamage, minLevel, minParticipants, moveSpeed, name, ownerUserID, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnAngle, respawnCooldown, respawnGunAngle, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, teamDefinition, turnGunSpeed, turnSpeed, type, unblockLevel);
+    return java.util.Objects.hash(arenaHeight, arenaWidth, buletSpeed, bulletSize, codes, description, duration, energy, fireEnergyCost, fps, gameComponents, id, increaseSpeedEnergyCost, increaseSpeedPercentage, label, life, luchadorSize, maxFireAmount, maxFireCooldown, maxFireDamage, maxLevel, maxParticipants, media, minFireAmount, minFireDamage, minLevel, minParticipants, moveSpeed, name, narrativeDefinitions, nextGamedefinitionID, ownerUserID, punchAngle, punchCoolDown, punchDamage, radarAngle, radarRadius, recycledLuchadorEnergyRestore, respawnAngle, respawnCooldown, respawnGunAngle, respawnX, respawnY, restoreEnergyperSecond, sceneComponents, sortOrder, suggestedCodes, teamDefinition, turnGunSpeed, turnSpeed, type, unblockLevel);
   }
 
   @Override
@@ -1168,12 +1240,15 @@ import java.util.Objects;
     sb.append("    maxFireDamage: ").append(toIndentedString(maxFireDamage)).append("\n");
     sb.append("    maxLevel: ").append(toIndentedString(maxLevel)).append("\n");
     sb.append("    maxParticipants: ").append(toIndentedString(maxParticipants)).append("\n");
+    sb.append("    media: ").append(toIndentedString(media)).append("\n");
     sb.append("    minFireAmount: ").append(toIndentedString(minFireAmount)).append("\n");
     sb.append("    minFireDamage: ").append(toIndentedString(minFireDamage)).append("\n");
     sb.append("    minLevel: ").append(toIndentedString(minLevel)).append("\n");
     sb.append("    minParticipants: ").append(toIndentedString(minParticipants)).append("\n");
     sb.append("    moveSpeed: ").append(toIndentedString(moveSpeed)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    narrativeDefinitions: ").append(toIndentedString(narrativeDefinitions)).append("\n");
+    sb.append("    nextGamedefinitionID: ").append(toIndentedString(nextGamedefinitionID)).append("\n");
     sb.append("    ownerUserID: ").append(toIndentedString(ownerUserID)).append("\n");
     sb.append("    punchAngle: ").append(toIndentedString(punchAngle)).append("\n");
     sb.append("    punchCoolDown: ").append(toIndentedString(punchCoolDown)).append("\n");

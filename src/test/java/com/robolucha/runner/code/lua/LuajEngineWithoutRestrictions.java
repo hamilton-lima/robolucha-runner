@@ -10,7 +10,6 @@ import javax.script.ScriptEngineManager;
 import org.luaj.vm2.ast.Chunk;
 import org.luaj.vm2.parser.LuaParser;
 
-@SuppressWarnings("restriction")
 public class LuajEngineWithoutRestrictions {
 
 	ScriptEngineManager sem ;
