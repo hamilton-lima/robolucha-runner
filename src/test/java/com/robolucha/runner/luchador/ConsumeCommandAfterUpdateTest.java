@@ -8,12 +8,10 @@ import org.junit.Test;
 
 import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.code.MethodNames;
-import com.robolucha.runner.luchador.LuchadorRunner;
 import com.robolucha.test.MockLuchador;
 import com.robolucha.test.MockMatchRunner;
 
 import io.reactivex.functions.Consumer;
-import io.swagger.client.model.ModelCode;
 import io.swagger.client.model.ModelGameComponent;
 import io.swagger.client.model.ModelMatch;
 
@@ -61,7 +59,7 @@ public class ConsumeCommandAfterUpdateTest {
 		MockMatchRunner.start(match);
 		
 		ModelGameComponent luchador = MockLuchador.build(1, MethodNames.ON_REPEAT, "move(10)");
-		runnerA.update(luchador);
+		runnerA.update(luchador,"UPDATE");
 
 		match.getOnMatchEnd().blockingSubscribe();
 		

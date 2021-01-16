@@ -13,8 +13,6 @@ import org.junit.Test;
 
 import com.robolucha.runner.code.MethodDefinition;
 import com.robolucha.runner.code.MethodNames;
-import com.robolucha.runner.code.LuchadorScriptFacade;
-import com.robolucha.runner.code.lua.LuaScriptDefinition;
 import com.robolucha.runner.luchador.LuchadorFacade;
 import com.robolucha.runner.luchador.LuchadorRunner;
 
@@ -27,9 +25,9 @@ public class LuaScriptDefinitionTest {
 	public void setup() throws Exception {
 		definition = new LuchadorLuaScriptDefinition();
 		definition.loadDefaultLibraries();
-		facade = new LuaFacadeLocal(null,"test");
+		facade = new LuaFacadeLocal(null, "test");
 	}
-
+	
 	@Test
 	public void testGetDefaultMethods() throws IllegalArgumentException, IllegalAccessException {
 
@@ -39,18 +37,17 @@ public class LuaScriptDefinitionTest {
 			String name = field.getName();
 			String value = (String) field.get(null);
 
+			// dont test ALL 
+			if( value.equals(MethodNames.ALL)) {
+				continue;
+			}
+
 			System.out.println("checking for default methods of: " + name + "=" + value);
 			MethodDefinition methodDefinition = methods.get(value);
 			assertNotNull(methodDefinition);
 
-			if (value.equals("onStart")) {
-				assertTrue(methodDefinition.getStart().startsWith("\n"));
-				assertTrue(methodDefinition.getEnd().startsWith("\n"));
-
-			} else {
-				assertTrue(methodDefinition.getStart().startsWith("function "));
-				assertTrue(methodDefinition.getEnd().endsWith("end"));
-			}
+			assertTrue(methodDefinition.getStart().startsWith("function "));
+			assertTrue(methodDefinition.getEnd().endsWith("end"));
 		}
 
 	}
@@ -80,7 +77,7 @@ public class LuaScriptDefinitionTest {
 
 		PublicSharedData data = new PublicSharedData();
 		data.stringValue = "hey";
-		definition.run(facade,"one", data);
+		definition.run(facade, "one", data);
 
 		assertEquals("hey", definition.getString("return a"));
 	}
@@ -140,7 +137,7 @@ public class LuaScriptDefinitionTest {
 		}
 
 	}
-	
+
 	@Test
 	public void testCallMoveUsingFacade() throws Exception {
 		String maybe = "function maybe(amount) move(amount) end";

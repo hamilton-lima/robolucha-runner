@@ -9,8 +9,6 @@ import org.junit.Test;
 import org.luaj.vm2.Varargs;
 import org.luaj.vm2.ast.Chunk;
 
-import com.robolucha.runner.code.lua.LuaVM;
-
 public class MaliciousCodeHandler {
 
 	LuaVM restrictedLua;

@@ -4,11 +4,9 @@ import static junit.framework.TestCase.assertEquals;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.robolucha.game.CheckMoveActionTest;
 import com.robolucha.game.vo.MatchRunStateVO;
 import com.robolucha.models.LuchadorPublicState;
 import com.robolucha.runner.MatchRunner;
@@ -17,7 +15,6 @@ import com.robolucha.test.MockMatchRunner;
 import io.swagger.client.model.ModelMatch;
 
 public class MatchStatePublisherTest {
-	private static Logger logger = Logger.getLogger(MatchStatePublisherTest.class);
 	MockRemoteQueue queue = new MockRemoteQueue();
 	ModelMatch match = new ModelMatch();
 	MatchStatePublisher publisher;
@@ -30,7 +27,6 @@ public class MatchStatePublisherTest {
 	@Test
 	public void update() throws Exception {
 		MatchRunner runner = MockMatchRunner.build();
-		MatchRunStateVO vo = new MatchRunStateVO();
 		long expected = runner.getGameDefinition().getDuration() - runner.getTimeElapsed();
 		publisher.update(runner);
 		MessageEnvelope envelope = (MessageEnvelope) queue.lastPublished;
@@ -40,7 +36,6 @@ public class MatchStatePublisherTest {
 
 	@Test
 	public void publish() throws Exception {
-		MatchRunner runner = MockMatchRunner.build();
 		MatchRunStateVO vo = new MatchRunStateVO();
 		vo.clock = 42;
 		long expected = 42;
@@ -53,7 +48,6 @@ public class MatchStatePublisherTest {
 
 	@Test
 	public void publishScore() throws Exception {
-		MatchRunner runner = MockMatchRunner.build();
 		MatchRunStateVO vo = new MatchRunStateVO();
 		vo.clock = 42;
 		long expected = 42;

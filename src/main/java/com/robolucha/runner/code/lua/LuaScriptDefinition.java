@@ -8,7 +8,6 @@ import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
-import com.robolucha.publisher.MatchCreatedPublisher;
 import com.robolucha.runner.code.MethodDefinition;
 import com.robolucha.runner.code.ScriptDefinition;
 import com.robolucha.runner.code.ScriptFacade;
@@ -38,8 +37,10 @@ public abstract class LuaScriptDefinition implements ScriptDefinition {
 
 		LuaValue value = lua.getFunction(name);
 		if (!value.isfunction()) {
-			logger.error(
-					String.format("Unable to run LUA function: %s, parameters: %s", name, Arrays.toString(parameter)));
+			if (logger.isDebugEnabled()) {
+				logger.debug(String.format("Unable to run LUA function: %s, parameters: %s", name,
+						Arrays.toString(parameter)));
+			}
 			return;
 		}
 

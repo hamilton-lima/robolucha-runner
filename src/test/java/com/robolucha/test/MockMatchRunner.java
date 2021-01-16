@@ -105,7 +105,8 @@ public class MockMatchRunner {
 
 	public static ModelGameDefinition buildGameDefinition() {
 		ModelGameDefinition gd = new ModelGameDefinition();
-
+		gd.setId(1);
+		
 		gd.setDuration(1200000);
 		gd.setMinParticipants(2);
 		gd.setMaxParticipants(20);

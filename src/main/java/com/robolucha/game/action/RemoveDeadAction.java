@@ -11,14 +11,11 @@ import com.robolucha.shared.JSONFormat;
 public class RemoveDeadAction implements GameAction {
 
 	private static Logger logger = Logger.getLogger(RemoveDeadAction.class);
-	private MatchRunner matchRunner;
 
 	public RemoveDeadAction(MatchRunner matchRunner) {
-		this.matchRunner = matchRunner;
 	}
 
-	public void run(LinkedHashMap<Integer, LuchadorRunner> runners,
-			LuchadorRunner runner) {
+	public void run(LinkedHashMap<Integer, LuchadorRunner> runners, LuchadorRunner runner) {
 
 		logger.debug("RemoveDeadAction, lutchador=" + JSONFormat.clean(runner.getGameComponent().toString()));
 

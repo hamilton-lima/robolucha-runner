@@ -40,7 +40,7 @@ public class LuchadorUpdateListener implements Consumer<ModelGameComponent>, Dis
 	@Override
 	public void accept(ModelGameComponent component) throws Exception {
 		logger.info("Luchador updated " + JSONFormat.clean(component.toString()));
-		runner.update(component);
+		runner.update(component, "UDPATE-FROM-USER");
 	}
 
 	@Override

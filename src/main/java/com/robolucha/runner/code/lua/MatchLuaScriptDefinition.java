@@ -5,14 +5,11 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.code.MatchScriptDefinition;
 import com.robolucha.runner.code.MatchScriptFacade;
 import com.robolucha.runner.code.MethodDefinition;
-import com.robolucha.runner.code.MethodNames;
 
 public class MatchLuaScriptDefinition extends LuaScriptDefinition implements MatchScriptDefinition {
 
 	public MatchLuaScriptDefinition() {
 		super();
-		addMethod(MethodNames.ON_START, "function onStart()\n", "\nend");
-		addMethod(MethodNames.ON_HIT_OTHER, "function onHitOther(other)\n", "\nend");
 	}
 
 	private void addMethod(String name, String start, String end) {

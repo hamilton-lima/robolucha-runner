@@ -669,6 +669,12 @@ public class MatchRunner implements Runnable, ThreadStatus {
 			}
 
 			if (current.isColider() && Calc.intersectCirclewithSceneComponent(x, y, radius, current)) {
+				
+				if (logger.isDebugEnabled()) {
+					logger.debug("COLLISION from :" + source.getGameComponent().getId() + " at x,y=" + x
+							+ "," + y + " to scenecomponent : " + JSONFormat.clean(current.toString()));
+				}
+
 				eventsRunner.onHit(current, source);
 
 				if (WALL_TYPE.equals(current.getType())) {
@@ -777,13 +783,6 @@ public class MatchRunner implements Runnable, ThreadStatus {
 
 	public LinkedHashMap<Integer, LuchadorRunner> getRunners() {
 		return runners;
-	}
-
-	public LuchadorRunner getRunner(Long luchadorId) {
-		if (runners == null) {
-			return null;
-		}
-		return runners.get(luchadorId);
 	}
 
 	public boolean isAlive() {

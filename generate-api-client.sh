@@ -10,6 +10,7 @@ java -jar swagger-codegen-cli.jar generate --output ./sdk --lang java --input-sp
 
 # remove unused file 
 rm sdk/src/main/AndroidManifest.xml
+rm sdk/src/test/java/io/swagger/client/api/DefaultApiTest.java
 
 # fix unecessary imports on generated code 
 if [ ! -f "google-java-format.jar" ]; then
@@ -18,6 +19,9 @@ if [ ! -f "google-java-format.jar" ]; then
 fi
 
 java -jar google-java-format.jar --fix-imports-only -i $(find sdk/src -type f -name "*.java")
+
+# removes unecessary anottation 
+sed -i -e 's/@SuppressWarnings("rawtypes")//g' sdk/src/main/java/io/swagger/client/api/DefaultApi.java
 
 cp -R sdk/src .
 rm -rf sdk

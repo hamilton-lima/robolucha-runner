@@ -22,10 +22,12 @@ public class SceneComponentEventsRunner {
 	private class SceneComponentRunner {
 		ModelSceneComponent component;
 		MatchScriptDefinition scriptDefinition;
+		ModelCode code;
 
-		public SceneComponentRunner(ModelSceneComponent component, MatchScriptDefinition scriptDefinition) {
+		public SceneComponentRunner(ModelSceneComponent component, MatchScriptDefinition scriptDefinition, ModelCode code) {
 			this.component = component;
 			this.scriptDefinition = scriptDefinition;
+			this.code = code ;
 		}
 	}
 
@@ -40,17 +42,10 @@ public class SceneComponentEventsRunner {
 			MatchScriptDefinition scriptDefinition = ScriptDefinitionFactory.getInstance().getMatchScript();
 			scriptDefinition.loadDefaultLibraries();
 
-			logger.info("Builds gamedefinition codes: " + JSONFormat.clean(component.getCodes().toString()));
-			MethodBuilder.getInstance().buildAll(scriptDefinition, component.getCodes());
-
-			// output code errors
-			for (ModelCode code : component.getCodes()) {
-				if (hasException(code)) {
-					logger.warn("Exception in the code: " + JSONFormat.clean(code.toString()));
-				}
-			}
-
-			runners.put(component.getId(), new SceneComponentRunner(component, scriptDefinition));
+			ModelCode code = MethodBuilder.getInstance().filter(component.getCodes());
+			MethodBuilder.getInstance().build(scriptDefinition, code);
+			
+			runners.put(component.getId(), new SceneComponentRunner(component, scriptDefinition, code));
 		}
 	}
 
@@ -62,13 +57,11 @@ public class SceneComponentEventsRunner {
 		logger.debug("OnHit: component:" + component.getId() + " luchador:" + luchador.getState());
 
 		SceneComponentRunner runner = runners.get(component.getId());
-		ModelCode code = runner.component.getCodes().stream()
-				.filter((c) -> c.getEvent().equals(MethodNames.ON_HIT_OTHER)).findAny().orElse(null);
 
-		if (code != null) {
-			if (hasException(code)) {
+		if (runner.code != null) {
+			if (hasException(runner.code)) {
 				logger.warn("onHit triggered, but code has Exception and won't be executed: "
-						+ JSONFormat.clean(code.toString()));
+						+ JSONFormat.clean(runner.code.toString()));
 			} else {
 				Object[] parameter = new Object[] { luchador.getState().getPublicState() };
 

@@ -4,12 +4,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -29,7 +27,6 @@ import com.robolucha.runner.MatchRunner;
 import com.robolucha.runner.RespawnPoint;
 import com.robolucha.runner.code.LuchadorScriptDefinition;
 import com.robolucha.runner.code.MethodBuilder;
-import com.robolucha.runner.code.MethodNames;
 import com.robolucha.runner.code.ScriptDefinitionFactory;
 import com.robolucha.shared.Calc;
 
@@ -45,8 +42,6 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	public static final double MAX_EVENTS_PER_TICK = 5;
 
-	public static final String EVENT_ONHITWALL = "onHitWall";
-
 	public static final String DEAD = "dead";
 
 	public static final String COMMAND_FIRE = "fire";
@@ -61,6 +56,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 	// test classes can update this.
 	ModelGameComponent gameComponent;
+	ModelCode code;
 	int teamId;
 
 	private boolean active;
@@ -115,7 +111,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		try {
 			setDefaultState(matchRunner.getRespawnPoint(this));
 			setDefaultScore(teamId);
-			createCodeEngine(component.getCodes());
+			update(component, "CREATE");
 			this.active = true;
 		} catch (Exception e) {
 			logger.error("error on luchador constructor: " + component, e);
@@ -127,9 +123,9 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	}
 
 	// used for tests only
-	void updateCodeEngine() throws Exception {
-		createCodeEngine(gameComponent.getCodes());
-	}
+//	void updateCodeEngine() throws Exception {
+//		createCodeEngine(gameComponent.getCodes().get(0));
+//	}
 
 	public void cleanup() {
 		logger.info("*** luchador CLEAN-UP " + this.getGameComponent().getId());
@@ -199,23 +195,22 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 	 *
 	 * @param luchador
 	 */
-	public void update(ModelGameComponent luchador) {
-		logger.info("*** luchador UPDATE " + luchador.getId() + ", using gamedefinition ID: "
+	public void update(ModelGameComponent luchador, String info) {
+		logger.info("*** luchador " + info + " " + luchador.getId() + ", using gamedefinition ID: "
 				+ matchRunner.getGameDefinition().getId());
 
 		try {
 			this.gameComponent = luchador;
 			this.messages.clear();
 
-			List<ModelCode> codes4CurrentGameDefinition = luchador.getCodes().stream()
-					.filter(line -> matchRunner.getGameDefinition().getId().equals(line.getGameDefinition()))
-					.collect(Collectors.toList());
-
-			logger.info("new code" + codes4CurrentGameDefinition);
-			updateCodeEngine(codes4CurrentGameDefinition);
-
-			// make sure start is runned after code update
-			MethodBuilder.getInstance().build(scriptDefinition, getStartCode());
+			if( luchador.isIsNPC()) {
+				this.code = MethodBuilder.getInstance().filter(luchador.getCodes());
+			} else {
+				this.code = MethodBuilder.getInstance().filter(luchador.getCodes(), matchRunner.getGameDefinition());
+			}
+			
+			logger.info("New code: " + code);
+			updateCodeEngine(code);
 
 		} catch (Throwable e) {
 			this.active = false;
@@ -228,7 +223,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		scriptDefinition.set("me", state);
 	}
 
-	private void createCodeEngine(List<ModelCode> list) throws Exception {
+	private void createCodeEngine(ModelCode code) throws Exception {
 
 		logger.debug("START createCodeEngine()");
 		start = System.currentTimeMillis();
@@ -243,9 +238,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 			scriptDefinition.set("LUCHADOR_HEIGHT", getSize());
 
 			scriptDefinition.loadDefaultLibraries();
-
-			MethodBuilder.getInstance().buildAll(scriptDefinition, list);
-			updateInvalidCodes(list);
+			MethodBuilder.getInstance().build(scriptDefinition, code);
+			generateEventOnCodeError(code);
 
 		} catch (Exception e) {
 			logger.error("error running code initialization", e);
@@ -259,14 +253,14 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		logger.debug("END createCodeEngine()");
 	}
 
-	public void updateCodeEngine(List<ModelCode> list) throws Exception {
+	private void updateCodeEngine(ModelCode code) throws Exception {
 
 		logger.debug("START updateCodeEngine()");
 		this.active = false;
 		this.lastRunningError = null;
 
 		try {
-			createCodeEngine(list);
+			createCodeEngine(code);
 			this.active = true;
 		} catch (Throwable e) {
 			logger.error("error running code initialization", e);
@@ -325,22 +319,15 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		return scriptDefinition.getString(script);
 	}
 
-	private void updateInvalidCodes(List<ModelCode> list) throws Exception {
-
-		if (list == null) {
-			logger.warn("list of codes is empty.");
+	private void generateEventOnCodeError(ModelCode code) throws Exception {
+		if (code == null) {
+			logger.warn("code is empty.");
 			return;
 		}
 
-		Iterator<ModelCode> iterator = list.iterator();
-		while (iterator.hasNext()) {
-			ModelCode code = iterator.next();
-			if (code.getException() != null && code.getException().trim().length() > 0) {
-				onDangerMessage(MessageVO.DANGER, code.getEvent(), code.getException());
-			}
-
+		if (code.getException() != null && code.getException().trim().length() > 0) {
+			onDangerMessage(MessageVO.DANGER, code.getEvent(), code.getException());
 		}
-
 	}
 
 	public void saveExceptionToCode(String name, String exception) {
@@ -355,7 +342,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 				code.setException(exception);
 
 				if (logger.isDebugEnabled()) {
-					logger.debug("code atualizado " + code);
+					logger.debug("code updated " + code);
 				}
 
 				break;
@@ -381,13 +368,8 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 
 			// check if the code has exception to avoid running defective code
 			boolean canRunCode = true;
-			for (ModelCode code : getGameComponent().getCodes()) {
-				if (code.getEvent().equals(codeName)) {
-					if (code.getException() != null && code.getException().trim().length() > 0) {
-						canRunCode = false;
-						break;
-					}
-				}
+			if (code.getException() != null && code.getException().trim().length() > 0) {
+				canRunCode = false;
 			}
 
 			if (logger.isDebugEnabled()) {
@@ -514,9 +496,7 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		if (!Calc.insideTheMapLimits(matchRunner.getGameDefinition().getArenaWidth(),
 				matchRunner.getGameDefinition().getArenaHeight(), x, y, halfSize)) {
 
-			if (logger.isDebugEnabled()) {
-				logger.debug("not inside the map limits: x=" + x + ",y=" + y);
-			}
+			logger.info("Not inside the map limits: x=" + x + ",y=" + y);
 
 			addEvent(new OnHitWallEvent(getState().getPublicState()));
 			return false;
@@ -810,29 +790,29 @@ public class LuchadorRunner implements GeneralEventHandler, MatchStateProvider {
 		setDefaultState(point);
 
 		// make sure start is runned when respawn
-		MethodBuilder.getInstance().build(scriptDefinition, getStartCode());
+		update(gameComponent, "RESPAWN");
 
 		this.lastRunningError = "";
 		this.active = true;
 	}
 
-	/**
-	 * @return
-	 * @todo check
-	 */
-	private ModelCode getStartCode() {
-
-		if (this.gameComponent.getCodes() != null) {
-			Iterator<ModelCode> iterator = this.gameComponent.getCodes().iterator();
-			while (iterator.hasNext()) {
-				ModelCode code = iterator.next();
-				if (code.getEvent().equals(MethodNames.ON_START)) {
-					return code;
-				}
-			}
-		}
-		return null;
-	}
+//	/**
+//	 * @return
+//	 * @todo check
+//	 */
+//	private ModelCode getStartCode() {
+//
+//		if (this.gameComponent.getCodes() != null) {
+//			Iterator<ModelCode> iterator = this.gameComponent.getCodes().iterator();
+//			while (iterator.hasNext()) {
+//				ModelCode code = iterator.next();
+//				if (code.getEvent().equals(MethodNames.ON_START)) {
+//					return code;
+//				}
+//			}
+//		}
+//		return null;
+//	}
 
 	public void onDangerMessage(String type, String event, String message) {
 		if (logger.isDebugEnabled()) {

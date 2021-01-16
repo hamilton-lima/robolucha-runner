@@ -6,12 +6,9 @@ import java.util.Queue;
 import org.apache.log4j.Logger;
 
 import com.robolucha.listener.LuchadorUpdateListener;
-import com.robolucha.models.MatchParticipant;
 import com.robolucha.monitor.ServerMonitor;
 import com.robolucha.publisher.RemoteQueue;
 import com.robolucha.runner.MatchRunner;
-import com.robolucha.runner.MatchRunnerAPI;
-import com.robolucha.runner.code.MethodNames;
 import com.robolucha.shared.JSONFormat;
 
 import io.reactivex.subjects.PublishSubject;
@@ -135,8 +132,6 @@ public class LutchadorRunnerCreator implements Runnable {
 		if (logger.isDebugEnabled()) {
 			logger.info(" runner=" + runner);
 		}
-
-		runner.run(MethodNames.ON_START);
 
 		owner.getRunners().put(runner.getGameComponent().getId(), runner);
 		return runner;
